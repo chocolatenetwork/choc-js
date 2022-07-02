@@ -8,15 +8,21 @@ So as to ensure that updates are easier to do in this repository, dependencies a
     @nrwl/cli@14.4.0, 
     @nrwl/js@14.4.0, 
     @nrwl/nx-cloud@latest, 
-    @nrwl/workspace@14.4.0, 
+    @nrwl/workspace@14.4.0,
+    "@nrwl/jest": "^14.4.0
     nx@14.4.0, 
 ### Lint
     prettier@^2.6.2, 
 ### Ts
     esno@^0.16.3
     typescript@~4.7.2
-    tslib@^2.4.0"
     @types/node@^16.11.1
+### Jest
+    tslib@2.3.0
+    @types/jest@27.4.1
+    jest@27.5.1
+    ts-jest@27.1.4
+    ts-node@~10.8.0
 
 ### Projects
 
