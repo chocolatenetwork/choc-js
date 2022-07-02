@@ -6,4 +6,6 @@ Chocolate schema library. Typescript definitions of the Schemas defined [here](h
 
 Run `nx build schema` to build the schema.
 
-> Schema keys should be sorted after building for readability. You can sort the schema by the recommended extension for sorting in vscode. A PR with a lightweight `JSON.stringify` alternative with sorting would also be appreciated.
+## Naming convention
+
+Schemas are named to match example and type files in the pattern: `${schema-id}-schema.json`, corresponding to `${schema-id}-instance.json`. `${schema-id}` should be unique.

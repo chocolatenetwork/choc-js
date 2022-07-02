@@ -17,6 +17,16 @@
         "passWithNoTests": true
       },
       "dependsOn": ["build"]
+    },
+    "test-watch": {
+      "executor": "@nrwl/jest:jest",
+      "outputs": ["coverage/packages/schema"],
+      "options": {
+        "jestConfig": "packages/schema/jest.config.ts",
+        "passWithNoTests": true,
+        "watch": true
+      },
+      "dependsOn": ["build"]
     }
   }
 }

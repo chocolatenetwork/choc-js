@@ -30,3 +30,4 @@ So as to ensure that updates are easier to do in this repository, dependencies a
     typescript-json-schema@^0.53.1
     json-stable-stringify@^1.0.1
     @types/json-stable-stringify@^1.0.34
+    ajv@^8.11.0

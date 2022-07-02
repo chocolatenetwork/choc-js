@@ -1,0 +1,55 @@
+{
+    "Literature": {
+      "Papers": [
+        { "type": "litepaper", "link": "litepaper.someexamplelink", "name": "Litepaper" },
+        { "type": "whitepaper", "link": "whitepaper.someexamplelink", "name": "Whitepaper"}
+      ],
+      "Blogs": [
+        { "type": "medium", "link": "medium.someexamplelink", "name": "Medium" }
+      ],
+      "Wiki": [
+        {
+          "type": "main",
+          "link": "some-single-wiki.link",
+          "name": "Some Project Wiki"
+        }
+      ],
+      "Documentation": [
+        {
+          "type": "UI",
+          "link": "some-doc-link",
+          "name": "UI docs"
+        }
+      ]
+    },
+  
+    "Contact": [
+      { "type": "Email", "link": "emailer@someexampleemail", "name": "Email" },
+      {
+        "type": "Community-Email",
+        "link": "emailer@someexampleemail",
+        "name": "Community Email"
+      }
+    ],
+  
+    "Token": [
+      {
+        "name": "SomeToken",
+        "ticker": "ST/SL",
+        "logo": { "link": "URL-to-logo", "name": "Some token Logo", "type": "Avatar image" }
+      }
+    ],
+  
+    "Brand": {
+      "name": "Some Project",
+      "logo": "URL-to-logo"
+    },
+    "Badge": {},
+    "Admin Id": "DSZdiQdBHvP1VWGo2NEkic27hvvmgceS82XtE2QALSaPDr5",
+  
+    "Project Id": 0,
+  
+    "Total rating": 0,
+    "Total Reviewers": 0
+  }
+  
