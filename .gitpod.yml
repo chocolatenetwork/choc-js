@@ -1,0 +1,3 @@
+tasks:
+  - name: Setup workspace
+    init: yarn install 
