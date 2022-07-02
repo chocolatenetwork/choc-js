@@ -1,13 +1,13 @@
 {
-  "type": "object",
+  "$schema": "http://json-schema.org/draft-07/schema#",
   "properties": {
-    "type": {
-      "type": "string"
-    },
     "link": {
       "type": "string"
     },
     "name": {
+      "type": "string"
+    },
+    "type": {
       "type": "string"
     }
   },
@@ -16,5 +16,5 @@
     "name",
     "type"
   ],
-  "$schema": "http://json-schema.org/draft-07/schema#"
+  "type": "object"
 }

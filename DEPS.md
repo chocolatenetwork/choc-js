@@ -28,3 +28,5 @@ So as to ensure that updates are easier to do in this repository, dependencies a
 
 #### Schema
     typescript-json-schema@^0.53.1
+    json-stable-stringify@^1.0.1
+    @types/json-stable-stringify@^1.0.34

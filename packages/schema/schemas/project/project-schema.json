@@ -115,10 +115,10 @@
       },
       "type": "array"
     },
-    "Total rating": {
+    "Total Reviewers": {
       "type": "number"
     },
-    "Total Reviewers": {
+    "Total rating": {
       "type": "number"
     }
   },
