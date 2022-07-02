@@ -3,7 +3,6 @@
   "version": "0.0.1",
   "type": "commonjs",
   "scripts": {
-    "build": "esno src/build.ts",
-    "test": "echo 'implement test'"
+    "build": "esno src/build.ts"
   }
 }
