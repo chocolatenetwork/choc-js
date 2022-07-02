@@ -1,9 +1,6 @@
 import { ResourceLink } from "../resource-link/ResourceLink";
 
 export interface Project {
-  /**
-   * @required
-   */
   Literature: Literature;
   Contact: ResourceLink[];
   Token?: Token[];
