@@ -1,7 +1,7 @@
 {
   "name": "choc-js",
   "version": "0.0.0",
-  "license": "MIT",
+  "license": "Unlicense",
   "scripts": {},
   "private": true,
   "dependencies": {

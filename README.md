@@ -55,6 +55,10 @@ Run `nx serve my-app` for a dev server. Navigate to http://localhost:4200/. The 
 
 Run `nx g @nrwl/react:component my-component --project=my-app` to generate a new component.
 
+### Jest setup
+
+Run `nx g @nrwl/jest:jest-project --project=<project-name>` to scaffold jest for projects where it isn't done automatically.
+
 ## Build
 
 Run `nx build my-app` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `--prod` flag for a production build.

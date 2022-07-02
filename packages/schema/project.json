@@ -2,8 +2,9 @@
   "$schema": "../../node_modules/nx/schemas/project-schema.json",
   "tags": [],
   "targets": {
-    "build":{
+    "build": {
       "executor": "nx:run-script",
+      "outputs": ["packages/schema/schemas"],
       "options": {
         "script": "build"
       }
