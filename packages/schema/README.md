@@ -1,6 +1,6 @@
 # schema
 
-Chocolate schema library. Typescript definitions of the Schemas defined [here](https://github.com/chocolatenetwork/Chocolate-Spec) as well as a build step that generates json schema from the types.
+Chocolate schema library. Typescript definitions of the Schemas defined [here](https://github.com/chocolatenetwork/Chocolate-Spec/blob/main/spec/v0-2/spec-v0-2.md) as well as a build step that generates json schema from the types.
 
 ## Build
 
