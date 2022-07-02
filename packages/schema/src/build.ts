@@ -1,5 +1,5 @@
 import { resolve } from 'path';
-import { writeFileSync } from 'fs';
+import { writeFile } from 'fs';
 import * as TJS from 'typescript-json-schema';
 // optionally pass argument to schema generator
 const settings: TJS.PartialArgs = {
@@ -20,16 +20,19 @@ const schemas = [
   ['RegularUser', 'user/regular-user-schema.json'],
 ];
 
+const voidFn = () => {};
 export function build(basePath: string): void {
   const paths = schemas.map((e) => resolve(basePath, 'Schema.ts'));
   const program = TJS.getProgramFromFiles(paths, compilerOptions, basePath);
-
-  for (const [i, schema] of schemas.entries()) {
+  for (const [, schema] of schemas.entries()) {
     const [type, json] = schema;
     const obj = TJS.generateSchema(program, type, settings);
-    writeFileSync(resolve(basePath, json), JSON.stringify(obj, null, 2), {
-      encoding: 'utf-8',
-    });
+    writeFile(
+      resolve(basePath, json),
+      JSON.stringify(obj, null, 2),
+      'utf-8',
+      voidFn
+    );
   }
 }
 

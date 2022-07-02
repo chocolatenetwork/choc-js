@@ -16,9 +16,9 @@ So as to ensure that updates are easier to do in this repository, dependencies a
     esno@^0.16.3
     typescript@~4.7.2
     tslib@^2.4.0"
+    @types/node@^16.11.1
 
 ### Projects
 
 #### Schema
-
     typescript-json-schema@^0.53.1
