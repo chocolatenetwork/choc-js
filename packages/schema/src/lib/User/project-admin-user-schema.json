@@ -1,0 +1,24 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "properties": {
+    "Account Type": {
+      "type": "string"
+    },
+    "Points": {
+      "type": "number"
+    },
+    "Project Id": {
+      "type": "number"
+    },
+    "User Id": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "Account Type",
+    "Points",
+    "Project Id",
+    "User Id"
+  ],
+  "type": "object"
+}

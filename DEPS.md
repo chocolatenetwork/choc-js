@@ -13,4 +13,12 @@ So as to ensure that updates are easier to do in this repository, dependencies a
 ### Lint
     prettier@^2.6.2, 
 ### Ts
+    esno@^0.16.3
     typescript@~4.7.2
+    tslib@^2.4.0"
+
+### Projects
+
+#### Schema
+
+    typescript-json-schema@^0.53.1
