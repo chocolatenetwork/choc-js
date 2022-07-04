@@ -1,0 +1,8 @@
+{
+  "recommendations": [
+    "nrwl.angular-console",
+    "esbenp.prettier-vscode",
+    "richie5um2.vscode-sort-json",
+    "firsttris.vscode-jest-runner"
+  ]
+}

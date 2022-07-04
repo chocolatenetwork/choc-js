@@ -1,0 +1,136 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "definitions": {
+    "Badge": {
+      "type": "object"
+    },
+    "Brand": {
+      "properties": {
+        "logo": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "logo",
+        "name"
+      ],
+      "type": "object"
+    },
+    "Literature": {
+      "properties": {
+        "Blogs": {
+          "items": {
+            "$ref": "#/definitions/ResourceLink"
+          },
+          "type": "array"
+        },
+        "Documentation": {
+          "items": {
+            "$ref": "#/definitions/ResourceLink"
+          },
+          "type": "array"
+        },
+        "Papers": {
+          "items": {
+            "$ref": "#/definitions/ResourceLink"
+          },
+          "type": "array"
+        },
+        "Wiki": {
+          "items": {
+            "$ref": "#/definitions/ResourceLink"
+          },
+          "type": "array"
+        }
+      },
+      "type": "object"
+    },
+    "ResourceLink": {
+      "properties": {
+        "link": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        },
+        "type": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "link",
+        "name",
+        "type"
+      ],
+      "type": "object"
+    },
+    "Token": {
+      "properties": {
+        "logo": {
+          "$ref": "#/definitions/ResourceLink"
+        },
+        "name": {
+          "type": "string"
+        },
+        "ticker": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "logo",
+        "name",
+        "ticker"
+      ],
+      "type": "object"
+    }
+  },
+  "properties": {
+    "Admin Id": {
+      "type": "string"
+    },
+    "Badge": {
+      "$ref": "#/definitions/Badge"
+    },
+    "Brand": {
+      "$ref": "#/definitions/Brand"
+    },
+    "Contact": {
+      "items": {
+        "$ref": "#/definitions/ResourceLink"
+      },
+      "type": "array"
+    },
+    "Literature": {
+      "$ref": "#/definitions/Literature"
+    },
+    "Project Id": {
+      "type": "number"
+    },
+    "Token": {
+      "items": {
+        "$ref": "#/definitions/Token"
+      },
+      "type": "array"
+    },
+    "Total Reviewers": {
+      "type": "number"
+    },
+    "Total rating": {
+      "type": "number"
+    }
+  },
+  "required": [
+    "Admin Id",
+    "Badge",
+    "Brand",
+    "Contact",
+    "Literature",
+    "Project Id",
+    "Total Reviewers",
+    "Total rating"
+  ],
+  "type": "object"
+}

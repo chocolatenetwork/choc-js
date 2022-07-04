@@ -1,0 +1,30 @@
+{
+  "name": "choc-js",
+  "version": "0.0.0",
+  "license": "Unlicense",
+  "scripts": {},
+  "private": true,
+  "dependencies": {
+    "ajv": "^8.11.0",
+    "json-stable-stringify": "^1.0.1",
+    "tslib": "^2.3.0",
+    "typescript-json-schema": "^0.53.1"
+  },
+  "devDependencies": {
+    "@nrwl/cli": "14.4.0",
+    "@nrwl/jest": "^14.4.0",
+    "@nrwl/js": "14.4.0",
+    "@nrwl/nx-cloud": "latest",
+    "@nrwl/workspace": "14.4.0",
+    "@types/jest": "27.4.1",
+    "@types/json-stable-stringify": "^1.0.34",
+    "@types/node": "^16.11.1",
+    "esno": "^0.16.3",
+    "jest": "27.5.1",
+    "nx": "14.4.0",
+    "prettier": "^2.6.2",
+    "ts-jest": "27.1.4",
+    "ts-node": "~10.8.0",
+    "typescript": "~4.7.2"
+  }
+}

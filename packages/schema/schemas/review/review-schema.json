@@ -1,0 +1,28 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "properties": {
+    "Content": {
+      "type": "string"
+    },
+    "Project Id": {
+      "type": "number"
+    },
+    "Rating": {
+      "type": "number"
+    },
+    "Reviewer": {
+      "type": "string"
+    },
+    "Title": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "Content",
+    "Project Id",
+    "Rating",
+    "Reviewer",
+    "Title"
+  ],
+  "type": "object"
+}
