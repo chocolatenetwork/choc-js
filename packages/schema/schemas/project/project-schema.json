@@ -77,12 +77,16 @@
         },
         "ticker": {
           "type": "string"
+        },
+        "type": {
+          "type": "string"
         }
       },
       "required": [
         "logo",
         "name",
-        "ticker"
+        "ticker",
+        "type"
       ],
       "type": "object"
     }

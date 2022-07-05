@@ -36,7 +36,12 @@
       {
         "name": "SomeToken",
         "ticker": "ST/SL",
-        "logo": { "link": "URL-to-logo", "name": "Some token Logo", "type": "Avatar image" }
+        "type": "native",
+        "logo": {
+          "link": "URL-to-logo",
+          "name": "Some token Logo",
+          "type": "Avatar image"
+        }
       }
     ],
   
