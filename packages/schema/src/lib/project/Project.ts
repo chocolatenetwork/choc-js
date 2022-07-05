@@ -29,5 +29,6 @@ export interface Literature {
 export interface Token {
   name: string;
   ticker: string;
+  type: string;
   logo: ResourceLink;
 }
