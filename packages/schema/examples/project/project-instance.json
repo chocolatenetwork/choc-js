@@ -1,60 +1,69 @@
 {
-    "Literature": {
-      "Papers": [
-        { "type": "litepaper", "link": "litepaper.someexamplelink", "name": "Litepaper" },
-        { "type": "whitepaper", "link": "whitepaper.someexamplelink", "name": "Whitepaper"}
-      ],
-      "Blogs": [
-        { "type": "medium", "link": "medium.someexamplelink", "name": "Medium" }
-      ],
-      "Wiki": [
-        {
-          "type": "main",
-          "link": "some-single-wiki.link",
-          "name": "Some Project Wiki"
-        }
-      ],
-      "Documentation": [
-        {
-          "type": "UI",
-          "link": "some-doc-link",
-          "name": "UI docs"
-        }
-      ]
-    },
-  
-    "Contact": [
-      { "type": "Email", "link": "emailer@someexampleemail", "name": "Email" },
+  "Literature": {
+    "Papers": [
       {
-        "type": "Community-Email",
-        "link": "emailer@someexampleemail",
-        "name": "Community Email"
+        "type": "litepaper",
+        "link": "litepaper.someexamplelink",
+        "name": "Litepaper"
+      },
+      {
+        "type": "whitepaper",
+        "link": "whitepaper.someexamplelink",
+        "name": "Whitepaper"
       }
     ],
-  
-    "Token": [
+    "Blogs": [
+      { "type": "medium", "link": "medium.someexamplelink", "name": "Medium" }
+    ],
+    "Wiki": [
       {
-        "name": "SomeToken",
-        "ticker": "ST/SL",
-        "type": "native",
-        "logo": {
-          "link": "URL-to-logo",
-          "name": "Some token Logo",
-          "type": "Avatar image"
-        }
+        "type": "main",
+        "link": "some-single-wiki.link",
+        "name": "Some Project Wiki"
       }
     ],
-  
-    "Brand": {
-      "name": "Some Project",
-      "logo": "URL-to-logo"
-    },
-    "Badge": {},
-    "Admin Id": "DSZdiQdBHvP1VWGo2NEkic27hvvmgceS82XtE2QALSaPDr5",
-  
-    "Project Id": 0,
-  
-    "Total rating": 0,
-    "Total Reviewers": 0
-  }
+    "Documentation": [
+      {
+        "type": "UI",
+        "link": "some-doc-link",
+        "name": "UI docs"
+      }
+    ]
+  },
+
+  "Contact": [
+    { "type": "Email", "link": "emailer@someexampleemail", "name": "Email" },
+    {
+      "type": "Community-Email",
+      "link": "emailer@someexampleemail",
+      "name": "Community Email"
+    }
+  ],
+
+  "Token": [
+    {
+      "name": "SomeToken",
+      "ticker": "ST/SL",
+      "type": "native",
+      "logo": {
+        "link": "URL-to-logo",
+        "name": "Some token Logo",
+        "type": "Avatar image"
+      }
+    }
+  ],
+
+  "Brand": {
+    "name": "Some Project",
+    "logo": "URL-to-logo"
+  },
+  "Badge": {},
+  "Admin Id": "DSZdiQdBHvP1VWGo2NEkic27hvvmgceS82XtE2QALSaPDr5",
+
+  "Project Id": 0,
+
+  "Total rating": 0,
+  "Total Reviewers": 0,
+  "Description": "Lorem ipsum dolor, sit amet consectetur adipisicing elit. Iure dolorem rem cum distinctio veritatis quo doloremque vel consectetur tempore et aliquid, at quidem asperiores, inventore similique pariatur itaque aut consequuntur sed voluptatum alias fugit? Quidem sunt quod sint ratione dolor adipisci asperiores distinctio odio assumenda praesentium. Nulla voluptatibus doloremque tempore iste repudiandae eligendi voluptate doloribus! Tempore esse ducimus laudantium vel! Eveniet mollitia eius ducimus facere ut minima fugiat dignissimos veniam voluptatibus. Voluptatem est dolorum blanditiis consequatur accusamus distinctio quia sit sed nobis voluptatibus quisquam porro reprehenderit odit architecto, debitis exercitationem laborum eos illum, perspiciatis neque. Libero, mollitia ducimus nisi et ab quasi adipisci laboriosam id cupiditate vitae possimus earum. Nemo eligendi nam, minus consequatur possimus, rerum, impedit dolor voluptate asperiores numquam officia incidunt eveniet neque delectus qui. Molestias saepe itaque eaque obcaecati nostrum. Voluptatum consequatur consectetur, cumque iusto quia eius porro repudiandae facere et perspiciatis id earum at ea reprehenderit hic consequuntur, nemo similique magni libero natus blanditiis ab saepe distinctio. Perferendis ea non labore expedita aperiam dolorem repudiandae. Provident commodi ipsa asperiores ipsum repellendus laboriosam maxime consequuntur fugiat obcaecati fugit sed explicabo illo cum, vitae voluptates deserunt quaerat consequatur unde aspernatur reprehenderit impedit temporibus et dolore? Illum, impedit! Nisi tenetur reiciendis accusamus. Quia sapiente reprehenderit ipsa dolore quis officiis suscipit? Esse veniam porro a consequatur quidem molestias ad quam soluta iste harum voluptate doloribus, numquam cumque hic repellendus provident culpa, iusto vitae minima deleniti nisi? Commodi, veritatis eos ipsa ea nostrum ex et exercitationem alias. Velit voluptatem explicabo rem voluptatum odio assumenda atque possimus maxime sed consequatur non pariatur quam inventore ratione debitis alias dolore voluptate est natus quidem, nemo nihil? Molestias quas consequatur earum officiis maxime rem sunt ab esse quidem veniam? Recusandae, possimus in aliquid quasi dicta cumque sint omnis rem commodi. Adipisci dolorem quaerat labore perferendis laudantium non impedit nam animi quo maxime natus accusantium ullam perspiciatis libero omnis cumque distinctio repudiandae assumenda, porro voluptatem, expedita dolores nihil, nisi aut? Aliquam voluptas ipsam, iste deserunt blanditiis, quas porro minus rem doloribus ut deleniti quae quibusdam sequi consectetur nemo aspernatur recusandae molestiae tenetur reprehenderit amet modi. Placeat repellendus eaque excepturi iure soluta culpa, maiores corrupti voluptatem et. Ratione quo tempore ex eveniet delectus saepe consectetur sequi minus a quis rem ea, magnam, quod cumque porro eum non commodi tempora, vero sed amet necessitatibus error illum. Quia illo laudantium similique, culpa minus veniam, rem saepe iusto aspernatur dignissimos quod eum libero inventore exercitationem quasi debitis! Voluptate, facere magni! Et qui odio quibusdam beatae deleniti accusamus deserunt voluptatibus harum, vel est animi veniam a doloremque earum vitae laborum porro quod soluta fugit sit recusandae rerum illo reprehenderit. Fuga eaque voluptatum minus odit ullam esse ex perferendis repellat nesciunt voluptates dolorem, repellendus suscipit libero ducimus reprehenderit quibusdam consequuntur beatae incidunt magnam reiciendis ipsa sint dignissimos, nemo obcaecati. Sequi nostrum, voluptate consequatur, in distinctio repellendus tempore ad totam quisquam dicta quidem mollitia! Numquam at impedit repudiandae quod adipisci, vitae illum porro laudantium quo omnis! Quos adipisci quo dolorem earum totam architecto cumque officiis eos corrupti iste facere non optio similique vel omnis accusantium, velit hic sunt. Deleniti nobis asperiores, ipsam nihil, explicabo quo ut provident voluptatem numquam fugit, perspiciatis at optio quos officiis omnis blanditiis? Quod maiores, magnam ullam sit porro perspiciatis quisquam saepe velit fugit sunt iure pariatur! Illo assumenda voluptates corrupti nesciunt, sapiente architecto vitae ullam nisi quibusdam cum delectus quas ad dolore, accusamus nostrum. Numquam maiores molestiae magni sapiente eius eum repellat quo magnam animi est fugiat mollitia iusto commodi ea obcaecati fugit necessitatibus sunt minus culpa, soluta omnis natus. Vero, veritatis. Est pariatur voluptates ad, voluptas quod soluta blanditiis reprehenderit sit eveniet totam officiis quisquam? Ducimus dolorum molestias alias, qui iusto quos autem sit rem nulla voluptatibus repellendus quaerat, tenetur porro doloribus voluptate. Eligendi cumque tempore soluta adipisci, repudiandae minima omnis, quibusdam iusto molestias ab esse beatae impedit vel aspernatur autem nulla nostrum voluptatibus vitae! Architecto ea facilis animi voluptatibus. Rem aperiam unde qui magnam veniam, eos iste repellendus dignissimos voluptatem recusandae, voluptas repudiandae quasi natus dicta minima ea optio porro repellat perferendis, voluptatum cumque. Doloribus, ab obcaecati maiores reprehenderit magni corrupti veniam eligendi, harum pariatur, beatae nobis! Cum aperiam ducimus, similique suscipit laudantium reprehenderit inventore ab maxime odio blanditiis pariatur eius repellat atque vel quibusdam expedita. Quidem, ipsum? Voluptate magni perferendis maxime vel recusandae repellat nisi accusamus ratione, accusantium nam quas. Cupiditate non reiciendis sapiente eius quam dolorum voluptate rem natus minus! Tempore, debitis cupiditate voluptatibus itaque in maiores deserunt, eveniet, ad amet est officia distinctio rem necessitatibus. Ducimus ipsa est dolore asperiores ipsum sequi deleniti quasi excepturi, exercitationem doloribus, repellat, laudantium numquam odit earum iste modi iusto omnis a similique esse sapiente! Reiciendis, quidem. Consequuntur fugiat, fugit enim eos officiis earum amet atque consectetur excepturi, debitis, veritatis harum ut. Fugiat, alias culpa? Quibusdam ducimus reprehenderit, fugit optio, quaerat eos similique reiciendis illum architecto nobis eveniet quod quisquam delectus nulla assumenda adipisci sit ipsum repellendus perferendis! Vitae asperiores sunt vero quo maiores aperiam, distinctio hic. Neque eligendi ex cumque fugit tenetur repudiandae repellat sunt, tempore ullam. Porro harum dolore quam maxime beatae ratione ipsa officiis voluptates veritatis, a dolores non nesciunt placeat magnam excepturi, alias consequatur tempore exercitationem explicabo corrupti similique! Ex perspiciatis accusamus sapiente porro eveniet nesciunt, distinctio natus dicta cumque saepe, recusandae est voluptas aperiam minima laudantium fugit repellendus. Ullam a tempore molestias rem fuga maxime optio nulla, qui, dignissimos explicabo facere inventore architecto blanditiis nihil labore quibusdam odit omnis, adipisci aperiam beatae expedita deleniti aliquam vel! Voluptates ducimus ex voluptate error quos similique, consectetur ab vero accusamus nihil quae quasi id vel illo mollitia deserunt minus dicta unde numquam dolor itaque laborum. Repellat voluptatem ipsa ad sint ipsam? Porro deleniti nulla veniam quidem dicta excepturi obcaecati officia ab hic beatae et necessitatibus, consequatur quo magnam eaque architecto saepe ipsam voluptas. Exercitationem quas tenetur pariatur non."
+}
   

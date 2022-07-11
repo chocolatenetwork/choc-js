@@ -107,6 +107,9 @@
       },
       "type": "array"
     },
+    "Description": {
+      "type": "string"
+    },
     "Literature": {
       "$ref": "#/definitions/Literature"
     },
@@ -131,6 +134,7 @@
     "Badge",
     "Brand",
     "Contact",
+    "Description",
     "Literature",
     "Project Id",
     "Total Reviewers",
