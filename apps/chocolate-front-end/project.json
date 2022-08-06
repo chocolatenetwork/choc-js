@@ -21,7 +21,7 @@
         ],
         "styles": ["apps/chocolate-front-end/src/styles.css"],
         "scripts": [],
-        "webpackConfig": "apps/chocolate-front-end/webpack.config.js"
+        "webpackConfig": "@nrwl/react/plugins/webpack"
       },
       "configurations": {
         "development": {
