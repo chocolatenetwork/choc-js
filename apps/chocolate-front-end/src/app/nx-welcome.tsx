@@ -1,8 +1,8 @@
 import { ApiPromise, WsProvider } from '@polkadot/api';
-import {  useState } from 'react';
-
+import { useState } from 'react';
 
 let $api: ApiPromise | null = null;
+
 async function testApi(
   setGenesis: React.Dispatch<React.SetStateAction<string>>,
   setApiReady: React.Dispatch<React.SetStateAction<boolean>>
@@ -12,6 +12,8 @@ async function testApi(
   // Construct
   const wsProvider = new WsProvider('ws://127.0.0.1:8844');
   const api = await ApiPromise.create({ provider: wsProvider });
+  // This call should be typed
+  console.log((await api.query['chocolateModule']['projects'](1)).toHuman());
   console.log('Established ApiPromise');
   // Do something
   await api.isReadyOrError
