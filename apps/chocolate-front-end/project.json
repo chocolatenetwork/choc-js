@@ -1,0 +1,75 @@
+{
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "apps/chocolate-front-end/src",
+  "projectType": "application",
+  "targets": {
+    "build": {
+      "executor": "@nrwl/web:webpack",
+      "outputs": ["{options.outputPath}"],
+      "defaultConfiguration": "production",
+      "options": {
+        "compiler": "babel",
+        "outputPath": "dist/apps/chocolate-front-end",
+        "index": "apps/chocolate-front-end/src/index.html",
+        "baseHref": "/",
+        "main": "apps/chocolate-front-end/src/main.tsx",
+        "polyfills": "apps/chocolate-front-end/src/polyfills.ts",
+        "tsConfig": "apps/chocolate-front-end/tsconfig.app.json",
+        "assets": [
+          "apps/chocolate-front-end/src/favicon.ico",
+          "apps/chocolate-front-end/src/assets"
+        ],
+        "styles": ["apps/chocolate-front-end/src/styles.css"],
+        "scripts": [],
+        "webpackConfig": "@nrwl/react/plugins/webpack"
+      },
+      "configurations": {
+        "development": {
+          "extractLicenses": false,
+          "optimization": false,
+          "sourceMap": true,
+          "vendorChunk": true
+        },
+        "production": {
+          "fileReplacements": [
+            {
+              "replace": "apps/chocolate-front-end/src/environments/environment.ts",
+              "with": "apps/chocolate-front-end/src/environments/environment.prod.ts"
+            }
+          ],
+          "optimization": true,
+          "outputHashing": "all",
+          "sourceMap": false,
+          "namedChunks": false,
+          "extractLicenses": true,
+          "vendorChunk": false
+        }
+      }
+    },
+    "serve": {
+      "executor": "@nrwl/web:dev-server",
+      "defaultConfiguration": "development",
+      "options": {
+        "buildTarget": "chocolate-front-end:build",
+        "hmr": true
+      },
+      "configurations": {
+        "development": {
+          "buildTarget": "chocolate-front-end:build:development"
+        },
+        "production": {
+          "buildTarget": "chocolate-front-end:build:production",
+          "hmr": false
+        }
+      }
+    },
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": ["apps/chocolate-front-end/**/*.{ts,tsx,js,jsx}"]
+      }
+    }
+  },
+  "tags": ["web"]
+}
