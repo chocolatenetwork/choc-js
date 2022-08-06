@@ -2,6 +2,8 @@
   "$schema": "./node_modules/nx/schemas/workspace-schema.json",
   "version": 2,
   "projects": {
+    "chocolate-front-end": "apps/chocolate-front-end",
+    "chocolate-front-end-e2e": "apps/chocolate-front-end-e2e",
     "schema": "packages/schema"
   }
 }
