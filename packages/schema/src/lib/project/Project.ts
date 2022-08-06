@@ -6,10 +6,11 @@ export interface Project {
   Token?: Token[];
   Brand: Brand;
   Badge: Badge;
-  "Admin Id": string;
-  "Project Id": number;
-  "Total rating": number;
-  "Total Reviewers": number;
+  'Admin Id': string;
+  'Project Id': number;
+  'Total rating': number;
+  'Total Reviewers': number;
+  Description: string;
 }
 
 export interface Badge {}
