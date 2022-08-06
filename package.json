@@ -15,6 +15,7 @@
     "@nrwl/jest": "^14.4.0",
     "@nrwl/js": "14.4.0",
     "@nrwl/nx-cloud": "latest",
+    "@nrwl/react": "14.4.0",
     "@nrwl/workspace": "14.4.0",
     "@types/jest": "27.4.1",
     "@types/json-stable-stringify": "^1.0.34",

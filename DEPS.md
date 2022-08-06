@@ -9,8 +9,10 @@ So as to ensure that updates are easier to do in this repository, dependencies a
     @nrwl/js@14.4.0, 
     @nrwl/nx-cloud@latest, 
     @nrwl/workspace@14.4.0,
-    "@nrwl/jest": "^14.4.0
+    "@nrwl/jest"@^14.4.0,
     nx@14.4.0, 
+    @nrwl/react@14.4.0
+
 ### Lint
     prettier@^2.6.2, 
 ### Ts
