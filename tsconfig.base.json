@@ -15,7 +15,8 @@
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
-      "@choc-js/schema": ["packages/schema/src/index.ts"]
+      "@choc-js/schema": ["packages/schema/src/index.ts"],
+      "@choc-js/types": ["packages/types/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]

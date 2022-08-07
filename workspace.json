@@ -4,6 +4,7 @@
   "projects": {
     "chocolate-front-end": "apps/chocolate-front-end",
     "chocolate-front-end-e2e": "apps/chocolate-front-end-e2e",
-    "schema": "packages/schema"
+    "schema": "packages/schema",
+    "types": "packages/types"
   }
 }
