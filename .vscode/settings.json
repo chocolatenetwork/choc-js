@@ -1,6 +1,7 @@
 {
     "conventionalCommits.scopes": [
         "setup",
-        "schema"
+        "schema",
+        "tgen"
     ]
 }
