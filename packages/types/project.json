@@ -13,6 +13,13 @@
         "assets": ["packages/types/*.md"]
       }
     },
+    "tgen": {
+      "executor": "nx:run-script",
+      "outputs": ["packages/types/interfaces"],
+      "options": {
+        "script": "generate:defs"
+      }
+    },
     "publish": {
       "executor": "@nrwl/workspace:run-commands",
       "options": {

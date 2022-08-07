@@ -1,5 +1,10 @@
 {
   "name": "@choc-js/types",
   "version": "0.0.1",
-  "type": "commonjs"
+  "type": "commonjs",
+  "scripts": {
+    "build": "yarn generate:defs && yarn generate:meta",
+    "generate:defs": "esno --tsconfig ./tsconfig.lib.json ../../node_modules/.bin/polkadot-types-from-defs --package @choc-js/interfaces --input ./src/interfaces --endpoint ws://127.0.0.1:8844",
+    "generate:meta": "esno --tsconfig ./tsconfig.lib.json ../../node_modules/.bin/polkadot-types-from-chain --package @choc-js/interfaces --endpoint ws://127.0.0.1:8844 --output ./src/interfaces"
+  }
 }
