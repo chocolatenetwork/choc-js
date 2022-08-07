@@ -1,6 +1,5 @@
 import { ApiPromise, WsProvider } from '@polkadot/api';
 import { useState } from 'react';
-
 let $api: ApiPromise | null = null;
 
 async function testApi(
@@ -12,9 +11,14 @@ async function testApi(
   // Construct
   const wsProvider = new WsProvider('ws://127.0.0.1:8844');
   const api = await ApiPromise.create({ provider: wsProvider });
-  // This call should be typed
+  // This call is typed
   console.log((await api.query['chocolateModule']['projects'](1)).toHuman());
   console.log('Established ApiPromise');
+  const l = await api.query['chocolateModule']['projects'](1);
+  const t = l.unwrapOrDefault();
+  
+  console.log(t.toPrimitive());
+
   // Do something
   await api.isReadyOrError
     .then((_api) => {

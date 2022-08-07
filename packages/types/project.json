@@ -17,7 +17,7 @@
       "executor": "nx:run-script",
       "outputs": ["packages/types/interfaces"],
       "options": {
-        "script": "generate:defs"
+        "script": "build"
       }
     },
     "publish": {
