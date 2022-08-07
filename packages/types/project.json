@@ -1,0 +1,50 @@
+{
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "packages/types/src",
+  "projectType": "library",
+  "targets": {
+    "build": {
+      "executor": "@nrwl/js:tsc",
+      "outputs": ["{options.outputPath}"],
+      "options": {
+        "outputPath": "dist/packages/types",
+        "main": "packages/types/src/index.ts",
+        "tsConfig": "packages/types/tsconfig.lib.json",
+        "assets": ["packages/types/*.md"]
+      },
+      "dependsOn": [
+        {
+          "projects": "self",
+          "target": "tgen"
+        }
+      ]
+    },
+    "tgen": {
+      "executor": "nx:run-script",
+      "outputs": ["packages/types/interfaces"],
+      "options": {
+        "script": "build"
+      }
+    },
+    "publish": {
+      "executor": "@nrwl/workspace:run-commands",
+      "options": {
+        "command": "node tools/scripts/publish.mjs types {args.ver} {args.tag}"
+      },
+      "dependsOn": [
+        {
+          "projects": "self",
+          "target": "build"
+        }
+      ]
+    },
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": ["packages/types/**/*.ts"]
+      }
+    }
+  },
+  "tags": ["types"]
+}
