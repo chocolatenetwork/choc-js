@@ -1,0 +1,2 @@
+<% for(let i=0; i < mods.length; i++) { %>export {default as <%= mods[i] %> } from './<%= mods[i] %>/definitions';
+<% } %>
