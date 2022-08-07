@@ -1,6 +1,6 @@
 # type-definitions
 
-This library was generated with [Nx](https://nx.dev).
+**Internal** type definitions library for populating `types` with definition jsons, and creating type bundles.
 
 ## Running lint
 
