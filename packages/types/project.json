@@ -11,7 +11,13 @@
         "main": "packages/types/src/index.ts",
         "tsConfig": "packages/types/tsconfig.lib.json",
         "assets": ["packages/types/*.md"]
-      }
+      },
+      "dependsOn": [
+        {
+          "projects": "self",
+          "target": "tgen"
+        }
+      ]
     },
     "tgen": {
       "executor": "nx:run-script",
