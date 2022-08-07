@@ -1,5 +1,6 @@
 import { ApiPromise, WsProvider } from '@polkadot/api';
 import { useState } from 'react';
+import { createType } from '@polkadot/types';
 let $api: ApiPromise | null = null;
 
 async function testApi(
@@ -16,9 +17,14 @@ async function testApi(
   console.log('Established ApiPromise');
   const l = await api.query['chocolateModule']['projects'](1);
   const t = l.unwrapOrDefault();
-  
-  console.log(t.toPrimitive());
 
+  console.log(t.toPrimitive());
+  // Can create class from api registry
+  const l4 = api.registry.createClass('ChocolatePrimitivesProjectsProject');
+  // Can also create from createType
+  const l6 = createType(api.registry, 'ChocolatePrimitivesProjectsProject');
+  const l5 = new l4(api.registry);
+  const l2 = api.createType('ChocolatePrimitivesProjectsProject');
   // Do something
   await api.isReadyOrError
     .then((_api) => {
