@@ -5,6 +5,7 @@
     "chocolate-front-end": "apps/chocolate-front-end",
     "chocolate-front-end-e2e": "apps/chocolate-front-end-e2e",
     "schema": "packages/schema",
+    "type-definitions": "packages/type-definitions",
     "types": "packages/types"
   }
 }

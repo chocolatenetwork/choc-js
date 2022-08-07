@@ -16,12 +16,9 @@
     "baseUrl": ".",
     "paths": {
       "@choc-js/schema": ["packages/schema/src/index.ts"],
-      "@choc-js/types": [
-        "packages/types/src/index.ts"
-      ],
-      "@polkadot/api/augment": [
-        "packages/types/src/interfaces/augment-api.ts"
-      ],
+      "@choc-js/type-definitions": ["packages/type-definitions/src/index.ts"],
+      "@choc-js/types": ["packages/types/src/index.ts"],
+      "@polkadot/api/augment": ["packages/types/src/interfaces/augment-api.ts"],
       "@polkadot/types/augment": [
         "packages/types/src/interfaces/augment-types.ts"
       ]
