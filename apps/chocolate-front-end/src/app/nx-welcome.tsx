@@ -37,15 +37,14 @@ export function NxWelcome({ title }: { title: string }) {
   const ready = 'Api is Ready';
   const nr = 'Api is not Ready';
   return (
-    <main>
+    <main data-test-id="test-api-main">
       <h1>Api Stats:</h1>
 
-      <p data-test-id="test-api-p">
+      <p>
         Ready State: {apiReady ? ready : nr} <br />
         Genesis Hash: {genesis}
       </p>
       <button
-        data-test-id="test-api-btn"
         onClick={() => {
           if ($api) $api.disconnect();
           testApi(setGenesis, setApiReady);
