@@ -2,9 +2,9 @@
 
 import { ApiPromise, Keyring, WsProvider } from '@polkadot/api';
 
-import { ISubmittableResult } from '@polkadot/types/types';
-import { CBs, parseEvent } from '../src/utils/parseEvent';
 import { GenesisConfig } from './constants';
+import { EventList } from './types';
+import { handleEvents } from './utils';
 
 // Genesis build
 // Initialise and accept all projects
@@ -18,11 +18,22 @@ export async function build(
   //   Create users
   const keyring = new Keyring({ type: 'sr25519' });
   const eventList = await createUsers(self, api, keyring);
+  const eventList2 = await createProjects(self, api, keyring);
 
   api.disconnect();
   return [eventList];
 }
 
+async function createProjects(
+  self: GenesisConfig,
+  api: ApiPromise,
+  keyring: Keyring
+) {
+  // create projects
+  const iter_users = self.initUsers.map((e) => e[0]).entries();
+  const eventList: EventList[] = [];
+  const prList = [];
+}
 async function createUsers(
   self: GenesisConfig,
   api: ApiPromise,
@@ -50,22 +61,4 @@ async function createUsers(
   }
   await Promise.allSettled(prList);
   return eventList;
-}
-
-type EventList = ReturnType<typeof parseEvent>[];
-function handleEvents(
-  api: ApiPromise,
-  resList: [number, EventList[]],
-  ...callbacks: CBs
-) {
-  return ({ events = [], txIndex }: ISubmittableResult) => {
-    const res = events
-      .filter(
-        ({ phase }) =>
-          phase.isApplyExtrinsic && phase.asApplyExtrinsic.eq(txIndex)
-      )
-      .map(({ event }) => parseEvent(api, event, ...callbacks));
-    const [i] = resList;
-    resList[1][i] = res;
-  };
 }
