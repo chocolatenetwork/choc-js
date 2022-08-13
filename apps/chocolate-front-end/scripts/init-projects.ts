@@ -38,7 +38,7 @@ async function createUsers(
       name: `${nameSec.join(' ')} default`,
     });
     console.log(
-      `This is ${pair.meta['name']}'s account with pubkey ${pair.publicKey}`
+      `This is ${pair.meta['name']}'s account with pubkey ${pair.address}`
     );
     console.log('Waiting for tx');
     const pr = new Promise((res, rej) => {
@@ -48,11 +48,7 @@ async function createUsers(
     });
     prList.push(pr);
   }
-  await Promise.all(prList).catch((why) =>
-    console.log('All stopped, this is why', why)
-  );
-  // console.log('Finalised with hash:', pr);
-  // await pr.catch((a) => console.log(a));
+  await Promise.allSettled(prList);
   return eventList;
 }
 
