@@ -922,7 +922,9 @@ declare module '@polkadot/types/lookup' {
     readonly asReviewCreated: ITuple<[AccountId32, u32]>;
     readonly isReviewAccepted: boolean;
     readonly asReviewAccepted: ITuple<[AccountId32, u32]>;
-    readonly type: 'SomethingStored' | 'ProjectCreated' | 'ReviewCreated' | 'ReviewAccepted';
+    readonly isProjectAccepted: boolean;
+    readonly asProjectAccepted: u32;
+    readonly type: 'SomethingStored' | 'ProjectCreated' | 'ReviewCreated' | 'ReviewAccepted' | 'ProjectAccepted';
   }
 
   /** @name PalletMintingEvent (82) */
@@ -2162,7 +2164,11 @@ declare module '@polkadot/types/lookup' {
       readonly userId: AccountId32;
       readonly projectId: u32;
     } & Struct;
-    readonly type: 'CreateProject' | 'CreateReview' | 'AcceptReview';
+    readonly isAcceptProject: boolean;
+    readonly asAcceptProject: {
+      readonly projectId: u32;
+    } & Struct;
+    readonly type: 'CreateProject' | 'CreateReview' | 'AcceptReview' | 'AcceptProject';
   }
 
   /** @name PalletChocolateError (248) */

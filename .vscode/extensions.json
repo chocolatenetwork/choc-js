@@ -5,12 +5,21 @@
     "richie5um2.vscode-sort-json",
     "firsttris.vscode-jest-runner",
     "dbaeumer.vscode-eslint",
-    // Additional:
     "rust-lang.rust-analyzer",
     "christian-kohler.path-intellisense",
     "oderwat.indent-rainbow",
     "rubbersheep.gi",
     "oouo-diogo-perdigao.docthis",
-    "mads-hartmann.bash-ide-vscode"
+    "mads-hartmann.bash-ide-vscode",
+    "eamodio.gitlens",
+    "wix.glean",
+    "ecmel.vscode-html-css",
+    "visualstudioexptteam.vscodeintellicode",
+    "yzhang.markdown-all-in-one",
+    "matklad.rust-analyzer",
+    "rangav.vscode-thunder-client",
+    "vivaxy.vscode-conventional-commits",
+    "bungcip.better-toml",
+    "serayuzgur.crates"
   ]
 }
