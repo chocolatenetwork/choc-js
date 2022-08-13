@@ -1,30 +1,17 @@
 /**@file Replace GEnesis config for chocolate pallet */
 
 import { ApiPromise, Keyring, WsProvider } from '@polkadot/api';
-import { AccountId, EventRecord } from '@polkadot/types/interfaces';
 import {
   ChocolatePrimitivesProjectsStatus,
   ParachainTemplateRuntimeCurrencyId,
 } from '@polkadot/types/lookup';
 import { ISubmittableResult } from '@polkadot/types/types';
 import { parseEvent } from '../src/utils/parseEvent';
-import { METADATA } from './constants';
-
-// Define aliases to make impl easier
-// type AccountId = string;
-
-export interface GenesisConfig {
-  // Status of projects to create. if accept is included, accept after
-  //   Rejected is depr
-  initProjects: [Omit<ChocolatePrimitivesProjectsStatus['type'], 'Rejected'>][];
-  // Users to create those projects with, and currencies to pay in.
-  // Since this is after genesis, this can be any supported genesos
-  initUsers: [string, ParachainTemplateRuntimeCurrencyId['type']][];
-}
+import { GenesisConfig } from './constants';
 
 // Genesis build
 // Initialise and accept all projects
-async function build(self: GenesisConfig) {
+export async function build(self: GenesisConfig) {
   // create users
   // Construct
   const wsProvider = new WsProvider('ws://127.0.0.1:8844');

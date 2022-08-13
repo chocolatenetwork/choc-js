@@ -1,5 +1,20 @@
-import { GenesisConfig } from './init-projects';
+import '@choc-js/types';
 
+import {
+  ChocolatePrimitivesProjectsStatus,
+  ParachainTemplateRuntimeCurrencyId,
+} from '@polkadot/types/lookup';
+// Define aliases to make impl easier
+// type AccountId = string;
+
+export interface GenesisConfig {
+  // Status of projects to create. if accept is included, accept after
+  //   Rejected is depr
+  initProjects: [Omit<ChocolatePrimitivesProjectsStatus['type'], 'Rejected'>][];
+  // Users to create those projects with, and currencies to pay in.
+  // Since this is after genesis, this can be any supported genesos
+  initUsers: [string, ParachainTemplateRuntimeCurrencyId['type']][];
+}
 export const METADATA = [
   'QmPAVb28J73KjzcjTQ85oJLyftmm4kEgTTptRssPnKjKZD',
   'QmQLVGKfigHsnguvK8X2kiYX4o7tp2Zm5k14Gr928bpcPE',

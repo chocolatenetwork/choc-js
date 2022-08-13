@@ -2,6 +2,7 @@
     "conventionalCommits.scopes": [
         "setup",
         "schema",
-        "tgen"
+        "tgen",
+        "genesis"
     ]
 }
