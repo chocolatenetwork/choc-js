@@ -13,12 +13,13 @@ export async function build(
 ): Promise<[userEvents: EventList[]]> {
   // create users
   // Construct
-  const wsProvider = new WsProvider('ws://127.0.0.1:8844');
+  const wsProvider = new WsProvider('ws://127.0.0.1:8845');
   const api = await ApiPromise.create({ provider: wsProvider });
-  const keyring = new Keyring({ type: 'sr25519' });
   //   Create users
+  const keyring = new Keyring({ type: 'sr25519' });
   const eventList = await createUsers(self, api, keyring);
 
+  api.disconnect();
   return [eventList];
 }
 
@@ -30,17 +31,28 @@ async function createUsers(
   // create users
   const iter_users = self.initUsers.map((e) => e[0]).entries();
   const eventList: EventList[] = [];
-  for (const [i, id] of iter_users) {
-    const pair = keyring.addFromUri(id);
+  const prList = [];
+  for (const [i, derPath] of iter_users) {
+    const [, ...nameSec] = derPath.split('//');
+    const pair = keyring.addFromUri(derPath, {
+      name: `${nameSec.join(' ')} default`,
+    });
     console.log(
       `This is ${pair.meta['name']}'s account with pubkey ${pair.publicKey}`
     );
-
-    const pr = await api.tx.usersModule
-      .makeUser()
-      .signAndSend(id, handleEvents(api, [i, eventList]));
-    console.log('Finalised with hash:', pr);
+    console.log('Waiting for tx');
+    const pr = new Promise((res, rej) => {
+      api.tx.usersModule
+        .makeUser()
+        .signAndSend(pair, handleEvents(api, [i, eventList], res, rej));
+    });
+    prList.push(pr);
   }
+  await Promise.all(prList).catch((why) =>
+    console.log('All stopped, this is why', why)
+  );
+  // console.log('Finalised with hash:', pr);
+  // await pr.catch((a) => console.log(a));
   return eventList;
 }
 
