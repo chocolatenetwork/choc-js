@@ -1,6 +1,6 @@
 import '@choc-js/types';
 
-import {
+import type {
   ChocolatePrimitivesProjectsStatus,
   ParachainTemplateRuntimeCurrencyId,
 } from '@polkadot/types/lookup';
