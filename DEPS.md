@@ -117,3 +117,13 @@ So as to ensure that updates are easier to do in this repository, dependencies a
 #### Frontend
 
 ipfs-http-client@49.0.0
+
+semantic-ui-css@^2.4.1
+semantic-ui-react@^2.0.3    
+lodash@^4.17.14
+react-copy-to-clipboard@^5.0.3
+react-query@^3.27.0
+"@emotion/react": "^11.10.0",
+"@mantine/core": "^5.2.3",
+"@mantine/hooks": "^5.2.3",
+react-hot-toast@2.1.1
