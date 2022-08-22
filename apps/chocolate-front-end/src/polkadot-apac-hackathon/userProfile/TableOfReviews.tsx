@@ -1,6 +1,4 @@
-/* eslint-disable import/no-unresolved */
-import { HumanTableSetReview } from 'chocolate/typeSystem/jsonTypes';
-/* eslint-enable import/no-unresolved */
+import { HumanTableSetReview } from '../../typeSystem/jsonTypes';
 import { useEffect, useReducer, useState } from 'react';
 import {
   Button,
@@ -9,31 +7,12 @@ import {
   Icon,
   Image,
   Label,
+  StrictDropdownProps,
   Table,
   Transition,
 } from 'semantic-ui-react';
 import { Rating } from '../../customComponents/Projects';
-
-interface TableReducerAction {
-  type: 'FILTER_PROJECT_NAME' | 'FILTER_REVIEW_RATING' | 'INITIALISE' | 'FILTER_REVIEW_STATUS';
-  projectID?: number;
-  rating?: number;
-  payload?: HumanTableSetReview[];
-  status?: string;
-}
-
-const tableReducer = (state: HumanTableSetReview[], action: TableReducerAction) => {
-  switch (action.type) {
-    case 'FILTER_PROJECT_NAME':
-      return state.filter((review) => review.projectID === action.projectID.toString());
-    case 'FILTER_REVIEW_RATING':
-      return state.filter((review) => review.content.rating === action.rating);
-    case 'INITIALISE':
-      return action.payload;
-    default:
-      return state;
-  }
-};
+import { tableReducer } from './utils';
 
 /**
  * A table with headers being our filter buttons
@@ -41,9 +20,16 @@ const tableReducer = (state: HumanTableSetReview[], action: TableReducerAction) 
  * Props come from useYourReviews return val:
  * [HumanTableSetReview[], anyMetaErr,anyMetaInitiallyLoading,isEitherCompletelyIdle]
  * */
-const Main: React.FC<{ data: [HumanTableSetReview[], boolean, boolean, boolean] }> = (props) => {
+const Main: React.FC<{
+  data: [HumanTableSetReview[], boolean, boolean, boolean];
+}> = (props) => {
   const { data } = props;
-  const [searchData, isAnyDataErr, isAnyDataInitiallyLoading, isEitherDataIdle] = data;
+  const [
+    searchData,
+    isAnyDataErr,
+    isAnyDataInitiallyLoading,
+    isEitherDataIdle,
+  ] = data;
   const [activeIndex, setActiveIndex] = useState(-1);
   const [filterProjectName, setFilterProjectName] = useState(0);
   const [filterRating, setFilterRating] = useState(0);
@@ -71,43 +57,50 @@ const Main: React.FC<{ data: [HumanTableSetReview[], boolean, boolean, boolean] 
     text: review.project.metadata.name,
     value: review.projectID,
   }));
+  type ChangeArgs =Parameters<NonNullable<StrictDropdownProps["onChange"]>>;
+  type ClickArgs =[e:unknown,titleProps: {index: number}];
   // filter reducer
-  const handleProjectFilterChange = (_, _data: { value: number }) => {
-    setFilterProjectName(_data.value);
+  const handleProjectFilterChange = (...args: ChangeArgs) => {
+    const [ , _data] = args;
+
+    setFilterProjectName(Number(_data.value));
     dispatch({ type: 'INITIALISE', payload: searchData });
-    dispatch({ type: 'FILTER_PROJECT_NAME', projectID: _data.value });
+    dispatch({ type: 'FILTER_PROJECT_NAME', projectID: Number(_data.value) });
   };
 
-  const handleRatingFilterChange = (_, _data: { value: number }) => {
-    setFilterRating(_data.value);
+  const handleRatingFilterChange = (...args: ChangeArgs) => {
+    const [ , _data] = args;
+    const val = Number(_data.value);
+    setFilterRating(val);
     dispatch({ type: 'INITIALISE', payload: searchData });
-    dispatch({ type: 'FILTER_REVIEW_RATING', rating: _data.value });
+    dispatch({ type: 'FILTER_REVIEW_RATING', rating: val });
   };
 
   // accordian index
-  const handleClick = (e, titleProps: { index: number }) => {
-    const { index } = titleProps;
+  const handleClick = (...args: ClickArgs)=>{
+    const [ , titleProps] = args;
+      const { index } = titleProps;
     const newIndex = activeIndex === index ? -1 : index;
     setActiveIndex(newIndex);
   };
   return (
     <Container>
-      <Button.Group color='purple'>
+      <Button.Group color="purple">
         <Dropdown
           onChange={handleProjectFilterChange}
-          text='Filter by project'
-          icon='filter'
+          text="Filter by project"
+          icon="filter"
           floating
           labeled
           button
           options={filterProjects}
           value={filterProjectName}
-          className='icon'
+          className="icon"
         />
         <Dropdown
           onChange={handleRatingFilterChange}
-          text='Filter by rating'
-          icon='filter'
+          text="Filter by rating"
+          icon="filter"
           floating
           labeled
           button
@@ -117,41 +110,41 @@ const Main: React.FC<{ data: [HumanTableSetReview[], boolean, boolean, boolean] 
             value: rating,
           }))}
           value={filterRating}
-          className='icon'
+          className="icon"
         />
       </Button.Group>
       {/* only one active */}
 
-      <Transition.Group animation='fadeIn' duration={500}>
-        <Table verticalAlign='top' padded striped>
+      <Transition.Group animation="fadeIn" duration={500}>
+        <Table verticalAlign="top" padded striped>
           <Table.Body>
             {state.map((review, i) => {
               let label;
               switch (review.proposalStatus.status) {
                 case 'Accepted':
                   label = (
-                    <Label color='green' horizontal>
+                    <Label color="green" horizontal>
                       Accepted
                     </Label>
                   );
                   break;
                 case 'Proposed':
                   label = (
-                    <Label color='orange' horizontal>
+                    <Label color="orange" horizontal>
                       Proposed
                     </Label>
                   );
                   break;
                 case 'Rejected':
                   label = (
-                    <Label color='red' horizontal>
+                    <Label color="red" horizontal>
                       Rejected
                     </Label>
                   );
                   break;
                 default:
                   label = (
-                    <Label color='blue' horizontal>
+                    <Label color="blue" horizontal>
                       Pending
                     </Label>
                   );
@@ -159,18 +152,30 @@ const Main: React.FC<{ data: [HumanTableSetReview[], boolean, boolean, boolean] 
               }
               return (
                 <>
-                  <Table.Row key={review.projectID} onClick={(e) => handleClick(e, { index: i })}>
+                  <Table.Row
+                    key={review.projectID}
+                    onClick={(e: unknown) => handleClick(e, { index: i })}
+                  >
                     <Table.Cell>
-                      <Image src={`${review.project.metadata.icon}`} size='mini' rounded />
+                      <Image
+                        src={`${review.project.metadata.icon}`}
+                        size="mini"
+                        rounded
+                      />
                     </Table.Cell>
                     <Table.Cell>{review.project.metadata.name}</Table.Cell>
-                    <Table.Cell textAlign='right'>
+                    <Table.Cell textAlign="right">
                       <Rating fixed rating={review.content.rating} />
                     </Table.Cell>
                     <Table.Cell>{label}</Table.Cell>
-                    <Table.Cell collapsing textAlign='right'>
-                      <Button icon onClick={(e) => handleClick(e, { index: i })}>
-                        <Icon name={`chevron ${activeIndex === i ? 'up' : 'down'}`} />
+                    <Table.Cell collapsing textAlign="right">
+                      <Button
+                        icon
+                        onClick={(e) => handleClick(e, { index: i })}
+                      >
+                        <Icon
+                          name={`chevron ${activeIndex === i ? 'up' : 'down'}`}
+                        />
                       </Button>
                     </Table.Cell>
                   </Table.Row>
