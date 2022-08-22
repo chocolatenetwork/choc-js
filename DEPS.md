@@ -132,4 +132,3 @@ react-hot-toast@2.1.1
 @types/react-copy-to-clipboard@^5.0.3
 
 @hcaptcha/react-hcaptcha  "^1.4.4",
-react-identicon"^1.0.2",

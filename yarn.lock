@@ -3493,14 +3493,6 @@
   resolved "https://registry.yarnpkg.com/@zxing/text-encoding/-/text-encoding-0.9.0.tgz#fb50ffabc6c7c66a0c96b4c03e3d9be74864b70b"
   integrity sha512-U/4aVJ2mxI0aDNI8Uq0wEhMgY+u4CNtEb0om3+y3+niDAsoTCOB33UF0sxpzqzdqXLqmvc+vZyAt4O8pPdfkwA==
 
-MD5@^1.2.2:
-  version "1.3.0"
-  resolved "https://registry.yarnpkg.com/MD5/-/MD5-1.3.0.tgz#3cc266f0e89abb6b43a50f39a459df5bfde0b240"
-  integrity sha512-kDyDOgf7CECKouVCQ8tcbASPTyLMxrHxlvKBTBaXbF4eff5VYdfy4GCkCIIbAice4JGxBK+ExRD/4LdxDNXvLg==
-  dependencies:
-    charenc ">= 0.0.1"
-    crypt ">= 0.0.1"
-
 abab@^2.0.3, abab@^2.0.5:
   version "2.0.6"
   resolved "https://registry.yarnpkg.com/abab/-/abab-2.0.6.tgz#41b80f2c871d19686216b82309231cfd3cb3d291"
@@ -4112,11 +4104,6 @@ bluebird@3.7.1:
   resolved "https://registry.yarnpkg.com/bluebird/-/bluebird-3.7.1.tgz#df70e302b471d7473489acf26a93d63b53f874de"
   integrity sha512-DdmyoGCleJnkbp3nkbxTLJ18rjDsE4yCggEwKNXkeV123sPNfOCYeDoeuOY+F2FrSjO1YXcTU+dsy96KMy+gcg==
 
-bluebird@^2.9.30:
-  version "2.11.0"
-  resolved "https://registry.yarnpkg.com/bluebird/-/bluebird-2.11.0.tgz#534b9033c022c9579c56ba3b3e5a5caafbb650e1"
-  integrity sha512-UfFSr22dmHPQqPP9XWHRhq+gWnHCYguQGkXQlbyPtW5qTnhFWA8/iXg765tH0cAjy7l/zPJ1aBTO0g5XgA7kvQ==
-
 bluebird@^3.7.2:
   version "3.7.2"
   resolved "https://registry.yarnpkg.com/bluebird/-/bluebird-3.7.2.tgz#9f229c15be272454ffa973ace0dbee79a1b0c36f"
@@ -4393,11 +4380,6 @@ char-regex@^1.0.2:
   version "1.0.2"
   resolved "https://registry.yarnpkg.com/char-regex/-/char-regex-1.0.2.tgz#d744358226217f981ed58f479b1d6bcc29545dcf"
   integrity sha512-kWWXztvZ5SBQV+eRgKFeh8q5sLuZY2+8WUIzlxWVTg+oGwY14qylx1KbKzHd8P6ZYkAg0xyIDU9JMHhyJMZ1jw==
-
-"charenc@>= 0.0.1":
-  version "0.0.2"
-  resolved "https://registry.yarnpkg.com/charenc/-/charenc-0.0.2.tgz#c0a1d2f3a7092e03774bfa83f14c0fc5790a8667"
-  integrity sha512-yrLQ/yVUFXkzg7EDQsPieE/53+0RlaWTs+wBrvW36cyilJ2SaDWfl4Yj7MtLTXleV9uEKefbAGUPv2/iWSooRA==
 
 check-more-types@^2.24.0:
   version "2.24.0"
@@ -4770,11 +4752,6 @@ cross-spawn@^7.0.0, cross-spawn@^7.0.2, cross-spawn@^7.0.3:
     path-key "^3.1.0"
     shebang-command "^2.0.0"
     which "^2.0.1"
-
-"crypt@>= 0.0.1":
-  version "0.0.2"
-  resolved "https://registry.yarnpkg.com/crypt/-/crypt-0.0.2.tgz#88d7ff7ec0dfb86f713dc87bbb42d044d3e6c41b"
-  integrity sha512-mCxBlsHFYh9C+HVpiEacem8FEBnMXgU9gy4zmNC+SXAZNB/1idgp/aulFJ4FgCi7GPEVbfyng092GqL2k2rmow==
 
 css-declaration-sorter@^6.3.0:
   version "6.3.0"
@@ -8358,11 +8335,6 @@ lodash.uniq@^4.5.0:
   resolved "https://registry.yarnpkg.com/lodash.uniq/-/lodash.uniq-4.5.0.tgz#d0225373aeb652adc1bc82e4945339a842754773"
   integrity sha512-xfBaXQd9ryd9dlSDvnvI0lvxfLJlYAZzXomUYzLKtUeOQvOP5piqAWuGtrhWeqaXK9hhoM/iyJc5AV+XfsX3HQ==
 
-lodash@^3.9.3:
-  version "3.10.1"
-  resolved "https://registry.yarnpkg.com/lodash/-/lodash-3.10.1.tgz#5bf45e8e49ba4189e17d482789dfd15bd140b7b6"
-  integrity sha512-9mDDwqVIma6OZX79ZlDACZl8sBm0TEnkf99zV3iMA4GzkIT/9hiqP5mY0HoT1iNLCrKc/R1HByV+yJfRWVJryQ==
-
 lodash@^4.17.14, lodash@^4.17.20, lodash@^4.17.21, lodash@^4.7.0:
   version "4.17.21"
   resolved "https://registry.yarnpkg.com/lodash/-/lodash-4.17.21.tgz#679591c564c3bffaae8454cf0b3df370c3d6911c"
@@ -9821,11 +9793,6 @@ punycode@^2.1.0, punycode@^2.1.1:
   resolved "https://registry.yarnpkg.com/punycode/-/punycode-2.1.1.tgz#b58b010ac40c22c5657616c8d2c2c02c7bf479ec"
   integrity sha512-XRsRjdf+j5ml+y/6GKHPZbrF/8p2Yga0JPtdqTIY2Xe5ohJPD9saDJJLPvp9+NSBprVvevdXZybnj2cv8OEd0A==
 
-pure-render-decorator@^0.1.0:
-  version "0.1.0"
-  resolved "https://registry.yarnpkg.com/pure-render-decorator/-/pure-render-decorator-0.1.0.tgz#3cb2e29f282138e833667252117fd9ae0390b859"
-  integrity sha512-WAKH5gWwWRcQ9HUrXJRgz9HuY/vI7gragJmhKd8wKlvj+ae7DZG46IYcTqcYLpM1OyWuzqjrQzyS6YO6SRNeMw==
-
 qs@6.10.3:
   version "6.10.3"
   resolved "https://registry.yarnpkg.com/qs/-/qs-6.10.3.tgz#d6cde1b2ffca87b5aa57889816c5f81535e22e8e"
@@ -9907,17 +9874,6 @@ react-hot-toast@2.1.1:
   integrity sha512-Odrp4wue0fHh0pOfZt5H+9nWCMtqs3wdlFSzZPp7qsxfzmbE26QmGWIh6hG43CukiPeOjA8WQhBJU8JwtWvWbQ==
   dependencies:
     goober "^2.0.35"
-
-react-identicon@^1.0.2:
-  version "1.0.2"
-  resolved "https://registry.yarnpkg.com/react-identicon/-/react-identicon-1.0.2.tgz#79ee46541e3665c873733b113496e71ea6a87264"
-  integrity sha512-aiJivs6CD5u1yUEzYsZMphAZYAwAbO+u5XGj1V8tb1ayQa/Rfl0yKGhEj81i19yCzKgJh0hKvd7Hu8dpXImEYQ==
-  dependencies:
-    MD5 "^1.2.2"
-    bluebird "^2.9.30"
-    lodash "^3.9.3"
-    pure-render-decorator "^0.1.0"
-    should "^6.0.3"
 
 "react-is@^16.12.0 || ^17.0.0 || ^18.0.0", "react-is@^16.8.6 || ^17.0.0 || ^18.0.0", react-is@^18.2.0:
   version "18.2.0"
@@ -10581,34 +10537,6 @@ shebang-regex@^3.0.0:
   version "3.0.0"
   resolved "https://registry.yarnpkg.com/shebang-regex/-/shebang-regex-3.0.0.tgz#ae16f1644d873ecad843b0307b143362d4c42172"
   integrity sha512-7++dFhtcx3353uBaq8DDR4NuxBetBzC7ZQOhmTQInHEd6bSrXdiEyzCvG07Z44UYdLShWUyXt5M/yhz8ekcb1A==
-
-should-equal@0.3.1:
-  version "0.3.1"
-  resolved "https://registry.yarnpkg.com/should-equal/-/should-equal-0.3.1.tgz#bd8ea97a6748e39fad476a3be6fd72ebc2e72bf0"
-  integrity sha512-/Q/o9EL9CJlCsy817ZkcQVlyUzyeWUxS9HkXUrqv4tTg+aOXEwvOpR1odT0K9DwcMA0gCy452K71YJA1E6K1mQ==
-  dependencies:
-    should-type "0.0.4"
-
-should-format@0.0.7:
-  version "0.0.7"
-  resolved "https://registry.yarnpkg.com/should-format/-/should-format-0.0.7.tgz#1e2ef86bd91da9c2e0412335b56ababd9a2fde12"
-  integrity sha512-8oNurKotJEQy+HboLxAHkgKQ+dRfV9TmVAvcY3He1RdnE994M39JTmkCt67cWaygVLKUfBcLRITkpHy2Hsgwcg==
-  dependencies:
-    should-type "0.0.4"
-
-should-type@0.0.4:
-  version "0.0.4"
-  resolved "https://registry.yarnpkg.com/should-type/-/should-type-0.0.4.tgz#0132a05417a6126866426acf116f1ed5623a5cd0"
-  integrity sha512-ve9tkv/i29COtupPlu2g4SXGefgSTjDTBI8d5UgSmT52T9T5VBpZY9/Ygn5Pb3dcCaiMyEzBAxBkpUGxEbbMDw==
-
-should@^6.0.3:
-  version "6.0.3"
-  resolved "https://registry.yarnpkg.com/should/-/should-6.0.3.tgz#daee30786a557662fbc774c008d7c58791edb1d9"
-  integrity sha512-ksCle9zSaEu6dgeWRf63+l7yQ+4VdUdXju/5LIJmYL8ehc3Ssfjvs3pmSFbgOCPPzmFWblouyaUxyYgJKtM1TQ==
-  dependencies:
-    should-equal "0.3.1"
-    should-format "0.0.7"
-    should-type "0.0.4"
 
 side-channel@^1.0.4:
   version "1.0.4"

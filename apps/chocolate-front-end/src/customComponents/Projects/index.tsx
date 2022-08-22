@@ -1,6 +1,6 @@
 /* eslint-disable react/prop-types */
 // type imports
-import Identicon from 'react-identicon';
+import Identicon from '../../common/components/Identicon';
 import { AnyNumber } from '@polkadot/types/types';
 // default imports
 import { useEffect, useState } from 'react';
@@ -109,6 +109,7 @@ const ProjectView: React.FC<{ data: HumanNewProjectWithIndex }> = function (
   return (
     <section className="project">
       <Identicon
+      type="Identicon"
         // key={`substrate_icon_${ownerID}`}
         id={ownerID.toString()}
         size={48}
