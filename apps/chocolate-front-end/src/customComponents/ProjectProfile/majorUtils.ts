@@ -41,6 +41,6 @@ const getCid = async function (reviewText: string, rating: number): Promise<GetC
   if (err) throw err;
   const ccid = (await cid.json()) as PinServerRes;
   const returnable = ccid?.success;
-  return { cid: returnable };
+  return { cid: returnable ?? '' };
 };
 export { getCid };

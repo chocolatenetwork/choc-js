@@ -192,7 +192,7 @@ const ProjectProfile: PrProf = function (props) {
   const { accountAddress: addr } = userData;
   // error handle
   let canReview = true;
-  if (data.ownerID.eq(addr)) canReview = false;
+  if (data.ownerId.eq(addr)) canReview = false;
 
   // The resulting list can then be rendered by the ReviewReel component.
   // Generally, for the state machine, rendering priority happens like this: 1. if there's an error and reviews are unavailable, render err msg.

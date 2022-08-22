@@ -67,7 +67,7 @@ const Login: React.FC = function () {
   }
   useEffect(() => {
     if (loginMutation.status === 'success') {
-      auth.login({ publicKey: loginMutation.data.publicKey });
+      auth.login({ publicKey: loginMutation.data.publicKey ??'' });
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [loginMutation.status, loginMutation.data]);

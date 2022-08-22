@@ -1,19 +1,10 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<svg width="8.0166mm" height="8.0166mm" version="1.1" viewBox="0 0 8.0166 8.0166" xmlns="http://www.w3.org/2000/svg" xmlns:cc="http://creativecommons.org/ns#" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+<svg width="8.0166mm" height="8.0166mm" version="1.1" viewBox="0 0 8.0166 8.0166" xmlns="http://www.w3.org/2000/svg">
  <defs>
   <clipPath id="clipPath987">
    <path d="m0 0h96.875v96.875h-96.875z" clip-rule="evenodd"/>
   </clipPath>
  </defs>
- <metadata>
-  <rdf:RDF>
-   <cc:Work rdf:about="">
-    <dc:format>image/svg+xml</dc:format>
-    <dc:type rdf:resource="http://purl.org/dc/dcmitype/StillImage"/>
-    <dc:title/>
-   </cc:Work>
-  </rdf:RDF>
- </metadata>
+ 
  <g transform="translate(-187.19 -82.301)">
   <g transform="matrix(.084667 0 0 .084667 187.1 82.21)">
    <g clip-path="url(#clipPath987)">

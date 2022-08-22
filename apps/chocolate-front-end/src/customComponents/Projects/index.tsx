@@ -12,7 +12,9 @@ import Pensive from '../../assets/pensive-face-emoji.svg';
 import { HumanNewProjectWithIndex } from '../../typeSystem/jsonTypes';
 // styles
 import './projects.css';
-
+const voidFn = () => {
+  return;
+};
 type ReactNumberDis = React.Dispatch<React.SetStateAction<number>>;
 /** @description rating component, optionally interactive */
 export const Rating: React.FC<{
@@ -24,7 +26,7 @@ export const Rating: React.FC<{
 }> = function (props) {
   const { fixed } = props;
   // eslint-disable-next-line react/destructuring-assignment
-  const [rating, setOuterRate] = [props.rating, props.setOuterRate];
+  const [rating, setOuterRate = voidFn] = [props.rating, props.setOuterRate];
   const [rated, setRated] = useState(0);
   const [hover, setHover] = useState(0);
   // debug
