@@ -81,9 +81,9 @@ So as to ensure that updates are easier to do in this repository, dependencies a
 
     @polkadot/util@^10.1.3
     @polkadot/util-crypto@^10.1.3
-    @polkadot/apps-config@^0.120.1,
 
     @open-web3/orml-type-definitions@2.0.1
+    @polkadot/extension-dapp@^0.44.6, - passto managing extss
 ```
 ```log
    <!-- Polkadot api at https://github.com/polkadot-js/api/commit/f0c45733eef590e785ff13ba701a6f0dcae05dc1  -->

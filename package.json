@@ -11,6 +11,7 @@
     "@mantine/hooks": "^5.2.3",
     "@open-web3/orml-type-definitions": "^2.0.1",
     "@polkadot/api": "^9.1.1",
+    "@polkadot/extension-dapp": "^0.44.6",
     "@polkadot/keyring": "^10.1.3",
     "@polkadot/networks": "10.1.3",
     "@polkadot/typegen": "9.1.1",
