@@ -1,6 +1,6 @@
 import { Message, MessageProps } from 'semantic-ui-react';
 
-type Stat = 'sending' | 'error' | 'finalized';
+type Stat = 'sending' | 'error' | 'finalized'|"init";
 const FinalNotif: React.FC<{ state: Stat; status: string }> = function (props) {
   const { status, state } = props;
   const msgProps: MessageProps = { positive: undefined, error: undefined };

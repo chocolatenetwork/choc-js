@@ -36,7 +36,7 @@ const AuthReducer: Reducer<AuthReducerState, AuthReducerActions> = (state, actio
     case 'LOGIN':
       return {
         isAuthenticated: true,
-        user: action.payload.user,
+        user: action.payload ? action.payload.user : { publicKey: '' },
       };
     case 'LOGOUT':
       return {

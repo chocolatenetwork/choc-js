@@ -19,9 +19,9 @@ const SubmitReviewTx: React.FC<{ id: string; cid: string; rating: number }> = (p
   const [run, setRun] = useState(false);
   const [event, setEvents] = useState<EventRecord[]>();
   const { keyringState, keyring } = useSubstrate();
-  const [stat, setStat] = useState<
-    'sending' | 'error' | 'finalized' | undefined
-  >(undefined);
+  const [stat, setStat] = useState<'sending' | 'error' | 'finalized' | 'init'>(
+    'init'
+  );
   useLoadAccounts(run, setRun);
   const { data: txFee } = useReviewSend({ id, cid, rating }, userData.accountAddress);
   useEffect(() => {
