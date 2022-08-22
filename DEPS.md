@@ -70,7 +70,7 @@ So as to ensure that updates are easier to do in this repository, dependencies a
     stream-browserify@^3.0.0 
 ```
 ```log
-<!-- Ours at Aug 6th 2022 -->
+<!-- Ours at Aug 20th 2022 -->
     @polkadot/api@^9.1.1
     @polkadot/keyring@^10.1.3
     @polkadot/types@^9.1.1
@@ -81,6 +81,7 @@ So as to ensure that updates are easier to do in this repository, dependencies a
 
     @polkadot/util@^10.1.3
     @polkadot/util-crypto@^10.1.3
+    @polkadot/apps-config@^0.120.1,
 
     @open-web3/orml-type-definitions@2.0.1
 ```
@@ -113,4 +114,6 @@ So as to ensure that updates are easier to do in this repository, dependencies a
     @types/json-stable-stringify@^1.0.34
     ajv@^8.11.0
 
-#### Front
+#### Frontend
+
+ipfs-http-client@49.0.0
