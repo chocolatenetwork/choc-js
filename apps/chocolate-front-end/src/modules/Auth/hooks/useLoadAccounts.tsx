@@ -17,6 +17,7 @@ export function useLoadAccounts(
       doRun();
       return () => setRun(false);
     }
+    return ()=>{return;}
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [run]);
 }

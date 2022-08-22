@@ -16,8 +16,9 @@ const useReviewSend: RevSend = function (txData, account) {
   const { api } = useContext(SubstrateReadyCTX);
   const [fee, setFee] = useState('..loading fee..');
   const getPaymentInfo = async function () {
+    // Todo: Accept different methods
     const paymentInfo = await api.tx.chocolateModule
-      .createReview([rating, cid], id)
+      .createReview([rating, cid], id,"DOT")
       .paymentInfo(account);
     const retFee = paymentInfo.partialFee.toHuman();
     setFee(retFee);
