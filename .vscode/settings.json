@@ -6,5 +6,6 @@
     "genesis",
     "ipfs",
     "move"
-  ]
+  ],
+  "typescript.tsdk": "node_modules/typescript/lib"
 }

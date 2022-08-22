@@ -1,6 +1,6 @@
 /* eslint-disable react/prop-types */
 // type imports
-import Identicon from '@polkadot/react-identicon';
+import Identicon from 'react-identicon';
 import { AnyNumber } from '@polkadot/types/types';
 // default imports
 import { useEffect, useState } from 'react';
@@ -18,7 +18,9 @@ type ReactNumberDis = React.Dispatch<React.SetStateAction<number>>;
 export const Rating: React.FC<{
   rating?: AnyNumber;
   fixed: boolean;
-  setOuterRate?: ReactNumberDis | ((rate: number) => ReturnType<ReactNumberDis>);
+  setOuterRate?:
+    | ReactNumberDis
+    | ((rate: number) => ReturnType<ReactNumberDis>);
 }> = function (props) {
   const { fixed } = props;
   // eslint-disable-next-line react/destructuring-assignment
@@ -35,7 +37,7 @@ export const Rating: React.FC<{
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [fixed, rated]);
   return (
-    <section className='review-wrap'>
+    <section className="review-wrap">
       {
         // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
         Array.from(Array(5)).map((undef, i) => {
@@ -44,18 +46,20 @@ export const Rating: React.FC<{
           return (
             <label key={`choc_bar${currentRating}`}>
               <input
-                className='rate'
-                type='radio'
-                name='Rating'
+                className="rate"
+                type="radio"
+                name="Rating"
                 value={currentRating}
                 onClick={!fixed ? () => setRated(currentRating) : undefined}
               />
               <img
                 src={ChocolateRedSmall}
-                alt='Rating'
-                onMouseEnter={!fixed ? () => setHover(currentRating) : undefined}
+                alt="Rating"
+                onMouseEnter={
+                  !fixed ? () => setHover(currentRating) : undefined
+                }
                 onMouseLeave={!fixed ? () => setHover(0) : undefined}
-                className='rate_choc'
+                className="rate_choc"
                 style={{
                   opacity: `${currentRating <= (hover || rated) ? 1 : 0.5}`,
                 }}
@@ -64,48 +68,51 @@ export const Rating: React.FC<{
           );
         })
       }
-      <Label pointing='left' color='purple'>
+      <Label pointing="left" color="purple">
         {rated.toPrecision(2)}
       </Label>
     </section>
   );
 };
 /** @description Houses a single project */
-const ProjectView: React.FC<{ data: HumanNewProjectWithIndex }> = function (props) {
+const ProjectView: React.FC<{ data: HumanNewProjectWithIndex }> = function (
+  props
+) {
   const { data } = props;
   const { Id, project } = data;
   const { ownerID, proposalStatus, metadata } = project;
   const { name } = metadata;
   const { status } = proposalStatus;
-  let rateBar = <></>;
-  let toProject: JSX.Element = <></>;
+  let rateBar: JSX.Element;
+  let toProject: JSX.Element;
   if (status === 'Accepted') {
-    const rating = Number(project.totalReviewScore) / Number(project.numberOfReviews);
+    const rating =
+      Number(project.totalReviewScore) / Number(project.numberOfReviews);
     rateBar = <Rating rating={rating} fixed />;
     toProject = (
       <Button
         as={Link}
         to={`/project/${Id}`}
-        color='brown'
+        color="brown"
         icon
-        labelPosition='right'
-        size='medium'
-        role='link'
+        labelPosition="right"
+        size="medium"
+        role="link"
       >
         To Project
-        <Icon name='arrow right' />
+        <Icon name="arrow right" />
       </Button>
     );
   }
   return (
-    <section className='project'>
+    <section className="project">
       <Identicon
-        key={`substrate_icon_${ownerID}`}
-        value={ownerID.toString()}
+        // key={`substrate_icon_${ownerID}`}
+        id={ownerID.toString()}
         size={48}
-        theme='substrate'
+        // theme='substrate'
       />
-      <div className='description'>
+      <div className="description">
         <h2>{name}</h2>
         {rateBar}
       </div>

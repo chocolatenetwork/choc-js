@@ -2,17 +2,18 @@
 /* eslint-disable import/no-unresolved */
 import { useSubstrate } from 'chocolate/substrate-lib';
 /* eslint-enable import/no-unresolved */
-import { useEffect } from 'react';
+import { useEffect, useContext } from 'react';
 import toast from 'react-hot-toast';
 import { Link } from 'react-router-dom';
 import ChocolateRedBig from '../../assets/chocolate-red-big.svg';
 import { SearchBar } from './components/SearchBar';
 import { useSearchData } from './hooks';
 import './project.css';
+import {SubstrateReadyCTX}from 'chocolate/Layouts/app/InnerAppProvider';
 
 /** @description Redo of the projects page */
 const ProjectsRe: React.FC = function () {
-  const { api } = useSubstrate();
+  const { api } = useContext(SubstrateReadyCTX);
 
   const searchData = useSearchData(api);
   const [data, isAnyError] = searchData;

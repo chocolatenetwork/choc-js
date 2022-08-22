@@ -19,7 +19,9 @@ const SubmitReviewTx: React.FC<{ id: string; cid: string; rating: number }> = (p
   const [run, setRun] = useState(false);
   const [event, setEvents] = useState<EventRecord[]>();
   const { keyringState, keyring } = useSubstrate();
-  const [stat, setStat] = useState<'sending' | 'error' | 'finalized'>(undefined);
+  const [stat, setStat] = useState<
+    'sending' | 'error' | 'finalized' | undefined
+  >(undefined);
   useLoadAccounts(run, setRun);
   const { data: txFee } = useReviewSend({ id, cid, rating }, userData.accountAddress);
   useEffect(() => {
@@ -51,7 +53,7 @@ const SubmitReviewTx: React.FC<{ id: string; cid: string; rating: number }> = (p
       <TxButton
         color='purple'
         disabled={!cid && !accountPair ? true : undefined}
-        accountPair={accountPair.meta ? accountPair : undefined}
+        accountPair={accountPair && accountPair.meta ? accountPair : undefined}
         label='Submit'
         type='SIGNED-TX'
         setEvent={setEvents}
@@ -63,7 +65,7 @@ const SubmitReviewTx: React.FC<{ id: string; cid: string; rating: number }> = (p
           paramFields: [true, true],
         }}
       />
-      <details placeholder='Events'>{event?.length > 0 && <EventView event={event} />}</details>
+      <details placeholder='Events'>{event&&event.length > 0 && <EventView event={event} />}</details>
       {/* What we need, but not yet. 
       {stat === 'sending' && (
         <Dimmer active>
