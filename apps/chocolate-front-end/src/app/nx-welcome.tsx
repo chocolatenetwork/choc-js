@@ -15,7 +15,7 @@ async function testApi(
   // This call is typed
   console.log((await api.query['chocolateModule']['projects'](1)).toHuman());
   console.log('Established ApiPromise');
-  const l = await api.query['chocolateModule']['projects'](1);
+  const l = await api.query.chocolateModule.projects(1);
   const t = l.unwrapOrDefault();
 
   console.log(t.toPrimitive());

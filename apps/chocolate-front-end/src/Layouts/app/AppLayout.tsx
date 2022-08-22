@@ -20,9 +20,9 @@ export function AppLayout(): JSX.Element {
     <InnerAppProvider api={substrState.api}>
       <AppShell header={<MenuBar />}>
         <AppRoutes />
-        <Toaster position='bottom-right' />
-        {process.env.NODE_ENV === 'development' && <ReactQueryDevtools />}
-        {process.env.NODE_ENV === 'development' && <DeveloperConsole />}
+        <Toaster position="bottom-right" />
+        {process.env['NODE_ENV'] === 'development' && <ReactQueryDevtools />}
+        {process.env['NODE_ENV'] === 'development' && <DeveloperConsole />}
       </AppShell>
     </InnerAppProvider>
   );

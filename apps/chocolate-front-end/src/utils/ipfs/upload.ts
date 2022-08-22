@@ -1,4 +1,4 @@
-import { AuthIpfsEndpoint } from '@polkadot/apps-config';
+import { AuthIpfsEndpoint } from './types';
 import { getAuthIPFSEndpoints, getPinEndpoints } from './endpoints';
 import create from 'ipfs-http-client';
 
