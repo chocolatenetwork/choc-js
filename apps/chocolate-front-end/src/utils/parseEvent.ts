@@ -63,7 +63,7 @@ function handleFailed(api: ApiPromise, event: FailureEvent): ParsedEvent {
 type Writeable<T> = { -readonly [P in keyof T]: T[P] };
 export type EvType = 'Failed' | 'Success';
 // eslint-disable-next-line @typescript-eslint/no-explicit-any, @typescript-eslint/no-unused-vars
-type GuardedType<T> = T extends (x: any) => x is infer T ? T : never;
+export type GuardedType<T> = T extends (x: any) => x is infer T ? T : never;
 type IsSuccessEvent =
   AugmentedEvents<'promise'>['system']['ExtrinsicSuccess']['is'];
 type IsFailureEvent =
