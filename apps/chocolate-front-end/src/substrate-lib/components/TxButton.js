@@ -5,7 +5,11 @@ import { web3FromSource } from '@polkadot/extension-dapp';
 
 import { useSubstrate } from '../';
 import utils from '../utils';
-
+/**
+ * 
+ * @type {(props:import('./TxButtonTypes').TxButtonProps)=>JSX.Element} param0 
+ * 
+ */
 function TxButton ({
   accountPair = null,
   setEvent= (events)=>{console.log(events)},
@@ -27,7 +31,7 @@ function TxButton ({
   const isQuery = () => type === 'QUERY';
   const isSudo = () => type === 'SUDO-TX';
   const isUncheckedSudo = () => type === 'UNCHECKED-SUDO-TX';
-  const isUnsigned = () => type === 'UNSIGNED-TX';
+  const isUnsigned = () => type === 'UNCHECKED-SUDO-TX';
   const isSigned = () => type === 'SIGNED-TX';
   const isRpc = () => type === 'RPC';
   const isConstant = () => type === 'CONSTANT';

@@ -1,7 +1,7 @@
 import HCaptcha from '@hcaptcha/react-hcaptcha';
 /* eslint-disable import/no-unresolved */
-import { ApiErr, errorHandled } from 'chocolate/customComponents/utils';
-import { useAuthService } from 'chocolate/polkadot-apac-hackathon/common/providers/authProvider';
+import { ApiErr, errorHandled } from '../../../customComponents/utils';
+import { useAuthService } from '../../../polkadot-apac-hackathon/common/providers/authProvider';
 /* eslint-enable import/no-unresolved */
 import { ChangeEvent, FormEvent, useEffect, useRef, useState } from 'react';
 import toast from 'react-hot-toast';
@@ -91,7 +91,7 @@ const Login: React.FC = function () {
   const handleSubmit: (e: FormEvent<HTMLFormElement>, data: FormProps) => void = (e) => {
     e.preventDefault();
     if (!form.captcha) {
-      captchaRef.current.execute();
+      captchaRef?.current?.execute();
       return;
     }
     loginMutation.mutate(form);

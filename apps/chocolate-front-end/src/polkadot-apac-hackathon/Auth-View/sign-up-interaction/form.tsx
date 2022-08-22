@@ -1,7 +1,7 @@
 import HCaptcha from '@hcaptcha/react-hcaptcha';
 /* eslint-disable import/no-unresolved */
-import config from 'chocolate/config';
-import { ApiErr, errorHandled } from 'chocolate/customComponents/utils';
+import config from '../../../config';
+import { ApiErr, errorHandled } from '../../..//customComponents/utils';
 import { ChangeEvent, FormEvent, useRef, useState } from 'react';
 import toast from 'react-hot-toast';
 import { useMutation } from 'react-query';
@@ -103,7 +103,7 @@ const SignUp: React.FC = function () {
   const handleSubmit: (e: FormEvent<HTMLFormElement>, data: FormProps) => void = (e) => {
     e.preventDefault();
     if (!form.captcha) {
-      captchaRef.current.execute();
+      captchaRef?.current?.execute();
       return;
     }
     signUpMutation.mutate(form);

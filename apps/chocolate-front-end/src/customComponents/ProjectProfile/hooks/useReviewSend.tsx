@@ -1,6 +1,6 @@
 /* eslint-disable import/no-unresolved */
 import { AddressOrPair } from '@polkadot/api/types';
-import { SubstrateReadyCTX } from 'chocolate/Layouts/app/InnerAppProvider';
+import { SubstrateReadyCTX } from '../../../Layouts/app/InnerAppProvider';
 import { useContext, useState } from 'react';
 import config from '../../../config';
 

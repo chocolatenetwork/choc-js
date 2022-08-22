@@ -85,8 +85,8 @@ const ProjectView: React.FC<{ data: HumanNewProjectWithIndex }> = function (
   const { ownerID, proposalStatus, metadata } = project;
   const { name } = metadata;
   const { status } = proposalStatus;
-  let rateBar: JSX.Element;
-  let toProject: JSX.Element;
+  let rateBar: JSX.Element=<>loading...</>;
+  let toProject: JSX.Element = <>loading...</>;
   if (status === 'Accepted') {
     const rating =
       Number(project.totalReviewScore) / Number(project.numberOfReviews);

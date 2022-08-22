@@ -12,7 +12,7 @@ const AuthContext = createContext({
   },
   login: (user: { publicKey: string }) =>
     isDebug && console.error('Login context not initialised properly', user),
-  logout: () => {},
+  logout: () => {return;},
   // Use this to run the user skeleton. State handled by auth query's initial run.
   isInitiallyLoading: true,
 });
