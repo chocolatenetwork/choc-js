@@ -5,6 +5,7 @@ import { useCid } from '../hooks';
 import type { CacheAction, Stage1Cache } from './SubmitReviewForm';
 
 export interface CheckCidProps extends Stage1Cache {
+
   isAuthenticated: boolean;
   dispatchCache: React.Dispatch<CacheAction>;
 }

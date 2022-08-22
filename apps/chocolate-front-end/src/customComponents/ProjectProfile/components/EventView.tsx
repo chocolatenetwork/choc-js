@@ -43,26 +43,3 @@ const EventView: React.FC<{ event: EventRecord[] }> = function (props) {
   return <List divided>{view}</List>;
 };
 export { EventView };
-/**
- * Assuming all dispatchErrs represent {kind:{error:n, index:n}}, this function strips kind and converts each n to a BN then passes it to registry.findMetaErr of same obj.
- * Awaiting tests for usability with all DispatchErrs
- */
-// eslint-disable-next-line
-function findAnyMetaErr(t: DispatchError) {
-  const metaErr = t.registry.findMetaError(
-    // Inner object.entries returns [["ErrName", errObj]].
-    // [0] strips to ["ErrName", errObj] , grab errObj with [1].
-    Object.entries(Object.entries(t.toJSON())[0][1])
-      .map((e) => [e[0], new BN(e[1] as number)] as [string, BN])
-      .reduce(
-        (prev, curr) => {
-          const [f, s] = curr;
-          prev[f] = s;
-          return prev;
-        },
-        // Err cond.
-        { error: new BN(-1), index: new BN(-1) } as { [x: string]: BN; error: BN; index: BN }
-      )
-  );
-  return metaErr;
-}

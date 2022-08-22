@@ -9,7 +9,7 @@ export interface RawFormData {
   comment: string;
 }
 export interface LocalFormProps {
-  projectName: string;
+  projectName?: string;
   id: string;
   dispatchCache: React.Dispatch<CacheAction>;
   cachedForm: RawFormData;

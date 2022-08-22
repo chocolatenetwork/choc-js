@@ -3,11 +3,10 @@
 // prettier-ignore
 import { isJsonObject } from '@polkadot/util';
 import config from 'chocolate/config';
-import { ReviewID } from 'chocolate/interfaces';
 import { combineLimit } from './rateLimit';
 // construct promise wrapper around localstorage
-const asyncCacheLocal = (key: string, value: string) =>
-  Promise.resolve().then(()=>localStorage.setItem(key, value));
+const asyncCacheLocal = (key: string, value: string): Promise<void> =>
+  Promise.resolve().then(() => localStorage.setItem(key, value)).catch(()=>{});
 const asyncGetLocal = (key: string) => {
   const prom = new Promise<string>((resolve, reject) => {
     const value = localStorage.getItem(key);
@@ -20,12 +19,7 @@ const asyncGetLocal = (key: string) => {
   return prom;
 };
 
-const sortReviewIDs =  function(a:ReviewID,b:ReviewID){
-      const sb  = a.sub(b);
-      if (sb.isNeg()) return -1
-      if(sb.isZero()) return 0
-      return 1
-}
+
 const toPinataFetch = function(link:string){
   return `${config.IPFS_CAT_URL}/${link}`
 }
@@ -83,6 +77,12 @@ async function errorHandled<type = Response>(
 
 
 type errType = { status: boolean; content: string[] };
-export { errorHandled, toPinataFetch, sortReviewIDs as sortAnyNum, asyncCacheLocal, asyncGetLocal, limitedPinataFetch };
+export {
+  errorHandled,
+  toPinataFetch,
+  asyncCacheLocal,
+  asyncGetLocal,
+  limitedPinataFetch,
+};
 export type { errType };
 
