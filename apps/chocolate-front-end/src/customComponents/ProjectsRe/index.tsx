@@ -1,6 +1,5 @@
 /* eslint-disable react/prop-types */
 /* eslint-disable import/no-unresolved */
-import { useSubstrate } from 'chocolate/substrate-lib';
 /* eslint-enable import/no-unresolved */
 import { useEffect, useContext } from 'react';
 import toast from 'react-hot-toast';
@@ -9,7 +8,7 @@ import ChocolateRedBig from '../../assets/chocolate-red-big.svg';
 import { SearchBar } from './components/SearchBar';
 import { useSearchData } from './hooks';
 import './project.css';
-import {SubstrateReadyCTX}from 'chocolate/Layouts/app/InnerAppProvider';
+import {SubstrateReadyCTX}from '../../Layouts/app/InnerAppProvider';
 
 /** @description Redo of the projects page */
 const ProjectsRe: React.FC = function () {

@@ -5,7 +5,7 @@
 import { ApiPromise } from '@polkadot/api';
 import { VoidFn } from '@polkadot/api/types';
 import { Option, U32 } from '@polkadot/types';
-import { SubstrateReadyCTX } from 'chocolate/Layouts/app/InnerAppProvider';
+import { SubstrateReadyCTX } from '../../../Layouts/app/InnerAppProvider';
 import {
   HumanChainProject,
   HumanChainReview,
@@ -14,7 +14,7 @@ import {
   NewMetaData,
   ReviewContent,
   ReviewKeyAl,
-} from 'chocolate/typeSystem/jsonTypes';
+} from '../../../typeSystem/jsonTypes';
 /* eslint-enable import/no-unresolved */
 import { useContext, useEffect, useMemo } from 'react';
 import { useQueries, useQuery, useQueryClient, UseQueryResult } from 'react-query';
@@ -125,7 +125,8 @@ export default function useProject(id: string): UseQueryResult<[ProjectAl, Proje
 // Fix: Include some randomness so the queries go out of sync
 const retrieveProjectMeta = async function ([pr, id]: [ProjectAl, ProjectID]) {
   // Get metadata
-  const res = await errorHandled(limitedPinataFetch(pr.metadata.toJSON()));
+  console.log("Project Metadata", pr.metadata.toHuman())
+  const res = await errorHandled(limitedPinataFetch(pr.metadata.toHuman() as string));
   if (res[1]) throw res[1];
   const json = await errorHandled<NewMetaData>(res[0].json());
   if (json[1]) throw json[1];
@@ -148,7 +149,7 @@ const retrieveProjectMeta = async function ([pr, id]: [ProjectAl, ProjectID]) {
 const useProjectWithMetadata = function ([v, k]: [ProjectAl, ProjectID], shouldFire: boolean) {
   return useQuery({
     // Concern: Using metadata CID could produce redundant queries if changes happen frequently.
-    queryKey: ['Project', 'Metadata', k.toJSON(), v.metadata.toJSON()],
+    queryKey: ['Project', 'Metadata', k.toJSON(), v.metadata.toHuman()],
     queryFn: () => retrieveProjectMeta([v, k]),
     enabled: shouldFire,
     staleTime: Infinity,
@@ -168,7 +169,7 @@ const useReviewKeys = function (api: ApiPromise, id: ProjectID) {
   };
   return useQuery(['Review Keys', id.toJSON()], serKeys, {
     // Reasonably, every block-time
-    refetchInterval: 6500,
+    refetchInterval: 13000,
   });
 };
 
@@ -258,7 +259,7 @@ export const useReviewsSubscription = function (
 /**  Fetch fx for next hook. Extracted to try and fix sync err. */
 const retrieveReviewMeta = async function ([rev]: [ReviewAl, ReviewKeyAl]) {
   // Get metadata
-  const res = await errorHandled(limitedPinataFetch(rev.content.toJSON()));
+  const res = await errorHandled(limitedPinataFetch(rev.content.toHuman() as string));
   if (res[1]) throw res[1];
   const json = await errorHandled<ReviewContent>(res[0].json());
   if (json[1]) throw json[1];
@@ -280,7 +281,7 @@ export const useReviewsWithMetadata = function (
   return useQueries(
     reviews.map(([v, k]) => ({
       // Same concern about depracation. Use ownerId instead. Don't want to leave old.
-      queryKey: ['Review', 'Metadata', k[1].toJSON(), k[0].toJSON(), v.content.toJSON()],
+      queryKey: ['Review', 'Metadata', k[1].toJSON(), k[0].toJSON(), v.content.toHuman() ],
       queryFn: () => retrieveReviewMeta([v, k]),
       enabled: shouldFire,
       staleTime: Infinity,

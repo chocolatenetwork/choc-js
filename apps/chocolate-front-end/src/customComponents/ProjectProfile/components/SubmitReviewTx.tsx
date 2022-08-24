@@ -1,3 +1,4 @@
+import { Select } from '@mantine/core';
 import { EventRecord } from '@polkadot/types/interfaces';
 import { useEffect, useState } from 'react';
 import { Button, Container, Header } from 'semantic-ui-react';
@@ -13,6 +14,7 @@ import { FinalNotif } from './FinalNotif';
 /** Submit review data as transaction */
 const SubmitReviewTx: React.FC<{ id: string; cid: string; rating: number }> = (props) => {
   const [status, setStatus] = useState('');
+  const [CurrencyId, setCurrencyId] = useState('DOT');
   const { id, cid, rating } = props;
   const { state } = useApp();
   const { userData } = state;
@@ -43,12 +45,18 @@ const SubmitReviewTx: React.FC<{ id: string; cid: string; rating: number }> = (p
     keyringState === 'READY' &&
     keyring &&
     keyring.getPair(userData.accountAddress);
+  const currencyIds = ["DOT","KSM","Native","BTC"] as const;
   return (
     <div className='spaced'>
       <Container className='spaced' fluid>
         <Header>Account Paying</Header>
         <AccountSelector />
         <p>Note: a fee of {txFee} will be applied</p>
+      </Container>
+      <Container className='spaced' fluid>
+        <Header>Account Paying</Header>
+        <Select label="Currency to store collateral in" value={CurrencyId} onChange={(s)=>s && setCurrencyId(s)} data={[...currencyIds]} />
+       
       </Container>
       <TxButton
         color='purple'
@@ -61,7 +69,7 @@ const SubmitReviewTx: React.FC<{ id: string; cid: string; rating: number }> = (p
         attrs={{
           palletRpc: 'chocolateModule',
           callable: 'createReview',
-          inputParams: [[rating, cid], id],
+          inputParams: [[rating, cid], id,CurrencyId],
           paramFields: [true, true],
         }}
       />

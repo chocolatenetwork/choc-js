@@ -104,7 +104,7 @@ export const useProjectsSubscription = function (
 };
 const retrieveProjectsMeta = async function ([pr, id]: [ProjectAl, ProjectID]) {
   // Get metadata
-  const res = await errorHandled(limitedPinataFetch(pr.metadata.toJSON()));
+  const res = await errorHandled(limitedPinataFetch(pr.metadata.toHuman() as string));
   if (res[1]) throw res[1];
   const json = await errorHandled<NewMetaData>(res[0].json());
   if (json[1]) throw json[1];
@@ -127,7 +127,7 @@ export const useProjectsWithMetadata = function (
 ) {
   return useQueries(
     projects.map(([v, k]) => ({
-      queryKey: ['Project', 'Metadata', k.toJSON(), v.metadata.toJSON()],
+      queryKey: ['Project', 'Metadata', k.toJSON(), v.metadata.toHuman()],
       queryFn: () => retrieveProjectsMeta([v, k]),
       enabled: shouldFire,
       staleTime: Infinity,

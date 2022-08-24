@@ -8,7 +8,7 @@ export const tableReducer = (
   switch (action.type) {
     case 'FILTER_PROJECT_NAME':
       return state.filter(
-        (review) => review.projectID === action.projectID.toString()
+        (review) => review.projectId === action.projectID.toString()
       );
     case 'FILTER_REVIEW_RATING':
       return state.filter((review) => review.content.rating === action.rating);

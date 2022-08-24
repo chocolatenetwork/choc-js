@@ -82,7 +82,7 @@ const ProjectView: React.FC<{ data: HumanNewProjectWithIndex }> = function (
 ) {
   const { data } = props;
   const { Id, project } = data;
-  const { ownerID, proposalStatus, metadata } = project;
+  const { ownerId, proposalStatus, metadata } = project;
   const { name } = metadata;
   const { status } = proposalStatus;
   let rateBar: JSX.Element=<>loading...</>;
@@ -111,7 +111,7 @@ const ProjectView: React.FC<{ data: HumanNewProjectWithIndex }> = function (
       <Identicon
       type="Identicon"
         // key={`substrate_icon_${ownerID}`}
-        id={ownerID.toString()}
+        id={ownerId.toString()}
         size={48}
         // theme='substrate'
       />

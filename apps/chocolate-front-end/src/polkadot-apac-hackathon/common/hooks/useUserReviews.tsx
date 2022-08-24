@@ -6,7 +6,7 @@ import {
   useParallelReviews,
   useReviewsSubscription,
   useReviewsWithMetadata,
-} from 'chocolate/customComponents/ProjectProfile/hooks/useProject';
+} from '../../../customComponents/ProjectProfile/hooks/useProject';
 import {
   allCheck,
   mockImages,
@@ -15,8 +15,8 @@ import {
   useParallelProjects,
   useProjectsSubscription,
   useProjectsWithMetadata,
-} from 'chocolate/customComponents/ProjectsRe/hooks';
-import { SubstrateReadyCTX } from 'chocolate/Layouts/app/InnerAppProvider';
+} from '../../../customComponents/ProjectsRe/hooks';
+import { SubstrateReadyCTX } from '../../../Layouts/app/InnerAppProvider';
 import { useContext, useMemo } from 'react';
 import { useQuery } from 'react-query';
 import { ProjectID } from '../../../interfaces';
@@ -54,7 +54,7 @@ const consolidateMetas = function (
     .map((each) => {
       // Map to table rev
       // Find associated project
-      const relatedPr = prMetas.find((v) => v.Id === each.projectID); // Careful for overflow. Both are strings actually.
+      const relatedPr = prMetas.find((v) => v.Id === each.projectId); // Careful for overflow. Both are strings actually.
       if (!relatedPr) return;
       return { ...each, project: relatedPr.project } as HumanTableSetReview;
     })

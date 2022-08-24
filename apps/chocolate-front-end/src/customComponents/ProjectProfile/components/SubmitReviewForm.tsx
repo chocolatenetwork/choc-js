@@ -1,5 +1,5 @@
 /* eslint-disable import/no-unresolved */
-import { useAuthService } from 'chocolate/polkadot-apac-hackathon/common/providers/authProvider';
+import { useAuthService } from '../../../polkadot-apac-hackathon/common/providers/authProvider';
 import _ from 'lodash';
 import { useEffect, useReducer } from 'react';
 import { Navigate, useLocation, useParams } from 'react-router-dom';

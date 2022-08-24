@@ -53,9 +53,9 @@ const Main: React.FC<{
 
   const filterProjects = searchData.map((review) => ({
     name: 'project',
-    key: review.projectID,
+    key: review.projectId,
     text: review.project.metadata.name,
-    value: review.projectID,
+    value: review.projectId,
   }));
   type ChangeArgs =Parameters<NonNullable<StrictDropdownProps["onChange"]>>;
   type ClickArgs =[e:unknown,titleProps: {index: number}];
@@ -153,7 +153,7 @@ const Main: React.FC<{
               return (
                 <>
                   <Table.Row
-                    key={review.projectID}
+                    key={review.projectId}
                     onClick={(e: unknown) => handleClick(e, { index: i })}
                   >
                     <Table.Cell>

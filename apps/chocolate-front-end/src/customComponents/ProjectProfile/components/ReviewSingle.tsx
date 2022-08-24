@@ -6,11 +6,12 @@ import { HumanNewReview } from '../../../typeSystem/jsonTypes';
 import { Rating } from '../../Projects';
 // looks good, refactor doesn't edge on this
 const ReviewSingle: React.FC<{ each: HumanNewReview }> = function (props) {
+  console.log("Review Single",props);
   const { each } = props;
-  const { content, userID, proposalStatus } = each;
+  const { content,  userId, proposalStatus } = each;
   const substr = useSubstrate();
   const isProposed = () => proposalStatus.status === 'Proposed';
-  const accountPair = userID && substr.keyringState === 'READY' && substr.keyring.getPair(userID);
+  const accountPair = userId && substr.keyringState === 'READY' && substr.keyring.getPair(userId);
   const name = accountPair ? (accountPair.meta?.name as string | undefined) : 'Anonymous';
 
   // see: https://github.com/polkadot-js/apps/blob/b957353d225da81e4e4b44835e535d9c389a1255/packages/react-hooks/src/useEventTrigger.ts
@@ -28,7 +29,7 @@ const ReviewSingle: React.FC<{ each: HumanNewReview }> = function (props) {
       </>
     );
   } else rev = reviewText;
-  const src = `https://avatars.dicebear.com/api/identicon/${userID}.svg`;
+  const src = `https://avatars.dicebear.com/api/identicon/${userId}.svg`;
   return (
     <Card color='purple'>
       <Card.Content>
@@ -39,7 +40,7 @@ const ReviewSingle: React.FC<{ each: HumanNewReview }> = function (props) {
         )}
         <Card.Header>
           <Image src={src} floated='left' rounded size='mini' />
-          <Card.Meta as={Link} to={`/user/${userID}`}>
+          <Card.Meta as={Link} to={`/user/${userId}`}>
             {name}
           </Card.Meta>
         </Card.Header>
