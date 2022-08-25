@@ -129,7 +129,8 @@ const SubmitReviewForm: SubRev = function (props) {
   const location = useLocation();
 
   if (stage && stage >= '2' && !isAuthenticated) {
-    return <Navigate to="/login" state={{ from: location }} />;
+    // continue
+    // return <Navigate to="/login" state={{ from: location }} />;
   }
   // render based on stage
   switch (stage) {

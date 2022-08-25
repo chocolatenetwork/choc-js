@@ -1,13 +1,14 @@
 import { AuthIpfsEndpoint } from './types';
 import { getAuthIPFSEndpoints, getPinEndpoints } from './endpoints';
 import create from 'ipfs-http-client';
+import { ApiPromise } from '@polkadot/api';
 
 export const defaultAuthE = getAuthIPFSEndpoints()[0];
 export const defaultPinE = getPinEndpoints()[0];
 /**
  * Add some data to an ipfs node
  */
-async function upload(
+export async function upload(
   BasicAuthorisation: string,
   data: string,
   // Use config instead

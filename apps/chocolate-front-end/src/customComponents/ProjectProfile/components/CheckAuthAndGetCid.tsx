@@ -14,7 +14,8 @@ const CheckAuthAndGetCid: React.FC<CheckCidProps> = function (props) {
   // first, check if auth
   const { isAuthenticated, comment, rating, dispatchCache } = props;
   // if auth, get cid
-  const { isLoading, isError, data } = useCid(isAuthenticated, comment, rating);
+  // Ignore auth
+  const { isLoading, isError, data } = useCid(!isAuthenticated, comment, rating);
 
   const params = useParams<{ id: string }>();
   // eslint-disable-next-line @typescript-eslint/no-unnecessary-type-assertion

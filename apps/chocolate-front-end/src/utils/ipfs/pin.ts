@@ -2,7 +2,7 @@ import { getPinEndpoints } from './endpoints';
 
 const defaultPinE = getPinEndpoints()[0];
 
-async function pin(BearerAuth: string,
+export async function pin(BearerAuth: string,
     cid: string,
     name: string,
     pinEndpoint = defaultPinE) {

@@ -6,7 +6,6 @@ import { HumanNewReview } from '../../../typeSystem/jsonTypes';
 import { Rating } from '../../Projects';
 // looks good, refactor doesn't edge on this
 const ReviewSingle: React.FC<{ each: HumanNewReview }> = function (props) {
-  console.log("Review Single",props);
   const { each } = props;
   const { content,  userId, proposalStatus } = each;
   const substr = useSubstrate();

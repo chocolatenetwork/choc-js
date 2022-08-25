@@ -1,3 +1,8 @@
+import { web3Accounts, web3FromSource, } from '@polkadot/extension-dapp';
+import { KeyringPair } from '@polkadot/keyring/types';
+import { getW3AuthSignature } from '../../utils/ipfs/getW3AuthSignature';
+import { pin } from '../../utils/ipfs/pin';
+import { upload } from '../../utils/ipfs/upload';
 import IPFS from 'ipfs-http-client';
 import type { ClientOptions } from 'ipfs-http-client/src/lib/core';
 import config from '../../config';
@@ -24,23 +29,21 @@ async function devGetCid(reviewText: string, rating: number): Promise<GetCidRetu
   const subdomainSafeCid = addRes.cid.toV1().toString('base36');
   return { cid: subdomainSafeCid };
 }
-const getCid = async function (reviewText: string, rating: number): Promise<GetCidReturns> {
-  if (process.env.NODE_ENV === 'development') return devGetCid(reviewText, rating);
+const getCid = async function (
+  reviewText: string,
+  rating: number,
+  // acnt?: Awaited<ReturnType<typeof web3Accounts>>[number]
+  pair: KeyringPair
+): Promise<GetCidReturns> {
   const cacheable: ReviewContent = { reviewText, rating };
-  // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
-  const endpoint = config.IPFS_ADD_PINNED_URL;
-  const headers = {
-    method: 'POST',
-    body: JSON.stringify(cacheable),
-    headers: {
-      Accept: 'application/json',
-      'Content-Type': 'application/json',
-    },
-  };
-  const [cid, err] = await errorHandled(fetch(endpoint, headers));
-  if (err) throw err;
-  const ccid = (await cid.json()) as PinServerRes;
-  const returnable = ccid?.success;
-  return { cid: returnable ?? '' };
+  if (process.env.NODE_ENV === 'development')
+    return devGetCid(reviewText, rating);
+
+    const injector = await web3FromSource(pair ? pair.meta.source as string:'');
+    const signature =await getW3AuthSignature({} as KeyringPair,injector.signer);
+    const up =await upload(( signature).AuthBasic, JSON.stringify(cacheable));
+    const pined = await pin(( signature).AuthBearer,up.toV0().toString("base32"), `Review-${pair?.address}`);
+
+  return { cid: up.toV0().toString("base32") };
 };
 export { getCid };
