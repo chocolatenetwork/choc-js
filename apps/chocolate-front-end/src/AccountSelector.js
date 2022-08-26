@@ -104,6 +104,7 @@ const BalanceAnnotation = function (props) {
       api &&
         api.query.system
           .account(accountSelected, (balance) => {
+            // Todo: Format Balance
             setAccountBalance(balance.data.free.toHuman());
           })
           .then((unsub) => {

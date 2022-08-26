@@ -1,4 +1,3 @@
-import {  web3FromSource, } from '@polkadot/extension-dapp';
 import { KeyringPair } from '@polkadot/keyring/types';
 import { getW3AuthSignature } from '../../utils/ipfs/getW3AuthSignature';
 import { pin } from '../../utils/ipfs/pin';
@@ -7,6 +6,8 @@ import IPFS from 'ipfs-http-client';
 import type { ClientOptions } from 'ipfs-http-client/src/lib/core';
 import config from '../../config';
 import { ReviewContent } from '../../typeSystem/jsonTypes';
+import { ApiPromise } from '@polkadot/api';
+import { web3FromAddress } from '@polkadot/extension-dapp';
 // for use with ipfs cat
 /* eslint-disable @typescript-eslint/no-unused-vars */
 // eslint-disable-next-line no-unused-vars
@@ -31,17 +32,20 @@ const getCid = async function (
   reviewText: string,
   rating: number,
   // acnt?: Awaited<ReturnType<typeof web3Accounts>>[number]
-  pair: KeyringPair
+  pair: KeyringPair,
+  api: ApiPromise
 ): Promise<GetCidReturns> {
   const cacheable: ReviewContent = { reviewText, rating };
   // if (process.env.NODE_ENV === 'development')
   //   return devGetCid(reviewText, rating);
+    // There is no source. Sign withAPI instead
 
-    const injector = await web3FromSource(pair.meta.source ? pair.meta.source as string: '');
-    const signature =await getW3AuthSignature(pair,injector.signer);
+    // Ignore signer. Use plain.
+    const signature =await getW3AuthSignature(pair,undefined,api);
     const up =await upload( signature.AuthBasic, JSON.stringify(cacheable));
     await pin(signature.AuthBearer,up.toV0().toString("base32"), `Review-${pair?.address}`);
 
   return { cid: up.toV0().toString("base32") };
 };
 export { getCid };
+

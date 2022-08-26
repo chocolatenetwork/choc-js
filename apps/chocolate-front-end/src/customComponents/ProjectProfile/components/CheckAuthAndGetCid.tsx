@@ -31,7 +31,7 @@ const CheckAuthAndGetCid: React.FC<CheckCidProps> = function (props) {
     const { addr, keyring } = addrState;
     caller = keyring.getPair(addr);
   }
-  const { isLoading, isError, data } = useCid(
+  const { isLoading, isError, data ,refetch,isFetching} = useCid(
     aState === 'loading-cid' && addrState.state === 'selected',
     comment,
     rating,
@@ -76,9 +76,24 @@ const CheckAuthAndGetCid: React.FC<CheckCidProps> = function (props) {
 
   if (aState=== 'done') navigate(`/project/${id}/stage/3`);
 
+      
+  let text = <p> Fetching your review's cid...</p>;
+  if(isError){
+    if(!isFetching){
+      text = (
+        <>
+          <p>
+            Something Went wrong fetching your review's cid...please refetch
+          </p>
+          <Button onClick={()=>refetch()}>Refetch</Button>
+        </>
+      );
+    }
+    text = <p> <i>Still</i> Fetching your review's cid...</p>;
+  }
   return (
     <Container fluid>
-      <p>Fetching your review's cid...</p>
+     {text}
       <Loader />
     </Container>
   );
