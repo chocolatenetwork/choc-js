@@ -11,6 +11,7 @@ import {
 import Keyring from '@polkadot/keyring';
 import AccountSelector from '../../../AccountSelector';
 import { OnAddrChange } from '../../../typeSystem/appTypes';
+import { useLoadAccounts } from '../../../modules/Auth/hooks/useLoadAccounts';
 
 export interface CheckCidProps extends Stage1Cache {
   isAuthenticated: boolean;
@@ -21,7 +22,9 @@ export interface CheckCidProps extends Stage1Cache {
 const CheckAuthAndGetCid: React.FC<CheckCidProps> = function (props) {
   // first, check if auth
   const { accountCtx, comment, rating, dispatchCache } = props;
-  const [run, setRun] = useState(false);
+  const [runLoad, setRunLoad] = useState(false);
+  const [aState, setAState] = useState<'loading-cid' | 'done' | 'init' | 'init-select'>('init');
+  
   const [addrState, dispatch] = accountCtx;
   let caller: KeyringPair | null = null;
   if (addrState.state === 'selected') {
@@ -29,7 +32,7 @@ const CheckAuthAndGetCid: React.FC<CheckCidProps> = function (props) {
     caller = keyring.getPair(addr);
   }
   const { isLoading, isError, data } = useCid(
-    addrState.state === 'selected',
+    aState === 'loading-cid' && addrState.state === 'selected',
     comment,
     rating,
     // Will only be accessed when truthy
@@ -39,7 +42,6 @@ const CheckAuthAndGetCid: React.FC<CheckCidProps> = function (props) {
   const params = useParams<{ id: string }>();
   const id = params.id as string; //  Only valid ids pass initial api fetch. Will never be undefined
 
-  const [next, setNext] = useState<boolean>(false);
   const navigate = useNavigate();
   useEffect(() => {
     // dispatch next action only if cid is available
@@ -48,24 +50,31 @@ const CheckAuthAndGetCid: React.FC<CheckCidProps> = function (props) {
     }
     const { cid } = data;
     dispatchCache({ type: 'stage2', stage2: cid, id });
-    setNext(true);
+    setAState('done');
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isLoading, isError, data, id]);
 
-  if (run) {
-    return <AccountSelector onAddrChange={handleAddrChange(dispatch)} />;
+  useLoadAccounts(runLoad,setRunLoad);
+  if (aState === 'init-select') {
+    return (
+      <>
+        {' '}
+        <AccountSelector onAddrChange={handleAddrChange(dispatch)} />
+        <Button color="green" onClick={()=>{ setAState('loading-cid')}}>Confirm</Button>
+      </>
+    );
   }
-  if (addrState.state === 'unselected')
+  if (aState==='init')
     return (
       <div>
         <p>Please connect your wallet to proceed</p>
-        <Button loading={run || undefined} onClick={() => setRun(true)} primary>
+        <Button onClick={() => {setAState('init-select'); setRunLoad(true);}} primary>
           Connect wallet
         </Button>
       </div>
     );
 
-  if (next) navigate(`/project/${id}/stage/3`);
+  if (aState=== 'done') navigate(`/project/${id}/stage/3`);
 
   return (
     <Container fluid>
