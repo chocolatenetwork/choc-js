@@ -1,4 +1,3 @@
-import { ApiPromise } from '@polkadot/api';
 import { KeyringPair } from '@polkadot/keyring/types';
 import { Signer } from '@polkadot/types/types';
 import { stringToHex, stringToU8a, u8aToHex } from '@polkadot/util';
@@ -7,7 +6,6 @@ import { stringToHex, stringToU8a, u8aToHex } from '@polkadot/util';
  * Sign the user's keypair and provide Auth headers alongside raw
  */
 export async function getW3AuthSignature(pair: KeyringPair, signer: Signer) {
-  // api.signRaw(pair.address,data)
   let signature: string;
   if (signer.signRaw) {
     const res = await signer.signRaw({

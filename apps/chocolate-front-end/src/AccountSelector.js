@@ -5,7 +5,12 @@ import { Button, Dropdown, Icon, Label } from 'semantic-ui-react';
 import { useApp } from './customComponents/state';
 import { useSubstrate } from './substrate-lib';
 
-function Main() {
+/**
+ * 
+ * @param {import('./typeSystem/appTypes').AccountSelectorProps} props
+ */
+function Main(props) {
+  const {onAddrChange} = props;
   const { keyring } = useSubstrate();
   const [accountSelected, setAccountSelected] = useState('');
   const { dispatch } = useApp();
@@ -25,6 +30,8 @@ function Main() {
   useEffect(() => {
     setAccountSelected(initialAddress);
     dispatch({ type: 'USER_DATA', payload: { accountAddress: initialAddress, name: initialName } });
+    if(initialAddress && initialName && onAddrChange) onAddrChange(initialAddress,keyring); // KEYRING IS ALWAYS AVAILABLE HERE
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [dispatch, initialAddress, initialName]);
 
   const onChange = (/** @type {string} */ address) => {
@@ -33,6 +40,8 @@ function Main() {
     // find the userName from existing list
     const userName = keyringOptions.find((thisOpt) => thisOpt.value === address);
     dispatch({ type: 'USER_DATA', payload: { accountAddress: address, name: userName?.text } });
+    // Must be loaded at this point,
+    if(onAddrChange) onAddrChange(address,keyring);
   };
 
   return (
@@ -100,7 +109,7 @@ const BalanceAnnotation = function (props) {
           .then((unsub) => {
             unsubscribe = unsub;
           })
-          .catch(() => {});
+          .catch(() => {return;});
     }
 
     // get user rank point data; Include reviews when obtained
@@ -139,7 +148,7 @@ const BalanceAnnotation = function (props) {
 };
 
 /**
- * @param {JSX.IntrinsicAttributes} props
+ * @param {import('./typeSystem/appTypes').AccountSelectorProps} props
  */
 export default function AccountSelector(props) {
   const { keyring } = useSubstrate();

@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Form } from 'semantic-ui-react';
 import { Rating } from '../../Projects';
-import type { CacheAction } from './SubmitReviewForm';
+import { CacheAction } from "./FormReducer";
 
 export interface RawFormData {
   rating: number;
