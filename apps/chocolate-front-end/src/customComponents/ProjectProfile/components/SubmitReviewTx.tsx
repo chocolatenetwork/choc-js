@@ -7,14 +7,14 @@ import { useLoadAccounts } from '../../../modules/Auth/hooks/useLoadAccounts';
 import { useSubstrate } from '../../../substrate-lib';
 import { TxButton } from '../../../substrate-lib/components';
 import { useApp } from '../../state';
-import { useReviewSend } from '../hooks/useReviewSend';
+import { AllIds, useReviewSend } from '../hooks/useReviewSend';
 import { EventView } from './EventView';
 import { FinalNotif } from './FinalNotif';
 
 /** Submit review data as transaction */
 const SubmitReviewTx: React.FC<{ id: string; cid: string; rating: number }> = (props) => {
   const [status, setStatus] = useState('');
-  const [CurrencyId, setCurrencyId] = useState('DOT');
+  const [CurrencyId, setCurrencyId] = useState<AllIds>('DOT');
   const { id, cid, rating } = props;
   const { state } = useApp();
   const { userData } = state;
@@ -25,7 +25,7 @@ const SubmitReviewTx: React.FC<{ id: string; cid: string; rating: number }> = (p
     'init'
   );
   useLoadAccounts(run, setRun);
-  const { data: txFee } = useReviewSend({ id, cid, rating }, userData.accountAddress);
+  const { data: txFee } = useReviewSend({ id, cid, rating , CurrencyId}, userData.accountAddress);
   useEffect(() => {
     if (/(sending)|(ready)|(inBlock)/i.exec(status)) setStat('sending');
     else if (/finalized/i.exec(status)) setStat('finalized');
@@ -55,7 +55,7 @@ const SubmitReviewTx: React.FC<{ id: string; cid: string; rating: number }> = (p
       </Container>
       <Container className='spaced' fluid>
         <Header>Account Paying</Header>
-        <Select label="Currency to store collateral in" value={CurrencyId} onChange={(s)=>s && setCurrencyId(s)} data={[...currencyIds]} />
+        <Select label="Currency to store collateral in" value={CurrencyId} onChange={(s: AllIds)=>s && setCurrencyId(s)} data={[...currencyIds]} />
        
       </Container>
       <TxButton
@@ -70,16 +70,10 @@ const SubmitReviewTx: React.FC<{ id: string; cid: string; rating: number }> = (p
           palletRpc: 'chocolateModule',
           callable: 'createReview',
           inputParams: [[rating, cid], id,CurrencyId],
-          paramFields: [true, true],
+          paramFields: [true, true,true],
         }}
       />
       <details placeholder='Events'>{event&&event.length > 0 && <EventView event={event} />}</details>
-      {/* What we need, but not yet. 
-      {stat === 'sending' && (
-        <Dimmer active>
-          <Loader inverted content={status} />
-        </Dimmer>
-      )} */}
       <FinalNotif status={status} state={stat} />
     </div>
   );

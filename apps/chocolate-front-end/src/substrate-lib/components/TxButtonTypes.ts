@@ -12,6 +12,14 @@ export interface TxButtonProps {
     | 'SIGNED-TX'
     | 'RPC'
     | 'CONSTANT';
-  attrs?: any;
+  attrs?: Attrs;
   disabled?: boolean;
+}
+interface Attrs{
+   palletRpc: string;
+    callable: string;
+    /** Parameters required for the callable function */
+     inputParams: any[];
+     /**Enable the input params passed */
+     paramFields: boolean[]; 
 }
