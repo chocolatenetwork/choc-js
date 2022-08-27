@@ -21,7 +21,8 @@
       "@polkadot/api/augment": ["packages/types/src/interfaces/augment-api.ts"],
       "@polkadot/types/augment": [
         "packages/types/src/interfaces/augment-types.ts"
-      ]
+      ],
+      "chocolate/*": ["apps/chocolate-front-end/src/*"]
     }
   },
   "exclude": ["node_modules", "tmp"]
