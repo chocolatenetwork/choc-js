@@ -54,8 +54,8 @@ const SubmitReviewTx: React.FC<{ id: string; cid: string; rating: number }> = (p
         <p>Note: a fee of {txFee} will be applied</p>
       </Container>
       <Container className='spaced' fluid>
-        <Header>Account Paying</Header>
-        <Select label="Currency to store collateral in" value={CurrencyId} onChange={(s: AllIds)=>s && setCurrencyId(s)} data={[...currencyIds]} />
+        <Header>Currency</Header>
+        <Select label="Currency to pay collateral in" value={CurrencyId} onChange={(s: AllIds)=>s && setCurrencyId(s)} data={[...currencyIds]} />
        
       </Container>
       <TxButton
