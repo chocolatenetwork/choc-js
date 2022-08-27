@@ -1,3 +1,5 @@
+import { AugmentedSubmittables } from "@polkadot/api/types/submittable";
+type AugSubs = AugmentedSubmittables<"promise">;
 export interface TxButtonProps {
   accountPair?: any;
   setEvent?: (events: any) => void;
@@ -16,7 +18,8 @@ export interface TxButtonProps {
   disabled?: boolean;
 }
 interface Attrs{
-   palletRpc: string;
+   palletRpc: keyof AugSubs;
+  //  Todo: Improve types
     callable: string;
     /** Parameters required for the callable function */
      inputParams: any[];
