@@ -33,7 +33,6 @@
     },
     // show eslint icon at bottom toolbar
     "eslint.alwaysShowStatus": true,
-    "typescript.tsdk": "chocolate-front-end/node_modules/typescript/lib",
     // tell the ESLint plugin to run on save
     "editor.codeActionsOnSave": {
       "source.fixAll": true,
