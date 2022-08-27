@@ -58,7 +58,7 @@ const CheckAuthAndGetCid: React.FC<CheckCidProps> = function (props) {
   if (aState === 'init-select') {
     return (
       <>
-        {' '}
+        <p>Please Select an account to use in Pinning your review to IPFS</p>
         <AccountSelector onAddrChange={handleAddrChange(dispatch)} />
         <Button color="green" onClick={()=>{ setAState('loading-cid')}}>Confirm</Button>
       </>
