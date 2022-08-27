@@ -136,9 +136,9 @@ const loadAccounts = (state, dispatch) => {
 };
 
 
-/** This is a necessary evil as we need to have a value for the context.
+/** 
  * @type {React.Context<SubstrState>} */
-// @ts-expect-error
+// @ts-expect-error This is a necessary evil as we need to have a value for the context.
 const SubstrateContext = React.createContext();
 /** @type {React.Context<{dispatch:React.Dispatch<action>;loadAccounts: typeof loadAccounts}>} */
 const DispatchContext = React.createContext(Object());

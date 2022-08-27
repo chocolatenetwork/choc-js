@@ -1,7 +1,7 @@
 import { ApiPromise } from '@polkadot/api';
 import { KeyringPair } from '@polkadot/keyring/types';
 import { Signer } from '@polkadot/types/types';
-import { bufferToU8a,u8aToBuffer, stringToHex, stringToU8a, u8aToHex } from '@polkadot/util';
+import { stringToHex, stringToU8a, u8aToHex } from '@polkadot/util';
 
 /**
  * Sign the user's keypair and provide Auth headers alongside raw
@@ -11,7 +11,7 @@ export async function getW3AuthSignature(pair: KeyringPair, signer?: Signer, api
   if (signer && signer.signRaw) {
     const res = await signer.signRaw({
       address: pair.address,
-      data: u8aToHex(stringToU8a(pair.address)),
+      data: pair.address,
       type: 'bytes',
     });
 
@@ -24,11 +24,22 @@ export async function getW3AuthSignature(pair: KeyringPair, signer?: Signer, api
     signature = stringToHex(rawSign)
   }else {
     // Todo: Fix signature format
-    signature = u8aToHex(pair.sign(stringToU8a(pair.address)));
+    const sigRaw = pair.sign(stringToU8a(pair.address));
+    signature =  u8aToHex(sigRaw);
   }
   const perSignData = `${pair.address}:${signature}`;
-  const base64Signature = perSignData;
+  const base64Signature = Buffer.from((perSignData)).toString("base64");
   const AuthBasic = `Basic ${base64Signature}`;
   const AuthBearer = `Bearer ${base64Signature}`;
   return { signature, AuthBasic, AuthBearer };
 }
+/*
+
+        signature = u8aToHex(currentPair.sign(stringToU8a(currentPair.address)));
+      }
+
+      const perSignData = `${currentPair.address}:${signature}`;
+      const base64Signature = Buffer.from(perSignData).toString('base64');
+      const AuthBasic = `Basic ${base64Signature}`;
+      const AuthBearer = `Bearer ${base64Signature}`;
+*/

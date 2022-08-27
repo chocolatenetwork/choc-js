@@ -6,9 +6,6 @@ export async function pin(BearerAuth: string,
     cid: string,
     name: string,
     pinEndpoint = defaultPinE) {
-    if (cid.length !== 46) {
-        throw new Error('CID len err');
-    }
 
     const { body } = await fetch(pinEndpoint + '/pins', {
       headers: {

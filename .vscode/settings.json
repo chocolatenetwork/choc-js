@@ -7,5 +7,40 @@
     "ipfs",
     "move"
   ],
+    "npm-intellisense.recursivePackageJsonLookup": true,
+    "prettier.endOfLine": "lf",
+    "npm.packageManager": "npm",
+
+    // These are all my auto-save configs
+    "editor.formatOnSave": true,
+    // turn it off for JS and JSX, we will do this via eslint
+    "[javascript]": {
+      "editor.formatOnSave": false,
+      "editor.defaultFormatter": "dbaeumer.vscode-eslint"
+    },
+    "[javascriptreact]": {
+      "editor.formatOnSave": false,
+      "editor.defaultFormatter": "dbaeumer.vscode-eslint"
+    },
+    "[typescript]": {
+      "editor.formatOnSave": false,
+      "editor.defaultFormatter": "dbaeumer.vscode-eslint"
+
+    },
+    "[typescriptreact]": {
+      "editor.formatOnSave": false,
+      "editor.defaultFormatter": "dbaeumer.vscode-eslint"
+    },
+    // show eslint icon at bottom toolbar
+    "eslint.alwaysShowStatus": true,
+    "typescript.tsdk": "chocolate-front-end/node_modules/typescript/lib",
+    // tell the ESLint plugin to run on save
+    "editor.codeActionsOnSave": {
+      "source.fixAll": true,
+      "source.organizeImports": true
+    },
+
+    "js/ts.implicitProjectConfig.checkJs": true,
+
   "typescript.tsdk": "node_modules/typescript/lib"
 }

@@ -132,3 +132,4 @@ react-hot-toast@2.1.1
 @types/react-copy-to-clipboard@^5.0.3
 
 @hcaptcha/react-hcaptcha  "^1.4.4",
+"node-polyfill-webpack-plugin": "^2.0.1",
