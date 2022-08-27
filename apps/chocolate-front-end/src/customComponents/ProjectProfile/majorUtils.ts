@@ -1,4 +1,3 @@
-import { ApiPromise } from '@polkadot/api';
 import { KeyringPair } from '@polkadot/keyring/types';
 import IPFS from 'ipfs-http-client';
 import type { ClientOptions } from 'ipfs-http-client/src/lib/core';
@@ -8,8 +7,7 @@ import { getW3AuthSignature } from '../../utils/ipfs/getW3AuthSignature';
 import { pin } from '../../utils/ipfs/pin';
 import { upload } from '../../utils/ipfs/upload';
 // for use with ipfs cat
-/* eslint-disable @typescript-eslint/no-unused-vars */
-// eslint-disable-next-line no-unused-vars
+
 const plainUrl = new URL(config.IPFS_API_SERVER);
 const ipfsConfig = {
   protocol: plainUrl.protocol,
@@ -27,24 +25,20 @@ async function devGetCid(reviewText: string, rating: number): Promise<GetCidRetu
   const subdomainSafeCid = addRes.cid.toV1().toString('base36');
   return { cid: subdomainSafeCid };
 }
-const getCid = async function (
-  reviewText: string,
+async function getCid(reviewText: string,
   rating: number,
   // acnt?: Awaited<ReturnType<typeof web3Accounts>>[number]
-  pair: KeyringPair,
-  api: ApiPromise
-): Promise<GetCidReturns> {
+  pair: KeyringPair): Promise<GetCidReturns> {
   const cacheable: ReviewContent = { reviewText, rating };
   // if (process.env.NODE_ENV === 'development')
   //   return devGetCid(reviewText, rating);
-    // There is no source. Sign withAPI instead
+  // There is no source. Sign withAPI instead
+  // Ignore signer. Use plain.
+  const signature = await getW3AuthSignature(pair, undefined, undefined);
+  const { cid, ipfs } = await upload(signature.AuthBasic, JSON.stringify(cacheable));
+  await pin(signature.AuthBearer, cid, ipfs);
 
-    // Ignore signer. Use plain.
-    const signature =await getW3AuthSignature(pair,undefined,undefined);
-    const up =await upload( signature.AuthBasic, JSON.stringify(cacheable));
-    await pin(signature.AuthBearer,up.toV1().toString("base32"), `Review-${pair?.address}`);
-
-  return { cid: up.toV1().toString("base32") };
-};
+  return { cid: cid.toV1().toString("base32") };
+}
 export { getCid };
 

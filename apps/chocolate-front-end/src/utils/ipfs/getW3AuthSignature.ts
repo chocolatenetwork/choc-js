@@ -33,13 +33,3 @@ export async function getW3AuthSignature(pair: KeyringPair, signer?: Signer, api
   const AuthBearer = `Bearer ${base64Signature}`;
   return { signature, AuthBasic, AuthBearer };
 }
-/*
-
-        signature = u8aToHex(currentPair.sign(stringToU8a(currentPair.address)));
-      }
-
-      const perSignData = `${currentPair.address}:${signature}`;
-      const base64Signature = Buffer.from(perSignData).toString('base64');
-      const AuthBasic = `Basic ${base64Signature}`;
-      const AuthBearer = `Bearer ${base64Signature}`;
-*/

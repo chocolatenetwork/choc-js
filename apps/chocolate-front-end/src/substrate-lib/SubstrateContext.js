@@ -95,6 +95,7 @@ const connect = (state, dispatch) => {
   });
   _api.on('ready', () => dispatch({ type: 'CONNECT_SUCCESS', payload: _api }));
   _api.on('error', err => dispatch({ type: 'CONNECT_ERROR', payload: err }));
+  provider.on("error",err => dispatch({ type: 'CONNECT_ERROR', payload: err }));
 };
 
 ///
