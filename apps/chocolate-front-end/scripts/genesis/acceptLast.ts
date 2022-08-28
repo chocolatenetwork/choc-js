@@ -37,7 +37,8 @@ export async function acceptLast({
           console.log(
             `Found proposal ${proposal.hash} with index ${votes.index}`
           );
-          if (votes.ayes.includes(api.createType(pair.address))) continue;
+          if (votes.ayes.includes(api.createType('AccountId32', pair.address)))
+            continue;
           const pr4 = new Promise((res, rej) => {
             api.tx.council
               .vote(each, votes.index, true)
