@@ -1,10 +1,14 @@
 /**@file Replace GEnesis config for chocolate pallet */
 
 import { ApiPromise, Keyring, WsProvider } from '@polkadot/api';
+import { BN } from '@polkadot/util';
+import { acceptLast } from './acceptLast';
 
-import { GenesisConfig } from './constants';
+import { GenesisConfig, METADATA } from './constants';
+import { createProjectPromise } from './createProjectPromise';
+import { createUsers } from './createUsers';
+import { makePair } from './makePair';
 import { EventList } from './types';
-import { handleEvents } from './utils';
 
 // Genesis build
 // Initialise and accept all projects
@@ -30,35 +34,51 @@ async function createProjects(
   keyring: Keyring
 ) {
   // create projects
-  const iter_users = self.initUsers.map((e) => e[0]).entries();
+  const iter_users = self.initUsers.map((e) => e[0]);
   const eventList: EventList[] = [];
-  const prList = [];
-}
-async function createUsers(
-  self: GenesisConfig,
-  api: ApiPromise,
-  keyring: Keyring
-) {
-  // create users
-  const iter_users = self.initUsers.map((e) => e[0]).entries();
-  const eventList: EventList[] = [];
-  const prList = [];
-  for (const [i, derPath] of iter_users) {
+  const promList: Promise<BN>[] = [];
+  const promList2: Promise<BN>[] = [];
+  const projectList = self.initProjects;
+  const least = Math.min(
+    METADATA.length,
+    iter_users.length,
+    projectList.length
+  );
+
+  for (const [i] of Array.from(Array(least)).entries()) {
+    // create
+    const [projectS] = projectList[i];
+    const [derPath, curr] = self.initUsers[i];
     const [, ...nameSec] = derPath.split('//');
-    const pair = keyring.addFromUri(derPath, {
-      name: `${nameSec.join(' ')} default`,
-    });
-    console.log(
-      `This is ${pair.meta['name']}'s account with pubkey ${pair.address}`
-    );
-    console.log('Waiting for tx');
-    const pr = new Promise((res, rej) => {
-      api.tx.usersModule
-        .makeUser()
-        .signAndSend(pair, handleEvents(api, [i, eventList], res, rej));
-    });
-    prList.push(pr);
+    const meta = METADATA[i];
+
+    const pair = makePair(keyring, derPath, nameSec);
+    // Ensure that the promises are serialised
+    if (i === 0) {
+      const pr1 = createProjectPromise(api, meta, pair, i, eventList);
+      promList.push(pr1);
+      if (projectS === 'Accepted') promList2.push(pr1);
+    } else {
+      const prev = promList[i - 1];
+      const next = prev.then(() => {
+        const pr = createProjectPromise(api, meta, pair, i, eventList);
+        return pr;
+      });
+      promList.push(next);
+      if (projectS === 'Accepted') promList2.push(next);
+    }
   }
-  await Promise.allSettled(prList);
-  return eventList;
+  await Promise.allSettled(promList);
+  const acceptList = Promise.allSettled(promList2);
+  const acceptRes = acceptLast({ api, keyring, waitFor: acceptList, self });
+  return [...eventList, ...acceptRes];
 }
+export const COUNCIL_LIMIT = 6;
+export type AcceptLastParams = {
+  api: ApiPromise;
+  keyring: Keyring;
+  waitFor: Promise<PromiseSettledResult<BN>[]>;
+  self: GenesisConfig;
+};
+
+
