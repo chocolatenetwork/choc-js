@@ -1,9 +1,10 @@
 import { Keyring } from '@polkadot/api';
+import { AllIds } from '../../src/customComponents/ProjectProfile/hooks/useReviewSend';
 import { makePair } from './makePair';
 
 
 export function makePairsPair(
-  user: [string, 'Native' | 'Dot' | 'Ksm' | 'Btc'],
+  user: [string, AllIds],
   keyring: Keyring
 ) {
   const [derPath, curr] = user;

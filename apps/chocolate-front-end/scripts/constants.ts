@@ -1,9 +1,9 @@
 import '@choc-js/types';
 
 import type {
-  ChocolatePrimitivesProjectsStatus,
-  ParachainTemplateRuntimeCurrencyId,
+  ChocolatePrimitivesProjectsStatus
 } from '@polkadot/types/lookup';
+import { AllIds } from '../src/customComponents/ProjectProfile/hooks/useReviewSend';
 // Define aliases to make impl easier
 // type AccountId = string;
 
@@ -13,7 +13,7 @@ export interface GenesisConfig {
   initProjects: [Omit<ChocolatePrimitivesProjectsStatus['type'], 'Rejected'>][];
   // Users to create those projects with, and currencies to pay in.
   // Since this is after genesis, this can be any supported genesos
-  initUsers: [string, ParachainTemplateRuntimeCurrencyId['type']][];
+  initUsers: [string, AllIds][];
 }
 export const METADATA = [
   'QmPAVb28J73KjzcjTQ85oJLyftmm4kEgTTptRssPnKjKZD',
@@ -42,17 +42,17 @@ export const genesis: GenesisConfig = {
     ['Accepted'],
   ],
   initUsers: [
-    ['//Alice', 'Dot'],
-    ['//Bob', 'Dot'],
-    ['//Charlie', 'Dot'],
-    ['//Dave', 'Dot'],
-    ['//Eve', 'Dot'],
-    ['//Ferdie', 'Dot'],
-    ['//Alice//stash', 'Dot'],
-    ['//Bob//stash', 'Dot'],
-    ['//Charlie//stash', 'Dot'],
-    ['//Dave//stash', 'Dot'],
-    ['//Eve//stash', 'Dot'],
-    ['//Ferdie//stash', 'Dot'],
+    ['//Alice', 'DOT'],
+    ['//Bob', 'DOT'],
+    ['//Charlie', 'DOT'],
+    ['//Dave', 'DOT'],
+    ['//Eve', 'DOT'],
+    ['//Ferdie', 'DOT'],
+    ['//Alice//stash', 'DOT'],
+    ['//Bob//stash', 'DOT'],
+    ['//Charlie//stash', 'DOT'],
+    ['//Dave//stash', 'DOT'],
+    ['//Eve//stash', 'DOT'],
+    ['//Ferdie//stash', 'DOT'],
   ],
 };

@@ -1,4 +1,5 @@
 import { ApiPromise } from '@polkadot/api';
+import { KeyringPair } from '@polkadot/keyring/types';
 import { ISubmittableResult } from '@polkadot/types/types';
 import assert from 'assert';
 import { CBs, parseEvent } from '../src/utils/parseEvent';
@@ -52,4 +53,10 @@ export function verifyAllSettled(
       rej();
     }
   });
+}
+
+export function logPair(pair: KeyringPair) {
+  console.log(
+    `This is ${pair.meta['name']}'s account with pubkey ${pair.address}`
+  );
 }
