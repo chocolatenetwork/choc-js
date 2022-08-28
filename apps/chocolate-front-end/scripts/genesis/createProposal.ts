@@ -1,7 +1,7 @@
 import { ApiPromise } from '@polkadot/api';
-import { SubmittableExtrinsic } from '@polkadot/api/types';
+import { SignerOptions, SubmittableExtrinsic } from '@polkadot/api/types';
 import { KeyringPair } from '@polkadot/keyring/types';
-import { ISubmittableResult } from '@polkadot/types/types';
+import { AnyNumber, ISubmittableResult } from '@polkadot/types/types';
 import { COUNCIL_LIMIT } from '../init-projects';
 import { EventList } from '../types';
 import { handleEvents } from '../utils';
@@ -11,11 +11,15 @@ export async function createProposal(
   proposal: SubmittableExtrinsic<'promise', ISubmittableResult>,
   alice: KeyringPair,
   i: number,
-  eventList2: EventList[]) {
+  eventList2: EventList[],
+  nonce?: AnyNumber
+) {
   const pr2 = new Promise((res, rej) => {
+    const opt: Partial<SignerOptions> = nonce ? { nonce: nonce } : {};
+
     api.tx.council
       .propose(COUNCIL_LIMIT, proposal, proposal.encodedLength)
-      .signAndSend(alice, handleEvents(api, [i, eventList2], res, rej));
+      .signAndSend(alice, opt, handleEvents(api, [i, eventList2], res, rej));
   });
   await pr2;
 }

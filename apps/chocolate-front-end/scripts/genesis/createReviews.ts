@@ -1,5 +1,6 @@
 import { ApiPromise, Keyring } from '@polkadot/api';
-import { GenesisConfig, REVS } from '../constants';
+import { sleep } from '../../src/customComponents/utils';
+import { BLOCKTIME, GenesisConfig, REVS } from '../constants';
 import { EventList } from '../types';
 import { handleEvents, logPair } from '../utils';
 import { acceptLast } from './acceptLast';
@@ -35,22 +36,27 @@ export async function createReviews(
     //   Filter those owned by this user to avoid err.
     const allPrs = _allPrs.filter(([, v]) => {
       const ownerIdStr = v.unwrap().ownerId.toHuman();
-      console.log(
-        `Project Owned by ${ownerIdStr} comp with addr ${pair.address}`
-      );
-      return ownerIdStr === pair.address;
+      return ownerIdStr !== pair.address;
     });
+
     //  Create a review, for each of the rest, and stage a proposal to accept
-    const prs = allPrs.map((each) => {
-      const [i2] = each;
+    const nonce = await api.rpc.system.accountNextIndex(pair.address);
+    const prs = allPrs.map((each, iPr) => {
+      const [key] = each;
+      const [i2] = key.args;
+      const iPlusOne = (iPr + 1);
       const pr = new Promise((res, rej) => {
         api.tx.chocolateModule
           .createReview(rev, i2, curr)
-          .signAndSend(pair, handleEvents(api, [i, eventList], res, rej));
+          .signAndSend(
+            pair,
+            { nonce: nonce.addn(iPlusOne) },
+            handleEvents(api, [i, eventList], res, rej)
+          );
       }).then(async () => {
         const proposal = api.tx.chocolateModule.acceptReview(pair.address, i2);
         //  Create the proposal so that acceptLast just needs to accept all.
-        await createProposal(api, proposal, alice, i, eventList2);
+        await createProposal(api, proposal, alice, i, eventList2,nonce.addn(i+2));
       });
       return pr;
     });
