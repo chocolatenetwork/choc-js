@@ -25,6 +25,7 @@ export async function createProjects(
     iter_users.length,
     projectList.length
   );
+  const alice = makePairsPair(self.initUsers[0], keyring);
 
   for (const [i] of Array.from(Array(least)).entries()) {
     // create
@@ -36,14 +37,12 @@ export async function createProjects(
     const pair = makePair(keyring, derPath, nameSec);
     // Ensure that the promises are serialised
     if (i === 0) {
-      const alice = makePairsPair(self.initUsers[0], keyring);
       const pr1 = createProjectPromise(api, meta, pair, i, eventList, alice, eventList2);
       promList.push(pr1);
       if (projectS === 'Accepted')
         promList2.push(pr1);
     } else {
       const prev = promList[i - 1];
-      const alice = makePairsPair(self.initUsers[0], keyring);
       const next = prev.then(() => {
         const pr = createProjectPromise(api, meta, pair, i, eventList, alice, eventList2);
         return pr;
@@ -55,6 +54,7 @@ export async function createProjects(
   }
   await Promise.allSettled(promList);
   const acceptList = Promise.allSettled(promList2);
+
   const acceptRes = await acceptLast({ api, keyring, waitFor: acceptList, self });
   return [...eventList, ...eventList2, ...acceptRes];
 }

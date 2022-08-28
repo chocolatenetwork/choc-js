@@ -6,7 +6,7 @@ import { build } from './init-projects';
 import { EventList } from './types';
 
 export function assertAllGood(x: Awaited<ReturnType<typeof build>>) {
-  const all = [...x[0], ...x[1]]
+  const all = [...x[0], ...x[1]];
   const foundFailed = all.filter((x) => {
     return x.findIndex((y) => y?.[0] === 'Failed') !== -1;
   });
@@ -20,6 +20,9 @@ export function assertAllGood(x: Awaited<ReturnType<typeof build>>) {
   );
 }
 
+/**
+ * Logs out events and adds them to an event list as they are captured at the index specified.
+ */
 export function handleEvents(
   api: ApiPromise,
   resList: [number, EventList[]],
@@ -35,4 +38,18 @@ export function handleEvents(
     const [i] = resList;
     resList[1][i] = res;
   };
+}
+export function verifyAllSettled(
+  pr: PromiseSettledResult<unknown>[]
+): Promise<void> {
+  return new Promise<void>((res, rej) => {
+    const allCompleted = pr.every((each) => each.status === 'fulfilled');
+    if (allCompleted) {
+      console.log('All promises passed from previous');
+      res();
+    } else {
+      console.log('Not All promises passed from previous');
+      rej();
+    }
+  });
 }

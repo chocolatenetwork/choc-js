@@ -1,9 +1,9 @@
 import { ApiPromise } from '@polkadot/api';
 import { KeyringPair } from '@polkadot/keyring/types';
 import { BN } from '@polkadot/util';
-import { COUNCIL_LIMIT } from '../init-projects';
 import { EventList } from '../types';
 import { handleEvents } from '../utils';
+import { createProposal } from './createProposal';
 
 export function createProjectPromise(
   api: ApiPromise,
@@ -33,12 +33,8 @@ export function createProjectPromise(
       `This is ${alice.meta['name']}'s account with pubkey ${alice.address}`
     );
     console.log('Waiting for tx to propose accept project to council');
-    const pr2 = new Promise((res, rej) => {
-      api.tx.council
-        .propose(COUNCIL_LIMIT, proposal, proposal.encodedLength)
-        .signAndSend(alice, handleEvents(api, [i, eventList2], res, rej));
-    });
-    await pr2;
+    await createProposal(api, proposal, alice, i, eventList2);
   });
   return pr1;
 }
+
