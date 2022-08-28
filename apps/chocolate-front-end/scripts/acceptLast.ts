@@ -4,40 +4,17 @@ import { makePairsPair } from "./makePairsPair";
 import { EventList } from './types';
 import { handleEvents } from './utils';
 
-export function acceptLast({ api, keyring, waitFor, self }: AcceptLastParams): EventList[] {
+export async function acceptLast({ api, keyring, waitFor, self }: AcceptLastParams): Promise<EventList[]> {
   // Bring all together after
-  const eventList2: EventList[] = [];
   const eventList3: EventList[] = [];
   const eventList4: EventList[] = [];
   const users = self.initUsers.slice(0, COUNCIL_LIMIT);
+  //  We have a list of proposal txs that are being sent.
 
-  waitFor
-    .then(async (a) => {
-      // FOr each of the settled we want to create a motion
-      //first,  create motion
-      const promList = [];
-
-      for (const [i, index] of a.entries()) {
-        const pr3 = new Promise((res, rej) => {
-          if (index.status === 'rejected') {
-            console.log('Rejecting sending proposal because Create failed');
-            rej();
-            return;
-          }
-
-          const lastI = index.value;
-          const proposal = api.tx.chocolateModule.acceptProject(lastI);
-          const pair = makePairsPair(users[0], keyring);
-          api.tx.council
-            .propose(COUNCIL_LIMIT, proposal, proposal.encodedLength)
-            .signAndSend(pair, handleEvents(api, [i, eventList2], res, rej));
-        });
-        promList.push(pr3);
-      }
-      await Promise.allSettled(promList);
-    })
+ const acceptChain= waitFor
+    
     .then(async () => {
-      //Then Vote
+      //We Then Vote on them
       const promList = [];
       const proposals = await api.query.council.proposals();
 
@@ -77,5 +54,6 @@ export function acceptLast({ api, keyring, waitFor, self }: AcceptLastParams): E
 
       await Promise.allSettled(prs);
     });
-  return [...eventList2, ...eventList3, ...eventList4];
+  await acceptChain;
+  return [ ...eventList3, ...eventList4];
 }
