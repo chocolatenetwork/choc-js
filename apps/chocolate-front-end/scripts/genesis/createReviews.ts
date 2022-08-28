@@ -1,6 +1,5 @@
 import { ApiPromise, Keyring } from '@polkadot/api';
-import { sleep } from '../../src/customComponents/utils';
-import { BLOCKTIME, GenesisConfig, REVS } from '../constants';
+import { GenesisConfig, REVS } from '../constants';
 import { EventList } from '../types';
 import { handleEvents, logPair } from '../utils';
 import { acceptLast } from './acceptLast';
@@ -41,26 +40,22 @@ export async function createReviews(
 
     //  Create a review, for each of the rest, and stage a proposal to accept
     const nonce = await api.rpc.system.accountNextIndex(pair.address);
-    const prs = allPrs.map((each, iPr) => {
+    for (const each of allPrs) {
       const [key] = each;
       const [i2] = key.args;
-      const iPlusOne = (iPr + 1);
+
       const pr = new Promise((res, rej) => {
         api.tx.chocolateModule
           .createReview(rev, i2, curr)
-          .signAndSend(
-            pair,
-            { nonce: nonce.addn(iPlusOne) },
-            handleEvents(api, [i, eventList], res, rej)
-          );
+          .signAndSend(pair, handleEvents(api, [i, eventList], res, rej));
       }).then(async () => {
         const proposal = api.tx.chocolateModule.acceptReview(pair.address, i2);
         //  Create the proposal so that acceptLast just needs to accept all.
-        await createProposal(api, proposal, alice, i, eventList2,nonce.addn(i+2));
+        return createProposal(api, proposal, alice, i, eventList2);
       });
-      return pr;
-    });
-    promList.push(...prs);
+      await Promise.allSettled([pr]);
+      promList.push(pr);
+    }
   }
 
   // Then have them all accepted
