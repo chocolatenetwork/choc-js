@@ -38,7 +38,7 @@ export const COUNCIL_LIMIT = 6;
 export type AcceptLastParams = {
   api: ApiPromise;
   keyring: Keyring;
-  waitFor: Promise<PromiseSettledResult<void>[]>;
+  waitFor: Promise<PromiseSettledResult<unknown>[]>;
   self: GenesisConfig;
 };
 

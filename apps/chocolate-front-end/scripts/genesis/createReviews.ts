@@ -12,8 +12,8 @@ export async function createReviews(
   keyring: Keyring
 ): Promise<EventList[]> {
   const users = self.initUsers;
-  const eventList: EventList[] = [];
-  const eventList2: EventList[] = [];
+  const gEventList: EventList[] = [];
+
   const promList = [];
   const least = Math.min(REVS.length, users.length);
   //  For each user,
@@ -39,11 +39,11 @@ export async function createReviews(
     });
 
     //  Create a review, for each of the rest, and stage a proposal to accept
-    const nonce = await api.rpc.system.accountNextIndex(pair.address);
     for (const each of allPrs) {
       const [key] = each;
       const [i2] = key.args;
-
+      const eventList: EventList[] = [];
+      const eventList2: EventList[] = [];
       const pr = new Promise((res, rej) => {
         api.tx.chocolateModule
           .createReview(rev, i2, curr)
@@ -55,6 +55,7 @@ export async function createReviews(
       });
       await Promise.allSettled([pr]);
       promList.push(pr);
+      gEventList.push(...eventList, ...eventList2);
     }
   }
 
@@ -67,6 +68,7 @@ export async function createReviews(
     waitFor: acceptList,
     self,
   });
+  const filtered = gEventList.filter((e) => !!e);
   // And Return eventList
-  return [...eventList, ...eventList2, ...acceptRes];
+  return [...filtered, ...acceptRes];
 }
