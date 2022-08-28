@@ -34,8 +34,11 @@ export async function createReviews(
     const _allPrs = await api.query.chocolateModule.projects.entries();
     //   Filter those owned by this user to avoid err.
     const allPrs = _allPrs.filter(([, v]) => {
-      const ownerIdStr = v.unwrap().ownerId.toHuman();
-      return ownerIdStr !== pair.address;
+      const pr = v.unwrap();
+      const ownerIdStr = pr.ownerId.toHuman();
+      const isAccepted = pr.proposalStatus.status.isAccepted;
+      const notOwnerRevProj = ownerIdStr !== pair.address;
+      return notOwnerRevProj && isAccepted;
     });
 
     //  Create a review, for each of the rest, and stage a proposal to accept
