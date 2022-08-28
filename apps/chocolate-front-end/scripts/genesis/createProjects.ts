@@ -6,6 +6,9 @@ import { createProjectPromise } from './createProjectPromise';
 import { makePair } from './makePair';
 import { makePairsPair } from './makePairsPair';
 
+/**
+ * Creates projects in a chain. If any project isn't created, the rest also fail. 
+ */
 export async function createProjects(
   self: GenesisConfig,
   api: ApiPromise,

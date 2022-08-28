@@ -1,12 +1,13 @@
 import { ApiPromise } from '@polkadot/api';
 import { ISubmittableResult } from '@polkadot/types/types';
 import assert from 'assert';
-import { parseEvent, CBs } from '../src/utils/parseEvent';
+import { CBs, parseEvent } from '../src/utils/parseEvent';
 import { build } from './init-projects';
 import { EventList } from './types';
 
 export function assertAllGood(x: Awaited<ReturnType<typeof build>>) {
-  const foundFailed = x[0].filter((x) => {
+  const all = [...x[0], ...x[1]]
+  const foundFailed = all.filter((x) => {
     return x.findIndex((y) => y?.[0] === 'Failed') !== -1;
   });
   const notGood = foundFailed.length;

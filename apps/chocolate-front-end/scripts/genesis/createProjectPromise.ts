@@ -16,6 +16,10 @@ export function createProjectPromise(
   eventList2: EventList[]
 ) {
   const pr1 = new Promise((res, rej) => {
+    console.log(
+      `This is ${pair.meta['name']}'s account with pubkey ${pair.address}`
+    );
+    console.log('Waiting for tx to create project');
     api.tx.chocolateModule
       .createProject(meta)
       .signAndSend(pair, handleEvents(api, [i, eventList], res, rej));
@@ -24,12 +28,16 @@ export function createProjectPromise(
     const nextI = nextIP.unwrap();
     const lastI = nextI.sub(new BN(1));
     const proposal = api.tx.chocolateModule.acceptProject(lastI);
-//  Crete the proposal so that acceptLast just needs to accept all.
-  const pr2= new Promise((res, rej) => {
-	 api.tx.council
-	      .propose(COUNCIL_LIMIT, proposal, proposal.encodedLength)
-	      .signAndSend(alice, handleEvents(api, [i, eventList2], res, rej));
-});
+    //  Crete the proposal so that acceptLast just needs to accept all.
+    console.log(
+      `This is ${alice.meta['name']}'s account with pubkey ${alice.address}`
+    );
+    console.log('Waiting for tx to propose accept project to council');
+    const pr2 = new Promise((res, rej) => {
+      api.tx.council
+        .propose(COUNCIL_LIMIT, proposal, proposal.encodedLength)
+        .signAndSend(alice, handleEvents(api, [i, eventList2], res, rej));
+    });
     await pr2;
   });
   return pr1;

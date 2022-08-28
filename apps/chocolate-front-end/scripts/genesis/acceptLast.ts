@@ -20,10 +20,14 @@ export async function acceptLast({ api, keyring, waitFor, self }: AcceptLastPara
 
       for (const [i, user] of users.entries()) {
         const pair = makePairsPair(user, keyring);
+        console.log(
+          `This is ${pair.meta['name']}'s account with pubkey ${pair.address}`
+        );
+        console.log('Waiting TO vote AYE on all proposals');
         const prs = proposals.map(async (each) => {
           const proposal = await api.query.council.voting(each);
           const votes = proposal.unwrap();
-
+          console.log(`Found proposal ${proposal.hash} with index ${votes.index}`)
           const pr4 = new Promise((res, rej) => {
             api.tx.council
               .vote(each, votes.index, true)
@@ -39,6 +43,11 @@ export async function acceptLast({ api, keyring, waitFor, self }: AcceptLastPara
       // then close them all.
       const alice = makePairsPair(users[0], keyring);
       const proposals = await api.query.council.proposals();
+      console.log(
+        `This is ${alice.meta['name']}'s account with pubkey ${alice.address}`
+      );
+      console.log('Waiting TO close txs');
+      
       const prs = proposals.map(async (each, i) => {
         const votesOpt = await api.query.council.voting(each);
         const proposalOf = await api.query.council.proposalOf(each);
