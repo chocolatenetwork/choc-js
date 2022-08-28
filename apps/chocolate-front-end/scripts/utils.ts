@@ -3,11 +3,11 @@ import { KeyringPair } from '@polkadot/keyring/types';
 import { ISubmittableResult } from '@polkadot/types/types';
 import assert from 'assert';
 import { CBs, parseEvent } from '../src/utils/parseEvent';
-import { build } from './init-projects';
+import { BuildEvents } from './init-projects';
 import { EventList } from './types';
 
-export function assertAllGood(x: Awaited<ReturnType<typeof build>>) {
-  const all = [...x[0], ...x[1]];
+export function assertAllGood(x: Awaited<BuildEvents>) {
+  const all = x.flat();
   const foundFailed = all.filter((x) => {
     return x.findIndex((y) => y?.[0] === 'Failed') !== -1;
   });

@@ -26,11 +26,12 @@ export async function createProjects(
     projectList.length
   );
   const alice = makePairsPair(self.initUsers[0], keyring);
+  
 
   for (const [i] of Array.from(Array(least)).entries()) {
     // create
     const [projectS] = projectList[i];
-    const [derPath, curr] = self.initUsers[i];
+    const [derPath] = self.initUsers[i];
     const [, ...nameSec] = derPath.split('//');
     const meta = METADATA[i];
 

@@ -8,7 +8,7 @@ import { createReviews } from './genesis/createReviews';
 import { createUsers } from './genesis/createUsers';
 import { EventList } from './types';
 
-type BuildEvents = [
+export type BuildEvents = [
   userEvents: EventList[],
   projectEvents: EventList[],
   reviewEvents: EventList[]
@@ -28,6 +28,7 @@ export async function build(self: GenesisConfig): Promise<BuildEvents> {
   const keyring = new Keyring({ type: 'sr25519' });
   const eventList = await createUsers(self, api, keyring);
   const eventList2 = await createProjects(self, api, keyring);
+
   const eventList3 = await createReviews(self, api, keyring);
   api.disconnect();
   return [eventList, eventList2, eventList3];

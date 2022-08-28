@@ -56,3 +56,4 @@ export const genesis: GenesisConfig = {
     ['//Ferdie//stash', 'DOT'],
   ],
 };
+  export const BLOCKTIME = 12000;
