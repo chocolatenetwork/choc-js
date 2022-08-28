@@ -30,25 +30,30 @@ export async function acceptLast({
           `This is ${pair.meta['name']}'s account with pubkey ${pair.address}`
         );
         console.log('Waiting TO vote AYE on all proposals');
-        const prs = proposals.map(async (each) => {
+        for (const [index, each] of proposals.entries()) {
+          const eventListN: EventList[] = [];
           const proposal = await api.query.council.voting(each);
           const votes = proposal.unwrap();
           console.log(
             `Found proposal ${proposal.hash} with index ${votes.index}`
           );
+          if (votes.ayes.includes(api.createType(pair.address))) continue;
           const pr4 = new Promise((res, rej) => {
             api.tx.council
               .vote(each, votes.index, true)
-              .signAndSend(pair, handleEvents(api, [i, eventList3], res, rej));
+              .signAndSend(
+                pair,
+                handleEvents(api, [index, eventListN], res, rej)
+              );
           });
-          return pr4;
-        });
-        promList.push(...prs);
+          await Promise.allSettled([pr4]);
+          promList.push(pr4);
+          eventList3.push(...eventListN.filter((x) => !!x));
+        }
       }
       const settled = await Promise.allSettled(promList);
       return settled;
     })
-    //  .then(verifyAllSettled)
     .then(async () => {
       // then close them all.
       const alice = makePairsPair(users[0], keyring);
@@ -59,21 +64,22 @@ export async function acceptLast({
       console.log('Waiting TO close txs');
       console.log(`Found ${proposals.length} proposals to close`);
 
-      const prs = proposals.map(async (each, i) => {
+      for (const [i, each] of proposals.entries()) {
         const votesOpt = await api.query.council.voting(each);
         const proposalOf = await api.query.council.proposalOf(each);
+
+        const eventListN: EventList[] = [];
+
         const votes = votesOpt.unwrap();
         const [weight, encodedLen] = await getWeight(api, proposalOf.unwrap());
         const pr5 = new Promise((res, rej) => {
           api.tx.council
             .close(each, votes.index, weight, encodedLen)
-            .signAndSend(alice, handleEvents(api, [i, eventList4], res, rej));
+            .signAndSend(alice, handleEvents(api, [i, eventListN], res, rej));
         });
-        return pr5;
-      });
-
-      const allE = await Promise.allSettled(prs);
-      return allE;
+        await pr5;
+        eventList4.push(...eventListN.filter((x) => !!x));
+      }
     });
   await acceptChain;
   return [...eventList3, ...eventList4];
