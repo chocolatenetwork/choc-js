@@ -1,9 +1,9 @@
 import { ApiPromise } from '@polkadot/api';
 import { KeyringPair } from '@polkadot/keyring/types';
 import { BN } from '@polkadot/util';
-import { COUNCIL_LIMIT } from './init-projects';
-import { EventList } from './types';
-import { handleEvents } from './utils';
+import { COUNCIL_LIMIT } from '../init-projects';
+import { EventList } from '../types';
+import { handleEvents } from '../utils';
 
 export function createProjectPromise(
   api: ApiPromise,

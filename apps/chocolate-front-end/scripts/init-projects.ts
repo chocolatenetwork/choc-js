@@ -3,8 +3,8 @@
 import { ApiPromise, Keyring, WsProvider } from '@polkadot/api';
 
 import { GenesisConfig } from './constants';
-import { createProjects } from './createProjects';
-import { createUsers } from './createUsers';
+import { createProjects } from './genesis/createProjects';
+import { createUsers } from './genesis/createUsers';
 import { EventList } from './types';
 
 // Genesis build

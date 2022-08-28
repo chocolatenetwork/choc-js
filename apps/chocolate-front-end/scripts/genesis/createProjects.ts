@@ -1,10 +1,10 @@
 import { ApiPromise, Keyring } from '@polkadot/api';
+import { GenesisConfig, METADATA } from '../constants';
+import { EventList } from '../types';
 import { acceptLast } from './acceptLast';
-import { GenesisConfig, METADATA } from './constants';
 import { createProjectPromise } from './createProjectPromise';
 import { makePair } from './makePair';
 import { makePairsPair } from './makePairsPair';
-import { EventList } from './types';
 
 export async function createProjects(
   self: GenesisConfig,

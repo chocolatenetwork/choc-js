@@ -1,8 +1,8 @@
-import { getWeight } from './genesis/getWeight';
-import { AcceptLastParams, COUNCIL_LIMIT } from './init-projects';
+import { AcceptLastParams, COUNCIL_LIMIT } from '../init-projects';
+import { EventList } from '../types';
+import { handleEvents } from '../utils';
+import { getWeight } from './getWeight';
 import { makePairsPair } from "./makePairsPair";
-import { EventList } from './types';
-import { handleEvents } from './utils';
 
 export async function acceptLast({ api, keyring, waitFor, self }: AcceptLastParams): Promise<EventList[]> {
   // Bring all together after

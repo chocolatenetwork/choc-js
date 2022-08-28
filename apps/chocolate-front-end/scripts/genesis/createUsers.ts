@@ -1,7 +1,7 @@
 import { ApiPromise, Keyring } from '@polkadot/api';
-import { GenesisConfig } from './constants';
-import { EventList } from './types';
-import { handleEvents } from './utils';
+import { GenesisConfig } from '../constants';
+import { EventList } from '../types';
+import { handleEvents } from '../utils';
 
 export async function createUsers(
   self: GenesisConfig,
