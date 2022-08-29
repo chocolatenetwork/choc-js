@@ -1,4 +1,4 @@
-export default {
-    types: <%= types %>,
-    rpc: <%= rpc %>
-}
+import { <%= modname %> } from '@choc-js/type-definitions';
+import { Definitions } from '@polkadot/types/types';
+
+export default <%= modname %> as Definitions;

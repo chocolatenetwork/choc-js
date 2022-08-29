@@ -65,6 +65,10 @@ declare module '@polkadot/api-base/types/events' {
     };
     chocolateModule: {
       /**
+       * Parameters [project_id]
+       **/
+      ProjectAccepted: AugmentedEvent<ApiType, [u32]>;
+      /**
        * parameters. [owner, cid, project_id]
        **/
       ProjectCreated: AugmentedEvent<ApiType, [AccountId32, Bytes, u32]>;

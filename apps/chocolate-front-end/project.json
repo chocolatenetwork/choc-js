@@ -21,7 +21,7 @@
         ],
         "styles": ["apps/chocolate-front-end/src/styles.css"],
         "scripts": [],
-        "webpackConfig": "@nrwl/react/plugins/webpack"
+        "webpackConfig": "apps/chocolate-front-end/webpack.config.js"
       },
       "configurations": {
         "development": {
@@ -68,6 +68,14 @@
       "outputs": ["{options.outputFile}"],
       "options": {
         "lintFilePatterns": ["apps/chocolate-front-end/**/*.{ts,tsx,js,jsx}"]
+      }
+    },
+    "test": {
+      "executor": "@nrwl/jest:jest",
+      "outputs": ["coverage/apps/chocolate-front-end"],
+      "options": {
+        "jestConfig": "apps/chocolate-front-end/jest.config.ts",
+        "passWithNoTests": true
       }
     }
   },

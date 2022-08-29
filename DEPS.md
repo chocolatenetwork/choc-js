@@ -70,7 +70,7 @@ So as to ensure that updates are easier to do in this repository, dependencies a
     stream-browserify@^3.0.0 
 ```
 ```log
-<!-- Ours at Aug 6th 2022 -->
+<!-- Ours at Aug 20th 2022 -->
     @polkadot/api@^9.1.1
     @polkadot/keyring@^10.1.3
     @polkadot/types@^9.1.1
@@ -83,6 +83,7 @@ So as to ensure that updates are easier to do in this repository, dependencies a
     @polkadot/util-crypto@^10.1.3
 
     @open-web3/orml-type-definitions@2.0.1
+    @polkadot/extension-dapp@^0.44.6, - passto managing extss
 ```
 ```log
    <!-- Polkadot api at https://github.com/polkadot-js/api/commit/f0c45733eef590e785ff13ba701a6f0dcae05dc1  -->
@@ -113,4 +114,22 @@ So as to ensure that updates are easier to do in this repository, dependencies a
     @types/json-stable-stringify@^1.0.34
     ajv@^8.11.0
 
-#### Front
+#### Frontend
+
+ipfs-http-client@49.0.0
+
+semantic-ui-css@^2.4.1
+semantic-ui-react@^2.0.3    
+lodash@^4.17.14
+react-copy-to-clipboard@^5.0.3
+react-query@^3.27.0
+"@emotion/react": "^11.10.0",
+"@mantine/core": "^5.2.3",
+"@mantine/hooks": "^5.2.3",
+
+react-hot-toast@2.1.1
+
+@types/react-copy-to-clipboard@^5.0.3
+
+@hcaptcha/react-hcaptcha  "^1.4.4",
+"node-polyfill-webpack-plugin": "^2.0.1",

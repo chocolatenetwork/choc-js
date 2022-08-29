@@ -118,6 +118,11 @@ declare module '@polkadot/api-base/types/submittable' {
     };
     chocolateModule: {
       /**
+       * Moves a project to the accepted state.
+       * Must be called by Root-like (Council or CES).
+       **/
+      acceptProject: AugmentedSubmittable<(projectId: u32 | AnyNumber | Uint8Array) => SubmittableExtrinsic<ApiType>, [u32]>;
+      /**
        * Releases collateral and rewards user for a good review.
        * 
        * **Call requirements**:
@@ -128,7 +133,6 @@ declare module '@polkadot/api-base/types/submittable' {
       /**
        * Create a project
        * 
-       * - O(1).
        * - Init: Index starts at 1
        **/
       createProject: AugmentedSubmittable<(projectMeta: Bytes | string | Uint8Array) => SubmittableExtrinsic<ApiType>, [Bytes]>;

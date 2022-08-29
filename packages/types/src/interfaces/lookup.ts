@@ -815,7 +815,8 @@ export default {
       SomethingStored: '(u32,AccountId32)',
       ProjectCreated: '(AccountId32,Bytes,u32)',
       ReviewCreated: '(AccountId32,u32)',
-      ReviewAccepted: '(AccountId32,u32)'
+      ReviewAccepted: '(AccountId32,u32)',
+      ProjectAccepted: 'u32'
     }
   },
   /**
@@ -1971,6 +1972,9 @@ export default {
       },
       accept_review: {
         userId: 'AccountId32',
+        projectId: 'u32',
+      },
+      accept_project: {
         projectId: 'u32'
       }
     }
