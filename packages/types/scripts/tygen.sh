@@ -2,7 +2,7 @@
 # Todo: Extract to a script.'
 
 
-ENDPOINT=ws://127.0.0.1:8844
+ENDPOINT=wss://8844-chocolatene-chocolatepa-gjbddvcpgea.ws-eu63.gitpod.io/
 
 function generate:defs(){
   esno --tsconfig ./tsconfig.lib.json ../../node_modules/.bin/polkadot-types-from-defs --package @choc-js/interfaces --input ./src/interfaces --endpoint $ENDPOINT,

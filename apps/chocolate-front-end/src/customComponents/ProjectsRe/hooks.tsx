@@ -3,7 +3,13 @@ import { ApiPromise } from '@polkadot/api';
 import { VoidFn } from '@polkadot/api/types';
 import { Option } from '@polkadot/types';
 import { useEffect, useMemo } from 'react';
-import { QueryStatus, useQueries, useQuery, useQueryClient, UseQueryResult } from 'react-query';
+import {
+  QueryStatus,
+  useQueries,
+  useQuery,
+  useQueryClient,
+  UseQueryResult,
+} from 'react-query';
 import config from '../../config';
 import { ProjectAl, ProjectID } from '../../interfaces';
 import {
@@ -80,7 +86,11 @@ export const useProjectsSubscription = function (
               (checkAgainst) => {
                 if (!checkAgainst) {
                   if (isDebug)
-                    console.error('Set query data before initial query', key.toJSON(), ithProject);
+                    console.error(
+                      'Set query data before initial query',
+                      key.toJSON(),
+                      ithProject
+                    );
                   return [ithProject, key.toJSON()];
                 }
                 const [project, id] = checkAgainst;
@@ -104,7 +114,9 @@ export const useProjectsSubscription = function (
 };
 const retrieveProjectsMeta = async function ([pr, id]: [ProjectAl, ProjectID]) {
   // Get metadata
-  const res = await errorHandled(limitedPinataFetch(pr.metadata.toHuman() as string));
+  const res = await errorHandled(
+    limitedPinataFetch(pr.metadata.toHuman() as string)
+  );
   if (res[1]) throw res[1];
   const json = await errorHandled<NewMetaData>(res[0].json());
   if (json[1]) throw json[1];
@@ -147,7 +159,9 @@ const shouldComputeValid = function <T>(metas: UseQueryResult<T, unknown>[]) {
   const loadingInitially = metas.some((each) => each.isLoading);
   // Return state of all and leave check to others
   const states = metas.map((each) => each.status);
-  const valids = metas.map((each) => [each.data, each.dataUpdatedAt] as [T, number]);
+  const valids = metas.map(
+    (each) => [each.data, each.dataUpdatedAt] as [T, number]
+  );
   return [valids, erred, loadingInitially, states] as [
     typeof valids,
     boolean,
@@ -166,7 +180,10 @@ const resArr = function <T>(valids: [T, number][]) {
 
 // Same here for state
 const allCheck = function (states: QueryStatus[], status: QueryStatus) {
-  return states.reduce((prev, current) => prev === true && current === status, true);
+  return states.reduce(
+    (prev, current) => prev === true && current === status,
+    true
+  );
 };
 
 // Also, some metadata switcheroo to complete:
@@ -191,11 +208,21 @@ const useSearchData = function (
 ): [HumanNewProjectWithIndex[], boolean, boolean, boolean] {
   // Start project loop
   const { data: keys, status } = useProjectKeys(api);
-  const parallelProjects = useParallelProjects(api, keys ?? [], status === 'success');
-  const parallels = useMemo(() => shouldComputeValid(parallelProjects), [parallelProjects]);
+  const parallelProjects = useParallelProjects(
+    api,
+    keys ?? [],
+    status === 'success'
+  );
+  const parallels = useMemo(
+    () => shouldComputeValid(parallelProjects),
+    [parallelProjects]
+  );
   // Check defined
   const validParallels = parallels[0];
-  const readyParallels = useMemo(() => resArr(validParallels), [validParallels]);
+  const readyParallels = useMemo(
+    () => resArr(validParallels),
+    [validParallels]
+  );
   // Ideally this subscription should come after every project has completed too and we have keys
   useProjectsSubscription(
     api,
@@ -203,11 +230,18 @@ const useSearchData = function (
     status === 'success' && allCheck(parallels[3], 'success')
   );
   // Metas should give enough time for parallel projects to complete fetching
-  const metas = useProjectsWithMetadata(readyParallels, allCheck(parallels[3], 'success'));
+  const metas = useProjectsWithMetadata(
+    readyParallels,
+    allCheck(parallels[3], 'success')
+  );
   // Same routine for qs
   const vMetaArr = useMemo(() => shouldComputeValid(metas), [metas]);
-  const [validMetas, anyMetaErr, anyMetaInitiallyLoading, metaStates] = vMetaArr;
-  const readyMetas = useMemo(() => resArr(validMetas).map(mockImages), [validMetas]);
+  const [validMetas, anyMetaErr, anyMetaInitiallyLoading, metaStates] =
+    vMetaArr;
+  const readyMetas = useMemo(
+    () => resArr(validMetas).map(mockImages),
+    [validMetas]
+  );
 
   // Expect everyone else to memoise.
   // Make more efficient: Ensure it only causes rerenders of parent when arr length >0

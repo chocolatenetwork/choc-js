@@ -13,13 +13,13 @@ export function AppRoutes(): JSX.Element {
   return (
     <Routes>
       <Route index element={<ProjectsRe />} />
-      <Route path='/gallery' element={<Gallery />} />
-      <Route path='/wall-of-shame' element={<WallOfShame />} />
-      <Route path='/project/:id/*' element={<ProjectProfile />} />
-      <Route path='/user/:web3Address' element={<UserProfile />} />
-      <Route path='/signup' element={<SignUp />} />
-      <Route path='/login' element={<Login />} />
-      <Route path='*' element={message('404! Not found', true)} />
+      <Route path="/gallery" element={<Gallery />} />
+      <Route path="/wall-of-shame" element={<WallOfShame />} />
+      <Route path="/project/:id/*" element={<ProjectProfile />} />
+      <Route path="/user/:web3Address" element={<UserProfile />} />
+      <Route path="/signup" element={<SignUp />} />
+      <Route path="/login" element={<Login />} />
+      <Route path="*" element={message('404! Not found', true)} />
     </Routes>
   );
 }

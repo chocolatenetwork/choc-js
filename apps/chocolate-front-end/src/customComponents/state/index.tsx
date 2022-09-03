@@ -54,7 +54,11 @@ const LocalStateProvider: React.FC = (props) => {
   const { children } = props;
   const [state, dispatch] = useReducer(reducer, initState);
 
-  return <AppContext.Provider value={{ state, dispatch }}>{children}</AppContext.Provider>;
+  return (
+    <AppContext.Provider value={{ state, dispatch }}>
+      {children}
+    </AppContext.Provider>
+  );
 };
 
 function useApp(): AppCTX {

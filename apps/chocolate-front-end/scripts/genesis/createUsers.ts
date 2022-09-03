@@ -9,7 +9,8 @@ import { handleEvents } from '../utils';
 export async function createUsers(
   self: GenesisConfig,
   api: ApiPromise,
-  keyring: Keyring) {
+  keyring: Keyring
+) {
   // create users
   const iter_users = self.initUsers.map((e) => e[0]).entries();
   const eventList: EventList[] = [];

@@ -1,4 +1,10 @@
-import { createContext, Reducer, useContext, useEffect, useReducer } from 'react';
+import {
+  createContext,
+  Reducer,
+  useContext,
+  useEffect,
+  useReducer,
+} from 'react';
 import toast from 'react-hot-toast';
 import config from '../../../config';
 import { useAuthState } from '../hooks/useAuth';
@@ -12,7 +18,9 @@ const AuthContext = createContext({
   },
   login: (user: { publicKey: string }) =>
     isDebug && console.error('Login context not initialised properly', user),
-  logout: () => {return;},
+  logout: () => {
+    return;
+  },
   // Use this to run the user skeleton. State handled by auth query's initial run.
   isInitiallyLoading: true,
 });
@@ -31,7 +39,10 @@ interface AuthReducerActions {
   };
 }
 // login, logout independent of any furthers, only store user info
-const AuthReducer: Reducer<AuthReducerState, AuthReducerActions> = (state, action) => {
+const AuthReducer: Reducer<AuthReducerState, AuthReducerActions> = (
+  state,
+  action
+) => {
   switch (action.type) {
     case 'LOGIN':
       return {
@@ -74,7 +85,9 @@ const AuthProvider: React.FC = ({ children }) => {
     if (!stateQ.data) {
       if (stateQ.status === 'error') {
         // Infinite loading if on initial run stateQ errs, show users something.
-        toast.error('Something went wrong logging you in, please refresh your browser');
+        toast.error(
+          'Something went wrong logging you in, please refresh your browser'
+        );
       }
       return;
     }

@@ -8,11 +8,11 @@ import './err.css';
 const Err = function (props) {
   const { thisError, four } = props;
   return (
-    <section className='err-wrap'>
+    <section className="err-wrap">
       <Message
         negative
         compact
-        className='err'
+        className="err"
         floating
         header={four ? 'Error 404!' : 'Error Connecting to Substrate'}
         content={`${JSON.stringify(thisError, null, 4)}`}

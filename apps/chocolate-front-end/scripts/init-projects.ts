@@ -40,5 +40,3 @@ export type AcceptLastParams = {
   waitFor: Promise<PromiseSettledResult<unknown>[]>;
   self: GenesisConfig;
 };
-
-

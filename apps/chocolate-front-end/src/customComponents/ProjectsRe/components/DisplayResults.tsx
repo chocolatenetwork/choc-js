@@ -14,12 +14,16 @@ export function DisplayResults(
   if (!found) {
     content = (
       <>
-        <p className='result'>Sorry, no results were found</p>
+        <p className="result">Sorry, no results were found</p>
       </>
     );
   } else {
     // paginate for memory.
-    content = data.map((each) => <DataSummaryDisplay key={JSON.stringify(each)} data={each} />);
+    content = data.map((each) => (
+      <DataSummaryDisplay key={JSON.stringify(each)} data={each} />
+    ));
   }
-  return <ul className='ui results transition visible search-results'>{content}</ul>;
+  return (
+    <ul className="ui results transition visible search-results">{content}</ul>
+  );
 }

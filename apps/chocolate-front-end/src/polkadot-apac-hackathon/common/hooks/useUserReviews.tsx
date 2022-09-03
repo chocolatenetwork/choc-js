@@ -32,15 +32,23 @@ import {
 // use a validator to ensure w3 addr before continuing.
 // How do we express the state of this outer query? I.e what happens if useRelatedKeys fails when user doesn't exist, etc?
 // Use a filter like project profile page.
-const getKeys = async function (api: ApiPromise, web3Address: AccountId | string) {
+const getKeys = async function (
+  api: ApiPromise,
+  web3Address: AccountId | string
+) {
   // Filter keys by accountId
   const allKeys = await api.query.chocolateModule.reviews.keys(web3Address);
   // Return raw keys
   const raw = allKeys.map((each) => each.args);
   return raw;
 };
-const useRelatedKeys = function (api: ApiPromise, web3Address: AccountId | string) {
-  return useQuery(['Reviews', web3Address.toString()], () => getKeys(api, web3Address));
+const useRelatedKeys = function (
+  api: ApiPromise,
+  web3Address: AccountId | string
+) {
+  return useQuery(['Reviews', web3Address.toString()], () =>
+    getKeys(api, web3Address)
+  );
 };
 /** Takes the projects fetched and the reviews fetched, and attaches project metadata to the reviews
  * Worry: One may finish before the other leading to wait.
@@ -74,7 +82,10 @@ const useRelatedProjects = function (
   // Query 1: Set off fetching projects
   // These are two queries that can run concurrently, to be merged in the end
   const parallelProjects = useParallelProjects(api, prKeys ?? [], isKeySuccess);
-  const projectParallels = useMemo(() => shouldComputeValid(parallelProjects), [parallelProjects]);
+  const projectParallels = useMemo(
+    () => shouldComputeValid(parallelProjects),
+    [parallelProjects]
+  );
   // Check defined
   const validProjectParallels = projectParallels[0];
   const readyProjectParallels = useMemo(
@@ -94,8 +105,12 @@ const useRelatedProjects = function (
   );
   // Same routine for qs
   const vPrMetaArr = useMemo(() => shouldComputeValid(prMetas), [prMetas]);
-  const [validPrMetas, anyPrMetaErr, anyPrMetaInitiallyLoading, prMetaStates] = vPrMetaArr;
-  const readyPrMetas = useMemo(() => resArr(validPrMetas).map(mockImages), [validPrMetas]);
+  const [validPrMetas, anyPrMetaErr, anyPrMetaInitiallyLoading, prMetaStates] =
+    vPrMetaArr;
+  const readyPrMetas = useMemo(
+    () => resArr(validPrMetas).map(mockImages),
+    [validPrMetas]
+  );
   return [
     readyPrMetas,
     anyPrMetaErr,
@@ -113,11 +128,21 @@ const useRelatedReviews = function (
   isKeySuccess: boolean,
   fallback: boolean
 ) {
-  const parallelReviews = useParallelReviews(api, usersKeys ?? [], isKeySuccess && !fallback);
-  const reviewParallels = useMemo(() => shouldComputeValid(parallelReviews), [parallelReviews]);
+  const parallelReviews = useParallelReviews(
+    api,
+    usersKeys ?? [],
+    isKeySuccess && !fallback
+  );
+  const reviewParallels = useMemo(
+    () => shouldComputeValid(parallelReviews),
+    [parallelReviews]
+  );
   // Check defined
   const validParallels = reviewParallels[0];
-  const readyParallels = useMemo(() => resArr(validParallels), [validParallels]);
+  const readyParallels = useMemo(
+    () => resArr(validParallels),
+    [validParallels]
+  );
   // Subscribe after fetched structs and keys, too
   useReviewsSubscription(
     api,
@@ -126,10 +151,14 @@ const useRelatedReviews = function (
   );
   // Next, start fetching metadatas.
   // Metas should give enough time for parallel reviews to complete fetching
-  const revMetas = useReviewsWithMetadata(readyParallels, allCheck(reviewParallels[3], 'success'));
+  const revMetas = useReviewsWithMetadata(
+    readyParallels,
+    allCheck(reviewParallels[3], 'success')
+  );
   // Same routine for qs
   const vRevMetaArr = useMemo(() => shouldComputeValid(revMetas), [revMetas]);
-  const [validMetas, anyRevMetaErr, anyRevMetaInitiallyLoading, revMetaStates] = vRevMetaArr;
+  const [validMetas, anyRevMetaErr, anyRevMetaInitiallyLoading, revMetaStates] =
+    vRevMetaArr;
   const readyRevMetas = useMemo(() => resArr(validMetas), [validMetas]);
   return [
     readyRevMetas,
@@ -149,25 +178,30 @@ export const useUserReviews = function (web3Address: string) {
   const { api } = useContext(SubstrateReadyCTX);
   const fallback = apiState !== 'READY';
   // Fetch review keys
-  const { data: usersKeys, isSuccess: isKeySuccess } = useRelatedKeys(api, web3Address); // isSuccess mirrors state var. safe to use.
+  const { data: usersKeys, isSuccess: isKeySuccess } = useRelatedKeys(
+    api,
+    web3Address
+  ); // isSuccess mirrors state var. safe to use.
   const prKeys: ProjectID[] | undefined = usersKeys?.map((each) => each[1]);
 
   // Query 1: Set off fetching projects
   // These are two queries that can run concurrently, to be merged in the end
-  const [readyPrMetas, anyPrMetaErr, anyPrMetaInitiallyLoading, areAllPrsIdle] = useRelatedProjects(
-    api,
-    prKeys,
-    isKeySuccess
-  );
+  const [readyPrMetas, anyPrMetaErr, anyPrMetaInitiallyLoading, areAllPrsIdle] =
+    useRelatedProjects(api, prKeys, isKeySuccess);
 
   // Query 2: Set off fetching reviews
-  const [readyRevMetas, anyRevMetaErr, anyRevMetaInitiallyLoading, areAllRevsIdle] =
-    useRelatedReviews(api, usersKeys, isKeySuccess, fallback);
+  const [
+    readyRevMetas,
+    anyRevMetaErr,
+    anyRevMetaInitiallyLoading,
+    areAllRevsIdle,
+  ] = useRelatedReviews(api, usersKeys, isKeySuccess, fallback);
 
   // Consolidate states and return final state of the query.
   const finalTableData = consolidateMetas(readyRevMetas, readyPrMetas);
   const anyMetaErr = anyRevMetaErr || anyPrMetaErr;
-  const anyMetaInitiallyLoading = anyRevMetaInitiallyLoading || anyPrMetaInitiallyLoading;
+  const anyMetaInitiallyLoading =
+    anyRevMetaInitiallyLoading || anyPrMetaInitiallyLoading;
   const isEitherCompletelyIdle = areAllRevsIdle || areAllPrsIdle; // Should it be && to represent strict allIdle?
 
   // Outer interface

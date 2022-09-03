@@ -6,7 +6,6 @@ import PropTypes from 'prop-types';
 import React, { useContext, useReducer } from 'react';
 import config from '../config';
 
-
 const parsedQuery = new URLSearchParams(window.location.search);
 const connectedSocket = parsedQuery.get('rpc') || config.PROVIDER_SOCKET;
 console.log(`Connected socket: ${connectedSocket}`);
@@ -25,25 +24,25 @@ const INIT_STATE = {
   keyringState: null,
   api: null,
   apiError: null,
-  apiState: null
+  apiState: null,
 };
 
 ///
 // Reducer function for `useReducer`
 
 /**
- * @typedef  { import('./SubstrateCTXTypes').SubstrState} SubstrState 
- * @typedef {{ type: "CONNECT_INIT" | "LOAD_KEYRING" |"KEYRING_ERROR" ;} | 
+ * @typedef  { import('./SubstrateCTXTypes').SubstrState} SubstrState
+ * @typedef {{ type: "CONNECT_INIT" | "LOAD_KEYRING" |"KEYRING_ERROR" ;} |
  * {type: "CONNECT"; payload: ApiPromise;}| {type:"CONNECT_ERROR"; payload:import('@polkadot/types/types').AnyJson;} |
- * {type:"SET_KEYRING";payload:typeof keyring} | {type: "CONNECT_SUCCESS"; payload: ApiPromise}|  {type:"other";}} action 
+ * {type:"SET_KEYRING";payload:typeof keyring} | {type: "CONNECT_SUCCESS"; payload: ApiPromise}|  {type:"other";}} action
  * @type {React.Reducer<SubstrState,action>}
- * 
+ *
  * @returns {SubstrState}
  */
-const reducer = (state,action) => {
+const reducer = (state, action) => {
   switch (action.type) {
     case 'CONNECT_INIT':
-      return { ...state,api: null, apiState: 'CONNECT_INIT' };
+      return { ...state, api: null, apiState: 'CONNECT_INIT' };
 
     case 'CONNECT':
       return { ...state, api: action.payload, apiState: 'CONNECTING' };
@@ -52,10 +51,15 @@ const reducer = (state,action) => {
       return { ...state, api: action.payload, apiState: 'READY' };
 
     case 'CONNECT_ERROR':
-      return { ...state,api: null, apiState: 'ERROR', apiError: action.payload };
+      return {
+        ...state,
+        api: null,
+        apiState: 'ERROR',
+        apiError: action.payload,
+      };
 
     case 'LOAD_KEYRING':
-      return { ...state,keyring: null, keyringState: 'LOADING' };
+      return { ...state, keyring: null, keyringState: 'LOADING' };
 
     case 'SET_KEYRING':
       return { ...state, keyring: action.payload, keyringState: 'READY' };
@@ -75,8 +79,8 @@ const reducer = (state,action) => {
  *  @param {SubstrState} state
  *  @typedef {{ (value: action): void;}} overload_dispatch
  *  @param {overload_dispatch} dispatch
- * 
-*/
+ *
+ */
 const connect = (state, dispatch) => {
   const { apiState, socket, jsonrpc, types } = state;
   // We only want this function to be performed once
@@ -91,11 +95,15 @@ const connect = (state, dispatch) => {
   _api.on('connected', () => {
     dispatch({ type: 'CONNECT', payload: _api });
     // `ready` event is not emitted upon reconnection and is checked explicitly here.
-    _api.isReady.then((__api) => dispatch({ type: 'CONNECT_SUCCESS', payload: __api }));
+    _api.isReady.then((__api) =>
+      dispatch({ type: 'CONNECT_SUCCESS', payload: __api })
+    );
   });
   _api.on('ready', () => dispatch({ type: 'CONNECT_SUCCESS', payload: _api }));
-  _api.on('error', err => dispatch({ type: 'CONNECT_ERROR', payload: err }));
-  provider.on("error",err => dispatch({ type: 'CONNECT_ERROR', payload: err }));
+  _api.on('error', (err) => dispatch({ type: 'CONNECT_ERROR', payload: err }));
+  provider.on('error', (err) =>
+    dispatch({ type: 'CONNECT_ERROR', payload: err })
+  );
 };
 
 ///
@@ -103,21 +111,26 @@ const connect = (state, dispatch) => {
 
 let loadAccts = false;
 /**
- *  Loading accounts from dev and polkadot-js extension.  
+ *  Loading accounts from dev and polkadot-js extension.
  *  Async, closes upon loadAccts bool for state management.
  *  @param {SubstrState} state
  *  @param {overload_dispatch} dispatch
- * 
-*/
+ *
+ */
 const loadAccounts = (state, dispatch) => {
   const asyncLoadAccounts = async () => {
     dispatch({ type: 'LOAD_KEYRING' });
     try {
       await web3Enable(config.APP_NAME);
       let allAccounts = await web3Accounts();
-      allAccounts = allAccounts.map(({ address, meta }) =>
-        ({ address, meta: { ...meta, name: `${meta.name} (${meta.source})` } }));
-      keyring.loadAll({ isDevelopment: config.DEVELOPMENT_KEYRING }, allAccounts);
+      allAccounts = allAccounts.map(({ address, meta }) => ({
+        address,
+        meta: { ...meta, name: `${meta.name} (${meta.source})` },
+      }));
+      keyring.loadAll(
+        { isDevelopment: config.DEVELOPMENT_KEYRING },
+        allAccounts
+      );
       dispatch({ type: 'SET_KEYRING', payload: keyring });
     } catch (e) {
       console.error(e);
@@ -136,14 +149,13 @@ const loadAccounts = (state, dispatch) => {
   asyncLoadAccounts();
 };
 
-
-/** 
+/**
  * @type {React.Context<SubstrState>} */
 // @ts-expect-error This is a necessary evil as we need to have a value for the context.
 const SubstrateContext = React.createContext();
 /** @type {React.Context<{dispatch:React.Dispatch<action>;loadAccounts: typeof loadAccounts}>} */
 const DispatchContext = React.createContext(Object());
-/** 
+/**
  *  ** RENDER BEFORE USING SUBSTRATECONTEXT **
  *  @description At a glance this is a top-level provider for only the context, but it also allows for definition of types and a socket that overrides those preset in config, all from app.js
  *  @type {React.FC<{socket?:string; types?:Partial<INIT['types']>;}>}*/
@@ -152,10 +164,10 @@ const SubstrateContextProvider = (props) => {
   let initState = { ...INIT_STATE };
   /** @type {['socket','types']} */
   const neededPropNames = ['socket', 'types'];
-  neededPropNames.forEach(key => {
-    const prop  = props[key];
-    if(typeof prop !== 'undefined'){
-      initState = Object.assign({},initState,{[key]: prop});
+  neededPropNames.forEach((key) => {
+    const prop = props[key];
+    if (typeof prop !== 'undefined') {
+      initState = Object.assign({}, initState, { [key]: prop });
     }
   });
 
@@ -163,21 +175,21 @@ const SubstrateContextProvider = (props) => {
   connect(state, dispatch);
   // loadAccounts(state, dispatch);
 
-
-  return <DispatchContext.Provider value={{dispatch,loadAccounts}}>
-          <SubstrateContext.Provider value={state}>
-            {props.children}
-          </SubstrateContext.Provider>
-        </DispatchContext.Provider>
-
+  return (
+    <DispatchContext.Provider value={{ dispatch, loadAccounts }}>
+      <SubstrateContext.Provider value={state}>
+        {props.children}
+      </SubstrateContext.Provider>
+    </DispatchContext.Provider>
+  );
 };
 
 // prop typechecking
 SubstrateContextProvider.propTypes = {
   socket: PropTypes.string,
-  types: PropTypes.object
+  types: PropTypes.object,
 };
 
 const useSubstrate = () => ({ ...useContext(SubstrateContext) });
-const useAccounts = ()=> ({...useContext(DispatchContext)})
+const useAccounts = () => ({ ...useContext(DispatchContext) });
 export { SubstrateContextProvider, useSubstrate, useAccounts };

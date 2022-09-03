@@ -4,13 +4,13 @@ import { Link } from 'react-router-dom';
 
 export function Navlinks(): JSX.Element {
   return (
-    <nav className='nav-links'>
-      <Link to='/' className='nav-link nav-link__home'>
+    <nav className="nav-links">
+      <Link to="/" className="nav-link nav-link__home">
         Chocolate
       </Link>
-      <ul className='nav-links-ul'>
+      <ul className="nav-links-ul">
         <li>
-          <Link className='nav-link' to='/gallery'>
+          <Link className="nav-link" to="/gallery">
             Projects
           </Link>
         </li>

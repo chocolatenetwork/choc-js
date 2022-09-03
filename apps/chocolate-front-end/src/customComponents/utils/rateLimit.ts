@@ -18,12 +18,17 @@ function serializePromises<T extends (...args: any[]) => any>(immediate: T) {
   return function (...a: Parameters<T>) {
     // Catch is necessary here — otherwise a rejection in a promise will
     // break the serializer forever
-    last = last.catch(() => {}).then<Awaited<ReturnType<T>>>(() => immediate(...a));
+    last = last
+      .catch(() => {})
+      .then<Awaited<ReturnType<T>>>(() => immediate(...a));
     return last;
   };
 }
 // Then we generalise it to batches of N
-function limitConcurrency<T extends (...args: any[]) => any>(immediate: T, maxConcurrent: number) {
+function limitConcurrency<T extends (...args: any[]) => any>(
+  immediate: T,
+  maxConcurrent: number
+) {
   // Each element holds its index, or a promise resolving with the index
   const workers = _.range(maxConcurrent) as number[] | Promise<number>[];
   // Without this serialization, Promise.race would resolve with the same
@@ -63,7 +68,11 @@ function rateLimit1<T extends (...args: any[]) => any>(fn: T, msPerOp: number) {
 // But why?
 // If we have a battery of 3 1-rate limiters, and we push one, then two, then a third, the fourth would come to the beginning and try override because it's circular.
 // To fix that, I guess it would do to have a value that tracks the queue to see if anyone is free.
-function rateLimit<T extends (...args: any[]) => any>(fn: T, windowMs: number, reqInWindow = 1) {
+function rateLimit<T extends (...args: any[]) => any>(
+  fn: T,
+  windowMs: number,
+  reqInWindow = 1
+) {
   // A battery of 1-rate-limiters
   const queue = _.range(reqInWindow).map(() => rateLimit1(fn, windowMs));
   // Circular queue cursor

@@ -18,23 +18,28 @@ const isDebug = config.REACT_APP_DEBUG;
 
 const ProjectProfileSummary: ProfileSum = function (props) {
   const { profileQ } = props;
-  const { data: profile, isIdle, isLoading: isInitiallyLoading, isError } = profileQ;
+  const {
+    data: profile,
+    isIdle,
+    isLoading: isInitiallyLoading,
+    isError,
+  } = profileQ;
   // Do proper error handling for each state
   if (!profile) {
     if (isIdle) {
       // User still sees loading. Only change/add ctx if fallback
-      return <Loader content='Loading...' />;
+      return <Loader content="Loading..." />;
     }
     if (isInitiallyLoading) {
       // same as above
-      return <Loader content='Loading...' />;
+      return <Loader content="Loading..." />;
     }
     if (isError) {
       // Only one is fetch error. For simplicity have a little warning sign. NFound is for large spaces.
-      return <Message error content='Error fetching project' />;
+      return <Message error content="Error fetching project" />;
     }
     // Catch all
-    return <Message error content='Undefined state ProjectProfileSummary' />;
+    return <Message error content="Undefined state ProjectProfileSummary" />;
   }
   // Then do necessary displays
   const { name, Link: maybeSite, description } = profile.project.metadata;
@@ -43,20 +48,32 @@ const ProjectProfileSummary: ProfileSum = function (props) {
   const ave = Number(totalReviewScore) / Number(numberOfReviews);
   const site = maybeSite ?? '#'; // not polyfilled. Remove when test data is sanitised.
   return (
-    <article className='head-profile'>
-      <section className='left'>
+    <article className="head-profile">
+      <section className="left">
         <Rating rating={ave} fixed />
-        <Image alt='project logo' className='project-logo' wrapped rounded src={src} ui={false} />
+        <Image
+          alt="project logo"
+          className="project-logo"
+          wrapped
+          rounded
+          src={src}
+          ui={false}
+        />
       </section>
 
-      <section className='right'>
-        <h2 className='About'>About</h2>
-        <p className='about_reviewer'>{description}</p>
-        <div className='ui two mini buttons'>
-          <Button as='a' color='purple' href={site} className='wh_top'>
+      <section className="right">
+        <h2 className="About">About</h2>
+        <p className="about_reviewer">{description}</p>
+        <div className="ui two mini buttons">
+          <Button as="a" color="purple" href={site} className="wh_top">
             Website
           </Button>
-          <Button as='a' color='purple' href={`${site}/whitepaper`} className='wh_top'>
+          <Button
+            as="a"
+            color="purple"
+            href={`${site}/whitepaper`}
+            className="wh_top"
+          >
             Whitepaper
           </Button>
         </div>
@@ -99,7 +116,7 @@ const SubmitReview: SumRev = function (props) {
 
   if (disabled)
     content = (
-      <Button color='purple' disabled fluid>
+      <Button color="purple" disabled fluid>
         Submit review
       </Button>
     );
@@ -114,7 +131,7 @@ const SubmitReview: SumRev = function (props) {
         onOpen={() => setOpen(true)}
         open={open}
         trigger={
-          <Button color='purple' className='purple' fluid>
+          <Button color="purple" className="purple" fluid>
             Submit a review
           </Button>
         }
@@ -122,7 +139,10 @@ const SubmitReview: SumRev = function (props) {
         <Modal.Header>Submit review</Modal.Header>
         <Modal.Content>
           <Routes>
-            <Route path='stage/:stage' element={<SubmitReviewForm proj={proj} />} />
+            <Route
+              path="stage/:stage"
+              element={<SubmitReviewForm proj={proj} />}
+            />
           </Routes>
         </Modal.Content>
       </Modal>
@@ -170,10 +190,10 @@ const ReviewReel: RevReel = function (props) {
   ));
 
   return (
-    <article className='review_bttm '>
+    <article className="review_bttm ">
       {/* Include banner if in fallback */}
-      <h2 className='About review_header card-list'>Reviews</h2>
-      <Card.Group className='box_indiv'>{renderContent}</Card.Group>
+      <h2 className="About review_header card-list">Reviews</h2>
+      <Card.Group className="box_indiv">{renderContent}</Card.Group>
       {L}
       {E}
     </article>
@@ -207,7 +227,7 @@ const ProjectProfile: PrProf = function (props) {
   const reviewQ = useReelData(proj);
   const profileQ = useProfileData(proj);
   return (
-    <main className='profile-wrap'>
+    <main className="profile-wrap">
       <ProjectProfileSummary profileQ={profileQ} />
       <SubmitReview disabled={!canReview} proj={proj} />
       <ReviewReel reelData={reviewQ} />
@@ -222,7 +242,12 @@ const Main: React.FC = function () {
   const params = useParams<{ id: string }>();
   const id = params.id ?? '';
   // Perfectly fine to pass empty id, will default to  0 when U32 is created, leaving none as long as project 0 doesn't exist
-  const { data, isLoading: isInitiallyLoading, isIdle, ...restOfProjectQuery } = useProject(id);
+  const {
+    data,
+    isLoading: isInitiallyLoading,
+    isIdle,
+    ...restOfProjectQuery
+  } = useProject(id);
   if (!data) {
     // Ref: https://react-query.tanstack.com/reference/useQuery
     // Three states of concern: Idle
@@ -248,7 +273,8 @@ const Main: React.FC = function () {
         {data[0].proposalStatus.reason.toString()}
       </p>
     );
-  if (data[0].proposalStatus.status.isProposed) return <p>This project is currently proposed</p>;
+  if (data[0].proposalStatus.status.isProposed)
+    return <p>This project is currently proposed</p>;
   return <ProjectProfile data={data[0]} id={data[1].toString()} proj={data} />;
 };
 

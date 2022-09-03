@@ -1,4 +1,4 @@
-import { ResourceLink } from "../resource-link/ResourceLink";
+import { ResourceLink } from '../resource-link/ResourceLink';
 
 export interface Project {
   Literature: Literature;

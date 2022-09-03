@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Form } from 'semantic-ui-react';
 import { Rating } from '../../Projects';
-import { CacheAction } from "./FormReducer";
+import { CacheAction } from './FormReducer';
 
 export interface RawFormData {
   rating: number;
@@ -14,7 +14,9 @@ export interface LocalFormProps {
   dispatchCache: React.Dispatch<CacheAction>;
   cachedForm: RawFormData;
 }
-type FormEventTypes = React.ChangeEvent<HTMLTextAreaElement> | React.ChangeEvent<HTMLInputElement>;
+type FormEventTypes =
+  | React.ChangeEvent<HTMLTextAreaElement>
+  | React.ChangeEvent<HTMLInputElement>;
 const FormToEnter: React.FC<LocalFormProps> = (props) => {
   const { dispatchCache, id, cachedForm } = props;
   const [rawInput, setRawInput] = useState<RawFormData>(cachedForm);
@@ -48,18 +50,18 @@ const FormToEnter: React.FC<LocalFormProps> = (props) => {
   const { projectName } = props;
   return (
     <Form onSubmit={handleSubmit}>
-      <Form.Input fluid label='Project' value={projectName} />
+      <Form.Input fluid label="Project" value={projectName} />
       <Form.TextArea
-        label='Body'
+        label="Body"
         required
         value={rawInput.comment}
-        name='comment'
+        name="comment"
         onChange={handleInputChange}
-        placeholder='Write your review here'
+        placeholder="Write your review here"
       />
       {/* Todo: change review api */}
       <Rating rating={rawInput.rating} fixed={false} setOuterRate={setRate} />
-      <Form.Button content='Submit' fluid color='purple' />
+      <Form.Button content="Submit" fluid color="purple" />
     </Form>
   );
 };

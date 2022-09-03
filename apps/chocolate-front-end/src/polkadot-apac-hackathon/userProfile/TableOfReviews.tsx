@@ -57,11 +57,11 @@ const Main: React.FC<{
     text: review.project.metadata.name,
     value: review.projectId,
   }));
-  type ChangeArgs =Parameters<NonNullable<StrictDropdownProps["onChange"]>>;
-  type ClickArgs =[e:unknown,titleProps: {index: number}];
+  type ChangeArgs = Parameters<NonNullable<StrictDropdownProps['onChange']>>;
+  type ClickArgs = [e: unknown, titleProps: { index: number }];
   // filter reducer
   const handleProjectFilterChange = (...args: ChangeArgs) => {
-    const [ , _data] = args;
+    const [, _data] = args;
 
     setFilterProjectName(Number(_data.value));
     dispatch({ type: 'INITIALISE', payload: searchData });
@@ -69,7 +69,7 @@ const Main: React.FC<{
   };
 
   const handleRatingFilterChange = (...args: ChangeArgs) => {
-    const [ , _data] = args;
+    const [, _data] = args;
     const val = Number(_data.value);
     setFilterRating(val);
     dispatch({ type: 'INITIALISE', payload: searchData });
@@ -77,9 +77,9 @@ const Main: React.FC<{
   };
 
   // accordian index
-  const handleClick = (...args: ClickArgs)=>{
-    const [ , titleProps] = args;
-      const { index } = titleProps;
+  const handleClick = (...args: ClickArgs) => {
+    const [, titleProps] = args;
+    const { index } = titleProps;
     const newIndex = activeIndex === index ? -1 : index;
     setActiveIndex(newIndex);
   };

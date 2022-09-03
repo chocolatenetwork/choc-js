@@ -47,7 +47,9 @@ export const useAuthState: AuthStateFx = () => {
       if (isDebug)
         console.assert(
           !errorObj.code,
-          `Error obj is as expected with code passed ${JSON.stringify(errorObj)}`
+          `Error obj is as expected with code passed ${JSON.stringify(
+            errorObj
+          )}`
         );
       // Case 1: logged out.
       if (errorObj.code === 401) {

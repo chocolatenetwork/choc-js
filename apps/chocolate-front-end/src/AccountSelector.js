@@ -6,11 +6,11 @@ import { useApp } from './customComponents/state';
 import { useSubstrate } from './substrate-lib';
 
 /**
- * 
+ *
  * @param {import('./typeSystem/appTypes').AccountSelectorProps} props
  */
 function Main(props) {
-  const {onAddrChange} = props;
+  const { onAddrChange } = props;
   const { keyring } = useSubstrate();
   const [accountSelected, setAccountSelected] = useState('');
   const { dispatch } = useApp();
@@ -25,23 +25,34 @@ function Main(props) {
     })) ?? [];
 
   const [initialAddress, initialName] =
-    keyringOptions.length > 0 ? [keyringOptions[0].value, keyringOptions[0].text] : ['', ''];
+    keyringOptions.length > 0
+      ? [keyringOptions[0].value, keyringOptions[0].text]
+      : ['', ''];
   // Set the initial address
   useEffect(() => {
     setAccountSelected(initialAddress);
-    dispatch({ type: 'USER_DATA', payload: { accountAddress: initialAddress, name: initialName } });
-    if(initialAddress && initialName && onAddrChange) onAddrChange(initialAddress,keyring); // KEYRING IS ALWAYS AVAILABLE HERE
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    dispatch({
+      type: 'USER_DATA',
+      payload: { accountAddress: initialAddress, name: initialName },
+    });
+    if (initialAddress && initialName && onAddrChange)
+      onAddrChange(initialAddress, keyring); // KEYRING IS ALWAYS AVAILABLE HERE
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [dispatch, initialAddress, initialName]);
 
   const onChange = (/** @type {string} */ address) => {
     // Update state with new account address
     setAccountSelected(address);
     // find the userName from existing list
-    const userName = keyringOptions.find((thisOpt) => thisOpt.value === address);
-    dispatch({ type: 'USER_DATA', payload: { accountAddress: address, name: userName?.text } });
+    const userName = keyringOptions.find(
+      (thisOpt) => thisOpt.value === address
+    );
+    dispatch({
+      type: 'USER_DATA',
+      payload: { accountAddress: address, name: userName?.text },
+    });
     // Must be loaded at this point,
-    if(onAddrChange) onAddrChange(address,keyring);
+    if (onAddrChange) onAddrChange(address, keyring);
   };
 
   return (
@@ -50,21 +61,27 @@ function Main(props) {
         <span>
           Add your account with the{' '}
           <a
-            target='_blank'
-            rel='noopener noreferrer'
-            href='https://github.com/polkadot-js/extension'
+            target="_blank"
+            rel="noopener noreferrer"
+            href="https://github.com/polkadot-js/extension"
           >
             Polkadot JS Extension
           </a>
         </span>
       ) : null}
       <CopyToClipboard text={accountSelected}>
-        <Button basic circular size='large' icon='user' color={accountSelected ? 'green' : 'red'} />
+        <Button
+          basic
+          circular
+          size="large"
+          icon="user"
+          color={accountSelected ? 'green' : 'red'}
+        />
       </CopyToClipboard>
       <Dropdown
         search
         selection
-        placeholder='Select an account'
+        placeholder="Select an account"
         options={keyringOptions ?? undefined}
         onChange={(_, dropdown) => {
           onChange(String(dropdown.value));
@@ -110,7 +127,9 @@ const BalanceAnnotation = function (props) {
           .then((unsub) => {
             unsubscribe = unsub;
           })
-          .catch(() => {return;});
+          .catch(() => {
+            return;
+          });
     }
 
     // get user rank point data; Include reviews when obtained
@@ -122,7 +141,10 @@ const BalanceAnnotation = function (props) {
           .users(accountSelected, (userOpt) => {
             const rank = userOpt.unwrapOrDefault().rankPoints;
             // can't pass structs/objects as props
-            dispatch({ type: 'USER_DATA', payload: { rankPoints: rank.toHuman() } });
+            dispatch({
+              type: 'USER_DATA',
+              payload: { rankPoints: rank.toHuman() },
+            });
           })
           .then((unsub) => {
             unsubscribe2 = unsub;
@@ -136,12 +158,12 @@ const BalanceAnnotation = function (props) {
   // display review along with balance. Label doesn't really fit
   return accountSelected ? (
     <>
-      <Label pointing='left'>
-        <Icon name='money' color='green' />
+      <Label pointing="left">
+        <Icon name="money" color="green" />
         {accountBalance}
       </Label>
-      <Label pointing='left'>
-        <Icon name='point' color='brown' />
+      <Label pointing="left">
+        <Icon name="point" color="brown" />
         {state.userData.rankPoints}
       </Label>
     </>

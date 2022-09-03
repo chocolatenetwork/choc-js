@@ -6,7 +6,11 @@ import { useAuthService } from '../../../polkadot-apac-hackathon/common/provider
 import { ChangeEvent, FormEvent, useEffect, useRef, useState } from 'react';
 import toast from 'react-hot-toast';
 import { useMutation } from 'react-query';
-import { Location as RRLocation, Navigate, useLocation } from 'react-router-dom';
+import {
+  Location as RRLocation,
+  Navigate,
+  useLocation,
+} from 'react-router-dom';
 import { Form, FormProps, InputOnChangeData } from 'semantic-ui-react';
 import config from '../../../config';
 
@@ -67,7 +71,7 @@ const Login: React.FC = function () {
   }
   useEffect(() => {
     if (loginMutation.status === 'success') {
-      auth.login({ publicKey: loginMutation.data.publicKey ??'' });
+      auth.login({ publicKey: loginMutation.data.publicKey ?? '' });
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [loginMutation.status, loginMutation.data]);
@@ -88,7 +92,10 @@ const Login: React.FC = function () {
     setForm((F) => ({ ...F, captcha: '' }));
     if (isDebug) console.error(`hCaptcha Error: ${err}`);
   };
-  const handleSubmit: (e: FormEvent<HTMLFormElement>, data: FormProps) => void = (e) => {
+  const handleSubmit: (
+    e: FormEvent<HTMLFormElement>,
+    data: FormProps
+  ) => void = (e) => {
     e.preventDefault();
     if (!form.captcha) {
       captchaRef?.current?.execute();
@@ -96,10 +103,10 @@ const Login: React.FC = function () {
     }
     loginMutation.mutate(form);
   };
-  const handleChange: (e: ChangeEvent<HTMLInputElement>, data: InputOnChangeData) => void = (
-    _e,
-    data
-  ) => {
+  const handleChange: (
+    e: ChangeEvent<HTMLInputElement>,
+    data: InputOnChangeData
+  ) => void = (_e, data) => {
     setForm((F) => ({ ...F, [data.name]: data.value }));
   };
   const handleVerify: (token: string) => void = (token) => {
@@ -114,20 +121,26 @@ const Login: React.FC = function () {
       <Form onSubmit={handleSubmit}>
         <Form.Input
           fluid
-          label='Username'
-          name='uname'
+          label="Username"
+          name="uname"
           value={form.uname}
           onChange={handleChange}
         />
         <Form.Input
           fluid
-          label='Password'
-          name='ps'
-          type='password'
+          label="Password"
+          name="ps"
+          type="password"
           value={form.ps}
           onChange={handleChange}
         />
-        <Form.Button type='submit' content='Submit' fluid color='purple' onChange={handleChange} />
+        <Form.Button
+          type="submit"
+          content="Submit"
+          fluid
+          color="purple"
+          onChange={handleChange}
+        />
       </Form>
       <HCaptcha
         // This is testing sitekey, will autopass

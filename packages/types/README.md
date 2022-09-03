@@ -7,8 +7,6 @@ This library includes two things:
 
 Following the guide on the polkadot docs as of August 7th 2022.
 
-
 ## Building
 
 Run `nx build types` to build the library.
-

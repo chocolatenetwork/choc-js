@@ -15,12 +15,11 @@ export type HumanNewProjectWithIndex = NewGenericProjectWithIndex<string>;
 export type JSONNewProjectWithIndex = NewGenericProjectWithIndex<number>;
 
 export type ChainMetaData = string;
-type UnExtend<T,Ext> = Omit<T,keyof Ext>;
-
+type UnExtend<T, Ext> = Omit<T, keyof Ext>;
 
 type ProjectKeys = keyof UnExtend<ChocolatePrimitivesProjectsProject, Struct>;
 
-interface GenericChainProject<Num> extends Record<ProjectKeys,unknown>{
+interface GenericChainProject<Num> extends Record<ProjectKeys, unknown> {
   ownerId: string;
   badge: boolean;
   metadata: ChainMetaData;
@@ -50,9 +49,9 @@ export interface ReasonEnum {
 
 type KeyofRev = keyof UnExtend<ReviewAl, Struct>;
 
-interface GenericChainReview<Num> extends Map<KeyofRev,unknown> {
+interface GenericChainReview<Num> extends Map<KeyofRev, unknown> {
   // [T in KeyofRev]: unknown;
-  
+
   proposalStatus: ProposalStatus;
 
   userId: string;
@@ -76,7 +75,8 @@ export interface NewMetaData {
   date: number;
 }
 
-interface GenericNewProject<Num> extends Omit<GenericChainProject<Num>, 'metadata'> {
+interface GenericNewProject<Num>
+  extends Omit<GenericChainProject<Num>, 'metadata'> {
   metadata: NewMetaData;
 }
 export type HumanNewProject = GenericNewProject<string>;
@@ -87,7 +87,8 @@ export interface ReviewContent {
   rating: number;
 }
 
-interface NewGenericReview<Num> extends Omit<GenericChainReview<Num>, 'content'> {
+interface NewGenericReview<Num>
+  extends Omit<GenericChainReview<Num>, 'content'> {
   content: ReviewContent;
 }
 export type HumanNewReview = NewGenericReview<string>;

@@ -37,4 +37,3 @@ export function createProjectPromise(
   });
   return pr1;
 }
-

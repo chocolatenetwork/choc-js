@@ -1,7 +1,10 @@
 import React from 'react';
 import { UseQueryResult } from 'react-query';
 import { ProjectAl, ProjectID } from '../../interfaces';
-import { HumanNewProjectWithIndex, HumanNewReview } from '../../typeSystem/jsonTypes';
+import {
+  HumanNewProjectWithIndex,
+  HumanNewReview,
+} from '../../typeSystem/jsonTypes';
 
 export type PrProf = React.FC<{
   data: ProjectAl;

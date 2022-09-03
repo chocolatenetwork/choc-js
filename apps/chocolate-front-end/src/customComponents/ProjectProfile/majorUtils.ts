@@ -17,7 +17,10 @@ const ipfsConfig = {
 } as ClientOptions;
 
 type GetCidReturns = { cid: string };
-async function devGetCid(reviewText: string, rating: number): Promise<GetCidReturns> {
+async function devGetCid(
+  reviewText: string,
+  rating: number
+): Promise<GetCidReturns> {
   const node = IPFS(ipfsConfig);
   const cacheable: ReviewContent = { reviewText, rating };
 
@@ -25,15 +28,19 @@ async function devGetCid(reviewText: string, rating: number): Promise<GetCidRetu
   const subdomainSafeCid = addRes.cid.toV1().toString('base36');
   return { cid: subdomainSafeCid };
 }
-async function getCid(reviewText: string,
+async function getCid(
+  reviewText: string,
   rating: number,
-  pair: KeyringPair): Promise<GetCidReturns> {
+  pair: KeyringPair
+): Promise<GetCidReturns> {
   const cacheable: ReviewContent = { reviewText, rating };
   const signature = await getW3AuthSignature(pair);
-  const { cid, ipfs } = await upload(signature.AuthBasic, JSON.stringify(cacheable));
+  const { cid, ipfs } = await upload(
+    signature.AuthBasic,
+    JSON.stringify(cacheable)
+  );
   await pin(signature.AuthBearer, cid, ipfs);
 
-  return { cid: cid.toV1().toString("base32") };
+  return { cid: cid.toV1().toString('base32') };
 }
 export { getCid };
-
