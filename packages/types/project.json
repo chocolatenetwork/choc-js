@@ -15,11 +15,11 @@
       "dependsOn": [
         {
           "projects": "self",
-          "target": "tgen"
+          "target": "prebuild"
         }
       ]
     },
-    "tgen": {
+    "prebuild": {
       "executor": "nx:run-script",
       "outputs": ["packages/types/interfaces"],
       "options": {

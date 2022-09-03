@@ -1,7 +1,27 @@
 {
-    "conventionalCommits.scopes": [
-        "setup",
-        "schema",
-        "tgen"
-    ]
+  "conventionalCommits.scopes": [
+    "setup",
+    "schema",
+    "tgen",
+    "genesis",
+    "ipfs",
+    "move"
+  ],
+  "npm-intellisense.recursivePackageJsonLookup": true,
+  "prettier.endOfLine": "lf",
+  "npm.packageManager": "npm",
+  "editor.formatOnSave": true,
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
+  // show eslint icon at bottom toolbar
+  "eslint.alwaysShowStatus": true,
+  // Organize immports and fix anything eslint-y
+  "editor.codeActionsOnSave": {
+    "source.fixAll": true,
+    "source.organizeImports": true,
+    "source.fixAll.sortJSON": false
+  },
+
+  "js/ts.implicitProjectConfig.checkJs": true,
+
+  "typescript.tsdk": "node_modules/typescript/lib"
 }

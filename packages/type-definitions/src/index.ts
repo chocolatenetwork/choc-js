@@ -1,4 +1,4 @@
-import chocolateModule from "./chocolateModule";
+import chocolateModule from './chocolateModule';
 import usersModule from './usersModule';
 import { OverrideVersionedType } from '@polkadot/types/types';
 import { typesFromDefs } from '@open-web3/orml-type-definitions/utils';
@@ -46,4 +46,3 @@ export const typesBundleForPolkadot = {
     chocolate: getBundle(chocVersioned),
   },
 };
-

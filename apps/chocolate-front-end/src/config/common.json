@@ -1,0 +1,8 @@
+{
+  "APP_NAME": "substrate-front-end-tutorial",
+  "DEVELOPMENT_KEYRING": true,
+  "IPFS_CAT_URL": "https://gateway.pinata.cloud/ipfs",
+  "IPFS_API_SERVER": "http://localhost:5001",
+  "INIT_SCRIPT_ENDPOINT": "wss://8844-islami00-chocolateparac-09dna30yrir.ws-eu63.gitpod.io",
+  "RPC": {}
+}

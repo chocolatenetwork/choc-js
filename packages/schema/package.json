@@ -4,6 +4,6 @@
   "type": "commonjs",
   "license": "Unlicense",
   "scripts": {
-    "build": "esno src/build.ts"
+    "build": "esno src/build.ts --tsconfig tsconfig.lib.json"
   }
 }
