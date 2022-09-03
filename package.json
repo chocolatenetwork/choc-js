@@ -2,7 +2,9 @@
   "name": "choc-js",
   "version": "0.0.0",
   "license": "Unlicense",
-  "scripts": {},
+  "scripts": {
+    "chain:seed": "NODE_ENV=development esno apps/chocolate-front-end/scripts/do-init-projects.ts --tsconfig tsconfig.base.json"
+  },
   "private": true,
   "dependencies": {
     "@emotion/react": "^11.10.0",

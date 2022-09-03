@@ -77,6 +77,12 @@
         "jestConfig": "apps/chocolate-front-end/jest.config.ts",
         "passWithNoTests": true
       }
+    },
+    "seed": {
+      "executor": "@nrwl/workspace:run-script",
+      "options": {
+        "script": "chain:seed"
+      }
     }
   },
   "tags": ["web"]
