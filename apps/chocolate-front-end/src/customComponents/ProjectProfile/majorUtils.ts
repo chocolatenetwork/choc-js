@@ -27,14 +27,9 @@ async function devGetCid(reviewText: string, rating: number): Promise<GetCidRetu
 }
 async function getCid(reviewText: string,
   rating: number,
-  // acnt?: Awaited<ReturnType<typeof web3Accounts>>[number]
   pair: KeyringPair): Promise<GetCidReturns> {
   const cacheable: ReviewContent = { reviewText, rating };
-  // if (process.env.NODE_ENV === 'development')
-  //   return devGetCid(reviewText, rating);
-  // There is no source. Sign withAPI instead
-  // Ignore signer. Use plain.
-  const signature = await getW3AuthSignature(pair, undefined, undefined);
+  const signature = await getW3AuthSignature(pair);
   const { cid, ipfs } = await upload(signature.AuthBasic, JSON.stringify(cacheable));
   await pin(signature.AuthBearer, cid, ipfs);
 
