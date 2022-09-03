@@ -1983,7 +1983,7 @@ export default {
    * Lookup248: pallet_chocolate::pallet::Error<T>
    **/
   PalletChocolateError: {
-    _enum: ['NoneValue', 'NoProjectWithId', 'DuplicateReview', 'StorageOverflow', 'OwnerReviewedProject', 'InsufficientBalance', 'RewardInconsistent', 'AlreadyOwnsProject', 'InconsistentCollateral', 'ReviewNotFound', 'AcceptingNotProposed', 'CheckedDivisionFailed', 'ReviewScoreOutOfRange']
+    _enum: ['NoneValue', 'NoProjectWithId', 'DuplicateReview', 'StorageOverflow', 'OwnerReviewedProject', 'InsufficientBalance', 'RewardInconsistent', 'AlreadyOwnsProject', 'InconsistentCollateral', 'ReviewNotFound', 'AcceptingNotProposed', 'CheckedDivisionFailed', 'ReviewScoreOutOfRange', 'NativeCollateral']
   },
   /**
    * Lookup249: pallet_minting::pallet::Call<T>

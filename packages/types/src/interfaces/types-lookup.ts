@@ -2186,7 +2186,8 @@ declare module '@polkadot/types/lookup' {
     readonly isAcceptingNotProposed: boolean;
     readonly isCheckedDivisionFailed: boolean;
     readonly isReviewScoreOutOfRange: boolean;
-    readonly type: 'NoneValue' | 'NoProjectWithId' | 'DuplicateReview' | 'StorageOverflow' | 'OwnerReviewedProject' | 'InsufficientBalance' | 'RewardInconsistent' | 'AlreadyOwnsProject' | 'InconsistentCollateral' | 'ReviewNotFound' | 'AcceptingNotProposed' | 'CheckedDivisionFailed' | 'ReviewScoreOutOfRange';
+    readonly isNativeCollateral: boolean;
+    readonly type: 'NoneValue' | 'NoProjectWithId' | 'DuplicateReview' | 'StorageOverflow' | 'OwnerReviewedProject' | 'InsufficientBalance' | 'RewardInconsistent' | 'AlreadyOwnsProject' | 'InconsistentCollateral' | 'ReviewNotFound' | 'AcceptingNotProposed' | 'CheckedDivisionFailed' | 'ReviewScoreOutOfRange' | 'NativeCollateral';
   }
 
   /** @name PalletMintingCall (249) */

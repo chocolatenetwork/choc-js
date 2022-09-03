@@ -108,6 +108,10 @@ declare module '@polkadot/api-base/types/errors' {
        * Insufficient funds for performing a task. Add more funds to your account/call/reserve.
        **/
       InsufficientBalance: AugmentedError<ApiType>;
+      /**
+       * Native token cannot be used as collateral.
+       **/
+      NativeCollateral: AugmentedError<ApiType>;
       NoneValue: AugmentedError<ApiType>;
       /**
        * The project does not exist
