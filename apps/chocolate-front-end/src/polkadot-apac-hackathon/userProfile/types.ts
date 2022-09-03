@@ -1,9 +1,10 @@
 import { HumanTableSetReview } from '../../typeSystem/jsonTypes';
 
-type TableReducerActionTypes = 'FILTER_PROJECT_NAME' |
-  'FILTER_REVIEW_RATING' |
-  'INITIALISE' |
-  'FILTER_REVIEW_STATUS';
+type TableReducerActionTypes =
+  | 'FILTER_PROJECT_NAME'
+  | 'FILTER_REVIEW_RATING'
+  | 'INITIALISE'
+  | 'FILTER_REVIEW_STATUS';
 interface TableReducerActionBase {
   type: TableReducerActionTypes;
   status?: string;
@@ -20,6 +21,7 @@ interface TableReducerActionFPN {
   type: 'FILTER_PROJECT_NAME';
   projectID: number;
 }
-export type TableReducerAction = TableReducerActionInitialise |
-  TableReducerActionFilterReviewRating |
-  TableReducerActionFPN;
+export type TableReducerAction =
+  | TableReducerActionInitialise
+  | TableReducerActionFilterReviewRating
+  | TableReducerActionFPN;

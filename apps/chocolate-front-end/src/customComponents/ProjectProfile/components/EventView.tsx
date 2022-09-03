@@ -12,15 +12,21 @@ const EventView: React.FC<{ event: EventRecord[] }> = function (props) {
     const { event: localEvent, phase } = record;
     const types = localEvent.typeDef;
     const text = [
-      <React.Fragment key={`fragof${localEvent.hash.toString()}${i}`}> </React.Fragment>,
+      <React.Fragment key={`fragof${localEvent.hash.toString()}${i}`}>
+        {' '}
+      </React.Fragment>,
     ]; // Key is mandatory.
     text.push(
       <p key={`${localEvent.hash.toString()}${i}`}>
-        {`\t${localEvent.section}.${localEvent.method}::(phase=${phase.defKeys[phase.index]})`}
+        {`\t${localEvent.section}.${localEvent.method}::(phase=${
+          phase.defKeys[phase.index]
+        })`}
       </p>
     );
     text.push(
-      <p key={JSON.stringify(localEvent.meta)}>{`\t\t${String(localEvent.meta.docs.toHuman())}`}</p>
+      <p key={JSON.stringify(localEvent.meta)}>{`\t\t${String(
+        localEvent.meta.docs.toHuman()
+      )}`}</p>
     );
     // Learn better type parsing this just separates object Object from better human readables.
     localEvent.data.forEach((data, index) => {
@@ -35,9 +41,15 @@ const EventView: React.FC<{ event: EventRecord[] }> = function (props) {
           if (t.isModule) enValue = t.registry.findMetaError(t.asModule).name;
         }
       }
-      text.push(<p key={`${JSON.stringify(types)}${index}`}>{`\t\t\t${typeName}: ${enValue}`}</p>);
+      text.push(
+        <p
+          key={`${JSON.stringify(types)}${index}`}
+        >{`\t\t\t${typeName}: ${enValue}`}</p>
+      );
     });
-    return <List.Item key={`listof${localEvent.hash.toString()}`}>{text}</List.Item>;
+    return (
+      <List.Item key={`listof${localEvent.hash.toString()}`}>{text}</List.Item>
+    );
   });
 
   return <List divided>{view}</List>;

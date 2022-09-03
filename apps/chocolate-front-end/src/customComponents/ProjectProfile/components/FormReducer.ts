@@ -23,7 +23,7 @@ export type CacheAction = Stage1Action | Stage2Action | Act;
 interface Stage1Action {
   type: 'stage1';
 
-  stage1: { [x: string]: string | number; comment: string; rating: number; };
+  stage1: { [x: string]: string | number; comment: string; rating: number };
   id: string;
 }
 interface Stage2Action {
@@ -47,10 +47,8 @@ const GetInitialCache = (id: string, initialCache: StageCache): StageCache => {
     let Value1: number | string | null = localStorage.getItem(
       `stage1-project${id}-${key}`
     );
-    if (Value1 === '' || Value1 === undefined || Value1 === null)
-      return;
-    if (key === 'rating')
-      Value1 = Number.parseInt(Value1);
+    if (Value1 === '' || Value1 === undefined || Value1 === null) return;
+    if (key === 'rating') Value1 = Number.parseInt(Value1);
     stageCacheClone.stage1[key] = Value1;
   });
   // populate stage2

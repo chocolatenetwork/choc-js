@@ -15,11 +15,11 @@ const ProfileTable: React.FC<ProfileTableProps> = (props) => {
   const search = useUserReviews(web3Addr);
 
   return (
-    <Grid padded='vertically' style={{ paddingTop: '20px' }}>
-      <Grid.Column floated='left' width={4}>
+    <Grid padded="vertically" style={{ paddingTop: '20px' }}>
+      <Grid.Column floated="left" width={4}>
         <Sidebar {...{ user, web3Addr }} />
       </Grid.Column>
-      <Grid.Column floated='right' stretched width={10}>
+      <Grid.Column floated="right" stretched width={10}>
         <TableOfReviews data={search} />
       </Grid.Column>
     </Grid>

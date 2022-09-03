@@ -5,7 +5,7 @@ import './wallet.css';
 
 const Menu = function (): JSX.Element {
   return (
-    <header className='top-nav'>
+    <header className="top-nav">
       <Navlinks />
       <Wallet />
     </header>

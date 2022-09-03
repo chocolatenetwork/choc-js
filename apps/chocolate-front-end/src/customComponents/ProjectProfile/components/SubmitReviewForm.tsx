@@ -5,7 +5,12 @@ import { SubRev } from '../types';
 import { CheckAuthAndGetCid } from './CheckAuthAndGetCid';
 import { FormToEnter } from './FormToEnter';
 import { SubmitReviewTx as SubmitToChain } from './SubmitReviewTx';
-import { StageCache, CacheAction, stageCacheReducer, InitialCache } from './FormReducer';
+import {
+  StageCache,
+  CacheAction,
+  stageCacheReducer,
+  InitialCache,
+} from './FormReducer';
 import { useStateDeets } from '../hooks/useStateDeets';
 import { AccountReducer, unselectedState } from './reducers/AccountReducer';
 
@@ -20,8 +25,15 @@ const SubmitReviewForm: SubRev = function (props) {
   const { isAuthenticated } = useAuthService();
   // stage1 deets
   const id = proj[1].toHuman();
-  const accountCtx =  useReducer(AccountReducer,unselectedState);
-  const { formProps, initCheckCidProps, initChainProps }= useStateDeets({ dispatchCache, id, proj, cache, isAuthenticated , accountCtx});
+  const accountCtx = useReducer(AccountReducer, unselectedState);
+  const { formProps, initCheckCidProps, initChainProps } = useStateDeets({
+    dispatchCache,
+    id,
+    proj,
+    cache,
+    isAuthenticated,
+    accountCtx,
+  });
 
   // render based on stage
   switch (stage) {
@@ -37,4 +49,3 @@ const SubmitReviewForm: SubRev = function (props) {
   }
 };
 export { SubmitReviewForm };
-

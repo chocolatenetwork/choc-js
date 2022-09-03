@@ -22,7 +22,8 @@ const queryCache = new QueryCache({
   onError: (error, query) => {
     // only show errors for refetches. So intial error should be handled locally.
     if (query.state.data !== undefined) {
-      if (error instanceof Error) toast.error(`Something went wrong ${error.message}`);
+      if (error instanceof Error)
+        toast.error(`Something went wrong ${error.message}`);
       else toast.error(`Something went wrong `);
     }
   },
@@ -44,16 +45,16 @@ function IndexPageEntry(): JSX.Element {
             <MenuBar />
             <Routes>
               <Route index element={<ProjectsRe />} />
-              <Route path='/gallery' element={<Gallery />} />
-              <Route path='/wall-of-shame' element={<WallOfShame />} />
-              <Route path='/project/:id/*' element={<ProjectProfile />} />
-              <Route path='/user/:web3Address' element={<UserProfile />} />
-              <Route path='/signup' element={<SignUp />} />
-              <Route path='/login' element={<Login />} />
-              <Route path='*' element={message('404! Not found', true)} />
+              <Route path="/gallery" element={<Gallery />} />
+              <Route path="/wall-of-shame" element={<WallOfShame />} />
+              <Route path="/project/:id/*" element={<ProjectProfile />} />
+              <Route path="/user/:web3Address" element={<UserProfile />} />
+              <Route path="/signup" element={<SignUp />} />
+              <Route path="/login" element={<Login />} />
+              <Route path="*" element={message('404! Not found', true)} />
             </Routes>
           </Router>
-          <Toaster position='bottom-right' />
+          <Toaster position="bottom-right" />
           {process.env.NODE_ENV === 'development' && <ReactQueryDevtools />}
         </AuthProvider>
       </QueryClientProvider>

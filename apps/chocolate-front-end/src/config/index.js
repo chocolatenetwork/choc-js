@@ -4,7 +4,7 @@ import configCommon from './common.json';
 const configEnv = require(`./${process.env.NODE_ENV}.json`);
 const types = require('./types.json');
 
-/** 
+/**
  * @typedef {typeof configEnv } ConfigEnv
  * @typedef {typeof configCommon} ConfigCommon
  * @type {{types: typeof types;} & ConfigCommon & ConfigEnv}

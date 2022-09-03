@@ -7,7 +7,8 @@ import '@polkadot/api-base/types/errors';
 
 import type { ApiTypes, AugmentedError } from '@polkadot/api-base/types';
 
-export type __AugmentedError<ApiType extends ApiTypes> = AugmentedError<ApiType>;
+export type __AugmentedError<ApiType extends ApiTypes> =
+  AugmentedError<ApiType>;
 
 declare module '@polkadot/api-base/types/errors' {
   interface AugmentedErrors<ApiType extends ApiTypes> {
@@ -108,6 +109,10 @@ declare module '@polkadot/api-base/types/errors' {
        * Insufficient funds for performing a task. Add more funds to your account/call/reserve.
        **/
       InsufficientBalance: AugmentedError<ApiType>;
+      /**
+       * Native token cannot be used as collateral.
+       **/
+      NativeCollateral: AugmentedError<ApiType>;
       NoneValue: AugmentedError<ApiType>;
       /**
        * The project does not exist
@@ -481,7 +486,7 @@ declare module '@polkadot/api-base/types/errors' {
       CallFiltered: AugmentedError<ApiType>;
       /**
        * Failed to extract the runtime version from the new runtime.
-       * 
+       *
        * Either calling `Core_version` or decoding `RuntimeVersion` failed.
        **/
       FailedToExtractRuntimeVersion: AugmentedError<ApiType>;

@@ -1,7 +1,7 @@
-import { resolve } from 'path';
-import { writeFile, mkdir } from 'fs/promises';
-import * as TJS from 'typescript-json-schema';
+import { mkdir, writeFile } from 'fs/promises';
 import stringify from 'json-stable-stringify';
+import { resolve } from 'path';
+import * as TJS from 'typescript-json-schema';
 import { throwIfErr } from './lib/util';
 // optionally pass argument to schema generator
 const settings: TJS.PartialArgs = {
@@ -23,7 +23,7 @@ const schemas = [
 ];
 
 export function build(basePath: string): void {
-  const paths = schemas.map((e) => resolve(basePath, 'Schema.ts'));
+  const paths = [resolve(basePath, 'Schema.ts')];
   const program = TJS.getProgramFromFiles(paths, compilerOptions, basePath);
 
   for (const [, schema] of schemas.entries()) {

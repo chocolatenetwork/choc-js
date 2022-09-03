@@ -23,15 +23,17 @@ const CheckAuthAndGetCid: React.FC<CheckCidProps> = function (props) {
   // first, check if auth
   const { accountCtx, comment, rating, dispatchCache } = props;
   const [runLoad, setRunLoad] = useState(false);
-  const [aState, setAState] = useState<'loading-cid' | 'done' | 'init' | 'init-select'>('init');
-  
+  const [aState, setAState] = useState<
+    'loading-cid' | 'done' | 'init' | 'init-select'
+  >('init');
+
   const [addrState, dispatch] = accountCtx;
   let caller: KeyringPair | null = null;
   if (addrState.state === 'selected') {
     const { addr, keyring } = addrState;
     caller = keyring.getPair(addr);
   }
-  const { isLoading, isError, data ,refetch,isFetching} = useCid(
+  const { isLoading, isError, data, refetch, isFetching } = useCid(
     aState === 'loading-cid' && addrState.state === 'selected',
     comment,
     rating,
@@ -54,46 +56,63 @@ const CheckAuthAndGetCid: React.FC<CheckCidProps> = function (props) {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isLoading, isError, data, id]);
 
-  useLoadAccounts(runLoad,setRunLoad);
+  useLoadAccounts(runLoad, setRunLoad);
   if (aState === 'init-select') {
     return (
       <>
         <p>Please Select an account to use in Pinning your review to IPFS</p>
         <AccountSelector onAddrChange={handleAddrChange(dispatch)} />
-        <Button color="green" onClick={()=>{ setAState('loading-cid')}}>Confirm</Button>
+        <Button
+          color="green"
+          onClick={() => {
+            setAState('loading-cid');
+          }}
+        >
+          Confirm
+        </Button>
       </>
     );
   }
-  if (aState==='init')
+  if (aState === 'init')
     return (
       <div>
         <p>Please connect your wallet to proceed</p>
-        <Button onClick={() => {setAState('init-select'); setRunLoad(true);}} primary>
+        <Button
+          onClick={() => {
+            setAState('init-select');
+            setRunLoad(true);
+          }}
+          primary
+        >
           Connect wallet
         </Button>
       </div>
     );
 
-  if (aState=== 'done') navigate(`/project/${id}/stage/3`);
+  if (aState === 'done') navigate(`/project/${id}/stage/3`);
 
-      
   let text = <p> Fetching your review's cid...</p>;
-  if(isError){
-    if(!isFetching){
+  if (isError) {
+    if (!isFetching) {
       text = (
         <>
           <p>
             Something Went wrong fetching your review's cid...please refetch
           </p>
-          <Button onClick={()=>refetch()}>Refetch</Button>
+          <Button onClick={() => refetch()}>Refetch</Button>
         </>
       );
     }
-    text = <p> <i>Still</i> Fetching your review's cid...</p>;
+    text = (
+      <p>
+        {' '}
+        <i>Still</i> Fetching your review's cid...
+      </p>
+    );
   }
   return (
     <Container fluid>
-     {text}
+      {text}
       <Loader />
     </Container>
   );

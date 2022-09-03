@@ -32,7 +32,7 @@ export async function createReviews(
 
     // Get all projects
     const _allPrs = await api.query.chocolateModule.projects.entries();
-    //   Filter those owned by this user to avoid err.
+    //   Filter out those owned by this user to avoid err.
     const allPrs = _allPrs.filter(([, v]) => {
       const pr = v.unwrap();
       const ownerIdStr = pr.ownerId.toHuman();
@@ -56,6 +56,7 @@ export async function createReviews(
         //  Create the proposal so that acceptLast just needs to accept all.
         return createProposal(api, proposal, alice, i, eventList2);
       });
+      // Wait for the tx to avoid nonce errors (*)
       await Promise.allSettled([pr]);
       promList.push(pr);
       gEventList.push(...eventList, ...eventList2);

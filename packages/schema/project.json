@@ -5,6 +5,7 @@
     "build": {
       "executor": "nx:run-script",
       "outputs": ["packages/schema/schemas"],
+      "inputs": ["{projectRoot}/src/**/*.ts"],
       "options": {
         "script": "build"
       }

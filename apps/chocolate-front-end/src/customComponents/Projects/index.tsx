@@ -85,7 +85,7 @@ const ProjectView: React.FC<{ data: HumanNewProjectWithIndex }> = function (
   const { ownerId, proposalStatus, metadata } = project;
   const { name } = metadata;
   const { status } = proposalStatus;
-  let rateBar: JSX.Element=<>loading...</>;
+  let rateBar: JSX.Element = <>loading...</>;
   let toProject: JSX.Element = <>loading...</>;
   if (status === 'Accepted') {
     const rating =
@@ -109,7 +109,7 @@ const ProjectView: React.FC<{ data: HumanNewProjectWithIndex }> = function (
   return (
     <section className="project">
       <Identicon
-      type="Identicon"
+        type="Identicon"
         // key={`substrate_icon_${ownerID}`}
         id={ownerId.toString()}
         size={48}
@@ -142,9 +142,14 @@ export const ProjectsView: React.FC<{
   );
   if (gallery) {
     header = 'Projects covered by chocolate';
-    desc = 'This is an exhaustive gallery of the different projects in chocolate currently';
-    const accepted = data.filter((each) => each.project.proposalStatus.status === 'Accepted');
-    const proposed = data.filter((each) => each.project.proposalStatus.status === 'Proposed');
+    desc =
+      'This is an exhaustive gallery of the different projects in chocolate currently';
+    const accepted = data.filter(
+      (each) => each.project.proposalStatus.status === 'Accepted'
+    );
+    const proposed = data.filter(
+      (each) => each.project.proposalStatus.status === 'Proposed'
+    );
     const r1 = accepted.map(toProject);
     const r2 = proposed.map(toProject);
     render = (
@@ -158,7 +163,7 @@ export const ProjectsView: React.FC<{
   }
   if (shame) {
     header = 'Wall of Shame';
-    desc = <img src={Pensive} alt='Pensive face emoji' />;
+    desc = <img src={Pensive} alt="Pensive face emoji" />;
     const malicious = data.filter(
       (each) =>
         each.project.proposalStatus.status === 'Rejected' &&

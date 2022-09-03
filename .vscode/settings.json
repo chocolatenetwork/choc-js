@@ -10,32 +10,15 @@
   "npm-intellisense.recursivePackageJsonLookup": true,
   "prettier.endOfLine": "lf",
   "npm.packageManager": "npm",
-
-  // These are all my auto-save configs
   "editor.formatOnSave": true,
-  // turn it off for JS and JSX, we will do this via eslint
-  "[javascript]": {
-    "editor.formatOnSave": false,
-    "editor.defaultFormatter": "dbaeumer.vscode-eslint"
-  },
-  "[javascriptreact]": {
-    "editor.formatOnSave": false,
-    "editor.defaultFormatter": "dbaeumer.vscode-eslint"
-  },
-  "[typescript]": {
-    "editor.formatOnSave": true,
-    "editor.defaultFormatter": "esbenp.prettier-vscode"
-  },
-  "[typescriptreact]": {
-    "editor.formatOnSave": true,
-    "editor.defaultFormatter": "dbaeumer.vscode-eslint"
-  },
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
   // show eslint icon at bottom toolbar
   "eslint.alwaysShowStatus": true,
-  // tell the ESLint plugin to run on save
+  // Organize immports and fix anything eslint-y
   "editor.codeActionsOnSave": {
     "source.fixAll": true,
-    "source.organizeImports": true
+    "source.organizeImports": true,
+    "source.fixAll.sortJSON": false
   },
 
   "js/ts.implicitProjectConfig.checkJs": true,

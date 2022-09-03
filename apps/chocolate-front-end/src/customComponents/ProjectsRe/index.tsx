@@ -8,7 +8,7 @@ import ChocolateRedBig from '../../assets/chocolate-red-big.svg';
 import { SearchBar } from './components/SearchBar';
 import { useSearchData } from './hooks';
 import './project.css';
-import {SubstrateReadyCTX}from '../../Layouts/app/InnerAppProvider';
+import { SubstrateReadyCTX } from '../../Layouts/app/InnerAppProvider';
 
 /** @description Redo of the projects page */
 const ProjectsRe: React.FC = function () {
@@ -22,32 +22,34 @@ const ProjectsRe: React.FC = function () {
   }, [isAnyError]);
 
   return (
-    <main className='land'>
-      <section className='land__content'>
+    <main className="land">
+      <section className="land__content">
         <img
-          className='top_img'
+          className="top_img"
           src={ChocolateRedBig}
-          alt='Medium sized chocolate bar'
-          width='120px'
-          height='120px'
+          alt="Medium sized chocolate bar"
+          width="120px"
+          height="120px"
         />
-        <p className='tagline'>Ending scam &amp; spam in crypto once and for all.</p>
+        <p className="tagline">
+          Ending scam &amp; spam in crypto once and for all.
+        </p>
         <SearchBar projects={data} />
       </section>
-      <section className='link_buttons'>
-        <div className='ui button purple group'>
-          <Link className='ui button purple choc-pink' to='/gallery'>
+      <section className="link_buttons">
+        <div className="ui button purple group">
+          <Link className="ui button purple choc-pink" to="/gallery">
             Find a project
           </Link>
-          <Link className='ui button purple choc-pink' to='/wall-of-shame'>
+          <Link className="ui button purple choc-pink" to="/wall-of-shame">
             Wall of shame
           </Link>
         </div>
-        <div className='ui button purple disabled group'>
-          <button type='button' className='ui button purple disabled'>
+        <div className="ui button purple disabled group">
+          <button type="button" className="ui button purple disabled">
             Create a project
           </button>
-          <button type='button' className='ui button purple disabled'>
+          <button type="button" className="ui button purple disabled">
             Claim a project
           </button>
         </div>

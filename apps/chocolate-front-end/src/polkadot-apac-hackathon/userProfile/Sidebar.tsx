@@ -47,33 +47,49 @@ const Sidebar: React.FC<SidebarProps> = (props) => {
   return (
     <Container fluid>
       <Card fluid>
-        <Card.Content textAlign='center'>
-          <Image centered src='https://picsum.photos/200 ' size='small' circular />
+        <Card.Content textAlign="center">
+          <Image
+            centered
+            src="https://picsum.photos/200 "
+            size="small"
+            circular
+          />
         </Card.Content>
         <Card.Content>
-          <Card.Header textAlign='center'>{userAggr.name}</Card.Header>
+          <Card.Header textAlign="center">{userAggr.name}</Card.Header>
           {/* get from server  - when joined */}
 
           <Card>
             <Card.Content>
-              <Label color='purple' ribbon='right'>
+              <Label color="purple" ribbon="right">
                 {/* assuming we store this meta on chain */}
                 {userAggr.name !== 'Anonymous' ? 'Joined' : 'Not Joined'}
               </Label>
               {/* Make stats available via easier means e.g store onchain or in other metadata */}
-              <SideBarStat content='No. of Reviews' stat={search[0].length.toString()} />
-              <SideBarStat content='Points' stat={user.rankPoints?.toString() ?? '0'} />
+              <SideBarStat
+                content="No. of Reviews"
+                stat={search[0].length.toString()}
+              />
+              <SideBarStat
+                content="Points"
+                stat={user.rankPoints?.toString() ?? '0'}
+              />
             </Card.Content>
           </Card>
         </Card.Content>
-        <Card.Content textAlign='center'>
+        <Card.Content textAlign="center">
           <Button
-            size='big'
+            size="big"
             compact
             href={`https://twitter.com/${userAggr.name}`}
-            icon='twitter square'
+            icon="twitter square"
           />
-          <Button compact size='big' href={`https://discord.com/${userAggr.name}`} icon='discord' />
+          <Button
+            compact
+            size="big"
+            href={`https://discord.com/${userAggr.name}`}
+            icon="discord"
+          />
         </Card.Content>
       </Card>
     </Container>

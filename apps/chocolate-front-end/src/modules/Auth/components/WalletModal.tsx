@@ -15,12 +15,13 @@ export function WalletModal(props: { connected?: boolean }): JSX.Element {
   let content;
   // do the keyring stuff here too.
   if (keyringState === 'LOADING') content = <p>Loading... </p>;
-  else if (keyringState === 'ERROR') content = <p>Something went wrong, please refresh the page</p>;
+  else if (keyringState === 'ERROR')
+    content = <p>Something went wrong, please refresh the page</p>;
   else if (!connected) {
     content = (
       <>
         <p>Your wallet is not connected, do connect</p>
-        <button type='button' onClick={() => setRun(true)}>
+        <button type="button" onClick={() => setRun(true)}>
           Connect wallet
         </button>
       </>
@@ -29,5 +30,5 @@ export function WalletModal(props: { connected?: boolean }): JSX.Element {
     content = <AccountSelector />;
   }
 
-  return <div className='modal modal_drop modal_drop--right'>{content}</div>;
+  return <div className="modal modal_drop modal_drop--right">{content}</div>;
 }

@@ -6,12 +6,28 @@
 import '@polkadot/api-base/types/consts';
 
 import type { ApiTypes, AugmentedConst } from '@polkadot/api-base/types';
-import type { Option, U8aFixed, u128, u16, u32, u64, u8 } from '@polkadot/types-codec';
+import type {
+  Option,
+  U8aFixed,
+  u128,
+  u16,
+  u32,
+  u64,
+  u8,
+} from '@polkadot/types-codec';
 import type { Codec } from '@polkadot/types-codec/types';
 import type { Permill } from '@polkadot/types/interfaces/runtime';
-import type { FrameSupportPalletId, FrameSupportWeightsRuntimeDbWeight, FrameSystemLimitsBlockLength, FrameSystemLimitsBlockWeights, ParachainTemplateRuntimeCurrencyId, SpVersionRuntimeVersion } from '@polkadot/types/lookup';
+import type {
+  FrameSupportPalletId,
+  FrameSupportWeightsRuntimeDbWeight,
+  FrameSystemLimitsBlockLength,
+  FrameSystemLimitsBlockWeights,
+  ParachainTemplateRuntimeCurrencyId,
+  SpVersionRuntimeVersion,
+} from '@polkadot/types/lookup';
 
-export type __AugmentedConst<ApiType extends ApiTypes> = AugmentedConst<ApiType>;
+export type __AugmentedConst<ApiType extends ApiTypes> =
+  AugmentedConst<ApiType>;
 
 declare module '@polkadot/api-base/types/consts' {
   interface AugmentedConsts<ApiType extends ApiTypes> {
@@ -65,7 +81,8 @@ declare module '@polkadot/api-base/types/consts' {
       [key: string]: Codec;
     };
     currencies: {
-      getNativeCurrencyId: ParachainTemplateRuntimeCurrencyId & AugmentedConst<ApiType>;
+      getNativeCurrencyId: ParachainTemplateRuntimeCurrencyId &
+        AugmentedConst<ApiType>;
       /**
        * Generic const
        **/
@@ -96,7 +113,7 @@ declare module '@polkadot/api-base/types/consts' {
       termDuration: u32 & AugmentedConst<ApiType>;
       /**
        * Base deposit associated with voting.
-       * 
+       *
        * This should be sensibly high to economically ensure the pallet cannot be attacked by
        * creating a gigantic number of votes.
        **/
@@ -129,7 +146,7 @@ declare module '@polkadot/api-base/types/consts' {
       dbWeight: FrameSupportWeightsRuntimeDbWeight & AugmentedConst<ApiType>;
       /**
        * The designated SS85 prefix of this chain.
-       * 
+       *
        * This replaces the "ss58Format" property declared in the chain spec. Reason is
        * that the runtime should know about the prefix in order to make use of it as
        * an identifier of the chain.
@@ -172,21 +189,21 @@ declare module '@polkadot/api-base/types/consts' {
       /**
        * A fee mulitplier for `Operational` extrinsics to compute "virtual tip" to boost their
        * `priority`
-       * 
+       *
        * This value is multipled by the `final_fee` to obtain a "virtual tip" that is later
        * added to a tip component in regular `priority` calculations.
        * It means that a `Normal` transaction can front-run a similarly-sized `Operational`
        * extrinsic (with no tip), by including a tip value greater than the virtual tip.
-       * 
+       *
        * ```rust,ignore
        * // For `Normal`
        * let priority = priority_calc(tip);
-       * 
+       *
        * // For `Operational`
        * let virtual_tip = (inclusion_fee + tip) * OperationalFeeMultiplier;
        * let priority = priority_calc(tip + virtual_tip);
        * ```
-       * 
+       *
        * Note that since we use `final_fee` the multiplier applies also to the regular `tip`
        * sent with the transaction. So, not only does the transaction get a priority bump based
        * on the `inclusion_fee`, but we also amplify the impact of tips applied to `Operational`
@@ -205,7 +222,7 @@ declare module '@polkadot/api-base/types/consts' {
       burn: Permill & AugmentedConst<ApiType>;
       /**
        * The maximum number of approvals that can wait in the spending queue.
-       * 
+       *
        * NOTE: This parameter is also used within the Bounties Pallet extension if enabled.
        **/
       maxApprovals: u32 & AugmentedConst<ApiType>;

@@ -17,9 +17,8 @@
   align-self: center;
   /* children */
   display: flex;
-  
 }
-.nav-links-ul{
+.nav-links-ul {
   align-self: center;
 }
 .nav-links-ul > li {
@@ -51,7 +50,8 @@
 .nav-link__home {
   margin-right: auto;
 }
-.nav-link__home:hover, .nav-link__home:focus{
+.nav-link__home:hover,
+.nav-link__home:focus {
   background-color: transparent;
 }
 /*</Nav>*/

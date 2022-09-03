@@ -23,33 +23,33 @@ const AuthView: React.FC = function () {
   return (
     <Router>
       <Routes>
-        <Route path='/'>
+        <Route path="/">
           <Container
-            textAlign='center'
+            textAlign="center"
             style={{ height: '100vh', display: 'flex', alignItems: 'center' }}
             fluid
           >
             <Card centered>
-              <Card.Header content='Welcome Home' />
+              <Card.Header content="Welcome Home" />
               <Card.Content>
-                <Button as={Link} to='sign-up' color='purple'>
+                <Button as={Link} to="sign-up" color="purple">
                   Signup
                 </Button>
-                <Button as={Link} to='login'>
+                <Button as={Link} to="login">
                   Login
                 </Button>
               </Card.Content>
             </Card>
           </Container>
         </Route>
-        <Route path='/sign-up'>
+        <Route path="/sign-up">
           <SignUp />
         </Route>
-        <Route path='/login'>
+        <Route path="/login">
           <Login />
         </Route>
 
-        <Route path='*'>{message('Page not found', true)}</Route>
+        <Route path="*">{message('Page not found', true)}</Route>
       </Routes>
     </Router>
   );

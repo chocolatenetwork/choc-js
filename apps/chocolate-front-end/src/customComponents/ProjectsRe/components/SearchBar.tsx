@@ -61,18 +61,18 @@ function SearchBar(
   }
   return (
     <form
-      role='search'
-      className='ui search'
+      role="search"
+      className="ui search"
       onBlur={blurHandler}
       onFocus={focusHandler}
       onSubmit={handleSubmit}
     >
-      <div className='searchbar'>
+      <div className="searchbar">
         <input
-          className='searchbar__input'
-          type='search'
-          placeholder='Search for a project'
-          aria-label='Search for a project'
+          className="searchbar__input"
+          type="search"
+          placeholder="Search for a project"
+          aria-label="Search for a project"
           value={value}
           onChange={handleChange}
         />

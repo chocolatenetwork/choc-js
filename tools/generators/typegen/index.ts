@@ -1,8 +1,8 @@
 import {
-  Tree,
   formatFiles,
-  readProjectConfiguration,
   generateFiles,
+  readProjectConfiguration,
+  Tree,
 } from '@nrwl/devkit';
 import { join } from 'path';
 import { w3cwebsocket as WebSocket } from 'websocket';
@@ -35,13 +35,8 @@ const mods: (string | ModWithRpc)[] = ['chocolateModule', 'usersModule'];
 
 // Todo: Rework to do the following:
 //  1. (highest priority), run typegen on types using low level functions to take advantage of nx's cache system
-//  Idea: Trigger via a spawn call that runs said commands. See if it helps caching.
 //  Also run metadata update via this command
-//  Problem with 2&3 below: will need to be tweaked for rpc. WON'T FIX.
-//  2. Update interfaces folder of types with a folder of structure: __modulename__/definitions.ts which imports __modulename__ from @choc-js/definitions and reexports as Definitions
-//  3. Update Definition.ts of types with export {default as __modulename__} from ./__modulename__/definitons.ts
 export default async function (tree: Tree, schema: any) {
-  // Don't create a library
   const libraryRoot = readProjectConfiguration(tree, schema.name).root;
   // First, update metadata.ts in the types library
   const metadata = await fetchMetadata();

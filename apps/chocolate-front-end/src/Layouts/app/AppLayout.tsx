@@ -14,7 +14,8 @@ export function AppLayout(): JSX.Element {
   const substrState = useSubstrate();
 
   if (substrState.apiState === 'ERROR') return message(substrState.apiError);
-  if (substrState.apiState !== 'READY') return loader('Connecting to Substrate');
+  if (substrState.apiState !== 'READY')
+    return loader('Connecting to Substrate');
 
   return (
     <InnerAppProvider api={substrState.api}>

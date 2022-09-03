@@ -74,10 +74,10 @@ const SignUp: React.FC = function () {
     // Return redirect component, counter should have been started.
     return (
       <p>
-        You've successfully signed in, you will be redirected automatically to the login page to
-        credentials you signed up with in 5 seconds.
+        You've successfully signed in, you will be redirected automatically to
+        the login page to credentials you signed up with in 5 seconds.
         <br /> If you're not automatically redirected, use this{' '}
-        <Link to='/login' state={{ from: redirecturl }}>
+        <Link to="/login" state={{ from: redirecturl }}>
           link
         </Link>
       </p>
@@ -100,7 +100,10 @@ const SignUp: React.FC = function () {
     setForm((F) => ({ ...F, captcha: '' }));
     if (isDebug) console.error(`hCaptcha Error: ${err}`);
   };
-  const handleSubmit: (e: FormEvent<HTMLFormElement>, data: FormProps) => void = (e) => {
+  const handleSubmit: (
+    e: FormEvent<HTMLFormElement>,
+    data: FormProps
+  ) => void = (e) => {
     e.preventDefault();
     if (!form.captcha) {
       captchaRef?.current?.execute();
@@ -108,10 +111,10 @@ const SignUp: React.FC = function () {
     }
     signUpMutation.mutate(form);
   };
-  const handleChange: (e: ChangeEvent<HTMLInputElement>, data: InputOnChangeData) => void = (
-    _e,
-    data
-  ) => {
+  const handleChange: (
+    e: ChangeEvent<HTMLInputElement>,
+    data: InputOnChangeData
+  ) => void = (_e, data) => {
     setForm((F) => ({ ...F, [data.name]: data.value }));
   };
   const handleVerify: (token: string) => void = (token) => {
@@ -128,28 +131,34 @@ const SignUp: React.FC = function () {
       <Form onSubmit={handleSubmit}>
         <Form.Input
           fluid
-          label='Username'
-          name='uname'
+          label="Username"
+          name="uname"
           value={form.uname}
           onChange={handleChange}
         />
         <Form.Input
           fluid
-          label='Password'
-          name='ps'
-          type='password'
+          label="Password"
+          name="ps"
+          type="password"
           value={form.ps}
           onChange={handleChange}
         />
         <Form.Input
           required
-          type='text'
+          type="text"
           value={form.web3Address}
-          name='web3Address'
-          placeholder='web3Address'
+          name="web3Address"
+          placeholder="web3Address"
           onChange={handleChange}
         />
-        <Form.Button type='submit' content='Submit' fluid color='purple' onChange={handleChange} />
+        <Form.Button
+          type="submit"
+          content="Submit"
+          fluid
+          color="purple"
+          onChange={handleChange}
+        />
       </Form>
       <HCaptcha
         sitekey={config.REACT_APP_CAPTCHA_SITE_KEY}

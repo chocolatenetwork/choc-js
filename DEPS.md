@@ -2,23 +2,24 @@
 
 So as to ensure that updates are easier to do in this repository, dependencies are tracked here based on groups that are related.
 
-
 ### NX
 
-    @nrwl/cli@14.4.0, 
-    @nrwl/js@14.4.0, 
-    @nrwl/nx-cloud@latest, 
+    @nrwl/cli@14.4.0,
+    @nrwl/js@14.4.0,
+    @nrwl/nx-cloud@latest,
     @nrwl/workspace@14.4.0,
     "@nrwl/jest"@^14.4.0,
-    nx@14.4.0, 
+    nx@14.4.0,
     @nrwl/react@14.4.0
     @nrwl/cypress@14.4.0",
     @nrwl/eslint-plugin-nx@14.4.0,
     @nrwl/linter@14.4.0,
     @nrwl/web@14.4.0,
     @nrwl/devkit@14.4.0
+
 ### Lint
-    prettier@^2.6.2, 
+
+    prettier@^2.6.2,
     "@typescript-eslint/eslint-plugin@^5.29.0",
     "@typescript-eslint/parser@^5.29.0",
     "eslint@~8.15.0",
@@ -28,32 +29,43 @@ So as to ensure that updates are easier to do in this repository, dependencies a
     "eslint-plugin-jsx-a11y@6.6.0",
     "eslint-plugin-react@7.30.1",
     "eslint-plugin-react-hooks@4.6.0",
+
 ### Ts
+
     esno@^0.16.3
     typescript@~4.7.2
     @types/node@^16.11.1
+
 ### Jest
+
     tslib@2.3.0
     @types/jest@27.4.1
     jest@27.5.1
     ts-jest@27.1.4
     ts-node@~10.8.0
+
 ### Babel
+
     "regenerator-runtime": "0.13.7",
     core-js@^3.6.5,
+
 ### React
+
     "react": "18.2.0",
     "react-dom": "18.2.0",
     "react-router-dom": "6.3.0",
     "@types/react": "18.0.14",
     "@types/react-dom": "18.0.5",
     "@types/react-router-dom": "5.3.3",
+
 ### Cypress / Testing
+
     "@testing-library/react": "13.3.0",
     "cypress": "^9.1.0",
     "react-test-renderer": "18.2.0",
 
 ### Polkadot
+
 ```log
 <!-- Devhub at https://github.com/substrate-developer-hub/substrate-front-end-template/commit/e36c75de93a8fbd6a40b374129fbfa50a2bff16d -->
     @polkadot/api@^7.10.1
@@ -67,8 +79,9 @@ So as to ensure that updates are easier to do in this repository, dependencies a
     @polkadot/util-crypto@^8.4.1
 
     node-polyfill-webpack-plugin@2.0.1
-    stream-browserify@^3.0.0 
+    stream-browserify@^3.0.0
 ```
+
 ```log
 <!-- Ours at Aug 20th 2022 -->
     @polkadot/api@^9.1.1
@@ -85,6 +98,7 @@ So as to ensure that updates are easier to do in this repository, dependencies a
     @open-web3/orml-type-definitions@2.0.1
     @polkadot/extension-dapp@^0.44.6, - passto managing extss
 ```
+
 ```log
    <!-- Polkadot api at https://github.com/polkadot-js/api/commit/f0c45733eef590e785ff13ba701a6f0dcae05dc1  -->
     <!-- "@polkadot/api-augment": "^9.1.1", -->
@@ -106,9 +120,11 @@ So as to ensure that updates are easier to do in this repository, dependencies a
 ```
 
 #### Browser
+
 ### Projects
 
 #### Schema
+
     typescript-json-schema@^0.53.1
     json-stable-stringify@^1.0.1
     @types/json-stable-stringify@^1.0.34
@@ -119,7 +135,7 @@ So as to ensure that updates are easier to do in this repository, dependencies a
 ipfs-http-client@49.0.0
 
 semantic-ui-css@^2.4.1
-semantic-ui-react@^2.0.3    
+semantic-ui-react@^2.0.3  
 lodash@^4.17.14
 react-copy-to-clipboard@^5.0.3
 react-query@^3.27.0
@@ -131,5 +147,5 @@ react-hot-toast@2.1.1
 
 @types/react-copy-to-clipboard@^5.0.3
 
-@hcaptcha/react-hcaptcha  "^1.4.4",
+@hcaptcha/react-hcaptcha "^1.4.4",
 "node-polyfill-webpack-plugin": "^2.0.1",

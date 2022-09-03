@@ -1,8 +1,6 @@
 import '@choc-js/types';
 
-import type {
-  ChocolatePrimitivesProjectsStatus
-} from '@polkadot/types/lookup';
+import type { ChocolatePrimitivesProjectsStatus } from '@polkadot/types/lookup';
 import { AllIds } from '../src/customComponents/ProjectProfile/hooks/useReviewSend';
 // Define aliases to make impl easier
 // type AccountId = string;
@@ -56,4 +54,4 @@ export const genesis: GenesisConfig = {
     ['//Ferdie//stash', 'DOT'],
   ],
 };
-  export const BLOCKTIME = 22000;
+export const BLOCKTIME = 22000;

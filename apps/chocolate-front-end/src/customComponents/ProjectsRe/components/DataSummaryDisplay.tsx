@@ -13,10 +13,13 @@ export function DataSummaryDisplay(
   const { status } = proposalStatus;
   // turn project into a class and allow it to average out rating from reviews.
   return (
-    <li role='group' className={`search-result result search-result--${status.toLowerCase()}`}>
-      <img src={icon} alt='Project Logo' width='16px' height='16px' />
+    <li
+      role="group"
+      className={`search-result result search-result--${status.toLowerCase()}`}
+    >
+      <img src={icon} alt="Project Logo" width="16px" height="16px" />
 
-      <Link className='search-result__link' to={`/project/${Id.toString()}`}>
+      <Link className="search-result__link" to={`/project/${Id.toString()}`}>
         {name}
       </Link>
       <p style={{ fontWeight: 'bold' }}>status: {status}</p>

@@ -3,8 +3,8 @@ import { useProfileData } from './useProject';
 import { CheckCidProps } from '../components/CheckAuthAndGetCid';
 import { LocalFormProps } from '../components/FormToEnter';
 import { StageCache, CacheAction } from '../components/FormReducer';
-import {ChocolatePrimitivesProjectsProject} from "@polkadot/types/lookup"
-import {u32} from '@polkadot/types';
+import { ChocolatePrimitivesProjectsProject } from '@polkadot/types/lookup';
+import { u32 } from '@polkadot/types';
 
 interface StateDeets {
   formProps: LocalFormProps;
@@ -15,17 +15,23 @@ interface StateDeets {
     rating: number;
   };
 }
-;
 type StateDeetsArgs = {
   dispatchCache: React.Dispatch<CacheAction>;
   id: string;
   proj: [ChocolatePrimitivesProjectsProject, u32];
   cache: StageCache;
   isAuthenticated: boolean;
-  accountCtx: CheckCidProps["accountCtx"];
+  accountCtx: CheckCidProps['accountCtx'];
 };
 
-export function useStateDeets({ dispatchCache, id, proj, cache, isAuthenticated , accountCtx}: StateDeetsArgs): StateDeets {
+export function useStateDeets({
+  dispatchCache,
+  id,
+  proj,
+  cache,
+  isAuthenticated,
+  accountCtx,
+}: StateDeetsArgs): StateDeets {
   useEffect(() => {
     dispatchCache({ type: 'initialise', id });
     // eslint-disable-next-line react-hooks/exhaustive-deps

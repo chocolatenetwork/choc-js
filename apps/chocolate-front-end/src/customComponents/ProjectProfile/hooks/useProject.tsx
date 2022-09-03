@@ -17,7 +17,12 @@ import {
 } from '../../../typeSystem/jsonTypes';
 /* eslint-enable import/no-unresolved */
 import { useContext, useEffect, useMemo } from 'react';
-import { useQueries, useQuery, useQueryClient, UseQueryResult } from 'react-query';
+import {
+  useQueries,
+  useQuery,
+  useQueryClient,
+  UseQueryResult,
+} from 'react-query';
 import config from '../../../config';
 import { ProjectAl, ProjectID, ReviewAl } from '../../../interfaces';
 import { useSubstrate } from '../../../substrate-lib';
@@ -34,7 +39,10 @@ type MaybeSubscribe =
  * Fallback here would be shouldFire && !fallback
  * It should wait for project to have fetched. Specialisation of useProjectsSubscription
  */
-const useProjectSubscription = function (api: ApiPromise, maybePair: MaybeSubscribe) {
+const useProjectSubscription = function (
+  api: ApiPromise,
+  maybePair: MaybeSubscribe
+) {
   const queryClient = useQueryClient();
   //  Subscribe once, more efficient with connections.
   useEffect(() => {
@@ -51,7 +59,11 @@ const useProjectSubscription = function (api: ApiPromise, maybePair: MaybeSubscr
             (checkAgainst) => {
               if (!checkAgainst) {
                 if (isDebug)
-                  console.error('Set query data before initial query', key.toJSON(), ithProject);
+                  console.error(
+                    'Set query data before initial query',
+                    key.toJSON(),
+                    ithProject
+                  );
                 return [ithProject, key.toJSON()];
               }
               const [project, id] = checkAgainst;
@@ -81,7 +93,11 @@ export const noPrjErr = 'Project not found';
  * Like the other, it should memoise.
  * At the very least, have a shouldFire that stops the query if something is wrong
  */
-const useSingleProject = function (api: ApiPromise, id: string, shouldFire: boolean) {
+const useSingleProject = function (
+  api: ApiPromise,
+  id: string,
+  shouldFire: boolean
+) {
   const getOne = async function (key: ProjectID) {
     const proj = await api.query.chocolateModule.projects(key);
     if (proj.isNone) {
@@ -104,7 +120,9 @@ const useSingleProject = function (api: ApiPromise, id: string, shouldFire: bool
  * Refactor later on for better err handling
  * NB: Project query returned could be undef. Handle that case.
  */
-export default function useProject(id: string): UseQueryResult<[ProjectAl, ProjectID], Error> {
+export default function useProject(
+  id: string
+): UseQueryResult<[ProjectAl, ProjectID], Error> {
   const { apiState } = useSubstrate();
   const { api } = useContext(SubstrateReadyCTX);
   const isFallback = apiState !== 'READY';
@@ -125,8 +143,10 @@ export default function useProject(id: string): UseQueryResult<[ProjectAl, Proje
 // Fix: Include some randomness so the queries go out of sync
 const retrieveProjectMeta = async function ([pr, id]: [ProjectAl, ProjectID]) {
   // Get metadata
-  console.log("Project Metadata", pr.metadata.toHuman())
-  const res = await errorHandled(limitedPinataFetch(pr.metadata.toHuman() as string));
+  console.log('Project Metadata', pr.metadata.toHuman());
+  const res = await errorHandled(
+    limitedPinataFetch(pr.metadata.toHuman() as string)
+  );
   if (res[1]) throw res[1];
   const json = await errorHandled<NewMetaData>(res[0].json());
   if (json[1]) throw json[1];
@@ -146,7 +166,10 @@ const retrieveProjectMeta = async function ([pr, id]: [ProjectAl, ProjectID]) {
  * Since it's split, we simply pass the result of the query, assuming err handling is done by parent
  * Project with metadata must wait for Project to fetch. I.e shouldFire = data.status === "success", or in this case, !!data
  */
-const useProjectWithMetadata = function ([v, k]: [ProjectAl, ProjectID], shouldFire: boolean) {
+const useProjectWithMetadata = function (
+  [v, k]: [ProjectAl, ProjectID],
+  shouldFire: boolean
+) {
   return useQuery({
     // Concern: Using metadata CID could produce redundant queries if changes happen frequently.
     queryKey: ['Project', 'Metadata', k.toJSON(), v.metadata.toHuman()],
@@ -234,12 +257,18 @@ export const useReviewsSubscription = function (
               ['Review', key[1].toJSON(), key[0].toJSON()],
               (checkAgainst) => {
                 if (!checkAgainst) {
-                  if (isDebug) console.error('Set query data before initial query', key, ithReview);
+                  if (isDebug)
+                    console.error(
+                      'Set query data before initial query',
+                      key,
+                      ithReview
+                    );
                   return [ithReview, key];
                 }
                 const [review, id] = checkAgainst;
                 // Concrete check. Keys should match and the struct should change.
-                const shouldUpdate = key[0].eq(id[0]) && key[1].eq(id[1]) && !review.eq(ithReview);
+                const shouldUpdate =
+                  key[0].eq(id[0]) && key[1].eq(id[1]) && !review.eq(ithReview);
                 if (shouldUpdate) {
                   return [ithReview, id];
                 }
@@ -259,7 +288,9 @@ export const useReviewsSubscription = function (
 /**  Fetch fx for next hook. Extracted to try and fix sync err. */
 const retrieveReviewMeta = async function ([rev]: [ReviewAl, ReviewKeyAl]) {
   // Get metadata
-  const res = await errorHandled(limitedPinataFetch(rev.content.toHuman() as string));
+  const res = await errorHandled(
+    limitedPinataFetch(rev.content.toHuman() as string)
+  );
   if (res[1]) throw res[1];
   const json = await errorHandled<ReviewContent>(res[0].json());
   if (json[1]) throw json[1];
@@ -281,7 +312,13 @@ export const useReviewsWithMetadata = function (
   return useQueries(
     reviews.map(([v, k]) => ({
       // Same concern about depracation. Use ownerId instead. Don't want to leave old.
-      queryKey: ['Review', 'Metadata', k[1].toJSON(), k[0].toJSON(), v.content.toHuman() ],
+      queryKey: [
+        'Review',
+        'Metadata',
+        k[1].toJSON(),
+        k[0].toJSON(),
+        v.content.toHuman(),
+      ],
       queryFn: () => retrieveReviewMeta([v, k]),
       enabled: shouldFire,
       staleTime: Infinity,
@@ -320,12 +357,22 @@ export const useReelData = function (project: [ProjectAl, ProjectID]) {
   const fallback = apiState !== 'READY';
   // First, get the keys, And Use this as trigger for structs
   const { data: keys, status } = useReviewKeys(api, project[1]);
-  const parallelReviews = useParallelReviews(api, keys ?? [], status === 'success' && !fallback);
+  const parallelReviews = useParallelReviews(
+    api,
+    keys ?? [],
+    status === 'success' && !fallback
+  );
   // Then incrementally calc.
-  const parallels = useMemo(() => shouldComputeValid(parallelReviews), [parallelReviews]);
+  const parallels = useMemo(
+    () => shouldComputeValid(parallelReviews),
+    [parallelReviews]
+  );
   // Check defined
   const validParallels = parallels[0];
-  const readyParallels = useMemo(() => resArr(validParallels), [validParallels]);
+  const readyParallels = useMemo(
+    () => resArr(validParallels),
+    [validParallels]
+  );
   // Subscribe after fetched structs and keys, too
   useReviewsSubscription(
     api,
@@ -334,10 +381,14 @@ export const useReelData = function (project: [ProjectAl, ProjectID]) {
   );
   // Next, start fetching metadatas.
   // Metas should give enough time for parallel reviews to complete fetching
-  const metas = useReviewsWithMetadata(readyParallels, allCheck(parallels[3], 'success'));
+  const metas = useReviewsWithMetadata(
+    readyParallels,
+    allCheck(parallels[3], 'success')
+  );
   // Same routine for qs
   const vMetaArr = useMemo(() => shouldComputeValid(metas), [metas]);
-  const [validMetas, anyMetaErr, anyMetaInitiallyLoading, metaStates] = vMetaArr;
+  const [validMetas, anyMetaErr, anyMetaInitiallyLoading, metaStates] =
+    vMetaArr;
   const readyMetas = useMemo(() => resArr(validMetas), [validMetas]);
   // leave state handling to ui, everyone else should memoise
   return [

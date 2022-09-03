@@ -4,4 +4,4 @@ export interface AuthIpfsEndpoint {
   location?: string;
 }
 
-export type Identity= <T>(t:T) => T
+export type Identity = <T>(t: T) => T;

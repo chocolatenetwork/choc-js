@@ -16,7 +16,7 @@ const Member: React.FC<MemberProps> = function (props) {
   return (
     <article>
       <figure>
-        <img src={image} alt='' />
+        <img src={image} alt="" />
         <figcaption>{name}</figcaption>
       </figure>
       {/* title here */}
@@ -44,12 +44,14 @@ const Team: React.FC = function () {
       <h1>Meet our Team</h1>
       <TeamList />
       <p>
-        <b className='highlight-team'>I</b>ntegrity <b className='highlight-team'>D</b>iscipline{' '}
-        <b className='highlight-team'>E</b>fficiency <b className='highlight-team'>A</b>daptability
+        <b className="highlight-team">I</b>ntegrity{' '}
+        <b className="highlight-team">D</b>iscipline{' '}
+        <b className="highlight-team">E</b>fficiency{' '}
+        <b className="highlight-team">A</b>daptability
       </p>
       <p>
-        Team <img src={ChocolateRedSmall} alt='chocolate-emoji' /> is a meritocracy. No space for
-        big egos here, only big dreams.
+        Team <img src={ChocolateRedSmall} alt="chocolate-emoji" /> is a
+        meritocracy. No space for big egos here, only big dreams.
       </p>
     </article>
   );

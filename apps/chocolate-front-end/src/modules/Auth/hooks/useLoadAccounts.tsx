@@ -1,5 +1,8 @@
 import { useEffect } from 'react';
-import { useAccounts, useSubstrate } from '../../../substrate-lib/SubstrateContext';
+import {
+  useAccounts,
+  useSubstrate,
+} from '../../../substrate-lib/SubstrateContext';
 
 export function useLoadAccounts(
   run: boolean,
@@ -17,7 +20,9 @@ export function useLoadAccounts(
       doRun();
       return () => setRun(false);
     }
-    return ()=>{return;}
+    return () => {
+      return;
+    };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [run]);
 }

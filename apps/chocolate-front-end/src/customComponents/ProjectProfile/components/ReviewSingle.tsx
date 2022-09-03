@@ -7,11 +7,14 @@ import { Rating } from '../../Projects';
 // looks good, refactor doesn't edge on this
 const ReviewSingle: React.FC<{ each: HumanNewReview }> = function (props) {
   const { each } = props;
-  const { content,  userId, proposalStatus } = each;
+  const { content, userId, proposalStatus } = each;
   const substr = useSubstrate();
   const isProposed = () => proposalStatus.status === 'Proposed';
-  const accountPair = userId && substr.keyringState === 'READY' && substr.keyring.getPair(userId);
-  const name = accountPair ? (accountPair.meta?.name as string | undefined) : 'Anonymous';
+  const accountPair =
+    userId && substr.keyringState === 'READY' && substr.keyring.getPair(userId);
+  const name = accountPair
+    ? (accountPair.meta?.name as string | undefined)
+    : 'Anonymous';
 
   // see: https://github.com/polkadot-js/apps/blob/b957353d225da81e4e4b44835e535d9c389a1255/packages/react-hooks/src/useEventTrigger.ts
   const [readMore, setReadMore] = useState(false);
@@ -22,7 +25,11 @@ const ReviewSingle: React.FC<{ each: HumanNewReview }> = function (props) {
     rev = (
       <>
         {readMore ? reviewText : `${reviewText.substring(0, 181)}...`}
-        <button className='link_button' type='button' onClick={() => setReadMore(!readMore)}>
+        <button
+          className="link_button"
+          type="button"
+          onClick={() => setReadMore(!readMore)}
+        >
           {readMore ? 'show less' : '  read more'}
         </button>
       </>
@@ -30,22 +37,22 @@ const ReviewSingle: React.FC<{ each: HumanNewReview }> = function (props) {
   } else rev = reviewText;
   const src = `https://avatars.dicebear.com/api/identicon/${userId}.svg`;
   return (
-    <Card color='purple'>
+    <Card color="purple">
       <Card.Content>
         {isProposed() && (
-          <Label color='yellow' ribbon='right'>
+          <Label color="yellow" ribbon="right">
             {proposalStatus.status}
           </Label>
         )}
         <Card.Header>
-          <Image src={src} floated='left' rounded size='mini' />
+          <Image src={src} floated="left" rounded size="mini" />
           <Card.Meta as={Link} to={`/user/${userId}`}>
             {name}
           </Card.Meta>
         </Card.Header>
         <Card.Description>{rev}</Card.Description>
       </Card.Content>
-      <Card.Content extra floated='right'>
+      <Card.Content extra floated="right">
         <Rating rating={rating} fixed />
       </Card.Content>
     </Card>

@@ -1,7 +1,7 @@
 import Form from './form';
 
 const SignUp: React.FC = () => (
-  <div className='login'>
+  <div className="login">
     <Form />
   </div>
 );

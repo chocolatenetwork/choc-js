@@ -12,7 +12,9 @@ import { EventView } from './EventView';
 import { FinalNotif } from './FinalNotif';
 
 /** Submit review data as transaction */
-const SubmitReviewTx: React.FC<{ id: string; cid: string; rating: number }> = (props) => {
+const SubmitReviewTx: React.FC<{ id: string; cid: string; rating: number }> = (
+  props
+) => {
   const [status, setStatus] = useState('');
   const [CurrencyId, setCurrencyId] = useState<AllIds>('DOT');
   const { id, cid, rating } = props;
@@ -25,7 +27,10 @@ const SubmitReviewTx: React.FC<{ id: string; cid: string; rating: number }> = (p
     'init'
   );
   useLoadAccounts(run, setRun);
-  const { data: txFee } = useReviewSend({ id, cid, rating , CurrencyId}, userData.accountAddress);
+  const { data: txFee } = useReviewSend(
+    { id, cid, rating, CurrencyId },
+    userData.accountAddress
+  );
   useEffect(() => {
     if (/(sending)|(ready)|(inBlock)/i.exec(status)) setStat('sending');
     else if (/finalized/i.exec(status)) setStat('finalized');
@@ -45,35 +50,41 @@ const SubmitReviewTx: React.FC<{ id: string; cid: string; rating: number }> = (p
     keyringState === 'READY' &&
     keyring &&
     keyring.getPair(userData.accountAddress);
-  const currencyIds = ["DOT","KSM","Native","BTC"] as const;
+  const currencyIds = ['DOT', 'KSM', 'Native', 'BTC'] as const;
   return (
-    <div className='spaced'>
-      <Container className='spaced' fluid>
+    <div className="spaced">
+      <Container className="spaced" fluid>
         <Header>Account Paying</Header>
         <AccountSelector />
         <p>Note: a fee of {txFee} will be applied</p>
       </Container>
-      <Container className='spaced' fluid>
+      <Container className="spaced" fluid>
         <Header>Currency</Header>
-        <Select label="Currency to pay collateral in" value={CurrencyId} onChange={(s: AllIds)=>s && setCurrencyId(s)} data={[...currencyIds]} />
-       
+        <Select
+          label="Currency to pay collateral in"
+          value={CurrencyId}
+          onChange={(s: AllIds) => s && setCurrencyId(s)}
+          data={[...currencyIds]}
+        />
       </Container>
       <TxButton
-        color='purple'
+        color="purple"
         disabled={!cid && !accountPair ? true : undefined}
         accountPair={accountPair && accountPair.meta ? accountPair : undefined}
-        label='Submit'
-        type='SIGNED-TX'
+        label="Submit"
+        type="SIGNED-TX"
         setEvent={setEvents}
         setStatus={setStatus}
         attrs={{
           palletRpc: 'chocolateModule',
           callable: 'createReview',
-          inputParams: [[rating, cid], id,CurrencyId],
-          paramFields: [true, true,true],
+          inputParams: [[rating, cid], id, CurrencyId],
+          paramFields: [true, true, true],
         }}
       />
-      <details placeholder='Events'>{event&&event.length > 0 && <EventView event={event} />}</details>
+      <details placeholder="Events">
+        {event && event.length > 0 && <EventView event={event} />}
+      </details>
       <FinalNotif status={status} state={stat} />
     </div>
   );

@@ -1,3 +1,5 @@
 tasks:
   - name: Setup workspace
-    init: yarn install 
+    init: yarn install
+  - name: IPFS node
+    command: ipfs init --profile server && ipfs daemon
