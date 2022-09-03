@@ -3,6 +3,9 @@ import { GenesisConfig } from '../constants';
 import { EventList } from '../types';
 import { handleEvents } from '../utils';
 
+/**
+ * Creates users onchain for all test accounts
+ */
 export async function createUsers(
   self: GenesisConfig,
   api: ApiPromise,
@@ -19,7 +22,7 @@ export async function createUsers(
     console.log(
       `This is ${pair.meta['name']}'s account with pubkey ${pair.address}`
     );
-    console.log('Waiting for tx');
+    console.log('Waiting for tx to create account');
     const pr = new Promise((res, rej) => {
       api.tx.usersModule
         .makeUser()
