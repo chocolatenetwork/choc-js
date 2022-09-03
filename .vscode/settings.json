@@ -35,7 +35,8 @@
   // tell the ESLint plugin to run on save
   "editor.codeActionsOnSave": {
     "source.fixAll": true,
-    "source.organizeImports": true
+    "source.organizeImports": true,
+    "source.fixAll.sortJSON": false
   },
 
   "js/ts.implicitProjectConfig.checkJs": true,

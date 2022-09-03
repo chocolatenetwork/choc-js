@@ -6,6 +6,11 @@ Chocolate schema library. Typescript definitions of the Schemas defined [here](h
 
 Run `nx build schema` to build the schema.
 
+## Test
+
+Run `nx run schema:test` to test the schema.
+
+
 ## Naming convention
 
 Schemas are named to match example and type files in the pattern: `${schema-id}-schema.json`, corresponding to `${schema-id}-instance.json`. `${schema-id}` should be unique.
