@@ -1,6 +1,6 @@
 tasks:
   - name: Setup workspace
-    init: yarn install && gp sync-done packages-install
+    init: yarn install && mv ../tmp . && gp sync-done packages-install
   - name: IPFS node
     command: ipfs init --profile server && ipfs daemon
   - name: Pm2 Testnet
