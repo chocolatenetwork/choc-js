@@ -20,3 +20,17 @@ RUN ipfs --version
 # Cleanup
 WORKDIR /home/gitpod
 RUN rm -r /home/gitpod/ip-init
+# Get collator bin
+ARG COLLATOR_VERSION="2022-09-11"
+RUN curl -LO https://github.com/chocolatenetwork/chocolate-parachain/releases/download/${COLLATOR_VERSION}/parachain-collator && \
+    chmod +x ./parachain-collator && \
+    mkdir -p tmp/substrate/bins && \
+    mv parachain-collator tmp/substrate/bins
+# Get relay bin
+ARG VER="v0.9.24"
+RUN wget https://github.com/paritytech/polkadot/releases/download/${VER}/polkadot && chmod +x ./polkadot && \
+    mv polkadot tmp/substrate/bins
+# Get Chain specs
+RUN curl -LO https://github.com/chocolatenetwork/chocolate-parachain/releases/download/${COLLATOR_VERSION}/ch_spec.zip && \
+    unzip ch_spec.zip -d tmp/substrate && \
+    rm ch_spec.zip
