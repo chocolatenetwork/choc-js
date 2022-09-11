@@ -6,6 +6,7 @@ RUN sudo DEBIAN_FRONTEND=noninteractive apt-get update && sudo apt-get upgrade -
 RUN sudo DEBIAN_FRONTEND=noninteractive apt-get install ${CY_DEPS} -y
 RUN npx cypress install
 
+
 USER gitpod
 RUN pwd
 RUN mkdir /home/gitpod/ip-init -p
@@ -35,3 +36,5 @@ RUN wget https://github.com/paritytech/polkadot/releases/download/${VER}/polkado
 RUN curl -LO https://github.com/chocolatenetwork/chocolate-parachain/releases/download/${COLLATOR_VERSION}/ch_spec.zip && \
     unzip ch_spec.zip -d tmp/substrate && \
     rm ch_spec.zip
+# Utils
+RUN npm install --location=global tldr
