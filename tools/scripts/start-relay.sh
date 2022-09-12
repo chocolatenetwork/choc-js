@@ -8,8 +8,8 @@ echo ""
 RELAY_BIN=./tmp/substrate/bins/polkadot
 ROCOCO_LOCAL=./tmp/substrate/ch_spec/rococo-local.json
 ROCOCO_LOCAL_RAW=./tmp/substrate/ch_spec/rococo-local-raw.json
-DB_ALICE=./tmp/substrate/relay/alice
-DB_BOB=./tmp/substrate/relay/bob
+DB_ALICE=./tmp/substrate/dbs/relay/alice
+DB_BOB=./tmp/substrate/dbs/relay/bob
 
 function alice {
     $RELAY_BIN --alice --validator --base-path $DB_ALICE --chain $ROCOCO_LOCAL_RAW --port 30333 --ws-port 9944

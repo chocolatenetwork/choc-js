@@ -3,7 +3,7 @@
 COLLATOR_BIN=./tmp/substrate/bins/parachain-collator
 ROCOCO_LOCAL_RAW=./tmp/substrate/ch_spec/rococo-local-raw.json
 ROCOCO_LOCAL_PARACHAIN_RAW=./tmp/substrate/ch_spec/rococo-local-parachain-2000-raw.json
-DB_PATH=./tmp/substrate/parachain/alice
+DB_PATH=./tmp/substrate/dbs/parachain/alice
 # Run node1
 $COLLATOR_BIN \
 --alice \

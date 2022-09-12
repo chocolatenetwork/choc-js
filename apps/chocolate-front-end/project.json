@@ -83,6 +83,18 @@
       "options": {
         "script": "chain:seed"
       }
+    },
+    "pm2-start": {
+      "executor": "@nrwl/workspace:run-script",
+      "options": {
+        "script": "pm2:start"
+      }
+    },
+    "pm2-stop": {
+      "executor": "@nrwl/workspace:run-script",
+      "options": {
+        "script": "pm2:stop"
+      }
     }
   },
   "tags": ["web"]
