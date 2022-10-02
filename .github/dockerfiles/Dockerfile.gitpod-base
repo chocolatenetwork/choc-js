@@ -22,7 +22,10 @@ RUN ipfs --version
 WORKDIR /home/gitpod
 RUN rm -r /home/gitpod/ip-init
 # Get collator bin
-WORKDIR /home/gitpod/workspace-init
+# Cleanup
+ARG TMP_D="/home/gitpod/workspace-init"
+RUN mkdir -p ${TMP_D}/tmp
+WORKDIR ${TMP_D}
 ARG COLLATOR_VERSION="2022-09-11"
 RUN curl -LO https://github.com/chocolatenetwork/chocolate-parachain/releases/download/${COLLATOR_VERSION}/parachain-collator && \
     chmod +x ./parachain-collator && \
