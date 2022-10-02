@@ -1,3 +1,5 @@
+image:
+  file: .github/dockerfiles/Dockerfile.gitpod-base
 tasks:
   - name: Setup workspace
     init: yarn install && mv $HOME/workspace-init/tmp . && gp sync-done packages-install
