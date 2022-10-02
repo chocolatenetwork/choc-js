@@ -2,14 +2,18 @@
 # Todo: Extract to a script.'
 
 
-ENDPOINT=wss://8844-chocolatene-chocolatepa-gjbddvcpgea.ws-eu63.gitpod.io/
+ENDPOINT=ws://127.0.0.1:8844
 
 function generate:defs(){
-  esno --tsconfig ./tsconfig.lib.json ../../node_modules/.bin/polkadot-types-from-defs --package @choc-js/interfaces --input ./src/interfaces --endpoint $ENDPOINT,
+  esno --tsconfig ./tsconfig.lib.json ../../node_modules/.bin/polkadot-types-from-defs --package @choc-js/types --input ./src/interfaces --endpoint $ENDPOINT,
+  cd .././../
+  nx format:write --projects types --verbose
 }
 
 function generate:meta(){
-  esno --tsconfig ./tsconfig.lib.json ../../node_modules/.bin/polkadot-types-from-chain --package @choc-js/interfaces --endpoint $ENDPOINT --output ./src/interfaces
+  esno --tsconfig ./tsconfig.lib.json ../../node_modules/.bin/polkadot-types-from-chain --package @choc-js/types --endpoint $ENDPOINT --output ./src/interfaces
+  cd .././../
+  nx format:write --projects types --verbose
 }
   
 "$@"

@@ -6,6 +6,7 @@ RUN sudo DEBIAN_FRONTEND=noninteractive apt-get update && sudo apt-get upgrade -
 RUN sudo DEBIAN_FRONTEND=noninteractive apt-get install ${CY_DEPS} -y
 RUN npx cypress install
 
+
 USER gitpod
 RUN pwd
 RUN mkdir /home/gitpod/ip-init -p
@@ -20,3 +21,23 @@ RUN ipfs --version
 # Cleanup
 WORKDIR /home/gitpod
 RUN rm -r /home/gitpod/ip-init
+# Get collator bin
+# Cleanup
+ARG TMP_D="/home/gitpod/workspace-init"
+RUN mkdir -p ${TMP_D}/tmp
+WORKDIR ${TMP_D}
+ARG COLLATOR_VERSION="2022-09-11"
+RUN curl -LO https://github.com/chocolatenetwork/chocolate-parachain/releases/download/${COLLATOR_VERSION}/parachain-collator && \
+    chmod +x ./parachain-collator && \
+    mkdir -p tmp/substrate/bins && \
+    mv parachain-collator tmp/substrate/bins
+# Get relay bin
+ARG VER="v0.9.24"
+RUN wget https://github.com/paritytech/polkadot/releases/download/${VER}/polkadot && chmod +x ./polkadot && \
+    mv polkadot tmp/substrate/bins
+# Get Chain specs
+RUN curl -LO https://github.com/chocolatenetwork/chocolate-parachain/releases/download/${COLLATOR_VERSION}/ch_spec.zip && \
+    unzip ch_spec.zip -d tmp/substrate && \
+    rm ch_spec.zip
+# Utils
+RUN npm install --location=global tldr

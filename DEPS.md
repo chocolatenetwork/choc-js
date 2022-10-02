@@ -149,3 +149,8 @@ react-hot-toast@2.1.1
 
 @hcaptcha/react-hcaptcha "^1.4.4",
 "node-polyfill-webpack-plugin": "^2.0.1",
+
+### Parachain
+
+    "pm2": "^5.2.0",
+

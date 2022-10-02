@@ -24,7 +24,12 @@
       "outputs": ["packages/types/interfaces"],
       "options": {
         "script": "build"
-      }
+      },
+      "inputs": [
+        "{workspaceRoot}/tmp/substrate/**/*",
+        "{workspaceRoot}/packages/type-definitions/**/*.ts",
+        "{projectRoot}/scripts/*.sh"
+      ]
     },
     "publish": {
       "executor": "@nrwl/workspace:run-commands",

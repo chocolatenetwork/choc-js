@@ -3,6 +3,6 @@
   "DEVELOPMENT_KEYRING": true,
   "IPFS_CAT_URL": "https://gateway.pinata.cloud/ipfs",
   "IPFS_API_SERVER": "http://localhost:5001",
-  "INIT_SCRIPT_ENDPOINT": "wss://8844-chocolatene-chocolatepa-gjbddvcpgea.ws-eu63.gitpod.io/",
+  "INIT_SCRIPT_ENDPOINT": "ws://127.0.0.1:8844",
   "RPC": {}
 }

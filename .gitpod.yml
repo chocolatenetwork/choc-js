@@ -1,5 +1,8 @@
 tasks:
   - name: Setup workspace
-    init: yarn install
+    init: yarn install && mv $HOME/workspace-init/tmp . && gp sync-done packages-install
   - name: IPFS node
     command: ipfs init --profile server && ipfs daemon
+  - name: Pm2 Testnet
+    init: gp sync-await packages-install
+    command: yarn run pm2 start substrate.config.js
