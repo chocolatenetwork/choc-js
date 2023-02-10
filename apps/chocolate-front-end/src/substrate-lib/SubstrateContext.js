@@ -4,7 +4,7 @@ import jsonrpc from '@polkadot/types/interfaces/jsonrpc';
 import keyring from '@polkadot/ui-keyring';
 import PropTypes from 'prop-types';
 import React, { useContext, useReducer } from 'react';
-import config from '../config';
+import config from '../common/environments';
 
 const parsedQuery = new URLSearchParams(window.location.search);
 const connectedSocket = parsedQuery.get('rpc') || config.PROVIDER_SOCKET;

@@ -3,10 +3,10 @@ import { AppShell } from '@mantine/core';
 import { DeveloperConsole } from 'chocolate/substrate-lib/components';
 import { Toaster } from 'react-hot-toast';
 import { ReactQueryDevtools } from 'react-query/devtools';
-import MenuBar from '../../customComponents/menuBar';
-import { loader, message } from '../../customComponents/utilities';
+import MenuBar from '../../common/components/menuBar';
+import { loader, message } from '../../common/components/utilities';
 import { useSubstrate } from '../../substrate-lib';
-import { AppRoutes } from './components/AppRoutes';
+import { AppRoutes } from './AppRoutes';
 import { InnerAppProvider } from './InnerAppProvider';
 
 /* NB: AppLayout==AppShell, so do  all box styling here */

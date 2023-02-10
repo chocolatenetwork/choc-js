@@ -2,7 +2,7 @@ import { ApiPromise } from '@polkadot/api';
 import jsonrpc from '@polkadot/types/interfaces/jsonrpc';
 import { AnyJson } from '@polkadot/types/types';
 import keyring from '@polkadot/ui-keyring';
-import config from '../config';
+import config from '../common/environments';
 
 // Api and keyring states
 /**

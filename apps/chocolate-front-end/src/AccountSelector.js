@@ -2,12 +2,12 @@ import React, { useEffect, useState } from 'react';
 import { CopyToClipboard } from 'react-copy-to-clipboard';
 import { Button, Dropdown, Icon, Label } from 'semantic-ui-react';
 // eslint-disable-next-line import/no-unresolved
-import { useApp } from './customComponents/state';
+import { useApp } from './common/components/state';
 import { useSubstrate } from './substrate-lib';
 
 /**
  *
- * @param {import('./typeSystem/appTypes').AccountSelectorProps} props
+ * @param {import('./common/types/appTypes').AccountSelectorProps} props
  */
 function Main(props) {
   const { onAddrChange } = props;
@@ -171,7 +171,7 @@ const BalanceAnnotation = function (props) {
 };
 
 /**
- * @param {import('./typeSystem/appTypes').AccountSelectorProps} props
+ * @param {import('./common/types/appTypes').AccountSelectorProps} props
  */
 export default function AccountSelector(props) {
   const { keyring } = useSubstrate();
