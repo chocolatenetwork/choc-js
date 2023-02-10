@@ -8,6 +8,7 @@
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
     "importHelpers": true,
+    "exactOptionalPropertyTypes": true,
     "target": "es2015",
     "module": "esnext",
     "lib": ["es2017", "dom"],
@@ -21,8 +22,7 @@
       "@polkadot/api/augment": ["packages/types/src/interfaces/augment-api.ts"],
       "@polkadot/types/augment": [
         "packages/types/src/interfaces/augment-types.ts"
-      ],
-      "chocolate/*": ["apps/chocolate-front-end/src/*"]
+      ]
     }
   },
   "exclude": ["node_modules", "tmp"]
