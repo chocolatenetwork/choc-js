@@ -12,7 +12,7 @@ function AppProvider(props: PropsWithChildren): JSX.Element {
   return (
     <ProviderComposer
       contexts={[
-        <QueryClientProvider contextSharing client={queryClient} />,
+        <QueryClientProvider client={queryClient} />,
         <BrowserRouter />,
       ]}
     >

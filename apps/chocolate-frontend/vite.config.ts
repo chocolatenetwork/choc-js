@@ -1,6 +1,9 @@
 /// <reference types="vitest" />
-import { defineConfig } from 'vite';
+/// <reference types="vite-plugin-svgr/client" />
+
 import react from '@vitejs/plugin-react';
+import { defineConfig } from 'vite';
+import svgr from 'vite-plugin-svgr';
 import viteTsConfigPaths from 'vite-tsconfig-paths';
 
 export default defineConfig({
@@ -21,6 +24,7 @@ export default defineConfig({
     viteTsConfigPaths({
       root: '../../',
     }),
+    svgr(),
   ],
 
   // Uncomment this if you are using workers.
