@@ -1,0 +1,26 @@
+/* eslint-disable import/no-unresolved */
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import type { PropsWithChildren } from 'react';
+import { Toaster } from 'react-hot-toast';
+import { BrowserRouter } from 'react-router-dom';
+import { ProviderComposer } from '../components/ProviderComposer';
+import GlobalStyle from './global.styles';
+const queryClient = new QueryClient();
+
+function AppProvider(props: PropsWithChildren): JSX.Element {
+  const { children } = props;
+  return (
+    <ProviderComposer
+      contexts={[
+        <QueryClientProvider contextSharing client={queryClient} />,
+        <BrowserRouter />,
+      ]}
+    >
+      <GlobalStyle />
+      <Toaster position="bottom-right" />
+      {children}
+    </ProviderComposer>
+  );
+}
+
+export { AppProvider };
