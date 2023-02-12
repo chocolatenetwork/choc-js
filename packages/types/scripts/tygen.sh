@@ -3,17 +3,21 @@
 
 
 ENDPOINT=ws://127.0.0.1:8844
+OUT_DIR=./src/interfaces
+TYPES_FROM_DEFS=../../node_modules/.bin/polkadot-types-from-defs
+TYPES_FROM_CHAIN=../../node_modules/.bin/polkadot-types-from-chain
+PACKAGE=@choc-js/types
 
 function generate:defs(){
-  esno --tsconfig ./tsconfig.lib.json ../../node_modules/.bin/polkadot-types-from-defs --package @choc-js/types --input ./src/interfaces --endpoint $ENDPOINT,
-  cd .././../
-  nx format:write --projects types --verbose
+  esno --tsconfig ./tsconfig.lib.json $TYPES_FROM_DEFS --package $PACKAGE --input $OUT_DIR --endpoint $ENDPOINT \
+  && cd .././../  \
+  && nx format:write --projects types --verbose
 }
 
 function generate:meta(){
-  esno --tsconfig ./tsconfig.lib.json ../../node_modules/.bin/polkadot-types-from-chain --package @choc-js/types --endpoint $ENDPOINT --output ./src/interfaces
-  cd .././../
-  nx format:write --projects types --verbose
+  esno --tsconfig ./tsconfig.lib.json $TYPES_FROM_CHAIN --package $PACKAGE --endpoint $ENDPOINT --output $OUT_DIR \
+  && cd .././../ \
+  && nx format:write --projects types --verbose
 }
   
 "$@"

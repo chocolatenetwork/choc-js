@@ -123,10 +123,12 @@ import type {
   ValidatorSetId,
 } from '@polkadot/types/interfaces/beefy';
 import type {
+  BenchmarkBatch,
   BenchmarkConfig,
   BenchmarkList,
   BenchmarkMetadata,
   BenchmarkParameter,
+  BenchmarkResult,
 } from '@polkadot/types/interfaces/benchmark';
 import type {
   CheckInherentsResult,
@@ -191,10 +193,12 @@ import type {
   ContractExecResultTo255,
   ContractExecResultTo260,
   ContractExecResultTo267,
+  ContractExecResultU64,
   ContractInfo,
   ContractInstantiateResult,
   ContractInstantiateResultTo267,
   ContractInstantiateResultTo299,
+  ContractInstantiateResultU64,
   ContractReturnFlags,
   ContractStorageKey,
   DeletedContract,
@@ -232,6 +236,7 @@ import type {
   ContractContractSpecV1,
   ContractContractSpecV2,
   ContractContractSpecV3,
+  ContractContractSpecV4,
   ContractCryptoHasher,
   ContractDiscriminant,
   ContractDisplayName,
@@ -263,6 +268,7 @@ import type {
   ContractMetadataV1,
   ContractMetadataV2,
   ContractMetadataV3,
+  ContractMetadataV4,
   ContractProject,
   ContractProjectContract,
   ContractProjectInfo,
@@ -732,6 +738,8 @@ import type {
   FeeDetails,
   InclusionFee,
   RuntimeDispatchInfo,
+  RuntimeDispatchInfoV1,
+  RuntimeDispatchInfoV2,
 } from '@polkadot/types/interfaces/payment';
 import type { Approvals } from '@polkadot/types/interfaces/poll';
 import type {
@@ -752,6 +760,7 @@ import type {
   AccountId,
   AccountId20,
   AccountId32,
+  AccountId33,
   AccountIdOf,
   AccountIndex,
   Address,
@@ -843,6 +852,9 @@ import type {
   ValidatorIdOf,
   Weight,
   WeightMultiplier,
+  WeightV0,
+  WeightV1,
+  WeightV2,
 } from '@polkadot/types/interfaces/runtime';
 import type {
   Si0Field,
@@ -1214,6 +1226,7 @@ declare module '@polkadot/types/types/registry' {
     AccountId: AccountId;
     AccountId20: AccountId20;
     AccountId32: AccountId32;
+    AccountId33: AccountId33;
     AccountIdOf: AccountIdOf;
     AccountIndex: AccountIndex;
     AccountInfo: AccountInfo;
@@ -1291,10 +1304,12 @@ declare module '@polkadot/types/types/registry' {
     BeefyPayload: BeefyPayload;
     BeefyPayloadId: BeefyPayloadId;
     BeefySignedCommitment: BeefySignedCommitment;
+    BenchmarkBatch: BenchmarkBatch;
     BenchmarkConfig: BenchmarkConfig;
     BenchmarkList: BenchmarkList;
     BenchmarkMetadata: BenchmarkMetadata;
     BenchmarkParameter: BenchmarkParameter;
+    BenchmarkResult: BenchmarkResult;
     Bid: Bid;
     Bidder: Bidder;
     BidKind: BidKind;
@@ -1386,6 +1401,7 @@ declare module '@polkadot/types/types/registry' {
     ContractContractSpecV1: ContractContractSpecV1;
     ContractContractSpecV2: ContractContractSpecV2;
     ContractContractSpecV3: ContractContractSpecV3;
+    ContractContractSpecV4: ContractContractSpecV4;
     ContractCryptoHasher: ContractCryptoHasher;
     ContractDiscriminant: ContractDiscriminant;
     ContractDisplayName: ContractDisplayName;
@@ -1404,10 +1420,12 @@ declare module '@polkadot/types/types/registry' {
     ContractExecResultTo255: ContractExecResultTo255;
     ContractExecResultTo260: ContractExecResultTo260;
     ContractExecResultTo267: ContractExecResultTo267;
+    ContractExecResultU64: ContractExecResultU64;
     ContractInfo: ContractInfo;
     ContractInstantiateResult: ContractInstantiateResult;
     ContractInstantiateResultTo267: ContractInstantiateResultTo267;
     ContractInstantiateResultTo299: ContractInstantiateResultTo299;
+    ContractInstantiateResultU64: ContractInstantiateResultU64;
     ContractLayoutArray: ContractLayoutArray;
     ContractLayoutCell: ContractLayoutCell;
     ContractLayoutEnum: ContractLayoutEnum;
@@ -1429,6 +1447,7 @@ declare module '@polkadot/types/types/registry' {
     ContractMetadataV1: ContractMetadataV1;
     ContractMetadataV2: ContractMetadataV2;
     ContractMetadataV3: ContractMetadataV3;
+    ContractMetadataV4: ContractMetadataV4;
     ContractProject: ContractProject;
     ContractProjectContract: ContractProjectContract;
     ContractProjectInfo: ContractProjectInfo;
@@ -2006,6 +2025,8 @@ declare module '@polkadot/types/types/registry' {
     RpcMethods: RpcMethods;
     RuntimeDbWeight: RuntimeDbWeight;
     RuntimeDispatchInfo: RuntimeDispatchInfo;
+    RuntimeDispatchInfoV1: RuntimeDispatchInfoV1;
+    RuntimeDispatchInfoV2: RuntimeDispatchInfoV2;
     RuntimeVersion: RuntimeVersion;
     RuntimeVersionApi: RuntimeVersionApi;
     RuntimeVersionPartial: RuntimeVersionPartial;
@@ -2280,6 +2301,9 @@ declare module '@polkadot/types/types/registry' {
     WeightMultiplier: WeightMultiplier;
     WeightPerClass: WeightPerClass;
     WeightToFeeCoefficient: WeightToFeeCoefficient;
+    WeightV0: WeightV0;
+    WeightV1: WeightV1;
+    WeightV2: WeightV2;
     WildFungibility: WildFungibility;
     WildFungibilityV0: WildFungibilityV0;
     WildFungibilityV1: WildFungibilityV1;

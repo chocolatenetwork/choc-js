@@ -1,6 +1,6 @@
+import Ajv, { Schema } from 'ajv';
 import { readdir } from 'fs/promises';
 import { resolve } from 'path';
-import Ajv from 'ajv';
 import { extractInstances, extractSchema } from './utils';
 
 describe('Ensure schema works for valid instances', () => {
@@ -13,7 +13,7 @@ describe('Ensure schema works for valid instances', () => {
     // and Check them
     schemas.forEach((schemaGrp) => {
       schemaGrp.forEach(([schema]) => {
-        const isValid = ajv.validateSchema(schema);
+        const isValid = ajv.validateSchema(schema as Schema);
         expect(isValid).toBe(true);
       });
     });
@@ -31,7 +31,7 @@ describe('Ensure schema works for valid instances', () => {
 
       // fetch schema instances
       schemas.forEach(([schema, id]) => {
-        const validate = ajv.compile(schema);
+        const validate = ajv.compile(schema as Schema);
         const testCases = instances.filter(([, _id]) => id == _id);
 
         // ensure instances match
@@ -44,4 +44,3 @@ describe('Ensure schema works for valid instances', () => {
     }
   });
 });
-

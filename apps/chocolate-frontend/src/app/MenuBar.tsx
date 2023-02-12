@@ -1,8 +1,8 @@
 import { DefaultProps, Header } from '@mantine/core';
 import { Link as NavLink } from 'react-router-dom';
 import styled from 'styled-components';
-import { ReactComponent as ChocolateLogo } from '../assets/chocolate-logo.svg';
-import { ReactComponent as ChocolateText } from '../assets/chocolate-text.svg';
+import { ReactComponent as ChocolateLogo } from '../assets/svg/chocolate-logo.svg';
+import { ReactComponent as ChocolateText } from '../assets/svg/chocolate-text.svg';
 import Link from '../components/Link';
 type MenuBarProps = DefaultProps;
 interface ILinkConfig {
