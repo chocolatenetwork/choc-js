@@ -1,9 +1,9 @@
 import { DefaultProps, Header } from '@mantine/core';
+import { Link as NavLink } from 'react-router-dom';
 import styled from 'styled-components';
 import { ReactComponent as ChocolateLogo } from '../assets/chocolate-logo.svg';
 import { ReactComponent as ChocolateText } from '../assets/chocolate-text.svg';
 import Link from '../components/Link';
-
 type MenuBarProps = DefaultProps;
 interface ILinkConfig {
   path: string;
@@ -22,15 +22,15 @@ const linkConfig: ILinkConfig[] = [
 function MenuBar(props: MenuBarProps) {
   return (
     <Header height={100} {...props}>
-      <h1 className="LinkSide">
+      <NavLink to="/" className="LinkSide">
         <ChocolateLogo width={64} height={64} />
         <ChocolateText />
-      </h1>
+      </NavLink>
       <ul className="Functions">
         {linkConfig.map((link) => (
-          <Link to={link.path} key={link.path}>
-            {link.title}
-          </Link>
+          <li key={link.path}>
+            <Link to={link.path}>{link.title}</Link>
+          </li>
         ))}
       </ul>
     </Header>

@@ -1,4 +1,9 @@
-import { Button, ButtonVariant } from '@mantine/core';
+import {
+  Button,
+  ButtonProps,
+  ButtonVariant,
+  createPolymorphicComponent,
+} from '@mantine/core';
 import React, { forwardRef } from 'react';
 import {
   NavLinkProps as RRNavLinkProps,
@@ -10,14 +15,17 @@ import {
 type PickFromRR =
   | 'target'
   | 'onClick'
-  | 'to'
   | 'caseSensitive'
   | 'state'
   | 'children'
   | 'end'
   | 'replace'
   | 'reloadDocument';
-type NavLinkProps = Pick<RRNavLinkProps, PickFromRR>;
+interface NavLinkProps
+  extends Pick<RRNavLinkProps, PickFromRR>,
+    Omit<ButtonProps, PickFromRR> {
+  to: string;
+}
 
 function Link(props: NavLinkProps, ref: React.Ref<HTMLAnchorElement>) {
   const {
@@ -37,9 +45,7 @@ function Link(props: NavLinkProps, ref: React.Ref<HTMLAnchorElement>) {
     target,
   });
 
-  const matchObj = useMatch(
-    typeof to === 'string' ? to : (to.pathname as string)
-  );
+  const matchObj = useMatch(to);
 
   const isMatch = !!matchObj;
   let variant: ButtonVariant = 'subtle';
@@ -54,23 +60,22 @@ function Link(props: NavLinkProps, ref: React.Ref<HTMLAnchorElement>) {
   }
 
   return (
-    <li>
-      <Button
-        component={'a'}
-        variant={variant}
-        href={href}
-        {...rest}
-        onClick={(event) => {
-          onClick?.(event);
-          if (!event.defaultPrevented) {
-            handleClick(event);
-          }
-        }}
-        ref={ref}
-      >
-        {childJsx}
-      </Button>
-    </li>
+    <Button
+      component={'a'}
+      variant={variant}
+      href={href}
+      {...rest}
+      onClick={(event) => {
+        onClick?.(event);
+        if (!event.defaultPrevented) {
+          handleClick(event);
+        }
+      }}
+      ref={ref}
+    >
+      {childJsx}
+    </Button>
   );
 }
-export default forwardRef(Link);
+
+export default createPolymorphicComponent<'a', NavLinkProps>(forwardRef(Link));
