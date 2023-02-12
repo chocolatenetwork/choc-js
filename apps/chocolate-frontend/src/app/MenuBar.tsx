@@ -9,6 +9,8 @@ interface ILinkConfig {
   path: string;
   title: string;
 }
+
+
 const linkConfig: ILinkConfig[] = [
   {
     path: '/',
@@ -42,6 +44,8 @@ export default styled(MenuBar)`
   align-items: center;
   padding: 10px 24px;
   column-gap: 64px;
+  background-color: transparent;
+  border-color: var(--header-border);
 
   .LinkSide {
     display: flex;

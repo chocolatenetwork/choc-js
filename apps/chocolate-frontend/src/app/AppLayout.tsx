@@ -1,12 +1,22 @@
-/* eslint-disable import/no-unresolved */
-import { AppShell } from '@mantine/core';
+import { AppShell, createStyles } from '@mantine/core';
 import React from 'react';
 import MenuBar from './MenuBar';
 
-/* NB: AppLayout==AppShell, so do  all box styling here */
+const useAppStyles = createStyles((theme) => {
+  return {
+    main: {
+      backgroundColor: theme.colors.gray[0],
+    },
+    root: {
+      '--header-border': theme.colors.gray[5],
+    },
+  };
+});
+
 export function AppLayout({ children }: React.PropsWithChildren): JSX.Element {
+  const { classes } = useAppStyles();
   return (
-    <AppShell padding={0} header={<MenuBar />}>
+    <AppShell classNames={classes} padding={0} header={<MenuBar />}>
       {children}
     </AppShell>
   );
