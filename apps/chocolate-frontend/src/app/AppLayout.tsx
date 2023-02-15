@@ -1,7 +1,7 @@
 import { AppShell, createStyles } from '@mantine/core';
 import React from 'react';
+// import '../services/api/api';
 import MenuBar from './MenuBar';
-
 const useAppStyles = createStyles((theme) => {
   return {
     main: {
