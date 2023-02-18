@@ -1,4 +1,4 @@
-import { assign, createMachine } from 'xstate';
+import { assign, createMachine, interpret } from 'xstate';
 import { enableAndLoadAll } from '../api/keyring';
 import {
   KeyringContext,
@@ -105,3 +105,5 @@ export const keyringMachine = createMachine(
     },
   }
 );
+
+export const keyringService = interpret(keyringMachine).start();

@@ -1,4 +1,5 @@
 import { assign, createMachine, interpret, Receiver, Sender } from 'xstate';
+import { noop } from '../../utils/noop';
 import { createApi } from '../api/api';
 import { ApiContext, ApiEvents } from './Api.schema';
 const initialContext: ApiContext = {} as ApiContext;
@@ -67,8 +68,6 @@ export const ApiMachine = createMachine(
     },
   }
 );
-// eslint-disable-next-line @typescript-eslint/no-empty-function
-function noop() {}
 export type ApiMachineSender = Sender<ApiEvents>;
 export type ApiMachineReceiver = Receiver<ApiEvents>;
 
