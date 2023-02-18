@@ -59,11 +59,12 @@ export const ApiMachine = createMachine(
       createApi: () => (send) => {
         const contract = createApi(send);
         let unsub: VoidFunction = noop;
-        contract.then((contract) => {
-          unsub = () => contract.api.disconnect();
+        contract.then((unsubFn) => {
+          unsub = unsubFn;
         });
 
-        return () => unsub;
+        // Closure is needed so unsub can be updated.
+        return () => unsub();
       },
     },
   }
