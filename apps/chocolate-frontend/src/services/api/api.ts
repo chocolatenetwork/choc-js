@@ -3,6 +3,7 @@ import { ContractPromise } from '@polkadot/api-contract';
 import { ApiMachineSender } from '../machines/Api';
 
 type AbiType = Record<string, unknown>;
+
 export async function createApi(
   send: ApiMachineSender
 ): Promise<ContractPromise> {

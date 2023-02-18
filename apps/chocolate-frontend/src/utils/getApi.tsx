@@ -1,7 +1,7 @@
-import { apiService } from '../machines/Api';
-import { AppError } from '../../utils/AppError';
+import { apiService } from '../services/machines/Api';
+import { AppError } from './AppError';
 
-function _getApi() {
+export function _getApi() {
   const apiState = apiService.getSnapshot();
 
   if (apiState.matches('Connected')) return apiState.context;

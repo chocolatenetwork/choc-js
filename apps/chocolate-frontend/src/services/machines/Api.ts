@@ -1,16 +1,7 @@
-import { ContractPromise } from '@polkadot/api-contract';
 import { assign, createMachine, interpret, Receiver, Sender } from 'xstate';
 import { createApi } from '../api/api';
-export interface ApiContext {
-  api: ContractPromise;
-}
+import { ApiContext, ApiEvents } from './Api.schema';
 const initialContext: ApiContext = {} as ApiContext;
-
-type ApiEvents =
-  | { type: 'CONNECT' }
-  | { type: 'DISCONNECT' }
-  | { type: 'CONNECT_SUCCESS'; api: ContractPromise }
-  | { type: 'ERROR' };
 
 export const ApiMachine = createMachine(
   {
@@ -82,4 +73,3 @@ export type ApiMachineSender = Sender<ApiEvents>;
 export type ApiMachineReceiver = Receiver<ApiEvents>;
 
 export const apiService = interpret(ApiMachine).start();
-

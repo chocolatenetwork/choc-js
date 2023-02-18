@@ -1,5 +1,6 @@
 import { useActor } from '@xstate/react';
-import { ApiContext, apiService } from '../services/machines/Api';
+import { apiService } from '../services/machines/Api';
+import { ApiContext } from '../services/machines/Api.schema';
 import { AppError } from '../utils/AppError';
 
 export function _useApi(): ApiContext | null {
