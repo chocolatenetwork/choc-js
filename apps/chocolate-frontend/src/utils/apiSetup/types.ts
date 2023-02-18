@@ -6,6 +6,6 @@ export interface ApiKeyringContext {
   keyringCtx: NonNullKeyringContext;
   apiCtx: ApiContext;
 }
-export type ApiFn = Fn1<ApiContext, Promise<unknown>>;
-export type KeyringFn = Fn1<NonNullKeyringContext, Promise<unknown>>;
-export type ApiKeyringFn = Fn1<ApiKeyringContext, Promise<unknown>>;
+export type ApiFn = Fn1<ApiContext, unknown>;
+export type KeyringFn = Fn1<NonNullKeyringContext, unknown>;
+export type ApiKeyringFn = Fn1<ApiKeyringContext, unknown>;
