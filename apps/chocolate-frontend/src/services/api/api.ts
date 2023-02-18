@@ -9,7 +9,7 @@ export async function createApi(
   const { default: contractAbi } = await import(
     '../../assets/contract/abi.json'
   );
-  console.log(contractAbi);
+  console.log('contractAbi:', contractAbi);
   // const ALICE_ADDRESS = '5GrwvaEF5zXb26Fz9rcQpDWS57CtERHpNehXCPcNoHGKutQY';
   // Init
   const wsProvider = new WsProvider('ws://127.0.0.1:9944');
@@ -40,7 +40,9 @@ export async function createApi(
   });
   api.on('ready', () => send({ type: 'CONNECT_SUCCESS', api: contract }));
   api.on('error', () => send({ type: 'ERROR' }));
-  console.log(contract.query);
+  console.log('contract.query parts:', contract.query);
 
   return contract;
 }
+
+
