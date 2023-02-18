@@ -3,7 +3,9 @@ import { noop } from '../../utils/noop';
 import { createApi } from '../api/api';
 import { ApiContext, ApiEvents } from './Api.schema';
 const initialContext: ApiContext = {} as ApiContext;
-
+/**
+ * Diagram: https://stately.ai/registry/editor/cc96d11e-2aad-49fa-a60a-b481de12be06?machineId=a2272bff-7580-40ac-915e-9aaab0e92944
+ */
 export const ApiMachine = createMachine(
   {
     id: 'Api',

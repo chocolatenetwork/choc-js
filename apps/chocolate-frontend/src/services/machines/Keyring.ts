@@ -15,9 +15,12 @@ const errorMap: Record<string, string> = {
   '404.Accounts': 'Cannot find any accounts loaded from extensions',
   defaultError: 'Unknown Error',
 };
+/**
+ * Diagram: https://stately.ai/registry/editor/cc96d11e-2aad-49fa-a60a-b481de12be06?machineId=8658bf8f-db10-49e7-85c3-2c0a61f3eb6d
+ */
 export const keyringMachine = createMachine(
   {
-    id: 'Wallet',
+    id: 'Keyring',
     initial: 'Idle',
     states: {
       Idle: {
@@ -96,8 +99,9 @@ export const keyringMachine = createMachine(
         selectedAccount: (_, event) => event.selectedAccount,
       }),
       parseError: assign({
-        errorMessage: (_, event) =>
-          errorMap[String(event.data)] ?? errorMap.defaultError,
+        errorMessage: (_, event) => {
+          return errorMap[String(event.data)] ?? errorMap.defaultError;
+        },
       }),
     },
     services: {
