@@ -6,22 +6,25 @@ import { InjectedAccountWithMeta } from '../services/api/types';
  * Extracted from: https://github.com/substrate-developer-hub/substrate-front-end-template/blob/main/src/substrate-lib/components/TxButton.js#L46-L60
  *
  *
- * Returns the first argument to api.tx.[Call]().signAndSend
- *
+ * Returns the first couple args to api.tx.[Call]().signAndSend
+ * Nb: Changed use of InjectedAccountWithMeta to just [string]. 
+ * Working theory is that the snippet referenced takes advantage of the fact that the address is also defined on KeyringPair. Despite the types not matching.
  */
 
-async function getFromAcct(currentAccount: InjectedAccountWithMeta) {
+export async function getFromAcct(
+  currentAccount: InjectedAccountWithMeta
+): Promise<[string, Record<string, string> | { signer: Signer }]> {
   const {
     address,
     meta: { source, isInjected },
   } = currentAccount;
 
   if (!isInjected) {
-    return [currentAccount] as [InjectedAccountWithMeta];
+    return [address, {}];
   }
 
   // currentAccount is injected from polkadot-JS extension, need to return the addr and signer object.
   // ref: https://polkadot.js.org/docs/extension/cookbook#sign-and-send-a-transaction
   const injector = await web3FromSource(source);
-  return [address, { signer: injector.signer }] as [string, { signer: Signer }];
+  return [address, { signer: injector.signer }];
 }

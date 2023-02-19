@@ -12,9 +12,7 @@ function Wallet(props: WalletProps) {
   if (['Loading', 'Error', 'Selecting', 'Idle'].some(state.matches)) {
     return (
       <div {...props}>
-        <Button color={'red'} onClick={() => send('START')}>
-          Connect Your Wallet
-        </Button>
+        <Button onClick={() => send('START')}>Connect Your Wallet</Button>
         <Modal
           opened={['Loading', 'Error', 'Selecting'].some(state.matches)}
           onClose={() => send('CANCEL')}
