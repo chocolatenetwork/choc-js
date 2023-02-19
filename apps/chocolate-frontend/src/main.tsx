@@ -1,8 +1,6 @@
 import { StrictMode } from 'react';
 import * as ReactDOM from 'react-dom/client';
 import App from './app/App';
-import './services/machines/Api';
-import './services/machines/Keyring';
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement

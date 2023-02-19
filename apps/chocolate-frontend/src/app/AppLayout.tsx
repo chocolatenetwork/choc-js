@@ -1,5 +1,7 @@
 import { AppShell, createStyles } from '@mantine/core';
+import { useActor } from '@xstate/react';
 import React from 'react';
+import { apiService } from '../services/machines/Api';
 // import '../services/api/api';
 import MenuBar from './MenuBar';
 const useAppStyles = createStyles((theme) => {
@@ -15,9 +17,13 @@ const useAppStyles = createStyles((theme) => {
 
 export function AppLayout({ children }: React.PropsWithChildren): JSX.Element {
   const { classes } = useAppStyles();
+  const [state] = useActor(apiService);
+
   return (
     <AppShell classNames={classes} padding={0} header={<MenuBar />}>
-      {children}
+      {state.matches('Connected') && children}
+      {state.matches('Loading') && 'Loading...'}
+      {state.matches('Disconnected') && 'Api Error'}
     </AppShell>
   );
 }
