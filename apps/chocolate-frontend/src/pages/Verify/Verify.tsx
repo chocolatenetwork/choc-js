@@ -1,20 +1,21 @@
-import { Button, Select, Stepper, Text } from '@mantine/core';
+import { Stepper } from '@mantine/core';
+import { useSetState } from '@mantine/hooks';
 import { useState } from 'react';
 import styled from 'styled-components';
-import { AccountType } from '../../services/queries/putVerifyUser';
-
+import FirstStep from './FirstStep';
+import { StepperContentLayout } from './StepperContentLayout';
 interface VerifyLayoutProps {
   className?: string;
 }
-interface ActiveMap {
+export interface ActiveMap {
   [pageId: number]: boolean;
 }
 const MAX = 2;
 const MIN = 0;
 function VerifyLayout(props: VerifyLayoutProps) {
   const [active, setActive] = useState(MIN);
-  const [validMap, setValidMap] = useState<ActiveMap>({});
-
+  const [validMap, setValidMap] = useSetState<ActiveMap>({});
+  const [signature, setSignature] = useState('');
   const hasNext = (num: number) => num < MAX && validMap[active];
   const hasPrev = (num: number) => num > MIN;
 
@@ -39,12 +40,21 @@ function VerifyLayout(props: VerifyLayoutProps) {
             description="Sign a random message"
             className="StepWrapper"
           >
-            <VerifyFirstStep
+            <StepperContentLayout
               hasNext={hasNext(active)}
               hasPrev={hasPrev(active)}
               nextStep={nextStep}
               prevStep={prevStep}
-            />
+            >
+              <FirstStep
+                onSubmit={(value) => {
+                  setSignature(value);
+                  nextStep();
+                }}
+                onValidChange={setValidMap}
+                index={0}
+              />
+            </StepperContentLayout>
           </Stepper.Step>
           <Stepper.Step label="Second Step" description="Tweet the message">
             ''
@@ -58,34 +68,6 @@ function VerifyLayout(props: VerifyLayoutProps) {
   );
 }
 
-enum FontWeights {
-  bold = 500,
-}
-interface VerifyFirstStepProps {
-  hasNext?: boolean;
-  hasPrev?: boolean;
-  nextStep: VoidFunction;
-  prevStep: VoidFunction;
-}
-function VerifyFirstStep(props: React.PropsWithChildren<VerifyFirstStepProps>) {
-  const { nextStep, prevStep, hasNext, hasPrev } = props;
-
-  return (
-    <>
-      <div className="StepsBody">
-        <FirstStep />
-      </div>
-      <div className="StepsControl">
-        {hasPrev && (
-          <Button variant="default" onClick={prevStep}>
-            Back
-          </Button>
-        )}
-        {hasNext && <Button onClick={nextStep}>Next step</Button>}
-      </div>
-    </>
-  );
-}
 export default styled(VerifyLayout)`
   width: 100%;
   height: 100%;
@@ -97,8 +79,8 @@ export default styled(VerifyLayout)`
 
   .SectionBg {
     background-color: var(--mantine-color-gray-3);
-    width: 82%;
-    height: 82%;
+    width: 90%;
+    height: 90%;
 
     border-radius: 10px;
   }
@@ -107,7 +89,7 @@ export default styled(VerifyLayout)`
     justify-content: space-between;
   }
   .mantine-Stepper-content {
-    padding: 40px;
+    padding: 30px;
     flex-grow: 1;
     display: flex;
     flex-direction: column;
@@ -122,7 +104,7 @@ export default styled(VerifyLayout)`
     border-radius: var(--mantine-radius-sm);
   }
   .mantine-Stepper-steps {
-    padding: 30px 20px;
+    padding: 20px;
     border-bottom: 1px solid var(--mantine-color-gray-5);
   }
   .mantine-Stepper-root {
@@ -132,43 +114,3 @@ export default styled(VerifyLayout)`
     flex-direction: column;
   }
 `;
-
-function FirstStep() {
-  // Todo: Impl first step.
-  const message =
-    'bb282cd8089975d581648e730defd6a39fe4d23c089a082fa538968a3e5990be';
-  const signature =
-    '1b985bd00eaf2a58695450f313103d5ed10a22c46bb2e11a49a9e1fe50ca7dee';
-  return (
-    <>
-      <div>
-        <Select
-          label="Account Type"
-          placeholder="Select Account Type.."
-          data={Object.values(AccountType)}
-        />
-      </div>
-      <div>
-        <div>
-          <Text size={'sm'} fw={FontWeights.bold}>
-            Message
-          </Text>
-          <Text className="TextContainer" ta="center" c="dimmed">
-            {message}
-          </Text>
-        </div>
-        <Button variant="default">Generate Message</Button>
-      </div>
-      <div>
-        <Text size={'sm'} fw={FontWeights.bold}>
-          Signature
-        </Text>
-        <Text className="TextContainer" ta="center" c="dimmed">
-          {signature}
-        </Text>
-        <Button variant="default">Sign Message</Button>
-      </div>
-    </>
-  );
-}
-  
