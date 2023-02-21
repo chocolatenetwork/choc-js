@@ -6,7 +6,5 @@ import { ApiFn } from './types';
 export function setupApi<_Fn extends ApiFn, Rest extends ExtractRest<_Fn>>(
   fn: _Fn
 ): (...args: Rest) => ReturnType<_Fn> {
-  const apiCtx = getApi();
-
-  return curry1(fn, apiCtx);
+  return curry1(fn, getApi);
 }

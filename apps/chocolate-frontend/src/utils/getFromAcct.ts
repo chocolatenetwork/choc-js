@@ -2,18 +2,26 @@ import { web3FromSource } from '@polkadot/extension-dapp';
 import { Signer } from '@polkadot/types/types';
 import { InjectedAccountWithMeta } from '../services/api/types';
 
+type SignerOpts =
+  | Record<string, string>
+  | {
+      signer: Signer;
+    };
+
+export type GetFromAcctReturn = [address: string, signerOpts: SignerOpts];
+
 /**
  * Extracted from: https://github.com/substrate-developer-hub/substrate-front-end-template/blob/main/src/substrate-lib/components/TxButton.js#L46-L60
  *
  *
  * Returns the first couple args to api.tx.[Call]().signAndSend
- * Nb: Changed use of InjectedAccountWithMeta to just [string]. 
+ * Nb: Changed use of InjectedAccountWithMeta to just [string].
  * Working theory is that the snippet referenced takes advantage of the fact that the address is also defined on KeyringPair. Despite the types not matching.
  */
 
 export async function getFromAcct(
   currentAccount: InjectedAccountWithMeta
-): Promise<[string, Record<string, string> | { signer: Signer }]> {
+): Promise<GetFromAcctReturn> {
   const {
     address,
     meta: { source, isInjected },
