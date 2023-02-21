@@ -15,12 +15,13 @@ async function loadAccounts() {
   // will be able to show and use accounts
   // returns an array of { address, meta: { name, source } }
   // meta.source contains the name of the extension that provides this account
-  const allAccounts = await web3Accounts();
-    if (allAccounts.length === 0) {
-      // no extension installed, or the user did not accept the authorization
-      // in this case we should inform the use and give a link to the extension
-      throw new AppError('404.Accounts');
-    }
+  const allAccounts = await web3Accounts({ accountType: ['ecdsa'] });
+
+  if (allAccounts.length === 0) {
+    // no extension installed, or the user did not accept the authorization
+    // in this case we should inform the use and give a link to the extension
+    throw new AppError('404.Accounts');
+  }
   const cleanedAccounts: InjectedAccountWithMeta[] = allAccounts.map(
     (account) => {
       const { isInjected = false } =
