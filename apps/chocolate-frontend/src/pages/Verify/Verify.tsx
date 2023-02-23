@@ -97,12 +97,7 @@ export default styled(VerifyLayout)`
   .StepsBody {
     flex-grow: 1;
   }
-  .TextContainer {
-    padding: 4.5px 0;
-    border: 1px solid var(--mantine-color-gray-4);
-    background-color: var(--mantine-color-gray-0);
-    border-radius: var(--mantine-radius-sm);
-  }
+
   .mantine-Stepper-steps {
     padding: 20px;
     border-bottom: 1px solid var(--mantine-color-gray-5);

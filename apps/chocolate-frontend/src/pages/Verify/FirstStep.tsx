@@ -1,15 +1,15 @@
 import { zodResolver } from '@hookform/resolvers/zod';
-import { Button, Select, Text } from '@mantine/core';
+import { Button, Select, TextInput } from '@mantine/core';
 import { useMutation } from '@tanstack/react-query';
 import { useEffect } from 'react';
-import { useController, useForm } from 'react-hook-form';
+import { SubmitHandler, useController, useForm } from 'react-hook-form';
 import styled from 'styled-components';
 import * as zod from 'zod';
 import putVerifyUser, {
   AccountType,
 } from '../../services/queries/putVerifyUser';
 import signRaw from '../../services/queries/signRaw';
-import { FontWeights } from './StepperContentLayout';
+import { getErrorMsg } from '../../utils/getErrorMsg';
 import { ActiveMap } from './Verify';
 
 interface FormData {
@@ -61,18 +61,24 @@ function FirstStep(props: FirstStepProps) {
     },
   });
   const signatureMutation = useMutation(signRaw, {
-    onSuccess(data, variables, context) {
+    onSuccess(data) {
       signatureController.field.onChange(data);
     },
   });
 
   // Todo: Impl first step.
-  const message =
-    'bb282cd8089975d581648e730defd6a39fe4d23c089a082fa538968a3e5990be';
-  const signature =
-    '1b985bd00eaf2a58695450f313103d5ed10a22c46bb2e11a49a9e1fe50ca7dee';
+  const message = messageMutation.data;
+  const signature = signatureMutation.data;
+
+  const messageError = getErrorMsg(messageMutation);
+  const signatureError = getErrorMsg(signatureMutation);
+
+  const submitHandler: SubmitHandler<FormData> = (data) => {
+    onSubmit(data.signature);
+  };
+  // method set to post as the signature is sensitive.
   return (
-    <div {...rest}>
+    <form {...rest} method="POST" onSubmit={form.handleSubmit(submitHandler)}>
       <div>
         <Select
           label="Account Type"
@@ -83,37 +89,46 @@ function FirstStep(props: FirstStepProps) {
       </div>
       <div>
         <div>
-          <Text size={'sm'} fw={FontWeights.bold}>
-            Message
-          </Text>
-          <Text className="TextContainer" ta="center" c="dimmed">
-            {message}
-          </Text>
+          <TextInput
+            label="Message"
+            className="TextContainer"
+            disabled
+            value={message}
+            error={messageError}
+          />
         </div>
         <Button
           variant="default"
           mt={20}
           disabled={accountController.fieldState.invalid}
+          onClick={() => {
+            messageMutation.mutate(form.getValues('accountType'));
+          }}
         >
           Generate Message
         </Button>
       </div>
       <div>
-        <Text size={'sm'} fw={FontWeights.bold}>
-          Signature
-        </Text>
-        <Text className="TextContainer" ta="center" c="dimmed">
-          {signature}
-        </Text>
+        <TextInput
+          label={'Signature'}
+          className="TextContainer"
+          disabled
+          value={signature}
+          error={signatureError}
+        />
         <Button
           variant="default"
           mt={20}
+          type="submit"
           disabled={messageController.fieldState.invalid}
+          onClick={() => {
+            signatureMutation.mutate(form.getValues('message'));
+          }}
         >
           Sign Message
         </Button>
       </div>
-    </div>
+    </form>
   );
 }
 
@@ -122,7 +137,9 @@ export default styled(FirstStep)`
   flex-direction: column;
   row-gap: 30px;
 
-  .TextContainer {
-    min-height: 36px;
+  .mantine-TextInput-input {
+    border: 1px solid var(--mantine-color-gray-4);
+    background-color: var(--mantine-color-gray-0);
+    opacity: 1;
   }
 `;
