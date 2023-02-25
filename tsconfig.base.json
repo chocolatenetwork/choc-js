@@ -23,6 +23,12 @@
       "@polkadot/api/augment": ["packages/types/src/interfaces/augment-api.ts"],
       "@polkadot/types/augment": [
         "packages/types/src/interfaces/augment-types.ts"
+      ],
+      "$chocolate-frontend/*": [
+        "apps/chocolate-frontend/src/*"
+      ],
+      "$chocolate-frontend": [
+        "apps/chocolate-frontend/src"
       ]
     }
   },

@@ -2,17 +2,14 @@ import { Stepper } from '@mantine/core';
 import { useSetState } from '@mantine/hooks';
 import { useState } from 'react';
 import styled from 'styled-components';
-import FirstStep from './FirstStep';
-import { FirstStepFormData } from './FirstStepProps';
-import { StepperContentLayout } from './StepperContentLayout';
-interface VerifyLayoutProps {
-  className?: string;
-}
-export interface ActiveMap {
-  [pageId: number]: boolean;
-}
+import FirstStep from './FirstStep/FirstStep';
+import { FirstStepFormData } from './FirstStep/types';
+import StepperContentLayout from './StepperContentLayout';
+import { ActiveMap, VerifyLayoutProps } from './types';
+
 const MAX = 2;
 const MIN = 0;
+
 function VerifyLayout(props: VerifyLayoutProps) {
   const [active, setActive] = useState(MIN);
   const [validMap, setValidMap] = useSetState<ActiveMap>({});
@@ -86,15 +83,10 @@ export default styled(VerifyLayout)`
 
     border-radius: 10px;
   }
-  .StepsControl {
-    display: flex;
-    justify-content: space-between;
-  }
+
   .mantine-Stepper-content {
     padding: 30px;
     flex-grow: 1;
-    display: flex;
-    flex-direction: column;
   }
   .StepsBody {
     flex-grow: 1;

@@ -1,5 +1,5 @@
-import { AccountType } from '../../services/queries/putVerifyUser';
-import { ActiveMap } from './Verify';
+import { AccountType } from '$chocolate-frontend/services/queries/putVerifyUser';
+import { ActiveMap } from '../types';
 
 export interface FirstStepFormData {
   accountType: AccountType;

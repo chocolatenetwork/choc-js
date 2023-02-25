@@ -7,10 +7,10 @@ import styled from 'styled-components';
 import * as zod from 'zod';
 import putVerifyUser, {
   AccountType,
-} from '../../services/queries/putVerifyUser';
-import signRaw from '../../services/queries/signRaw';
-import { getErrorMsg } from '../../utils/getErrorMsg';
-import { FirstStepFormData, FirstStepProps } from './FirstStepProps';
+} from '../../../services/queries/putVerifyUser';
+import signRaw from '../../../services/queries/signRaw';
+import { getErrorMsg } from '../../../utils/getErrorMsg';
+import { FirstStepFormData, FirstStepProps } from './types';
 
 const schema = zod.object({
   accountType: zod.nativeEnum(AccountType),
