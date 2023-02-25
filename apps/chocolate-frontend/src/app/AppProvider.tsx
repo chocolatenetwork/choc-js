@@ -5,8 +5,18 @@ import type { PropsWithChildren } from 'react';
 import { Toaster } from 'react-hot-toast';
 import { BrowserRouter } from 'react-router-dom';
 import { ProviderComposer } from '../components/ProviderComposer';
+import { handleKeyringerr } from '../utils/handleKeyringerr';
 import GlobalStyle from './global.styles';
-const queryClient = new QueryClient();
+
+const queryClient = new QueryClient({
+  defaultOptions: {
+    mutations: {
+      onError(error) {
+        handleKeyringerr(error);
+      },
+    },
+  },
+});
 function AppProvider(props: PropsWithChildren): JSX.Element {
   const { children } = props;
   return (

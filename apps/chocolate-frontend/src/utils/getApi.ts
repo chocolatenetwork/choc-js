@@ -1,5 +1,5 @@
 import { apiService } from '../services/machines/Api';
-import { AppError } from './AppError';
+import { AppError, ErrorCodes } from './AppError';
 
 export function _getApi() {
   const apiState = apiService.getSnapshot();
@@ -12,5 +12,5 @@ export function getApi() {
 
   if (apiState.matches('Connected')) return apiState.context;
 
-  throw new AppError('Api::Error::No Api Connected');
+  throw new AppError('Api::Error::No Api Connected', ErrorCodes.ApiError);
 }

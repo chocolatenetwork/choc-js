@@ -16,7 +16,10 @@ const MIN = 0;
 function VerifyLayout(props: VerifyLayoutProps) {
   const [active, setActive] = useState(MIN);
   const [validMap, setValidMap] = useSetState<ActiveMap>({});
-  const [formdata, setFormData] = useSetState<Partial<FirstStepFormData>>({});
+  const [formdata, setFormData] = useSetState<Partial<FirstStepFormData>>({
+    message: '',
+    signature: '',
+  });
   const hasNext = (num: number) => num < MAX && validMap[active];
   const hasPrev = (num: number) => num > MIN;
 

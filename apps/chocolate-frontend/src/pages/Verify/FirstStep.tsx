@@ -14,8 +14,8 @@ import { FirstStepFormData, FirstStepProps } from './FirstStepProps';
 
 const schema = zod.object({
   accountType: zod.nativeEnum(AccountType),
-  message: zod.string(),
-  signature: zod.string(),
+  message: zod.string().min(1),
+  signature: zod.string().min(1),
 });
 function FirstStep(props: FirstStepProps) {
   const { sync, onValidChange, index, defaultValues, ...rest } = props;
@@ -80,6 +80,7 @@ function FirstStep(props: FirstStepProps) {
         <div>
           <TextInput
             label="Message"
+            disabled
             className="TextContainer"
             error={messageError}
             {...messageController.field}
@@ -90,7 +91,7 @@ function FirstStep(props: FirstStepProps) {
           mt={20}
           disabled={accountController.fieldState.invalid}
           onClick={() => {
-            messageMutation.mutateAsync(form.getValues('accountType'));
+            messageMutation.mutate(form.getValues('accountType'));
           }}
         >
           Generate Message
@@ -99,6 +100,7 @@ function FirstStep(props: FirstStepProps) {
       <div>
         <TextInput
           label={'Signature'}
+          disabled
           className="TextContainer"
           error={signatureError}
           {...signatureController.field}
@@ -108,7 +110,7 @@ function FirstStep(props: FirstStepProps) {
           mt={20}
           disabled={messageController.fieldState.invalid}
           onClick={() => {
-            signatureMutation.mutateAsync(form.getValues('message'));
+            signatureMutation.mutate(form.getValues('message'));
           }}
         >
           Sign Message
