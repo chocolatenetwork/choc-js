@@ -38,6 +38,10 @@ export default styled(StepperContentLayout)`
   display: flex;
   flex-direction: column;
 
+  .StepsBody {
+    flex-grow: 1;
+  }
+
   .StepsControl {
     display: grid;
     grid-template-columns: repeat(1, min-content);

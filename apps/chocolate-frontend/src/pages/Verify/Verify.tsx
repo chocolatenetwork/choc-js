@@ -82,24 +82,21 @@ export default styled(VerifyLayout)`
     height: 90%;
 
     border-radius: 10px;
-  }
 
-  .mantine-Stepper-content {
-    padding: 30px;
-    flex-grow: 1;
-  }
-  .StepsBody {
-    flex-grow: 1;
-  }
+    .mantine-Stepper-content {
+      padding: 30px;
+      flex-grow: 1;
+    }
 
-  .mantine-Stepper-steps {
-    padding: 20px;
-    border-bottom: 1px solid var(--mantine-color-gray-5);
-  }
-  .mantine-Stepper-root {
-    width: 100%;
-    height: 100%;
-    display: flex;
-    flex-direction: column;
+    .mantine-Stepper-steps {
+      padding: 20px;
+      border-bottom: 1px solid var(--mantine-color-gray-5);
+    }
+    .mantine-Stepper-root {
+      width: 100%;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+    }
   }
 `;

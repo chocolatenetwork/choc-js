@@ -1,13 +1,16 @@
-import { Button, Modal, Select } from '@mantine/core';
+import { Button, Select } from '@mantine/core';
 import { useState } from 'react';
+import styled from 'styled-components';
 import { KeyringMachineState } from '../services/machines/Keyring';
 import { KeyringMachineSender } from '../services/machines/Keyring.schema';
 
 interface SelectAccountsProps {
   send: KeyringMachineSender;
   state: KeyringMachineState;
+  className?: string;
 }
-export function SelectAccounts({ send, state }: SelectAccountsProps) {
+function SelectAccounts(props: SelectAccountsProps) {
+  const { send, state, ...rest } = props;
   const accountItems = state.context.accounts.map((value) => {
     return {
       value: value.address,
@@ -19,10 +22,11 @@ export function SelectAccounts({ send, state }: SelectAccountsProps) {
     return account.address === selectedAddress;
   });
   return (
-    <Modal opened onClose={() => send('CANCEL')}>
+    <div {...rest}>
       <Select
         data={accountItems}
         value={selectedAddress}
+        label="Account"
         placeholder="Select an account..."
         onChange={setSelected}
       />
@@ -38,6 +42,13 @@ export function SelectAccounts({ send, state }: SelectAccountsProps) {
       >
         Confirm
       </Button>
-    </Modal>
+    </div>
   );
 }
+
+export default styled(SelectAccounts)`
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  row-gap: 10px;
+`;

@@ -1,24 +1,19 @@
-import { Button } from '@mantine/core';
+import { Text } from '@mantine/core';
 import { KeyringMachineState } from '../services/machines/Keyring';
 import { KeyringMachineSender } from '../services/machines/Keyring.schema';
-import { SelectAccounts } from './SelectAccounts';
+import AccountsError from './AccountsError';
+import SelectAccounts from './SelectAccounts';
 
-interface WalletModalBodiesProps {
+export interface WalletModalBodiesProps {
   state: KeyringMachineState;
   send: KeyringMachineSender;
 }
 export function WalletModalBodies({ state, send }: WalletModalBodiesProps) {
   if (state.matches('Loading')) {
-    return <div>Loading accounts...</div>;
+    return <Text>Loading accounts...</Text>;
   }
   if (state.matches('Error')) {
-    return (
-      <div>
-        {state.context.errorMessage}
-        <Button onClick={() => send('RETRY')}>Retry</Button>{' '}
-        <Button onClick={() => send('CANCEL')}>Exit</Button>
-      </div>
-    );
+    return <AccountsError send={send} state={state} />;
   }
   if (state.matches('Selecting')) {
     return <SelectAccounts send={send} state={state} />;
