@@ -2,7 +2,7 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { Button, Select, TextInput } from '@mantine/core';
 import { useMutation } from '@tanstack/react-query';
 import { useEffect } from 'react';
-import { SubmitHandler, useController, useForm } from 'react-hook-form';
+import { useController, useForm } from 'react-hook-form';
 import styled from 'styled-components';
 import * as zod from 'zod';
 import putVerifyUser, {
@@ -10,31 +10,22 @@ import putVerifyUser, {
 } from '../../services/queries/putVerifyUser';
 import signRaw from '../../services/queries/signRaw';
 import { getErrorMsg } from '../../utils/getErrorMsg';
-import { ActiveMap } from './Verify';
-
-interface FormData {
-  accountType: AccountType;
-  message: string;
-  signature: string;
-}
+import { FirstStepFormData, FirstStepProps } from './FirstStepProps';
 
 const schema = zod.object({
   accountType: zod.nativeEnum(AccountType),
   message: zod.string(),
   signature: zod.string(),
 });
-interface FirstStepProps {
-  onSubmit: (signature: string) => void;
-  onValidChange: (map: ActiveMap) => void;
-  index: number;
-  className?: string;
-}
 function FirstStep(props: FirstStepProps) {
-  const { onSubmit, onValidChange, index, ...rest } = props;
-  const form = useForm<FormData>({
+  const { sync, onValidChange, index, defaultValues, ...rest } = props;
+  const form = useForm<FirstStepFormData>({
     resolver: zodResolver(schema),
     reValidateMode: 'onChange',
+    mode: 'onChange',
+    defaultValues,
   });
+
   const accountController = useController({
     control: form.control,
     name: 'accountType',
@@ -44,17 +35,23 @@ function FirstStep(props: FirstStepProps) {
     name: 'message',
   });
 
+  const signatureController = useController({
+    control: form.control,
+    name: 'signature',
+  });
+
   useEffect(() => {
     form.trigger();
-    const unsub = form.watch(() => {
-      form.trigger();
+    const unsub = form.watch((values) => {
+      sync(values);
     });
     return () => unsub.unsubscribe();
   }, [form]);
-  const signatureController = useController({
-    control: form.control,
-    name: 'message',
-  });
+
+  useEffect(() => {
+    onValidChange({ [index]: form.formState.isValid });
+  }, [form.formState.isValid, index]);
+
   const messageMutation = useMutation(putVerifyUser, {
     onSuccess(data) {
       messageController.field.onChange(data);
@@ -66,19 +63,11 @@ function FirstStep(props: FirstStepProps) {
     },
   });
 
-  // Todo: Impl first step.
-  const message = messageMutation.data;
-  const signature = signatureMutation.data;
-
   const messageError = getErrorMsg(messageMutation);
   const signatureError = getErrorMsg(signatureMutation);
-
-  const submitHandler: SubmitHandler<FormData> = (data) => {
-    onSubmit(data.signature);
-  };
   // method set to post as the signature is sensitive.
   return (
-    <form {...rest} method="POST" onSubmit={form.handleSubmit(submitHandler)}>
+    <div {...rest}>
       <div>
         <Select
           label="Account Type"
@@ -92,9 +81,8 @@ function FirstStep(props: FirstStepProps) {
           <TextInput
             label="Message"
             className="TextContainer"
-            disabled
-            value={message}
             error={messageError}
+            {...messageController.field}
           />
         </div>
         <Button
@@ -102,7 +90,7 @@ function FirstStep(props: FirstStepProps) {
           mt={20}
           disabled={accountController.fieldState.invalid}
           onClick={() => {
-            messageMutation.mutate(form.getValues('accountType'));
+            messageMutation.mutateAsync(form.getValues('accountType'));
           }}
         >
           Generate Message
@@ -112,23 +100,21 @@ function FirstStep(props: FirstStepProps) {
         <TextInput
           label={'Signature'}
           className="TextContainer"
-          disabled
-          value={signature}
           error={signatureError}
+          {...signatureController.field}
         />
         <Button
           variant="default"
           mt={20}
-          type="submit"
           disabled={messageController.fieldState.invalid}
           onClick={() => {
-            signatureMutation.mutate(form.getValues('message'));
+            signatureMutation.mutateAsync(form.getValues('message'));
           }}
         >
           Sign Message
         </Button>
       </div>
-    </form>
+    </div>
   );
 }
 

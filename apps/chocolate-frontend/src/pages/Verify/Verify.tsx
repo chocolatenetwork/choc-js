@@ -3,6 +3,7 @@ import { useSetState } from '@mantine/hooks';
 import { useState } from 'react';
 import styled from 'styled-components';
 import FirstStep from './FirstStep';
+import { FirstStepFormData } from './FirstStepProps';
 import { StepperContentLayout } from './StepperContentLayout';
 interface VerifyLayoutProps {
   className?: string;
@@ -15,7 +16,7 @@ const MIN = 0;
 function VerifyLayout(props: VerifyLayoutProps) {
   const [active, setActive] = useState(MIN);
   const [validMap, setValidMap] = useSetState<ActiveMap>({});
-  const [signature, setSignature] = useState('');
+  const [formdata, setFormData] = useSetState<Partial<FirstStepFormData>>({});
   const hasNext = (num: number) => num < MAX && validMap[active];
   const hasPrev = (num: number) => num > MIN;
 
@@ -47,10 +48,8 @@ function VerifyLayout(props: VerifyLayoutProps) {
               prevStep={prevStep}
             >
               <FirstStep
-                onSubmit={(value) => {
-                  setSignature(value);
-                  nextStep();
-                }}
+                sync={setFormData}
+                defaultValues={formdata}
                 onValidChange={setValidMap}
                 index={0}
               />

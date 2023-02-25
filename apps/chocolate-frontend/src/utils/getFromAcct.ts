@@ -24,12 +24,12 @@ export async function getFromAcct(
 ): Promise<GetFromAcctReturn> {
   const {
     address,
-    meta: { source, isInjected },
+    meta: { source },
   } = currentAccount;
 
-  if (!isInjected) {
-    return [address, {}];
-  }
+  // if (isInjected) {
+  //   return [address, {}];
+  // }
 
   // currentAccount is injected from polkadot-JS extension, need to return the addr and signer object.
   // ref: https://polkadot.js.org/docs/extension/cookbook#sign-and-send-a-transaction

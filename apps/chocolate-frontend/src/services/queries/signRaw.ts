@@ -7,6 +7,6 @@ export default setupApiAndKeyring(async (ctx, message: string) => {
   // Todo: Extract to ctx.
   const acct = await getFromAcct(keyringCtx.selectedAccount);
 
-  const signature = await api.api.sign(acct[0], { data: message });
+  const signature = await api.api.sign(acct[0], { data: message }, acct[1]);
   return signature;
 });

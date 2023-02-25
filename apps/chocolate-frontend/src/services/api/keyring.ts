@@ -1,6 +1,6 @@
 import { web3Accounts, web3Enable } from '@polkadot/extension-dapp';
 import { AppError } from '../../utils/AppError';
-import { InjectedAccountWithMeta } from './types';
+import { AccountType, InjectedAccountWithMeta } from './types';
 
 const APP = 'Chocolate App';
 // Load all, so we can ask user to select one and use
@@ -15,7 +15,9 @@ async function loadAccounts() {
   // will be able to show and use accounts
   // returns an array of { address, meta: { name, source } }
   // meta.source contains the name of the extension that provides this account
-  const allAccounts = await web3Accounts({ accountType: ['ecdsa'] });
+  const allAccounts = await web3Accounts({
+    accountType: ['sr25519'] as [AccountType],
+  });
 
   if (allAccounts.length === 0) {
     // no extension installed, or the user did not accept the authorization
@@ -24,16 +26,13 @@ async function loadAccounts() {
   }
   const cleanedAccounts: InjectedAccountWithMeta[] = allAccounts.map(
     (account) => {
-      const { isInjected = false } =
-        account.meta as InjectedAccountWithMeta['meta'];
       return {
         address: account.address,
         meta: {
-          isInjected,
           name: account.meta.name ?? account.address,
           source: account.meta.source,
         },
-        type: account.type,
+        type: account.type as AccountType,
       };
     }
   );
