@@ -1,14 +1,6 @@
 import { web3FromSource } from '@polkadot/extension-dapp';
-import { Signer } from '@polkadot/types/types';
 import { InjectedAccountWithMeta } from '../services/api/types';
-
-type SignerOpts =
-  | Record<string, string>
-  | {
-      signer: Signer;
-    };
-
-export type GetFromAcctReturn = [address: string, signerOpts: SignerOpts];
+import { GetFromAcctReturn } from './GetFromAcctReturn';
 
 /**
  * Extracted from: https://github.com/substrate-developer-hub/substrate-front-end-template/blob/main/src/substrate-lib/components/TxButton.js#L46-L60

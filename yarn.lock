@@ -2680,7 +2680,7 @@
     "@polkadot/util-crypto" "^10.3.1"
     rxjs "^7.8.0"
 
-"@polkadot/ui-keyring@2.11.1":
+"@polkadot/ui-keyring@=2.11.1":
   version "2.11.1"
   resolved "https://registry.yarnpkg.com/@polkadot/ui-keyring/-/ui-keyring-2.11.1.tgz#bc4750b44d8497652caccf48077046e053921efa"
   integrity sha512-uCOVrRv2nEVkvmM6KK/H2YzHFAXBYTAm+VnLoCMG1HxHLmKXQCCH7YYNppJNjKqJjQ+Gd2+27Yqs5Y28bOfkSA==
@@ -2694,7 +2694,7 @@
     rxjs "^7.8.0"
     store "^2.0.12"
 
-"@polkadot/ui-settings@2.11.1":
+"@polkadot/ui-settings@2.11.1", "@polkadot/ui-settings@=2.11.1":
   version "2.11.1"
   resolved "https://registry.yarnpkg.com/@polkadot/ui-settings/-/ui-settings-2.11.1.tgz#e3474097a6f4246423731e9b5cce3a5bb9482349"
   integrity sha512-7yZwb3VxGh7VPHkyygktL7Oep0c4XUyKkYGwSmgP2Gt2IcvnGXFUQVSEARKs9FCanl19f2CEU1m19+FFrjlUNQ==
@@ -9870,7 +9870,7 @@ react-dom@18.2.0:
     loose-envify "^1.1.0"
     scheduler "^0.23.0"
 
-react-hook-form@7.42.1:
+react-hook-form@=7.42.1:
   version "7.42.1"
   resolved "https://registry.yarnpkg.com/react-hook-form/-/react-hook-form-7.42.1.tgz#c6396ca684716d89abc1c7e64343badfd30c56c6"
   integrity sha512-2UIGqwMZksd5HS55crTT1ATLTr0rAI4jS7yVuqTaoRVDhY2Qc4IyjskCmpnmdYqUNOYFy04vW253tb2JRVh+IQ==

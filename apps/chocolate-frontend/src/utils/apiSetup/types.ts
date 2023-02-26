@@ -1,6 +1,6 @@
 import { ApiContext } from '../../services/machines/Api.schema';
 import { Fn1 } from '../curry1/types';
-import { GetFromAcctReturn } from '../getFromAcct';
+import { GetFromAcctReturn } from '../GetFromAcctReturn';
 import { NonNullKeyringContext } from '../getKeyring';
 
 export interface ApiKeyringContext {
