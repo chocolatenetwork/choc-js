@@ -4,6 +4,7 @@ import { useState } from 'react';
 import styled from 'styled-components';
 import FirstStep from './FirstStep/FirstStep';
 import { FirstStepFormData } from './FirstStep/types';
+import SecondStep from './SecondStep';
 import StepperContentLayout from './StepperContentLayout';
 import { ActiveMap, VerifyLayoutProps } from './types';
 
@@ -13,7 +14,8 @@ const MIN = 0;
 function VerifyLayout(props: VerifyLayoutProps) {
   const [active, setActive] = useState(MIN);
   const [validMap, setValidMap] = useSetState<ActiveMap>({});
-  const [formdata, setFormData] = useSetState<Partial<FirstStepFormData>>({
+  const [formdata, setFormData] = useSetState<FirstStepFormData>({
+    accountType: null,
     message: '',
     signature: '',
   });
@@ -56,7 +58,14 @@ function VerifyLayout(props: VerifyLayoutProps) {
             </StepperContentLayout>
           </Stepper.Step>
           <Stepper.Step label="Second Step" description="Tweet the message">
-            ''
+            <StepperContentLayout
+              hasNext={hasNext(active)}
+              hasPrev={hasPrev(active)}
+              nextStep={nextStep}
+              prevStep={prevStep}
+            >
+              <SecondStep signature={formdata.signature} />
+            </StepperContentLayout>
           </Stepper.Step>
           <Stepper.Completed>
             We’ll review your submission and get back to you

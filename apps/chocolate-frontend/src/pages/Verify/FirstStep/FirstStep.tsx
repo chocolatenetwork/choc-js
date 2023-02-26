@@ -91,7 +91,9 @@ function FirstStep(props: FirstStepProps) {
           mt={20}
           disabled={accountController.fieldState.invalid}
           onClick={() => {
-            messageMutation.mutate(form.getValues('accountType'));
+            const accountType = form.getValues('accountType');
+            if (!accountType) return;
+            messageMutation.mutate(accountType);
           }}
         >
           Generate Message
