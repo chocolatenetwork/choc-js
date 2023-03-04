@@ -16,7 +16,7 @@ async function loadAccounts() {
   // returns an array of { address, meta: { name, source } }
   // meta.source contains the name of the extension that provides this account
   const allAccounts = await web3Accounts({
-    accountType: ['sr25519'] as [AccountType],
+    accountType: ['ecdsa'] as [AccountType],
   });
 
   if (allAccounts.length === 0) {

@@ -10,9 +10,9 @@
     "importHelpers": true,
     "exactOptionalPropertyTypes": true,
     "strictNullChecks": true,
-    "target": "es2015",
+    "target": "ESNext",
     "module": "esnext",
-    "lib": ["es2017", "dom"],
+    "lib": ["ESNext", "dom"],
     "skipLibCheck": true,
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
@@ -24,12 +24,8 @@
       "@polkadot/types/augment": [
         "packages/types/src/interfaces/augment-types.ts"
       ],
-      "$chocolate-frontend/*": [
-        "apps/chocolate-frontend/src/*"
-      ],
-      "$chocolate-frontend": [
-        "apps/chocolate-frontend/src"
-      ]
+      "$chocolate-frontend/*": ["apps/chocolate-frontend/src/*"],
+      "$chocolate-frontend": ["apps/chocolate-frontend/src"]
     }
   },
   "exclude": ["node_modules", "tmp"]

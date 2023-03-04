@@ -4,14 +4,15 @@ import { ApiMachineSender } from '../machines/Api';
 
 type AbiType = Record<string, unknown>;
 
+// May need some clever way to get this from user input or elsewhere
+// Paste the address here each time it's uploaded
+// Look into whether we can query for this
+export const CONTRACT_ADDRESS =
+  '5EnGayDUGrQz1aAaE1vW9SkfcDJgP11p4yLn3De3WQv9kYkT';
 export async function createApi(send: ApiMachineSender): Promise<() => Promise<void>> {
   const { default: contractAbi } = await import(
-    '../../assets/contract/abi.json'
+    '../../assets/contract/chocolate.json'
   );
-  // May need some clever way to get this from user input or elsewhere
-  // Paste the address here each time it's uploaded
-  // Look into whether we can query for this
-  const CONTRACT_ADDRESS = '5GvqYaQbyRKTKUtKtDCqwu5qqJKcKAnhzCWCDF6fo9NkG2Zc';
 
   // const ALICE_ADDRESS = '5GrwvaEF5zXb26Fz9rcQpDWS57CtERHpNehXCPcNoHGKutQY';
   // Init
@@ -28,6 +29,7 @@ export async function createApi(send: ApiMachineSender): Promise<() => Promise<v
       contractAbi as AbiType,
       CONTRACT_ADDRESS
     );
+    console.log(contract.query);
     return contract;
   }
   // Set listeners for disconnection and reconnection event.

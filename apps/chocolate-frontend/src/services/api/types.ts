@@ -1,6 +1,6 @@
 import { web3FromAddress } from '@polkadot/extension-dapp';
 
-export type AccountType = 'sr25519';
+export type AccountType = 'ecdsa';
 // Keyring
 export interface InjectedAccountWithMeta {
   address: string;

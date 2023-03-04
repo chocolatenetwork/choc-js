@@ -80,7 +80,7 @@ function FirstStep(props: FirstStepProps) {
         <div>
           <TextInput
             label="Message"
-            disabled
+            readOnly
             className="TextContainer"
             error={messageError}
             {...messageController.field}
@@ -102,7 +102,7 @@ function FirstStep(props: FirstStepProps) {
       <div>
         <TextInput
           label={'Signature'}
-          disabled
+          readOnly
           className="TextContainer"
           error={signatureError}
           {...signatureController.field}
