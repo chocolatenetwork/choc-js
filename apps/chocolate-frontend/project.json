@@ -3,12 +3,19 @@
   "$schema": "../../node_modules/nx/schemas/project-schema.json",
   "sourceRoot": "apps/chocolate-frontend/src",
   "projectType": "application",
+  "namedInputs": {
+    "default": ["{projectRoot}/**/*"]
+  },
   "targets": {
     "prebuild": {
-      "command": "bash apps/chocolate-frontend/scripts/prebuild.sh fetch:contract"
+      "command": "bash apps/chocolate-frontend/scripts/prebuild.sh fetch:contract",
+      "outputPath": "apps/chocolate-frontend/src/assets/contract",
+      "outputs": ["apps/chocolate-frontend/src/assets/contract"],
+      "inputs": []
     },
     "build": {
       "executor": "@nrwl/vite:build",
+      "inputs": ["default"],
       "outputs": ["{options.outputPath}"],
       "defaultConfiguration": "production",
       "options": {
@@ -22,12 +29,7 @@
           "mode": "production"
         }
       },
-      "dependsOn": [
-        {
-          "projects": "self",
-          "target": "prebuild"
-        }
-      ]
+      "dependsOn": ["prebuild"]
     },
     "serve": {
       "executor": "@nrwl/vite:dev-server",
