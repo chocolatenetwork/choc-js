@@ -1,6 +1,4 @@
 #!/usr/bin/env bash
-# Todo: Extract to a script.'
-
 
 ENDPOINT=ws://127.0.0.1:8844
 OUT_DIR=./src/interfaces
@@ -10,11 +8,10 @@ PACKAGE=@choc-js/types
 
 
 function generate:defs(){
- if [[ -n "${GITHUB_ENV}" ]]; then
-  echo 'EXITING GENERATE:DEFS IN CI BECAUSE WE DO NOT HAVE A CHAIN SETUP NOW'
-  exit 0
- fi
- 
+  if [[ -n "${GITHUB_ENV}" ]]; then
+    echo 'EXITING GENERATE:DEFS IN CI BECAUSE WE DO NOT HAVE A CHAIN SETUP NOW'
+    exit 0
+  fi
 
   esno --tsconfig ./tsconfig.lib.json $TYPES_FROM_DEFS --package $PACKAGE --input $OUT_DIR --endpoint $ENDPOINT \
   && cd .././../  \
