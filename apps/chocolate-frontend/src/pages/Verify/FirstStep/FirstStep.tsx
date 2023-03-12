@@ -5,10 +5,10 @@ import { useEffect } from 'react';
 import { useController, useForm } from 'react-hook-form';
 import styled from 'styled-components';
 import * as zod from 'zod';
+import signRaw from '../../../services/queries/signRaw';
 import putVerifyUser, {
   AccountType,
-} from '../../../services/queries/putVerifyUser';
-import signRaw from '../../../services/queries/signRaw';
+} from '../../../services/queries/verify/putVerifyUser';
 import { getErrorMsg } from '../../../utils/getErrorMsg';
 import { FirstStepFormData, FirstStepProps } from './types';
 

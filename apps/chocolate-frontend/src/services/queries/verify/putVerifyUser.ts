@@ -1,14 +1,14 @@
 import { EventList } from '$chocolate-frontend/utils/EventList';
-import { getGasLimit } from '$chocolate-frontend/utils/gasUtils';
+import { weightFromWeight } from '$chocolate-frontend/utils/gasUtils';
 import { handleEvents } from '$chocolate-frontend/utils/handleEvents';
 import { ApiPromise } from '@polkadot/api';
-import { setupApiAndKeyring } from '../../utils/apiSetup/setupApiAndKeyring';
-import { getFromAcct } from '../../utils/getFromAcct';
+import { setupApiAndKeyring } from '../../../utils/apiSetup/setupApiAndKeyring';
+import { getFromAcct } from '../../../utils/getFromAcct';
+import getInitiateVerificationFlow from './getInitiateVerificationFlow';
 export enum AccountType {
   Project = 'Project',
   User = 'User',
 }
-
 
 export default setupApiAndKeyring(async (ctx, accountType: AccountType) => {
   const {
@@ -16,28 +16,13 @@ export default setupApiAndKeyring(async (ctx, accountType: AccountType) => {
     keyringCtx: { selectedAccount },
   } = ctx;
   const [address, signer] = await getFromAcct(selectedAccount);
-  const { api } = contract;
-  const gasLimit = api.registry.createType('WeightV2', {
-    refTime: 300000000000n,
-    proofSize: 262144,
-  });
 
-  function initiateFlowQuery() {
-    return contract.query.initiateVerficationFlow(address, {
-      gasLimit,
-      storageDepositLimit: null,
-      value: 0,
-    });
-  }
   const eventList: EventList[] = [];
   const txPromise = new Promise((res, rej) => {
-    initiateFlowQuery()
-      .then(({ gasRequired, storageDeposit }) => {
-        const gasLimit = getGasLimit(
-          gasRequired.refTime.toBn(),
-          gasRequired.proofSize.toBn(),
-          contract.registry
-        );
+    getInitiateVerificationFlow({ accountType, address })
+      .then(({ rawResult }) => {
+        const { gasRequired, storageDeposit } = rawResult;
+        const gasLimit = weightFromWeight(gasRequired, contract.registry);
         contract.tx
           .initiateVerficationFlow({
             storageDepositLimit: storageDeposit.asCharge,
@@ -54,11 +39,9 @@ export default setupApiAndKeyring(async (ctx, accountType: AccountType) => {
   });
   // Wait for tx.
   await txPromise;
-  const signatureResult = await initiateFlowQuery();
-  const signature = signatureResult.result.asOk.data;
-  const sign2 = signature.toHuman();
-
-  console.log({ sign2 });
-
-  return sign2;
+  const { result } = await getInitiateVerificationFlow({
+    accountType,
+    address,
+  });
+  return result.toHuman();
 });
