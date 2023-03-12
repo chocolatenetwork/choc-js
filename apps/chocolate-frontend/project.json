@@ -4,6 +4,9 @@
   "sourceRoot": "apps/chocolate-frontend/src",
   "projectType": "application",
   "targets": {
+    "prebuild": {
+      "command": "bash apps/chocolate-frontend/scripts/prebuild.sh fetch:contract"
+    },
     "build": {
       "executor": "@nrwl/vite:build",
       "outputs": ["{options.outputPath}"],
@@ -18,7 +21,13 @@
         "production": {
           "mode": "production"
         }
-      }
+      },
+      "dependsOn": [
+        {
+          "projects": "self",
+          "target": "prebuild"
+        }
+      ]
     },
     "serve": {
       "executor": "@nrwl/vite:dev-server",

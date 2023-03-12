@@ -63,5 +63,3 @@ export default styled(MenuBar)`
     column-gap: 10px;
   }
 ` as React.FC;
-
-

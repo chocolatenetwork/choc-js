@@ -9,7 +9,7 @@ interface GetInitiateVerificationFlowParams {
 }
 export default setupApi(
   async (ctx, params: GetInitiateVerificationFlowParams) => {
-    const { accountType, address } = params;
+    const { address } = params;
     const { api: contract } = ctx;
     const { api } = contract;
     const gasLimit = defaultGasLimit(api);
@@ -31,4 +31,3 @@ export default setupApi(
     throw result.asErr;
   }
 );
-

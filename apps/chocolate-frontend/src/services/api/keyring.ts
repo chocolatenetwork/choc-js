@@ -51,4 +51,3 @@ async function enable() {
     throw new AppError('404.Extensions');
   }
 }
-
