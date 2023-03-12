@@ -3,19 +3,19 @@ import { Identity } from '../types';
 export function createAuthIpfsEndpoints(t: Identity) {
   return [
     {
-      location: t('Singapore'),
-      text: t('DCF'),
+      location: t<string>('Singapore'),
+      text: t<string>('DCF'),
       value: 'https://crustipfs.xyz',
     },
     {
-      location: t('Seattle'),
-      text: t('Crust Network'),
-      value: 'https://crustwebsites.net',
+      location: t<string>('Seattle'),
+      text: t<string>('Crust Network'),
+      value: 'https://gw.crustfiles.app',
     },
     {
-      location: t('Berlin'),
-      text: t('⚡️ Thunder Gateway'),
-      value: 'https://gw.crustapps.net',
+      location: t<string>('Berlin'),
+      text: t<string>('⚡️ Thunder Gateway'),
+      value: 'https://gw.crustfiles.net',
     },
   ];
 }

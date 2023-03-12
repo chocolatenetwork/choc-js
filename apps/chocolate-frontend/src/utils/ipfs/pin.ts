@@ -8,7 +8,6 @@ export async function pin(
   ipfs: ClientType,
   pinEndpoint = defaultPinE.value
 ) {
-  // const pinRes = await addPinnerAndPin(ipfs);
   const url = new URL(pinEndpoint);
 
   try {

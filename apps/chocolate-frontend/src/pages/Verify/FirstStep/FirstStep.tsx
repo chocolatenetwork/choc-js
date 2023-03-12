@@ -1,3 +1,4 @@
+import uploadIpfs from '$chocolate-frontend/services/queries/uploadIpfs';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { Button, Select, TextInput } from '@mantine/core';
 import { useMutation } from '@tanstack/react-query';
@@ -10,11 +11,13 @@ import putVerifyUser from '../../../services/queries/verify/putVerifyUser';
 import { AccountType } from '../../../services/queries/verify/types';
 import { getErrorMsg } from '../../../utils/getErrorMsg';
 import { FirstStepFormData, FirstStepProps } from './types';
+
 const schema = zod.object({
   accountType: zod.nativeEnum(AccountType),
   message: zod.string().min(1),
   signature: zod.string().min(1),
 });
+
 function FirstStep(props: FirstStepProps) {
   const { sync, onValidChange, index, defaultValues, ...rest } = props;
   const form = useForm<FirstStepFormData>({
@@ -58,6 +61,12 @@ function FirstStep(props: FirstStepProps) {
   const signatureMutation = useMutation(signRaw, {
     onSuccess(data) {
       signatureController.field.onChange(data);
+    },
+  });
+
+  const uploadMetaMutation = useMutation(uploadIpfs, {
+    onSuccess() {
+      // Do messageMutation and signatureMutation next
     },
   });
 

@@ -42,3 +42,6 @@ Thumbs.db
 ## Chocolate frontend
 
 /apps/chocolate-frontend/src/assets/contract
+/apps/chocolate-frontend/.env
+/apps/chocolate-frontend/.env.development
+/apps/chocolate-frontend/.env.production
