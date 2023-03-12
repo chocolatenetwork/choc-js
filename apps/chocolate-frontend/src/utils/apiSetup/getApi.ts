@@ -1,5 +1,5 @@
-import { apiService } from '../services/machines/Api';
-import { AppError, ErrorCodes } from './AppError';
+import { apiService } from '$chocolate-frontend/services/machines/Api';
+import { AppError, ErrorCodes } from '$chocolate-frontend/utils/AppError';
 
 export function _getApi() {
   const apiState = apiService.getSnapshot();

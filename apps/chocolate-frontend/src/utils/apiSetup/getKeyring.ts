@@ -1,7 +1,7 @@
-import { InjectedAccountWithMeta } from '../services/api/types';
-import { keyringService } from '../services/machines/Keyring';
-import { KeyringContext } from '../services/machines/Keyring.schema';
-import { AppError, ErrorCodes } from './AppError';
+import { InjectedAccountWithMeta } from '$chocolate-frontend/services/api/types';
+import { keyringService } from '$chocolate-frontend/services/machines/Keyring';
+import { KeyringContext } from '$chocolate-frontend/services/machines/Keyring.schema';
+import { AppError, ErrorCodes } from '$chocolate-frontend/utils/AppError';
 
 export interface NonNullKeyringContext extends KeyringContext {
   selectedAccount: InjectedAccountWithMeta;

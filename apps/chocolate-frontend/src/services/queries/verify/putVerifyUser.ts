@@ -1,15 +1,11 @@
+import { getFromAcct } from '$chocolate-frontend/utils/apiSetup/getFromAcct';
+import { setupApiAndKeyring } from '$chocolate-frontend/utils/apiSetup/setupApiAndKeyring';
 import { EventList } from '$chocolate-frontend/utils/EventList';
 import { weightFromWeight } from '$chocolate-frontend/utils/gasUtils';
 import { handleEvents } from '$chocolate-frontend/utils/handleEvents';
 import { ApiPromise } from '@polkadot/api';
-import { setupApiAndKeyring } from '../../../utils/apiSetup/setupApiAndKeyring';
-import { getFromAcct } from '../../../utils/getFromAcct';
 import getInitiateVerificationFlow from './getInitiateVerificationFlow';
-export enum AccountType {
-  Project = 'Project',
-  User = 'User',
-}
-
+import { AccountType } from './types';
 export default setupApiAndKeyring(async (ctx, accountType: AccountType) => {
   const {
     apiCtx: { api: contract },

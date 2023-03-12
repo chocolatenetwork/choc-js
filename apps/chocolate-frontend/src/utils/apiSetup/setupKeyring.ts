@@ -1,6 +1,6 @@
 import { curry1 } from '../curry1/curry1';
 import { ExtractRest } from '../curry1/types';
-import { getKeyring } from '../getKeyring';
+import { getKeyring } from './getKeyring';
 import { KeyringFn } from './types';
 
 export function setupKeyring<

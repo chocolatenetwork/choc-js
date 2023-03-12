@@ -6,12 +6,10 @@ import { useController, useForm } from 'react-hook-form';
 import styled from 'styled-components';
 import * as zod from 'zod';
 import signRaw from '../../../services/queries/signRaw';
-import putVerifyUser, {
-  AccountType,
-} from '../../../services/queries/verify/putVerifyUser';
+import putVerifyUser from '../../../services/queries/verify/putVerifyUser';
+import { AccountType } from '../../../services/queries/verify/types';
 import { getErrorMsg } from '../../../utils/getErrorMsg';
 import { FirstStepFormData, FirstStepProps } from './types';
-
 const schema = zod.object({
   accountType: zod.nativeEnum(AccountType),
   message: zod.string().min(1),

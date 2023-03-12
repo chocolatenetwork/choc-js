@@ -1,5 +1,5 @@
-import { getApi } from '../getApi';
-import { getKeyring } from '../getKeyring';
+import { getApi } from './getApi';
+import { getKeyring } from './getKeyring';
 import { ApiKeyringContext } from './types';
 
 export function getApiAndKeyring(): ApiKeyringContext {

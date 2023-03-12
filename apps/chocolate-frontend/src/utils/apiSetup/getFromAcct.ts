@@ -1,6 +1,6 @@
+import { InjectedAccountWithMeta } from '$chocolate-frontend/services/api/types';
 import { web3FromSource } from '@polkadot/extension-dapp';
-import { InjectedAccountWithMeta } from '../services/api/types';
-import { GetFromAcctReturn } from './GetFromAcctReturn';
+import { GetFromAcctReturn } from './types';
 
 /**
  * Extracted from: https://github.com/substrate-developer-hub/substrate-front-end-template/blob/main/src/substrate-lib/components/TxButton.js#L46-L60

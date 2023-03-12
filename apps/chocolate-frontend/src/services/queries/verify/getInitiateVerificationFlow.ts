@@ -1,7 +1,8 @@
 import { setupApi } from '$chocolate-frontend/utils/apiSetup/setupApi';
-import { AccountType } from './putVerifyUser';
+import { defaultGasLimit } from '$chocolate-frontend/utils/defaultGasLimit';
+import { QUERY_ACCOUNT } from '../constants';
+import { AccountType } from './types';
 
-const QUERY_ACCOUNT = '5GrwvaEF5zXb26Fz9rcQpDWS57CtERHpNehXCPcNoHGKutQY';
 interface GetInitiateVerificationFlowParams {
   accountType: AccountType;
   address?: string;
@@ -11,10 +12,7 @@ export default setupApi(
     const { accountType, address } = params;
     const { api: contract } = ctx;
     const { api } = contract;
-    const gasLimit = api.registry.createType('WeightV2', {
-      refTime: 300000000000n,
-      proofSize: 262144,
-    });
+    const gasLimit = defaultGasLimit(api);
 
     const queryResult = await contract.query.initiateVerficationFlow(
       address || QUERY_ACCOUNT,
@@ -33,3 +31,4 @@ export default setupApi(
     throw result.asErr;
   }
 );
+

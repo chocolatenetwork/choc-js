@@ -1,8 +1,8 @@
+import { getFromAcct } from '$chocolate-frontend/utils/apiSetup/getFromAcct';
 import { setupKeyring } from '$chocolate-frontend/utils/apiSetup/setupKeyring';
+import { GetFromAcctReturn } from '$chocolate-frontend/utils/apiSetup/types';
 import { AppError } from '$chocolate-frontend/utils/AppError';
 import { stringToHex } from '@polkadot/util';
-import { getFromAcct } from '../../utils/getFromAcct';
-import { GetFromAcctReturn } from '../../utils/GetFromAcctReturn';
 
 export default setupKeyring(async (ctx, message: string) => {
   const { selectedAccount } = ctx;
