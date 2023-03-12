@@ -1,23 +1,23 @@
 import { ResourceLink } from '../resource-link/ResourceLink';
 
 export interface Project {
-  Literature: Literature;
-  Contact: ResourceLink[];
+  Literature?: Literature;
+  Contact?: ResourceLink[];
   Token?: Token[];
   Brand: Brand;
-  Badge: Badge;
-  'Admin Id': string;
-  'Project Id': number;
-  'Total rating': number;
-  'Total Reviewers': number;
-  Description: string;
+  Badge?: Badge;
+  'Admin Id'?: string;
+  'Project Id'?: number;
+  'Total rating'?: number;
+  'Total Reviewers'?: number;
+  Description?: string;
 }
 
 export interface Badge {}
 
 export interface Brand {
   name: string;
-  logo: string;
+  logo: ResourceLink;
 }
 
 export interface Literature {

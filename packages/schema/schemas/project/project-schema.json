@@ -7,7 +7,7 @@
     "Brand": {
       "properties": {
         "logo": {
-          "type": "string"
+          "$ref": "#/definitions/ResourceLink"
         },
         "name": {
           "type": "string"
@@ -130,15 +130,7 @@
     }
   },
   "required": [
-    "Admin Id",
-    "Badge",
-    "Brand",
-    "Contact",
-    "Description",
-    "Literature",
-    "Project Id",
-    "Total Reviewers",
-    "Total rating"
+    "Brand"
   ],
   "type": "object"
 }

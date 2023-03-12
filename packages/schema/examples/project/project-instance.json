@@ -55,7 +55,11 @@
 
   "Brand": {
     "name": "Some Project",
-    "logo": "URL-to-logo"
+    "logo": {
+      "link": "URL-to-logo",
+      "name": "Logo of Some Project",
+      "type": "Avatar image"
+    }
   },
   "Badge": {},
   "Admin Id": "DSZdiQdBHvP1VWGo2NEkic27hvvmgceS82XtE2QALSaPDr5",
