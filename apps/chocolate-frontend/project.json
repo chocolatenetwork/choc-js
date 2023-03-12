@@ -21,7 +21,13 @@
         "production": {
           "mode": "production"
         }
-      }
+      },
+      "dependsOn": [
+        {
+          "projects": "self",
+          "target": "prebuild"
+        }
+      ]
     },
     "serve": {
       "executor": "@nrwl/vite:dev-server",
