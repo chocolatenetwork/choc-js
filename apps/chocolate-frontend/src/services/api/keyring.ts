@@ -1,6 +1,6 @@
 import { web3Accounts, web3Enable } from '@polkadot/extension-dapp';
 import { AppError } from '../../utils/AppError';
-import { AccountType, InjectedAccountWithMeta } from './types';
+import { $KeypairType, InjectedAccountWithMeta, pairType } from './types';
 
 const APP = 'Chocolate App';
 // Load all, so we can ask user to select one and use
@@ -16,7 +16,7 @@ async function loadAccounts() {
   // returns an array of { address, meta: { name, source } }
   // meta.source contains the name of the extension that provides this account
   const allAccounts = await web3Accounts({
-    accountType: ['ecdsa'] as [AccountType],
+    accountType: [pairType],
   });
 
   if (allAccounts.length === 0) {
@@ -32,7 +32,7 @@ async function loadAccounts() {
           name: account.meta.name ?? account.address,
           source: account.meta.source,
         },
-        type: account.type as AccountType,
+        type: account.type as $KeypairType,
       };
     }
   );
