@@ -31,4 +31,3 @@ export default setupApi(
     throw result.asErr;
   }
 );
-

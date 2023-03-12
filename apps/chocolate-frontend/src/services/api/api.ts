@@ -9,7 +9,9 @@ type AbiType = Record<string, unknown>;
 // Look into whether we can query for this
 export const CONTRACT_ADDRESS =
   '5DAmdtaZj3NpwDcNVLPLD7rU2mfqVERjQg1Pbc2fFeN6fddN';
-export async function createApi(send: ApiMachineSender): Promise<() => Promise<void>> {
+export async function createApi(
+  send: ApiMachineSender
+): Promise<() => Promise<void>> {
   const { default: contractAbi } = await import(
     '../../assets/contract/chocolate.json'
   );
@@ -49,5 +51,3 @@ export async function createApi(send: ApiMachineSender): Promise<() => Promise<v
 
   return api.disconnect;
 }
-
-

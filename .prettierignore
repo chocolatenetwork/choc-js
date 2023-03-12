@@ -3,3 +3,6 @@
 /dist
 /coverage
 
+# Chocolate frontend
+/apps/chocolate-frontend/src/assets/contract
+/apps/chocolate-frontend/src/services/machines/*.typegen.ts

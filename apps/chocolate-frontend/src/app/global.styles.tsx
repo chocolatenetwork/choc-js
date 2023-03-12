@@ -19,5 +19,4 @@ img, picture, svg, video {
 
 `;
 
-
 export default GlobalStyle;
