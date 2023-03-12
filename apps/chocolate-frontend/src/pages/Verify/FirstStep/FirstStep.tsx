@@ -1,4 +1,4 @@
-import uploadIpfs from '$chocolate-frontend/services/queries/uploadIpfs';
+import uploadIpfs from '$chocolate-frontend/services/queries/ipfs/uploadIpfs';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { Button, Select, TextInput } from '@mantine/core';
 import { useMutation } from '@tanstack/react-query';

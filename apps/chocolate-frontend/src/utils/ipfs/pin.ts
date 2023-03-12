@@ -1,6 +1,5 @@
 import { CID, create } from 'ipfs-http-client';
-import { getPinEndpoints } from './endpoints';
-export const defaultPinE = getPinEndpoints()[0];
+import { defaultPinE } from './endpoints';
 
 export async function pin(
   BearerAuth: string,

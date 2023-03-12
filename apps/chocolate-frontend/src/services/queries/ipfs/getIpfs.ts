@@ -1,9 +1,20 @@
 import { u8aConcat, u8aToString } from '@polkadot/util';
 import { CID } from 'ipfs-http-client';
 import all from 'it-all';
-import { getApi } from '../api/ipfs';
+import { getApi } from '../../api/ipfs';
 
-const exampleData = 'Qmck7nbkQ4VXSL9Yk9vpsgqWaZ8bbViGaTPsV7u9b5N5D1';
+interface GetIPFSParams {
+  cid: string;
+  /**
+   *  An upload endpoint
+   */
+  UpEndpoint: string;
+  /**
+   *  User signature and address in format: `${address}:${signature}`
+   */
+  signature: string;
+}
+
 /**
  *
  * @example
@@ -18,16 +29,11 @@ const exampleData = 'Qmck7nbkQ4VXSL9Yk9vpsgqWaZ8bbViGaTPsV7u9b5N5D1';
  *  });
  * ```
  * More examples: https://github.com/ipfs/js-ipfs/blob/master/packages/interface-ipfs-core/src/cat.js
- * @param cid
- * @param UpEndpoint An upload endpoint
- * @param signature User signature and address in format: `${address}:${signature}`
+
  * @returns
  */
-export async function getIpfs(
-  cid: string,
-  UpEndpoint: string,
-  signature: string
-) {
+export async function getIpfs(params: GetIPFSParams) {
+  const { cid, signature, UpEndpoint } = params;
   const ipfs = getApi(signature, UpEndpoint);
   const iter = ipfs.cat(CID.parse(cid));
   const array = await all(iter);

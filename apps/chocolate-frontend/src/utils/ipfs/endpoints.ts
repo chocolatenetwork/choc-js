@@ -35,3 +35,5 @@ export function getPinEndpoints() {
     },
   ];
 }
+export const defaultPinE = getPinEndpoints()[0];
+export const defaultAuthE = getAuthIPFSEndpoints()[0];

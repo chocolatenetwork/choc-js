@@ -1,7 +1,7 @@
 import {
   defaultAuthE,
   defaultPinE,
-} from '$chocolate-frontend/utils/ipfs/upload';
+} from '$chocolate-frontend/utils/ipfs/endpoints';
 import { base64Encode } from '@polkadot/util-crypto';
 import { create, IPFSHTTPClient } from 'ipfs-http-client';
 
