@@ -5,7 +5,7 @@
   "projectType": "application",
   "targets": {
     "prebuild": {
-      "command": "bash ./scripts/prebuild.sh fetch:contract"
+      "command": "bash apps/chocolate-frontend/scripts/prebuild.sh fetch:contract"
     },
     "build": {
       "executor": "@nrwl/vite:build",
