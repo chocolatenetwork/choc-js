@@ -8,7 +8,7 @@ type AbiType = Record<string, unknown>;
 // Paste the address here each time it's uploaded
 // Look into whether we can query for this
 export const CONTRACT_ADDRESS =
-  '5Eir5qpv66Gu7zos3648rBsNo31Xa4L4ZeymEYt7svEPiACa';
+  '5DAmdtaZj3NpwDcNVLPLD7rU2mfqVERjQg1Pbc2fFeN6fddN';
 export async function createApi(send: ApiMachineSender): Promise<() => Promise<void>> {
   const { default: contractAbi } = await import(
     '../../assets/contract/chocolate.json'

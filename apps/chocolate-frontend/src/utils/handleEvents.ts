@@ -27,12 +27,13 @@ export function handleEvents(
   resList: [number, EventList[]],
   ...callbacks: CBs
 ) {
-  return ({ events = [], txIndex }: ISubmittableResult) => {
+  return (result: ISubmittableResult) => {
+    const { events = [], txIndex } = result;
     const res = events
-      .filter(
-        ({ phase }) =>
-          phase.isApplyExtrinsic && phase.asApplyExtrinsic.eq(txIndex)
-      )
+      .filter((eventRecord) => {
+        const { phase } = eventRecord;
+        return phase.isApplyExtrinsic && phase.asApplyExtrinsic.eq(txIndex);
+      })
       .map(({ event }) => parseEvent(api, event, ...callbacks));
     const [i] = resList;
     resList[1][i] = res;
