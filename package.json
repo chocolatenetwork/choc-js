@@ -10,6 +10,7 @@
   "private": true,
   "dependencies": {
     "@emotion/react": "^11.10.5",
+    "@hookform/resolvers": "^2.9.11",
     "@mantine/core": "^5.10.3",
     "@mantine/hooks": "^5.10.3",
     "@open-web3/orml-type-definitions": "^2.0.1",
@@ -20,8 +21,8 @@
     "@polkadot/networks": "^10.4.1",
     "@polkadot/typegen": "^9.13.6",
     "@polkadot/types": "^9.13.6",
-    "@polkadot/ui-keyring": "2.11.1",
-    "@polkadot/ui-settings": "2.11.1",
+    "@polkadot/ui-keyring": "=2.11.1",
+    "@polkadot/ui-settings": "=2.11.1",
     "@polkadot/util": "^10.4.1",
     "@polkadot/util-crypto": "^10.4.1",
     "@tanstack/react-query": "^4.24.4",
@@ -31,6 +32,7 @@
     "json-stable-stringify": "^1.0.1",
     "react": "18.2.0",
     "react-dom": "18.2.0",
+    "react-hook-form": "=7.42.1",
     "react-hot-toast": "^2.4.0",
     "react-is": "18.2.0",
     "react-router-dom": "6.3.0",
@@ -38,7 +40,8 @@
     "styled-components": "^5.3.6",
     "tslib": "^2.5.0",
     "typescript-json-schema": "^0.55.0",
-    "xstate": "^4.36.0"
+    "xstate": "^4.36.0",
+    "zod": "^3.20.6"
   },
   "devDependencies": {
     "@nrwl/cli": "^15.6.3",
@@ -48,7 +51,7 @@
     "@nrwl/jest": "^15.6.3",
     "@nrwl/js": "^15.6.3",
     "@nrwl/linter": "^15.6.3",
-    "@nrwl/nx-cloud": "15.0.3",
+    "@nrwl/nx-cloud": "^15.2.1",
     "@nrwl/react": "^15.6.3",
     "@nrwl/vite": "^15.6.3",
     "@nrwl/web": "^15.6.3",

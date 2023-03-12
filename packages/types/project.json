@@ -32,10 +32,7 @@
       ]
     },
     "publish": {
-      "executor": "@nrwl/workspace:run-commands",
-      "options": {
-        "command": "node tools/scripts/publish.mjs types {args.ver} {args.tag}"
-      },
+      "command": "node tools/scripts/publish.mjs types {args.ver} {args.tag}",
       "dependsOn": [
         {
           "projects": "self",

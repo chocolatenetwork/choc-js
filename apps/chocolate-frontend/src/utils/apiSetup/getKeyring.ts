@@ -1,7 +1,7 @@
-import { InjectedAccountWithMeta } from '../services/api/types';
-import { keyringService } from '../services/machines/Keyring';
-import { KeyringContext } from '../services/machines/Keyring.schema';
-import { AppError } from './AppError';
+import { InjectedAccountWithMeta } from '$chocolate-frontend/services/api/types';
+import { keyringService } from '$chocolate-frontend/services/machines/Keyring';
+import { KeyringContext } from '$chocolate-frontend/services/machines/Keyring.schema';
+import { AppError, ErrorCodes } from '$chocolate-frontend/utils/AppError';
 
 export interface NonNullKeyringContext extends KeyringContext {
   selectedAccount: InjectedAccountWithMeta;
@@ -16,5 +16,6 @@ export function getKeyring(): NonNullKeyringContext {
     return keyringState.context as NonNullKeyringContext;
   }
 
-  throw new AppError('Keyring::Error::There is no loaded account');
+  const message = 'Keyring::Error::There is no loaded account';
+  throw new AppError(message, ErrorCodes.KeyringError);
 }

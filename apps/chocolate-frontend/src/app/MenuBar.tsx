@@ -4,12 +4,12 @@ import styled from 'styled-components';
 import { ReactComponent as ChocolateLogo } from '../assets/svg/chocolate-logo.svg';
 import { ReactComponent as ChocolateText } from '../assets/svg/chocolate-text.svg';
 import Link from '../components/Link';
+import Wallet from './Wallet';
 type MenuBarProps = DefaultProps;
 interface ILinkConfig {
   path: string;
   title: string;
 }
-
 
 const linkConfig: ILinkConfig[] = [
   {
@@ -35,6 +35,7 @@ function MenuBar(props: MenuBarProps) {
           </li>
         ))}
       </ul>
+      <Wallet />
     </Header>
   );
 }
@@ -58,6 +59,7 @@ export default styled(MenuBar)`
   .Functions {
     display: flex;
     flex-grow: 1;
+
     column-gap: 10px;
   }
 ` as React.FC;

@@ -8,7 +8,10 @@
     },
     {
       "files": ["*.ts", "*.tsx"],
-      "rules": {}
+      "rules": {
+        "react/jsx-no-useless-fragment": "off",
+        "react-hooks/exhaustive-deps": "off"
+      }
     },
     {
       "files": ["*.js", "*.jsx"],

@@ -1,4 +1,5 @@
-import { assign, createMachine, interpret } from 'xstate';
+import { assign, createMachine, interpret, StateFrom } from 'xstate';
+import { AppError } from '../../utils/AppError';
 import { enableAndLoadAll } from '../api/keyring';
 import {
   KeyringContext,
@@ -100,7 +101,8 @@ export const keyringMachine = createMachine(
       }),
       parseError: assign({
         errorMessage: (_, event) => {
-          return errorMap[String(event.data)] ?? errorMap.defaultError;
+          const appErr = event.data as AppError;
+          return errorMap[String(appErr.message)] ?? errorMap.defaultError;
         },
       }),
     },
@@ -111,3 +113,4 @@ export const keyringMachine = createMachine(
 );
 
 export const keyringService = interpret(keyringMachine).start();
+export type KeyringMachineState = StateFrom<typeof keyringMachine>;

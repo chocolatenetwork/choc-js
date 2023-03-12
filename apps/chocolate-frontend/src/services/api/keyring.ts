@@ -1,6 +1,6 @@
 import { web3Accounts, web3Enable } from '@polkadot/extension-dapp';
 import { AppError } from '../../utils/AppError';
-import { InjectedAccountWithMeta } from './types';
+import { $KeypairType, InjectedAccountWithMeta, pairType } from './types';
 
 const APP = 'Chocolate App';
 // Load all, so we can ask user to select one and use
@@ -15,24 +15,24 @@ async function loadAccounts() {
   // will be able to show and use accounts
   // returns an array of { address, meta: { name, source } }
   // meta.source contains the name of the extension that provides this account
-  const allAccounts = await web3Accounts();
-    if (allAccounts.length === 0) {
-      // no extension installed, or the user did not accept the authorization
-      // in this case we should inform the use and give a link to the extension
-      throw new AppError('404.Accounts');
-    }
+  const allAccounts = await web3Accounts({
+    accountType: [pairType],
+  });
+
+  if (allAccounts.length === 0) {
+    // no extension installed, or the user did not accept the authorization
+    // in this case we should inform the use and give a link to the extension
+    throw new AppError('404.Accounts');
+  }
   const cleanedAccounts: InjectedAccountWithMeta[] = allAccounts.map(
     (account) => {
-      const { isInjected = false } =
-        account.meta as InjectedAccountWithMeta['meta'];
       return {
         address: account.address,
         meta: {
-          isInjected,
           name: account.meta.name ?? account.address,
           source: account.meta.source,
         },
-        type: account.type,
+        type: account.type as $KeypairType,
       };
     }
   );
@@ -51,4 +51,3 @@ async function enable() {
     throw new AppError('404.Extensions');
   }
 }
-
