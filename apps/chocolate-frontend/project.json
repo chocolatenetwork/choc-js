@@ -4,9 +4,7 @@
   "sourceRoot": "apps/chocolate-frontend/src",
   "projectType": "application",
   "namedInputs": {
-    "default": [
-      "{projectRoot}/**/*"
-    ]
+    "default": ["{projectRoot}/**/*"]
   },
   "targets": {
     "prebuild": {
@@ -15,9 +13,7 @@
     },
     "build": {
       "executor": "@nrwl/vite:build",
-      "inputs": [
-        "default"
-      ],
+      "inputs": ["default"],
       "outputs": ["{options.outputPath}"],
       "defaultConfiguration": "production",
       "options": {
