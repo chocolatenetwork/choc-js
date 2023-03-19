@@ -1,7 +1,7 @@
 import { u8aConcat, u8aToString } from '@polkadot/util';
 import { CID } from 'ipfs-http-client';
 import all from 'it-all';
-import { getApi } from '../../api/ipfs';
+import { getIpfsApi } from '../../api/ipfs';
 
 interface GetIPFSParams {
   cid: string;
@@ -24,7 +24,11 @@ interface GetIPFSParams {
  *  signatureMutation.mutateAsync(address).then(async (signature) => {
  *    const perSignData = `${address}:${signature}`;
  *    console.log({ perSignData });
- *    const json = await getIpfs(cid, defaultAuthE.value, perSignData);
+ *    const json = await getIpfs({
+ *            cid,
+ *            signature: perSignData,
+ *            UpEndpoint: defaultAuthE.value,
+ *         });
  *    console.log({ signature, json });
  *  });
  * ```
@@ -34,7 +38,7 @@ interface GetIPFSParams {
  */
 export async function getIpfs(params: GetIPFSParams) {
   const { cid, signature, UpEndpoint } = params;
-  const ipfs = getApi(signature, UpEndpoint);
+  const ipfs = getIpfsApi(signature, UpEndpoint);
   const iter = ipfs.cat(CID.parse(cid));
   const array = await all(iter);
   const data = u8aToString(u8aConcat(...array));

@@ -5,7 +5,10 @@ import {
 import { base64Encode } from '@polkadot/util-crypto';
 import { create, IPFSHTTPClient } from 'ipfs-http-client';
 
-export const getApi = (signature: string, endpoint = defaultAuthE.value) => {
+export const getIpfsApi = (
+  signature: string,
+  endpoint = defaultAuthE.value
+) => {
   const ipfs = create({
     url: endpoint + '/api/v0',
     headers: {
