@@ -11,7 +11,7 @@ interface GetVerifySignatureParams {
 }
 
 export default setupApi(async (ctx, params: GetVerifySignatureParams) => {
-  const { api: contract } = ctx;
+  const { contract } = ctx;
   const { signature, authorityAddress, addressToVerify } = params;
   const gasLimit = defaultGasLimit(contract.api);
   const byteArraySignature = hexToU8a(signature);

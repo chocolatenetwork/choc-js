@@ -8,7 +8,7 @@ type AbiType = Record<string, unknown>;
 // Paste the address here each time it's uploaded
 // Look into whether we can query for this
 export const CONTRACT_ADDRESS =
-  '5DAmdtaZj3NpwDcNVLPLD7rU2mfqVERjQg1Pbc2fFeN6fddN';
+  '5EzwAjzZFNsw7pTML53jfi3dMxYyJNvT6XDEfSSWYE5Vjn2d';
 export async function createApi(
   send: ApiMachineSender
 ): Promise<() => Promise<void>> {

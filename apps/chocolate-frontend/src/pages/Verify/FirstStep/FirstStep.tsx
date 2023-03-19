@@ -16,6 +16,8 @@ const schema = zod.object({
   accountType: zod.nativeEnum(AccountType),
   message: zod.string().min(1),
   signature: zod.string().min(1),
+  name: zod.string().min(1),
+  picture: zod.string().url(),
 });
 
 function FirstStep(props: FirstStepProps) {
@@ -72,18 +74,43 @@ function FirstStep(props: FirstStepProps) {
 
   const messageError = getErrorMsg(messageMutation);
   const signatureError = getErrorMsg(signatureMutation);
+  const doGenerateMessage = () => {
+    const accountType = form.getValues('accountType');
+    console.log(accountType);
+    if (!accountType) return;
+    messageMutation.mutate(accountType);
+  };
+  const doSignMessage = () => {
+    signatureMutation.mutate(form.getValues('message'));
+  };
   // method set to post as the signature is sensitive.
   return (
     <div {...rest}>
       <div>
         <Select
           label="Account Type"
+          required
           placeholder="Select Account Type.."
           data={Object.values(AccountType)}
           {...accountController.field}
         />
       </div>
-      <div>
+      <div className="FirstStep_InputGroup">
+        <TextInput
+          label="Name"
+          required
+          className="TextContainer"
+          {...form.register('name')}
+        />
+
+        <TextInput
+          label={'Profile Picture'}
+          required
+          className="TextContainer"
+          {...form.register('picture')}
+        />
+      </div>
+      <div className="FirstStep_InputGroup">
         <div>
           <TextInput
             label="Message"
@@ -92,38 +119,32 @@ function FirstStep(props: FirstStepProps) {
             error={messageError}
             {...messageController.field}
           />
+          <Button
+            variant="default"
+            mt={20}
+            disabled={accountController.fieldState.invalid}
+            onClick={doGenerateMessage}
+          >
+            Generate Message
+          </Button>
         </div>
-        <Button
-          variant="default"
-          mt={20}
-          disabled={accountController.fieldState.invalid}
-          onClick={() => {
-            const accountType = form.getValues('accountType');
-            if (!accountType) return;
-            messageMutation.mutate(accountType);
-          }}
-        >
-          Generate Message
-        </Button>
-      </div>
-      <div>
-        <TextInput
-          label={'Signature'}
-          readOnly
-          className="TextContainer"
-          error={signatureError}
-          {...signatureController.field}
-        />
-        <Button
-          variant="default"
-          mt={20}
-          disabled={messageController.fieldState.invalid}
-          onClick={() => {
-            signatureMutation.mutate(form.getValues('message'));
-          }}
-        >
-          Sign Message
-        </Button>
+        <div>
+          <TextInput
+            label={'Signature'}
+            readOnly
+            className="TextContainer"
+            error={signatureError}
+            {...signatureController.field}
+          />
+          <Button
+            variant="default"
+            mt={20}
+            disabled={messageController.fieldState.invalid}
+            onClick={doSignMessage}
+          >
+            Sign Message
+          </Button>
+        </div>
       </div>
     </div>
   );
@@ -136,7 +157,16 @@ export default styled(FirstStep)`
 
   .mantine-TextInput-input {
     border: 1px solid var(--mantine-color-gray-4);
-    background-color: var(--mantine-color-gray-0);
     opacity: 1;
+    :read-only {
+      background-color: var(--mantine-color-gray-1);
+      cursor: not-allowed;
+    }
+  }
+  .FirstStep_InputGroup {
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    align-items: baseline;
+    column-gap: 10px;
   }
 `;

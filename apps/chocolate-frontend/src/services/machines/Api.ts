@@ -53,7 +53,7 @@ export const ApiMachine = createMachine(
   {
     actions: {
       setApi: assign({
-        api: (_, event) => event.api,
+        contract: (_, event) => event.api,
       }),
       unsetApi: assign(initialContext),
     },

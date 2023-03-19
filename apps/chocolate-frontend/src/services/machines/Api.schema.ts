@@ -1,7 +1,7 @@
 import { ContractPromise } from '@polkadot/api-contract';
 
 export interface ApiContext {
-  api: ContractPromise;
+  contract: ContractPromise;
 }
 export type ApiEvents =
   | { type: 'CONNECT' }

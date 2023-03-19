@@ -8,11 +8,10 @@ import getInitiateVerificationFlow from './getInitiateVerificationFlow';
 import { AccountType } from './types';
 export default setupApiAndKeyring(async (ctx, accountType: AccountType) => {
   const {
-    apiCtx: { api: contract },
+    apiCtx: { contract },
     keyringCtx: { selectedAccount },
   } = ctx;
   const [address, signer] = await getFromAcct(selectedAccount);
-
   const eventList: EventList[] = [];
   const txPromise = new Promise((res, rej) => {
     getInitiateVerificationFlow({ accountType, address })

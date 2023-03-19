@@ -5,6 +5,8 @@ export interface FirstStepFormData {
   accountType: AccountType | null;
   message: string;
   signature: string;
+  name: string;
+  picture: string;
 }
 type UnaryFn<Arg, Return> = (arg: Arg) => Return;
 type PartialSetter<T> = UnaryFn<Partial<T> | UnaryFn<T, Partial<T>>, void>;
