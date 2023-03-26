@@ -17,9 +17,7 @@ const schemas = [
   ['Project', 'project/project-schema.json'],
   ['ResourceLink', 'resource-link/resource-link-schema.json'],
   ['Review', 'review/review-schema.json'],
-  ['BaseUser', 'user/base-user-schema.json'],
-  ['ProjectAdminUser', 'user/project-admin-user-schema.json'],
-  ['RegularUser', 'user/regular-user-schema.json'],
+  ['User', 'user/user-schema.json'],
 ];
 
 export function build(basePath: string): void {
