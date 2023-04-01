@@ -10,6 +10,31 @@
       "options": {
         "lintFilePatterns": ["packages/database/**/*.ts"]
       }
+    },
+    "typeorm": {
+      "builder": "nx:run-commands",
+      "outputs": [],
+      "options": {
+        "command": "typeorm-ts-node-commonjs",
+        "cwd": "packages/database",
+        "envFile": ".env"
+      }
+    },
+    "migration:generate": {
+      "builder": "nx:run-commands",
+      "outputs": [],
+      "options": {
+        "command": "nx run database:typeorm -- migration:generate --dataSource src/data-source.ts src/migration ",
+        "cwd": "packages/database"
+      }
+    },
+    "migration:run": {
+      "builder": "nx:run-commands",
+      "outputs": [],
+      "options": {
+        "command": "nx run database:typeorm migration:run --dataSource src/data-source.ts",
+        "cwd": "packages/database"
+      }
     }
   },
   "tags": ["server"]

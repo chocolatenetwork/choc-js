@@ -44,3 +44,5 @@ Thumbs.db
 /apps/chocolate-frontend/.env
 /apps/chocolate-frontend/.env.development
 /apps/chocolate-frontend/.env.production
+
+.env
