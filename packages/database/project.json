@@ -12,7 +12,7 @@
       }
     },
     "typeorm": {
-      "builder": "nx:run-commands",
+      "executor": "nx:run-commands",
       "outputs": [],
       "options": {
         "command": "typeorm-ts-node-commonjs",
@@ -21,7 +21,7 @@
       }
     },
     "migration:generate": {
-      "builder": "nx:run-commands",
+      "executor": "nx:run-commands",
       "outputs": [],
       "options": {
         "command": "nx run database:typeorm -- migration:generate --dataSource src/data-source.ts src/migration ",
@@ -29,11 +29,19 @@
       }
     },
     "migration:run": {
-      "builder": "nx:run-commands",
+      "executor": "nx:run-commands",
       "outputs": [],
       "options": {
         "command": "nx run database:typeorm migration:run --dataSource src/data-source.ts",
         "cwd": "packages/database"
+      }
+    },
+    "test": {
+      "executor": "@nrwl/vite:test",
+      "outputs": ["coverage/packages/database"],
+      "options": {
+        "passWithNoTests": true,
+        "reportsDirectory": "../../coverage/packages/database"
       }
     }
   },
