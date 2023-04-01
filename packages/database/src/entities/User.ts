@@ -11,13 +11,13 @@ import { Review } from './Review';
 @Entity()
 export class User {
   @PrimaryGeneratedColumn()
-  account_id!: number;
+  accountId!: number;
 
   @Column({
     type: 'enum',
     enum: AccountType,
   })
-  account_type!: AccountType;
+  accountType!: AccountType;
 
   @Column({
     default: 0,
@@ -25,9 +25,9 @@ export class User {
   })
   points!: number;
 
-  @OneToOne(() => Project)
+  @OneToOne(() => Project, { nullable: true })
   project!: Project | null;
 
-  @OneToMany(() => Review, (review) => review.user)
+  @OneToMany(() => Review, (review) => review.user, { nullable: true })
   reviews!: Review[] | null;
 }

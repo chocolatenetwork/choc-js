@@ -12,24 +12,24 @@ import { User } from './User';
 @Entity()
 export class Project {
   @PrimaryGeneratedColumn()
-  project_id!: number;
+  projectId!: number;
 
   @Column({
     default: 0,
     type: 'integer',
   })
-  rating_sum!: number;
+  ratingSum!: number;
 
   @Column({
     default: 0,
     type: 'integer',
   })
-  review_count!: number;
+  reviewCount!: number;
 
-  @OneToOne(() => User)
+  @OneToOne(() => User, { nullable: false })
   @JoinColumn()
   owner!: User;
 
-  @OneToMany(() => Review, (review) => review.project)
-  reviews!: Review[] | null;
+  @OneToMany(() => Review, (review) => review.project, { nullable: true })
+  reviews!: Review[];
 }

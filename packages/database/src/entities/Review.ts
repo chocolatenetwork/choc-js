@@ -1,11 +1,17 @@
-import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
+import {
+  Column,
+  Entity,
+  JoinColumn,
+  ManyToOne,
+  PrimaryGeneratedColumn,
+} from 'typeorm';
 import { Project } from './Project';
 import { User } from './User';
 
 @Entity()
 export class Review {
   @PrimaryGeneratedColumn()
-  review_id!: number;
+  reviewId!: number;
 
   @Column({
     default: 0,
@@ -13,8 +19,11 @@ export class Review {
   })
   rating!: number;
 
-  @ManyToOne(() => User, (user) => user.reviews)
+  @ManyToOne(() => User, (user) => user.reviews, { nullable: false })
+  @JoinColumn()
   user!: User;
-  @ManyToOne(()=>Project, (project)=>project.reviews)
+
+  @ManyToOne(() => Project, (project) => project.reviews, { nullable: false })
+  @JoinColumn()
   project!: Project;
 }
