@@ -95,6 +95,7 @@
     "swc-loader": "0.1.15",
     "ts-jest": "28.0.5",
     "ts-node": "10.9.1",
+    "tsconfig-paths": "^4.2.0",
     "typescript": "^4.9.5",
     "vite": "^4.0.1",
     "vite-plugin-eslint": "^1.8.1",

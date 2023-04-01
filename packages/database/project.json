@@ -15,25 +15,28 @@
       "executor": "nx:run-commands",
       "outputs": [],
       "options": {
-        "command": "typeorm-ts-node-commonjs",
-        "cwd": "packages/database",
-        "envFile": ".env"
-      }
-    },
-    "migration:generate": {
-      "executor": "nx:run-commands",
-      "outputs": [],
-      "options": {
-        "command": "nx run database:typeorm -- migration:generate --dataSource src/data-source.ts src/migration ",
+        "command": "ts-node --project tsconfig.spec.json -r tsconfig-paths/register ../../node_modules/.bin/typeorm  --dataSource src/data-source.ts",
+        "envFile": "packages/database/.env",
         "cwd": "packages/database"
       }
     },
-    "migration:run": {
+    "migration-generate": {
       "executor": "nx:run-commands",
       "outputs": [],
       "options": {
-        "command": "nx run database:typeorm migration:run --dataSource src/data-source.ts",
-        "cwd": "packages/database"
+        "command": "nx run database:typeorm -- migration:generate src/migrations/{args.name}"
+      },
+      "configurations": {
+        "default": {
+          "args": "--name=migration"
+        }
+      }
+    },
+  "migration-run": {
+      "executor": "nx:run-commands",
+      "outputs": [],
+      "options": {
+        "command": "nx run database:typeorm -- migration:run"
       }
     },
     "test": {
