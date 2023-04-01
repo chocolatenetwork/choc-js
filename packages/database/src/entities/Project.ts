@@ -1,10 +1,12 @@
 import {
   Column,
+  CreateDateColumn,
   Entity,
   JoinColumn,
   OneToMany,
   OneToOne,
   PrimaryGeneratedColumn,
+  UpdateDateColumn,
 } from 'typeorm';
 import { Review } from './Review';
 import { User } from './User';
@@ -32,4 +34,16 @@ export class Project {
 
   @OneToMany(() => Review, (review) => review.project, { nullable: true })
   reviews!: Review[];
+
+  @CreateDateColumn({
+    type: 'timestamp',
+    default: () => 'CURRENT_TIMESTAMP(0)',
+  })
+  createdAt!: Date;
+
+  @UpdateDateColumn({
+    type: 'timestamp',
+    default: () => 'CURRENT_TIMESTAMP(0)',
+  })
+  updatedAt!: Date;
 }

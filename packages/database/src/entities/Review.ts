@@ -1,9 +1,11 @@
 import {
   Column,
+  CreateDateColumn,
   Entity,
   JoinColumn,
   ManyToOne,
   PrimaryGeneratedColumn,
+  UpdateDateColumn,
 } from 'typeorm';
 import { Project } from './Project';
 import { User } from './User';
@@ -26,4 +28,16 @@ export class Review {
   @ManyToOne(() => Project, (project) => project.reviews, { nullable: false })
   @JoinColumn()
   project!: Project;
+
+  @CreateDateColumn({
+    type: 'timestamp',
+    default: () => 'CURRENT_TIMESTAMP(0)',
+  })
+  createdAt!: Date;
+
+  @UpdateDateColumn({
+    type: 'timestamp',
+    default: () => 'CURRENT_TIMESTAMP(0)',
+  })
+  updatedAt!: Date;
 }

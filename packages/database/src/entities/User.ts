@@ -1,10 +1,12 @@
 import { AccountType } from '@choc-js/schema';
 import {
   Column,
+  CreateDateColumn,
   Entity,
   OneToMany,
   OneToOne,
   PrimaryGeneratedColumn,
+  UpdateDateColumn,
 } from 'typeorm';
 import { Project } from './Project';
 import { Review } from './Review';
@@ -30,4 +32,16 @@ export class User {
 
   @OneToMany(() => Review, (review) => review.user, { nullable: true })
   reviews!: Review[] | null;
+
+  @CreateDateColumn({
+    type: 'timestamp',
+    default: () => 'CURRENT_TIMESTAMP(0)',
+  })
+  createdAt!: Date;
+
+  @UpdateDateColumn({
+    type: 'timestamp',
+    default: () => 'CURRENT_TIMESTAMP(0)',
+  })
+  updatedAt!: Date;
 }
