@@ -1,5 +1,13 @@
 import { AccountType } from '@choc-js/schema';
-import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
+import {
+  Column,
+  Entity,
+  OneToMany,
+  OneToOne,
+  PrimaryGeneratedColumn,
+} from 'typeorm';
+import { Project } from './Project';
+import { Review } from './Review';
 @Entity()
 export class User {
   @PrimaryGeneratedColumn()
@@ -16,4 +24,10 @@ export class User {
     type: 'integer',
   })
   points!: number;
+
+  @OneToOne(() => Project)
+  project!: Project | null;
+
+  @OneToMany(() => Review, (review) => review.user)
+  reviews!: Review[] | null;
 }

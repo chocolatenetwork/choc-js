@@ -1,4 +1,6 @@
-import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
+import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
+import { Project } from './Project';
+import { User } from './User';
 
 @Entity()
 export class Review {
@@ -10,4 +12,9 @@ export class Review {
     type: 'integer',
   })
   rating!: number;
+
+  @ManyToOne(() => User, (user) => user.reviews)
+  user!: User;
+  @ManyToOne(()=>Project, (project)=>project.reviews)
+  project!: Project;
 }

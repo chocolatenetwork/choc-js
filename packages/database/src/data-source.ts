@@ -5,7 +5,7 @@ import { DataSource } from 'typeorm';
 
 const entities = resolve(__dirname, 'entities', '*.ts');
 const migrations = resolve(__dirname, 'migrations', '*.ts');
-// Tip: DataSource can also be a promise of one.
+// Tip: DataSource can also be a promise of DataSource.
 export const AppDataSource = new DataSource({
   type: 'postgres',
   host: process.env['host']!,
@@ -15,5 +15,4 @@ export const AppDataSource = new DataSource({
   database: process.env['database']!,
   entities: [entities],
   migrations: [migrations],
-  synchronize: true,
 });

@@ -1,4 +1,13 @@
-import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
+import {
+  Column,
+  Entity,
+  JoinColumn,
+  OneToMany,
+  OneToOne,
+  PrimaryGeneratedColumn,
+} from 'typeorm';
+import { Review } from './Review';
+import { User } from './User';
 
 @Entity()
 export class Project {
@@ -17,6 +26,10 @@ export class Project {
   })
   review_count!: number;
 
-  @Column('integer')
-  owner_id!: number;
+  @OneToOne(() => User)
+  @JoinColumn()
+  owner!: User;
+
+  @OneToMany(() => Review, (review) => review.project)
+  reviews!: Review[] | null;
 }
