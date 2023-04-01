@@ -3,22 +3,20 @@ import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
 @Entity()
 export class Project {
   @PrimaryGeneratedColumn()
-  id!: number;
+  project_id!: number;
 
   @Column({
-    length: 100,
+    default: 0,
+    type: 'integer',
   })
-  name!: string;
+  rating_sum!: number;
 
-  @Column('text')
-  description!: string;
+  @Column({
+    default: 0,
+    type: 'integer',
+  })
+  review_count!: number;
 
-  @Column()
-  filename!: string;
-
-  @Column('double')
-  views!: number;
-
-  @Column()
-  isPublished!: boolean;
+  @Column('integer')
+  owner_id!: number;
 }
