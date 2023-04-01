@@ -1,7 +1,7 @@
 import { AccountType } from '@choc-js/schema';
 import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
 @Entity()
-export class Review {
+export class User {
   @PrimaryGeneratedColumn()
   account_id!: number;
 

@@ -1,6 +1,10 @@
+import { resolve } from 'path';
 import 'reflect-metadata';
 import { DataSource } from 'typeorm';
 
+
+const entities = resolve(__dirname, 'entities', '*.ts');
+const migrations = resolve(__dirname, 'migrations', '*.ts');
 // Tip: DataSource can also be a promise of one.
 export const AppDataSource = new DataSource({
   type: 'postgres',
@@ -9,6 +13,7 @@ export const AppDataSource = new DataSource({
   username: process.env['username']!,
   password: process.env['password']!,
   database: process.env['database']!,
-  entities: ['./entities/**.ts'],
-  migrations: ['./migrations/**.ts'],
+  entities: [entities],
+  migrations: [migrations],
+  synchronize: true,
 });
