@@ -19,6 +19,7 @@
     "paths": {
       "$chocolate-frontend": ["apps/chocolate-frontend/src"],
       "$chocolate-frontend/*": ["apps/chocolate-frontend/src/*"],
+      "@choc-js/database": ["packages/database/src/index.ts"],
       "@choc-js/schema": ["packages/schema/src/index.ts"],
       "@choc-js/type-definitions": ["packages/type-definitions/src/index.ts"],
       "@choc-js/types": ["packages/types/src/index.ts"],
