@@ -4379,6 +4379,16 @@ big.js@^5.2.2:
   resolved "https://registry.yarnpkg.com/big.js/-/big.js-5.2.2.tgz#65f0af382f578bcdc742bd9c281e9cb2d7768328"
   integrity sha512-vyL2OymJxmarO8gxMr0mhChsO9QGwhynfuu4+MHTAW6czfq9humCB7rKpUjDd9YUiDPU4mzpyupFSvOClAwbmQ==
 
+bin-links@^4.0.1:
+  version "4.0.1"
+  resolved "https://registry.yarnpkg.com/bin-links/-/bin-links-4.0.1.tgz#afeb0549e642f61ff889b58ea2f8dca78fb9d8d3"
+  integrity sha512-bmFEM39CyX336ZGGRsGPlc6jZHriIoHacOQcTt72MktIjpPhZoP4te2jOyUXF3BLILmJ8aNLncoPVeIIFlrDeA==
+  dependencies:
+    cmd-shim "^6.0.0"
+    npm-normalize-package-bin "^3.0.0"
+    read-cmd-shim "^4.0.0"
+    write-file-atomic "^5.0.0"
+
 binary-extensions@^2.0.0:
   version "2.2.0"
   resolved "https://registry.yarnpkg.com/binary-extensions/-/binary-extensions-2.2.0.tgz#75f502eeaf9ffde42fc98829645be4ea76bd9e2d"
@@ -4832,6 +4842,11 @@ clsx@1.1.1:
   version "1.1.1"
   resolved "https://registry.yarnpkg.com/clsx/-/clsx-1.1.1.tgz#98b3134f9abbdf23b2663491ace13c5c03a73188"
   integrity sha512-6/bPho624p3S2pMyvP5kKBPXnI3ufHLObBFCfgx+LkeR5lg2XYy2hqZqUf45ypD8COn2bhgGJSUE+l5dhNBieA==
+
+cmd-shim@^6.0.0:
+  version "6.0.1"
+  resolved "https://registry.yarnpkg.com/cmd-shim/-/cmd-shim-6.0.1.tgz#a65878080548e1dca760b3aea1e21ed05194da9d"
+  integrity sha512-S9iI9y0nKR4hwEQsVWpyxld/6kRfGepGfzff83FcaiEBpmvlbA2nnGe7Cylgrx2f/p1P5S5wpRm9oL8z1PbS3Q==
 
 co@^4.6.0:
   version "4.6.0"
@@ -8746,6 +8761,11 @@ minipass@^3.0.0:
   dependencies:
     yallist "^4.0.0"
 
+minipass@^4.0.0:
+  version "4.2.5"
+  resolved "https://registry.yarnpkg.com/minipass/-/minipass-4.2.5.tgz#9e0e5256f1e3513f8c34691dd68549e85b2c8ceb"
+  integrity sha512-+yQl7SX3bIT83Lhb4BVorMAHVuqsskxRdlmO9kTpyukp8vsm2Sn/fUOV9xlnG8/a5JsypJzap21lz/y3FBMJ8Q==
+
 minizlib@^2.1.1:
   version "2.1.2"
   resolved "https://registry.yarnpkg.com/minizlib/-/minizlib-2.1.2.tgz#e90d3466ba209b932451508a11ce3d3632145931"
@@ -8901,6 +8921,15 @@ node-fetch@^2.6.8:
   dependencies:
     whatwg-url "^5.0.0"
 
+node-fetch@^3.2.10:
+  version "3.3.1"
+  resolved "https://registry.yarnpkg.com/node-fetch/-/node-fetch-3.3.1.tgz#b3eea7b54b3a48020e46f4f88b9c5a7430d20b2e"
+  integrity sha512-cRVc/kyto/7E5shrWca1Wsea4y6tL9iYJE5FBCius3JQfb/4P4I295PfhgbJQBLTx6lATE4z+wK0rPM4VS2uow==
+  dependencies:
+    data-uri-to-buffer "^4.0.0"
+    fetch-blob "^3.1.4"
+    formdata-polyfill "^4.0.10"
+
 node-fetch@^3.3.0:
   version "3.3.0"
   resolved "https://registry.yarnpkg.com/node-fetch/-/node-fetch-3.3.0.tgz#37e71db4ecc257057af828d523a7243d651d91e4"
@@ -8954,6 +8983,11 @@ normalize-url@^6.0.1:
   version "6.1.0"
   resolved "https://registry.yarnpkg.com/normalize-url/-/normalize-url-6.1.0.tgz#40d0885b535deffe3f3147bec877d05fe4c5668a"
   integrity sha512-DlL+XwOy3NxAQ8xuC0okPgK46iuVNAK01YN7RueYBqqFeGsBjV9XmCAzAdgt+667bCl5kPh9EqKKDwnaPG1I7A==
+
+npm-normalize-package-bin@^3.0.0:
+  version "3.0.0"
+  resolved "https://registry.yarnpkg.com/npm-normalize-package-bin/-/npm-normalize-package-bin-3.0.0.tgz#6097436adb4ef09e2628b59a7882576fe53ce485"
+  integrity sha512-g+DPQSkusnk7HYXr75NtzkIP4+N81i3RPsGFidF3DzHd9MT9wWngmqoeg/fnHFz5MNdtG4w03s+QnhewSLTT2Q==
 
 npm-run-path@^4.0.0, npm-run-path@^4.0.1:
   version "4.0.1"
@@ -10165,6 +10199,11 @@ react@18.2.0:
   dependencies:
     loose-envify "^1.1.0"
 
+read-cmd-shim@^4.0.0:
+  version "4.0.0"
+  resolved "https://registry.yarnpkg.com/read-cmd-shim/-/read-cmd-shim-4.0.0.tgz#640a08b473a49043e394ae0c7a34dd822c73b9bb"
+  integrity sha512-yILWifhaSEEytfXI76kB9xEEiG1AiozaCJZ83A87ytjRiN+jVibXjedjCRNjoZviinhG+4UkalO3mWTd8u5O0Q==
+
 read@^1.0.4:
   version "1.0.7"
   resolved "https://registry.yarnpkg.com/read/-/read-1.0.7.tgz#b3da19bd052431a97671d44a42634adf710b40c4"
@@ -10989,6 +11028,15 @@ stylis@4.1.3:
   resolved "https://registry.yarnpkg.com/stylis/-/stylis-4.1.3.tgz#fd2fbe79f5fed17c55269e16ed8da14c84d069f7"
   integrity sha512-GP6WDNWf+o403jrEp9c5jibKavrtLW+/qYGhFxFrG8maXhwTBI7gLLhiBb0o7uFccWN+EOS9aMO6cGHWAO07OA==
 
+supabase@^1.46.5:
+  version "1.46.5"
+  resolved "https://registry.yarnpkg.com/supabase/-/supabase-1.46.5.tgz#6f01fcfccabc443678b8882590b4bb34c1dfd305"
+  integrity sha512-N1BObR6JYubMqjacpvJ9/WixEBsPS6KSCqVxg4D+X3SLcqP3p05ppjF2he/m9b48KwNgohZ2eno5Hes8GxtNtg==
+  dependencies:
+    bin-links "^4.0.1"
+    node-fetch "^3.2.10"
+    tar "6.1.13"
+
 supports-color@^5.3.0, supports-color@^5.5.0:
   version "5.5.0"
   resolved "https://registry.yarnpkg.com/supports-color/-/supports-color-5.5.0.tgz#e2e69a44ac8772f78a1ec0b35b689df6530efc8f"
@@ -11082,6 +11130,18 @@ tar@6.1.11:
     chownr "^2.0.0"
     fs-minipass "^2.0.0"
     minipass "^3.0.0"
+    minizlib "^2.1.1"
+    mkdirp "^1.0.3"
+    yallist "^4.0.0"
+
+tar@6.1.13:
+  version "6.1.13"
+  resolved "https://registry.yarnpkg.com/tar/-/tar-6.1.13.tgz#46e22529000f612180601a6fe0680e7da508847b"
+  integrity sha512-jdIBIN6LTIe2jqzay/2vtYLlBHa3JF42ot3h1dW8Q0PaAG4v8rm0cvpVePtau5C6OKXGGcgO9q2AMNSWxiLqKw==
+  dependencies:
+    chownr "^2.0.0"
+    fs-minipass "^2.0.0"
+    minipass "^4.0.0"
     minizlib "^2.1.1"
     mkdirp "^1.0.3"
     yallist "^4.0.0"
@@ -11937,6 +11997,14 @@ write-file-atomic@^4.0.1:
   version "4.0.2"
   resolved "https://registry.yarnpkg.com/write-file-atomic/-/write-file-atomic-4.0.2.tgz#a9df01ae5b77858a027fd2e80768ee433555fcfd"
   integrity sha512-7KxauUdBmSdWnmpaGFg+ppNjKF8uNLry8LyzjauQDOVONfFLNKrKvQOxZ/VuTIcS/gge/YNahf5RIIQWTSarlg==
+  dependencies:
+    imurmurhash "^0.1.4"
+    signal-exit "^3.0.7"
+
+write-file-atomic@^5.0.0:
+  version "5.0.0"
+  resolved "https://registry.yarnpkg.com/write-file-atomic/-/write-file-atomic-5.0.0.tgz#54303f117e109bf3d540261125c8ea5a7320fab0"
+  integrity sha512-R7NYMnHSlV42K54lwY9lvW6MnSm1HSJqZL3xiSgi9E7//FYaI74r2G0rd+/X6VAMkHEdzxQaU5HUOXWUz5kA/w==
   dependencies:
     imurmurhash "^0.1.4"
     signal-exit "^3.0.7"

@@ -20,6 +20,7 @@
         "cwd": "packages/database"
       }
     },
+
     "migration-generate": {
       "executor": "nx:run-commands",
       "outputs": [],
@@ -51,6 +52,22 @@
           "ci": true,
           "codeCoverage": true
         }
+      }
+    },
+    "start": {
+      "executor": "nx:run-commands",
+      "outputs": [],
+      "options": {
+        "command": "supabase start",
+        "cwd": "packages/database"
+      }
+    },
+    "stop": {
+      "executor": "nx:run-commands",
+      "outputs": [],
+      "options": {
+        "command": "supabase stop",
+        "cwd": "packages/database"
       }
     }
   },

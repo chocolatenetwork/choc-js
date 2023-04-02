@@ -92,6 +92,7 @@
     "pm2": "^5.2.0",
     "prettier": "^2.8.4",
     "react-test-renderer": "18.2.0",
+    "supabase": "^1.46.5",
     "swc-loader": "0.1.15",
     "ts-jest": "28.0.5",
     "ts-node": "10.9.1",
