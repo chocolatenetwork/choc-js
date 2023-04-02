@@ -1,4 +1,4 @@
-import { Image } from '@mantine/core';
+import { Image, Text } from '@mantine/core';
 import styled from 'styled-components';
 
 export const StyledDiv = styled.div`
@@ -37,4 +37,18 @@ export const TitleSection = styled.div`
   align-items: center;
   gap: 10px;
   flex-wrap: wrap;
+`;
+
+export const H2 = styled(Text)`
+  font-size: 26px;
+  font-weight: 700;
+  line-height: ${35 / 26};
+  color: var(--mantine-color-dark-6);
+`;
+
+export const T0 = styled(Text)`
+  font-size: 11.58px;
+  font-weight: 400;
+  line-height: ${17 / 11.58};
+  color: var(--mantine-color-dark-6);
 `;

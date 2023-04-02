@@ -1,7 +1,7 @@
 import { IProjectDb } from '$chocolate-frontend/models/Project';
-import { Rating, Text } from '@mantine/core';
+import { Rating } from '@mantine/core';
 import { pluralize } from '../../../utils/pluralize';
-import { LogoDiv, StyledDiv, TitleSection } from './Project.styles';
+import { H2, LogoDiv, StyledDiv, T0, TitleSection } from './Project.styles';
 
 interface ProjectCardProps {
   project: IProjectDb;
@@ -14,11 +14,11 @@ export function ProjectCard(props: ProjectCardProps) {
     <StyledDiv>
       <LogoDiv logo={project.logo}>
         <TitleSection>
-          <Text weight={'bold'}>{project.name}</Text>
+          <H2>{project.name}</H2>
           <Rating value={value || 0} readOnly />
-          <Text>{pluralize(project.reviewCount, 'Review', 'Reviews')}</Text>
+          <H2>{pluralize(project.reviewCount, 'Review', 'Reviews')}</H2>
         </TitleSection>
-        <Text>{project.description}</Text>
+        <T0>{project.description}</T0>
       </LogoDiv>
     </StyledDiv>
   );
