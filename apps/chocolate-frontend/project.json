@@ -81,7 +81,7 @@
     "mock-server": {
       "executor": "nx:run-commands",
       "options": {
-        "command": "json-server scripts/generate.cjs",
+        "command": "json-server --watch scripts/generate.cjs",
         "cwd": "apps/chocolate-frontend"
       }
     }

@@ -7,4 +7,5 @@ export interface IProjectDb {
   updatedAt: Date;
   name: string;
   logo: string;
+  description: string;
 }

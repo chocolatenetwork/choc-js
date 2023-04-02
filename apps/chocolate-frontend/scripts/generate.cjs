@@ -21,7 +21,8 @@ module.exports = () => {
       userOwnerId: owner.address,
       name: faker.company.name(),
 
-      logo: `https://api.dicebear.com/6.x/shapes/svg?seed=Mia${i}`,
+      logo: `https://api.dicebear.com/6.x/shapes/svg?seed=Mia${i}&backgroundColor=transparent&backgroundType[]`,
+      description: faker.lorem.sentences(),
     });
   }
   return data;

@@ -2,7 +2,7 @@ import { getProjects } from '$chocolate-frontend/services/queries/project/getPro
 import { useQuery } from '@tanstack/react-query';
 import { ProjectsError } from './Projects.error';
 import { ProjectsLoading } from './Projects.loading';
-import { ProjectsBody } from './ProjectsBody';
+import { ProjectsBody } from './ProjectsBody/ProjectsBody';
 
 export function Projects() {
   // query projects.

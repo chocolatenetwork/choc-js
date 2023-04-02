@@ -45,7 +45,7 @@ export default styled(MenuBar)`
   align-items: center;
   padding: 10px 24px;
   column-gap: 64px;
-  background-color: transparent;
+  background-color: var(--mantine-color-gray-0);
   border-color: var(--header-border);
 
   .LinkSide {

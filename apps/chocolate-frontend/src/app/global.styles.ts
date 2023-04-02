@@ -17,6 +17,10 @@ img, picture, svg, video {
   padding: 0;
 }
 
+:root {
+  background-color: var(--mantine-color-gray-0);
+}
+
 `;
 
 export default GlobalStyle;
