@@ -46,4 +46,7 @@ export class Project {
     default: () => 'CURRENT_TIMESTAMP(0)',
   })
   updatedAt!: Date;
+
+  name!: string;
+  logo!: string;
 }
