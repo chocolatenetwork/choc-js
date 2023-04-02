@@ -1,0 +1,75 @@
+{
+  "name": "database",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "packages/database/src",
+  "projectType": "library",
+  "targets": {
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": ["packages/database/**/*.ts"]
+      }
+    },
+    "typeorm": {
+      "executor": "nx:run-commands",
+      "outputs": [],
+      "options": {
+        "command": "ts-node --project tsconfig.spec.json -r tsconfig-paths/register ../../node_modules/.bin/typeorm  --dataSource src/data-source.ts",
+        "envFile": "packages/database/.env",
+        "cwd": "packages/database"
+      }
+    },
+
+    "migration-generate": {
+      "executor": "nx:run-commands",
+      "outputs": [],
+      "options": {
+        "command": "nx run database:typeorm -- migration:generate src/migrations/{args.name}"
+      },
+      "configurations": {
+        "default": {
+          "args": "--name=migration"
+        }
+      }
+    },
+  "migration-run": {
+      "executor": "nx:run-commands",
+      "outputs": [],
+      "options": {
+        "command": "nx run database:typeorm -- migration:run"
+      }
+    },
+    "test": {
+      "executor": "@nrwl/jest:jest",
+      "outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
+      "options": {
+        "jestConfig": "packages/database/jest.config.ts",
+        "passWithNoTests": true
+      },
+      "configurations": {
+        "ci": {
+          "ci": true,
+          "codeCoverage": true
+        }
+      }
+    },
+    "start": {
+      "executor": "nx:run-commands",
+      "outputs": [],
+      "options": {
+        "command": "supabase start",
+        "cwd": "packages/database"
+      }
+    },
+    "stop": {
+      "executor": "nx:run-commands",
+      "outputs": [],
+      "options": {
+        "command": "supabase stop",
+        "cwd": "packages/database"
+      }
+    }
+  },
+  "tags": ["server"]
+}
