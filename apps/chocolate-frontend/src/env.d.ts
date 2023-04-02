@@ -1,7 +1,7 @@
 /// <reference types="vite/client" />
 
 interface ImportMetaEnv {
-  readonly VITE_APP_IPFS_API_SERVER: string;
+  readonly VITE_CONTRACT_ADDRESS: string;
   // more env variables...
 }
 

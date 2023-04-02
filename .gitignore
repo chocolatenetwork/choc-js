@@ -45,4 +45,6 @@ Thumbs.db
 /apps/chocolate-frontend/.env.development
 /apps/chocolate-frontend/.env.production
 
+## General, ignore .env
+
 .env
