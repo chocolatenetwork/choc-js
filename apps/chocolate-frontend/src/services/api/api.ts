@@ -7,8 +7,7 @@ type AbiType = Record<string, unknown>;
 // May need some clever way to get this from user input or elsewhere
 // Paste the address here each time it's uploaded
 // Look into whether we can query for this
-export const CONTRACT_ADDRESS =
-  '5F1AQAvVZq7tBZPXVrRvViCojv9aSWJDXJGdk7Rt78MwcMcn';
+export const CONTRACT_ADDRESS = import.meta.env.VITE_CONTRACT_ADDRESS;
 export async function createApi(
   send: ApiMachineSender
 ): Promise<() => Promise<void>> {
