@@ -31,20 +31,24 @@ export const ProjectImage = styled(Image)`
   top: 0%;
   bottom: 0%;
 `;
+export const H2 = styled(Text)`
+  font-size: 26px;
+  font-weight: 700;
+  line-height: ${35 / 26};
+  color: var(--mantine-color-dark-6);
+` as typeof Text;
 
 export const TitleSection = styled.div`
   display: flex;
   align-items: center;
   gap: 10px;
   flex-wrap: wrap;
+
+  & ${H2}[href]:hover {
+    opacity: 0.5;
+  }
 `;
 
-export const H2 = styled(Text)`
-  font-size: 26px;
-  font-weight: 700;
-  line-height: ${35 / 26};
-  color: var(--mantine-color-dark-6);
-`;
 
 export const T0 = styled(Text)`
   font-size: 11.58px;
