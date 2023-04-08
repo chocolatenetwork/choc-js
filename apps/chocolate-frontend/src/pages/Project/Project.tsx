@@ -2,10 +2,9 @@ import { getProject } from '$chocolate-frontend/services/queries/project/getProj
 import { getReviewsByProject } from '$chocolate-frontend/services/queries/reviews/getReviewsByProject';
 import { useQuery } from '@tanstack/react-query';
 import { useParams } from 'react-router-dom';
-import { InvalidProject } from './InvalidProject';
 import { ProjectError } from './Project.error';
 import { ProjectLoading } from './Project.loading';
-import { ProjectBody } from './ProjectBody';
+import { ProjectBody } from './ProjectBody/ProjectBody';
 
 export function Project() {
   // query
@@ -22,12 +21,12 @@ export function Project() {
     queryFn: () => getReviewsByProject(definedParam),
     enabled: isParamDefined,
   });
-  if (!isParamDefined) return <InvalidProject />;
+  if (!isParamDefined) return <ProjectError type="invalid" />;
   if (projectQuery.isLoading) return <ProjectLoading />;
   if (projectQuery.isError) return <ProjectError />;
   // reviews too.
   // body
-  return <ProjectBody query={projectQuery} reviewQuery={reviewQuery} />;
+  return <ProjectBody query={projectQuery} reviewsQuery={reviewQuery} />;
   //  get reviews later.
 }
 
