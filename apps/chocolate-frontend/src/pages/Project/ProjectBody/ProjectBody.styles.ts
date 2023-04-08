@@ -69,3 +69,10 @@ export const H1 = styled(Text)`
   line-height: ${44.2 / 34};
   color: var(--mantine-color-dark-6);
 ` as typeof Text;
+
+export const AddReviewSection = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 46px 0px;
+`;

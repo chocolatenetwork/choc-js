@@ -8,6 +8,6 @@ export function ReviewsBody(props: ReviewsBodyProps) {
   const { query } = props;
   const { data } = query;
 
-  console.log(data);
+
   return <div></div>;
 }
