@@ -31,4 +31,4 @@ function intoProject(api: IProjectDbApi): IProjectDb {
   };
 }
 
-export default toConverter(intoProject);
+export default toConverter(intoProject, 'projectId');

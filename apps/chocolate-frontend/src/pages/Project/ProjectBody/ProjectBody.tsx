@@ -1,5 +1,6 @@
 import { IProjectDb } from '$chocolate-frontend/models/Project';
 import { IReviewDb } from '$chocolate-frontend/models/Review';
+import { IUserDb } from '$chocolate-frontend/models/User';
 import { Tabs } from '@mantine/core';
 import {
   QueryObserverSuccessResult,
@@ -14,10 +15,11 @@ import { defaultPage, ProjectParams, TabOptions } from './ProjectBody.utils';
 interface ProjectBodyProps {
   query: QueryObserverSuccessResult<IProjectDb, unknown>;
   reviewsQuery: UseQueryResult<IReviewDb[], unknown>;
+  users: Record<string, IUserDb | undefined>;
 }
 
 export function ProjectBody(props: ProjectBodyProps) {
-  const { reviewsQuery, query } = props;
+  const { reviewsQuery, query, users } = props;
   const [search, setSearchParams] = useSearchParams(defaultPage);
   const onChange = (tab: string | null) => {
     if (!tab) return;
@@ -25,6 +27,7 @@ export function ProjectBody(props: ProjectBodyProps) {
     newSearch.set(ProjectParams.tab, tab);
     setSearchParams(newSearch);
   };
+
   return (
     <Tabs
       onTabChange={onChange}

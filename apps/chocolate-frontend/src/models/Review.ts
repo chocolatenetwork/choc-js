@@ -25,4 +25,4 @@ function intoReview(api: IReviewDbApi): IReviewDb {
   };
 }
 
-export default toConverter(intoReview);
+export default toConverter(intoReview, 'reviewId');
