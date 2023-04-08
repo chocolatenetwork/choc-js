@@ -33,6 +33,7 @@ module.exports = () => {
       createdAt: faker.date.past().toJSON(),
       updatedAt: faker.date.recent().toJSON(),
     });
+
     data.projects.push({
       projectId: projectId,
       ratingSum: 0,
@@ -45,6 +46,10 @@ module.exports = () => {
       createdAt: faker.date.past().toJSON(),
       updatedAt: faker.date.recent().toJSON(),
     });
+
+    const project = data.projects.at(-1);
+    const projectUser = data.users.at(-1);
+
     // Create 10 reviews for it
 
     for (let i = 1; i < 11; i++) {
@@ -52,23 +57,35 @@ module.exports = () => {
       const rating = faker.random.numeric(1, {
         bannedDigits: ['6', '7', '8', '9', '0'],
       });
-      data.users.push({
-        accountId: ownerReview.address,
-        // @ts-expect-error AccountType enum type
-        accountType: 'user',
-        points: Number(faker.random.numeric(3, { allowLeadingZeros: true })),
-        createdAt: faker.date.past().toJSON(),
-        updatedAt: faker.date.recent().toJSON(),
-      });
+
+      const ratingNumber = Number(rating);
       data.reviews.push({
         reviewId: reviewIndex,
-        rating: Number(rating),
+        rating: ratingNumber,
         userAccountId: ownerReview.address,
         projectProjectId: projectId,
         createdAt: faker.date.past().toJSON(),
         updatedAt: faker.date.recent().toJSON(),
       });
+
+      data.users.push({
+        accountId: ownerReview.address,
+        // @ts-expect-error AccountType enum type
+        accountType: 'user',
+        points:
+          Number(faker.random.numeric(3, { allowLeadingZeros: true })) + 1, // one for this review.
+        createdAt: faker.date.past().toJSON(),
+        updatedAt: faker.date.recent().toJSON(),
+      });
       reviewIndex += 1;
+
+      if (project) {
+        project.ratingSum += ratingNumber;
+        project.reviewCount += 1;
+      }
+      if (projectUser) {
+        projectUser.points += 1;
+      }
     }
   }
 

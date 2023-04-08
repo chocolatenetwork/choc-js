@@ -49,7 +49,6 @@ export const TitleSection = styled.div`
   }
 `;
 
-
 export const T0 = styled(Text)`
   font-size: 11.58px;
   font-weight: 400;

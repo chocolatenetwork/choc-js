@@ -4,7 +4,7 @@ import { useHref, useLinkClickHandler } from 'react-router-dom';
 import { Rating } from '../../../components/Rating';
 import { formatRating } from '../../../utils/formatRating';
 import { pluralize } from '../../../utils/pluralize';
-import { H2, LogoDiv, StyledDiv, T0, TitleSection } from './Project.styles';
+import { H2, LogoDiv, StyledDiv, T0, TitleSection } from './ProjectCard.styles';
 
 interface ProjectCardProps {
   project: IProjectDb;

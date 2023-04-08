@@ -7,7 +7,7 @@ interface IConverter<A, B> {
   selectMap: Fn1<B[], Record<string, B | undefined>>;
 }
 
-interface IPagination<T = unknown> {
+export interface IPagination<T = unknown> {
   results: T[];
   hasMore: boolean;
 }

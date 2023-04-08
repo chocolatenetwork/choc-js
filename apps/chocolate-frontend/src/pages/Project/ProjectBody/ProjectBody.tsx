@@ -1,7 +1,10 @@
+import { Rating } from '$chocolate-frontend/components/Rating';
 import { IProjectDb } from '$chocolate-frontend/models/Project';
 import { IReviewDb } from '$chocolate-frontend/models/Review';
 import { IUserDb } from '$chocolate-frontend/models/User';
-import { Tabs } from '@mantine/core';
+import { H2 } from '$chocolate-frontend/pages/Projects/Project/ProjectCard.styles';
+import { getAverage } from '$chocolate-frontend/utils/getAverage';
+import { Image, Tabs } from '@mantine/core';
 import {
   QueryObserverSuccessResult,
   UseQueryResult,
@@ -9,7 +12,18 @@ import {
 import { useSearchParams } from 'react-router-dom';
 import { Reviews } from '../Reviews/Reviews';
 import { Submenu } from '../Submenu';
-import { StyledHeader } from './ProjectBody.styles';
+import {
+  Banner,
+  H1,
+  HeaderBanner,
+  ImageWrapper,
+  NameSection,
+  NameWrapper,
+  ProfileRow,
+  PROFILE_IMAGE_SIZE,
+  RatingCircle,
+  StyledHeader,
+} from './ProjectBody.styles';
 import { defaultPage, ProjectParams, TabOptions } from './ProjectBody.utils';
 
 interface ProjectBodyProps {
@@ -28,6 +42,9 @@ export function ProjectBody(props: ProjectBodyProps) {
     setSearchParams(newSearch);
   };
 
+  const { data } = query;
+  console.log(data);
+  const { ratingSum, reviewCount, name, logo } = data;
   return (
     <Tabs
       onTabChange={onChange}
@@ -35,10 +52,27 @@ export function ProjectBody(props: ProjectBodyProps) {
       defaultValue={search.get(ProjectParams.tab)}
     >
       <StyledHeader>
-        <div className="profile"></div>
+        <HeaderBanner>
+          <Banner />
+          <ProfileRow>
+            <NameSection>
+              <ImageWrapper>
+                <Image src={logo} height={PROFILE_IMAGE_SIZE} />
+              </ImageWrapper>
+              <NameWrapper>
+                <H1>{name}</H1>
+                <Rating value={getAverage(ratingSum, reviewCount)} readOnly />
+              </NameWrapper>
+            </NameSection>
+            <RatingCircle>
+              <H2>
+                {getAverage(data.ratingSum, data.reviewCount).toPrecision(3)}
+              </H2>
+            </RatingCircle>
+          </ProfileRow>
+        </HeaderBanner>
         <Submenu />
       </StyledHeader>
-      <div className="tabs"></div>
       <div className="add-review"></div>
 
       <Tabs.Panel value={TabOptions.reviews}>
