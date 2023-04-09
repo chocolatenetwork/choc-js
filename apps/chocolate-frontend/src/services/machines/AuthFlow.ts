@@ -1,46 +1,73 @@
-import { createMachine } from 'xstate';
+import { assign, createMachine } from 'xstate';
+import {
+  AuthFlowContext,
+  AuthFlowEvents,
+  ErrorReasons,
+} from './AuthFlow.schema';
 
-export const AuthFlow = createMachine({
-  id: 'AuthFlow',
-  initial: 'getUser',
-  states: {
-    getUser: {
-      on: {
-        Success: {
-          target: 'Show',
-        },
-        Error: [
-          {
-            target: 'connectWallet',
-            cond: 'notConnected',
+const initialContext: AuthFlowContext = {};
+export const AuthFlow = createMachine(
+  {
+    id: 'AuthFlow',
+    initial: 'getUser',
+    context: initialContext,
+    states: {
+      getUser: {
+        on: {
+          Success: {
+            target: 'Show',
+            actions: 'resetState',
           },
-          {
-            target: 'verify',
-            cond: 'notVerified',
-          },
-        ],
-      },
-    },
-    Show: {
-      type: 'final',
-    },
-    connectWallet: {
-      on: {
-        connected: {
-          target: 'getUser',
+          Error: [
+            {
+              target: 'connectWallet',
+              cond: 'notConnected',
+              actions: 'setError',
+            },
+            {
+              target: 'verify',
+              cond: 'notVerified',
+              actions: 'setError',
+            },
+          ],
         },
       },
+      Show: {
+        type: 'final',
+      },
+      connectWallet: {
+        on: {
+          connected: {
+            target: 'getUser',
+          },
+        },
+      },
+      verify: {
+        type: 'final',
+      },
     },
-    verify: {
-      type: 'final',
+    schema: {
+      events: {} as AuthFlowEvents,
+      context: {} as AuthFlowContext,
     },
+    predictableActionArguments: true,
+    preserveActionOrder: true,
+    tsTypes: {} as import('./AuthFlow.typegen').Typegen0,
   },
-  schema: {
-    events: {} as
-      | { type: 'Success' }
-      | { type: 'Error' }
-      | { type: 'connected' },
-  },
-  predictableActionArguments: true,
-  preserveActionOrder: true,
-});
+  {
+    guards: {
+      notVerified: (_, event) => {
+        return event.reason === ErrorReasons.notVerified;
+      },
+      notConnected: (_, event) => {
+        return event.reason === ErrorReasons.notConnected;
+      },
+    },
+    actions: {
+      setError: assign({
+        errorReason: (_, event) => event.reason,
+      }),
+      resetState: () => initialContext,
+    },
+  }
+);

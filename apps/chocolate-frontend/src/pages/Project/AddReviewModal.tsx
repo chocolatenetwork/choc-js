@@ -3,6 +3,7 @@ import {
   AddReviewContent,
   AddReviewContentProps,
 } from './AddReviewContent/AddReviewContent';
+import { AuthenticationFlow } from './AuthenticationFlow';
 
 interface AddReviewModalProps extends AddReviewContentProps {
   opened: boolean;
@@ -10,8 +11,16 @@ interface AddReviewModalProps extends AddReviewContentProps {
 export function AddReviewModal(props: AddReviewModalProps) {
   const { opened, ...rest } = props;
   return (
-    <Modal opened={opened} onClose={rest.onClose} title="Add a review" centered>
-      <AddReviewContent {...rest} />
-    </Modal>
+    <AuthenticationFlow validate={opened}>
+      <Modal
+        opened={opened}
+        onClose={rest.onClose}
+        title="Add a review"
+        centered
+      >
+        <AddReviewContent {...rest} />
+      </Modal>
+    </AuthenticationFlow>
   );
+
 }
