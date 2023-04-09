@@ -6,6 +6,7 @@ import { H2 } from '$chocolate-frontend/pages/Projects/Project/ProjectCard.style
 import { getAverage } from '$chocolate-frontend/utils/getAverage';
 import { makeModalFns } from '$chocolate-frontend/utils/makeModalFns';
 import { parseUrlArray } from '$chocolate-frontend/utils/parseUrlArray';
+import { toAverageValue } from '$chocolate-frontend/utils/toAverageValue';
 import { Button, Image, Tabs } from '@mantine/core';
 import {
   QueryObserverSuccessResult,
@@ -66,6 +67,8 @@ export function ProjectBody(props: ProjectBodyProps) {
   const { data } = query;
 
   const { ratingSum, reviewCount, name, logo } = data;
+  const ratingValue = getAverage(ratingSum, reviewCount);
+  const averageValue = toAverageValue(ratingValue);
   return (
     <Tabs
       onTabChange={onChange}
@@ -82,7 +85,7 @@ export function ProjectBody(props: ProjectBodyProps) {
               </ImageWrapper>
               <NameWrapper>
                 <H1>{name}</H1>
-                <Rating value={getAverage(ratingSum, reviewCount)} readOnly />
+                <Rating value={averageValue} readOnly />
               </NameWrapper>
             </NameSection>
             <RatingCircle>
@@ -108,7 +111,7 @@ export function ProjectBody(props: ProjectBodyProps) {
       </Tabs.Panel>
 
       <AddReviewModal
-        projectName={data.name}
+        project={data}
         opened={addReviewOpen}
         onClose={() => closeModal(ProjectModals.addReview)}
       />

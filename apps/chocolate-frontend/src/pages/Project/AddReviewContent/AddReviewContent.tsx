@@ -1,6 +1,10 @@
 import { Rating } from '$chocolate-frontend/components/Rating';
+import { IProjectDb } from '$chocolate-frontend/models/Project';
+import { patchProject } from '$chocolate-frontend/services/queries/project/patchProject';
+import { postReview } from '$chocolate-frontend/services/queries/reviews/postReview';
 import { formatRating } from '$chocolate-frontend/utils/formatRating';
 import { Button } from '@mantine/core';
+import { useMutation } from '@tanstack/react-query';
 import { Controller, useForm } from 'react-hook-form';
 import { StyledDiv } from './AddReviewContent.styles';
 import { getAddReviewDefault } from './AddReviewContent.utils';
@@ -10,17 +14,33 @@ export interface IAddReviewForm {
 }
 export interface AddReviewContentProps {
   onClose: VoidFunction;
-  projectName: string;
+  project: IProjectDb;
 }
 export function AddReviewContent(props: AddReviewContentProps) {
-  const { projectName } = props;
+  const { project, onClose } = props;
   // Just rating for now
   const form = useForm({
     defaultValues: getAddReviewDefault(),
   });
   // todo: mutation, submit.
-  // const mutate =  useMutation(postRev)
-
+  const mutate = useMutation(postReview, {
+    async onSuccess(data) {
+      // for now.
+      await patchProject({
+        projectId: project.projectId,
+        ratingSum: (project.ratingSum += data.rating),
+        reviewCount: (project.reviewCount += 1),
+      });
+      onClose();
+    },
+  });
+  // Todo: add auth required
+  const doMutate = form.handleSubmit((data) => {
+    return mutate.mutate({
+      projectId: project.projectId,
+      rating: data.rating,
+    });
+  });
   return (
     <StyledDiv>
       <Controller
@@ -31,13 +51,13 @@ export function AddReviewContent(props: AddReviewContentProps) {
             <Rating
               value={field.value}
               onChange={field.onChange}
-              description={`Rate ${projectName} on a scale of 5`}
+              description={`Rate ${project.name} on a scale of 5`}
               label={formatRating(field.value)}
             />
           );
         }}
       />
-      <Button>Submit</Button>
+      <Button onClick={() => doMutate()}>Submit</Button>
     </StyledDiv>
   );
 }

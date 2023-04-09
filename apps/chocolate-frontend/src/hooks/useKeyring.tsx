@@ -1,8 +1,8 @@
 import { useActor } from '@xstate/react';
 import { keyringService } from '../services/machines/Keyring';
 import { KeyringContext } from '../services/machines/Keyring.schema';
+import { NonNullKeyringContext } from '../utils/apiSetup/getKeyring';
 import { AppError } from '../utils/AppError';
-import { NonNullKeyringContext } from '../utils/getKeyring';
 
 export function _useKeyring(): KeyringContext {
   const [state] = useActor(keyringService);
