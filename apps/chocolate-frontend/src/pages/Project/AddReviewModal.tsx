@@ -11,7 +11,7 @@ interface AddReviewModalProps extends AddReviewContentProps {
 export function AddReviewModal(props: AddReviewModalProps) {
   const { opened, ...rest } = props;
   return (
-    <AuthenticationFlow validate={opened}>
+    <AuthenticationFlow validate={opened} stop={rest.onClose}>
       <Modal
         opened={opened}
         onClose={rest.onClose}

@@ -3,6 +3,7 @@ import { IUserDb } from '$chocolate-frontend/models/User';
 export enum ErrorReasons {
   notVerified = 'notVerified',
   notConnected = 'notConnected',
+  other = 'other',
 }
 export type AuthFlowEvents =
   | {
