@@ -97,13 +97,13 @@ export function ProjectBody(props: ProjectBodyProps) {
         </HeaderBanner>
         <Submenu />
       </StyledHeader>
-      <AddReviewSection>
-        <Button onClick={() => openModal(ProjectModals.addReview)}>
-          Add Review
-        </Button>
-      </AddReviewSection>
 
       <Tabs.Panel value={TabOptions.reviews}>
+        <AddReviewSection>
+          <Button onClick={() => openModal(ProjectModals.addReview)}>
+            Add Review
+          </Button>
+        </AddReviewSection>
         <Reviews query={reviewsQuery} />
       </Tabs.Panel>
       <Tabs.Panel value={TabOptions.about}>

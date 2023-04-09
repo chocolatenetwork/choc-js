@@ -9,7 +9,7 @@ export function VerifyPrompt() {
   return (
     <div>
       <MediumSemiBold>
-        Your wallet has not been verified, please proceed to the{' '}
+        To continue, your wallet need to be verified, please proceed to the{' '}
         <Text
           component="a"
           inherit

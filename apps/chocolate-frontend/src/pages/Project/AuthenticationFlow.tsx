@@ -83,7 +83,7 @@ export function AuthenticationFlow(props: AuthenticationFlowProps) {
     context.errorReason === ErrorReasons.notVerified
   ) {
     return (
-      <Modal centered opened={validate} onClose={stop}>
+      <Modal title="Not Verified" centered opened={validate} onClose={stop}>
         <VerifyPrompt />
       </Modal>
     );
@@ -94,7 +94,7 @@ export function AuthenticationFlow(props: AuthenticationFlowProps) {
     state.context.errorReason === ErrorReasons.other
   ) {
     return (
-      <Modal centered opened={validate} onClose={stop}>
+      <Modal title="Unknown Error" centered opened={validate} onClose={stop}>
         <UnknownErrorPrompt />
       </Modal>
     );

@@ -1,9 +1,23 @@
+import { URLSearchParamsInit } from 'react-router-dom';
+import { Any } from './curry1/types';
 import { parseUrlArray } from './parseUrlArray';
 
+type UseSearchParamsReturn = readonly [
+  URLSearchParams,
+  (
+    nextInit: URLSearchParamsInit,
+    navigateOptions?:
+      | {
+          replace?: boolean | undefined;
+          state?: Any;
+        }
+      | undefined
+  ) => void
+];
 export function makeModalFns(
   modalString: string | null,
-  search: URLSearchParams,
-  setSearchParams: (search: URLSearchParams) => void,
+  search: UseSearchParamsReturn[0],
+  setSearchParams: UseSearchParamsReturn[1],
   modalKey: string
 ) {
   const openModal = (key: string) => {
@@ -13,7 +27,7 @@ export function makeModalFns(
     const modalValue = modals.join();
     const newParams = new URLSearchParams(search);
     newParams.set(modalKey, modalValue);
-    setSearchParams(newParams);
+    setSearchParams(newParams, { replace: true });
   };
   const closeModal = (key: string) => {
     const modals = parseUrlArray(modalString);
@@ -22,12 +36,12 @@ export function makeModalFns(
     if (filtered.length === 0) {
       const newParams = new URLSearchParams(search);
       newParams.delete(modalKey);
-      setSearchParams(newParams);
+      setSearchParams(newParams, { replace: true });
     } else {
       const modalValue = filtered.join();
       const newParams = new URLSearchParams(search);
       newParams.set(modalKey, modalValue);
-      setSearchParams(newParams);
+      setSearchParams(newParams, { replace: true });
     }
   };
   return { openModal, closeModal };
