@@ -1,7 +1,17 @@
 import { ReactComponent as ChocolateLogo } from '$chocolate-frontend/assets/svg/chocolate-logo.svg';
+import {
+  MediumSemiBold,
+  RatingWrap,
+} from '$chocolate-frontend/pages/Project/AddReviewContent/AddReviewContent.styles';
+import { T0 } from '$chocolate-frontend/pages/Projects/Project/ProjectCard.styles';
 import { Rating as MantineRating, RatingProps } from '@mantine/core';
 
-export function Rating(props: RatingProps) {
+interface RatingExtra extends RatingProps {
+  description?: string;
+  label?: string;
+}
+export function Rating(props: RatingExtra) {
+  const { description, label } = props;
   const getEmptyIcon = (currentValue: number) => {
     switch (currentValue) {
       default:
@@ -17,10 +27,18 @@ export function Rating(props: RatingProps) {
   };
 
   return (
-    <MantineRating
-      {...props}
-      emptySymbol={getEmptyIcon}
-      fullSymbol={getFullIcon}
-    />
+    <div>
+      <T0 pb={10} fw={'bold'}>
+        {description}
+      </T0>
+      <RatingWrap>
+        <MantineRating
+          {...props}
+          emptySymbol={getEmptyIcon}
+          fullSymbol={getFullIcon}
+        />
+        <MediumSemiBold pl={10}>{label}</MediumSemiBold>
+      </RatingWrap>
+    </div>
   );
 }

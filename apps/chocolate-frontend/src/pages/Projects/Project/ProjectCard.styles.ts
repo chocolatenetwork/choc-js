@@ -54,4 +54,4 @@ export const T0 = styled(Text)`
   font-weight: 400;
   line-height: ${17 / 11.58};
   color: var(--mantine-color-dark-6);
-`;
+` as typeof Text;

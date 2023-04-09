@@ -1,15 +1,17 @@
 import { Modal } from '@mantine/core';
-import { AddReviewContent } from './AddReviewContent/AddReviewContent';
+import {
+  AddReviewContent,
+  AddReviewContentProps,
+} from './AddReviewContent/AddReviewContent';
 
-interface AddReviewModalProps {
+interface AddReviewModalProps extends AddReviewContentProps {
   opened: boolean;
-  onClose: VoidFunction;
 }
-export  function AddReviewModal(props: AddReviewModalProps) {
-  const { opened, onClose } = props;
+export function AddReviewModal(props: AddReviewModalProps) {
+  const { opened, ...rest } = props;
   return (
-    <Modal opened={opened} onClose={onClose}>
-      <AddReviewContent close={onClose} />
+    <Modal opened={opened} onClose={rest.onClose} title="Add a review" centered>
+      <AddReviewContent {...rest} />
     </Modal>
   );
 }

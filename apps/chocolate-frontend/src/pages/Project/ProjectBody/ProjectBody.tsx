@@ -108,6 +108,7 @@ export function ProjectBody(props: ProjectBodyProps) {
       </Tabs.Panel>
 
       <AddReviewModal
+        projectName={data.name}
         opened={addReviewOpen}
         onClose={() => closeModal(ProjectModals.addReview)}
       />
