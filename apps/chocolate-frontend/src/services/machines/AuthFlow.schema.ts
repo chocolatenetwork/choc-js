@@ -15,7 +15,7 @@ export type AuthFlowEvents =
       reason: ErrorReasons;
     }
   | {
-      type: 'connected';
+      type: 'Retry';
     };
 export interface AuthFlowContext {
   errorReason?: ErrorReasons;

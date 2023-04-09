@@ -1,68 +1,48 @@
 import { assign, createMachine } from 'xstate';
-import {
-  AuthFlowContext,
-  AuthFlowEvents,
-  ErrorReasons,
-} from './AuthFlow.schema';
+import { AuthFlowContext, AuthFlowEvents } from './AuthFlow.schema';
 
 const initialContext: AuthFlowContext = {};
+
 export const AuthFlow = createMachine(
   {
     id: 'AuthFlow',
+    description:
+      'Generalise to Error-> handleError -> onError.\n\nAlso add a default for, we were unable to check your account, if not verified check...',
     initial: 'getUser',
-    context: initialContext,
     states: {
       getUser: {
+        entry: 'resetState',
         on: {
           Success: {
             target: 'Show',
-            actions: 'resetState',
+            description: 'Maybe add setUser',
           },
-          Error: [
-            {
-              target: 'connectWallet',
-              cond: 'notConnected',
-              actions: 'setError',
-            },
-            {
-              target: 'verify',
-              cond: 'notVerified',
-              actions: 'setError',
-            },
-          ],
+          Error: {
+            target: 'FixError',
+            actions: 'setError',
+          },
         },
       },
       Show: {
         type: 'final',
       },
-      connectWallet: {
+      FixError: {
         on: {
-          connected: {
+          Retry: {
             target: 'getUser',
           },
         },
-      },
-      verify: {
-        type: 'final',
       },
     },
     schema: {
       events: {} as AuthFlowEvents,
       context: {} as AuthFlowContext,
     },
+    tsTypes: {} as import('./AuthFlow.typegen').Typegen0,
     predictableActionArguments: true,
     preserveActionOrder: true,
-    tsTypes: {} as import('./AuthFlow.typegen').Typegen0,
   },
   {
-    guards: {
-      notVerified: (_, event) => {
-        return event.reason === ErrorReasons.notVerified;
-      },
-      notConnected: (_, event) => {
-        return event.reason === ErrorReasons.notConnected;
-      },
-    },
     actions: {
       setError: assign({
         errorReason: (_, event) => event.reason,

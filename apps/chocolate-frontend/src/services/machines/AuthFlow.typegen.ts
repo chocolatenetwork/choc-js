@@ -16,20 +16,19 @@
           services: never;
         };
         eventsCausingActions: {
-          "resetState": "Success";
+          "resetState": "Retry" | "xstate.init";
 "setError": "Error";
         };
         eventsCausingDelays: {
           
         };
         eventsCausingGuards: {
-          "notConnected": "Error";
-"notVerified": "Error";
+          
         };
         eventsCausingServices: {
           
         };
-        matchesStates: "Show" | "connectWallet" | "getUser" | "verify";
+        matchesStates: "FixError" | "Show" | "getUser";
         tags: never;
       }
   

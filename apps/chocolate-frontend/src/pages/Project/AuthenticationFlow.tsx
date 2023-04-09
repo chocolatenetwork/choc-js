@@ -3,7 +3,7 @@ import { ErrorReasons } from '$chocolate-frontend/services/machines/AuthFlow.sch
 import { keyringService } from '$chocolate-frontend/services/machines/Keyring';
 import { getCurrentUser } from '$chocolate-frontend/services/queries/users/getCurrentUser';
 import { AppError, ErrorCodes } from '$chocolate-frontend/utils/AppError';
-import { Modal } from '@mantine/core';
+import { Modal, Text } from '@mantine/core';
 import { useDidUpdate } from '@mantine/hooks';
 import { useQuery } from '@tanstack/react-query';
 import { useActor, useMachine } from '@xstate/react';
@@ -36,7 +36,7 @@ export function AuthenticationFlow(props: AuthenticationFlowProps) {
     }
   }
   // query user. This starts it all
-  useQuery({
+  const { isLoading } = useQuery({
     queryKey: ['users', 'current'],
     queryFn: getCurrentUser,
     enabled: state.matches('getUser') && validate,
@@ -53,25 +53,44 @@ export function AuthenticationFlow(props: AuthenticationFlowProps) {
     retry: false,
   });
   useDidUpdate(() => {
-    if (keyringState.matches('Selected')) send('connected');
+    if (keyringState.matches('Selected')) send('Retry');
     if (keyringState.matches('Idle')) {
       stop();
-      // Reset.
     }
   }, [keyringState]);
+  useDidUpdate(() => {
+    // Solve Idle issue with keyring.
+    if (keyringState.matches('Idle') && validate) {
+      send('Retry');
+    }
+  }, [validate]);
 
   // Show children if authed
   if (state.matches('Show')) return <>{children}</>;
 
-  if (state.matches('verify')) {
+  if (isLoading) {
+    return (
+      <Modal centered opened={validate} onClose={stop}>
+        <Text>Loading...</Text>
+      </Modal>
+    );
+  }
+
+  const { context } = state;
+
+  if (
+    state.matches('FixError') &&
+    context.errorReason === ErrorReasons.notVerified
+  ) {
     return (
       <Modal centered opened={validate} onClose={stop}>
         <VerifyPrompt />
       </Modal>
     );
   }
+
   if (
-    state.matches('getUser') &&
+    state.matches('FixError') &&
     state.context.errorReason === ErrorReasons.other
   ) {
     return (
@@ -80,6 +99,7 @@ export function AuthenticationFlow(props: AuthenticationFlowProps) {
       </Modal>
     );
   }
+
   // Do nothing by default
   return null;
 }
