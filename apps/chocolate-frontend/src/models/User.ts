@@ -5,6 +5,8 @@ export interface IUserDb {
   id: string;
   accountType: AccountType;
   points: number;
+  picture: string;
+
   // project: IProjectDb | null;
   // reviews: IReviewDb[] | null;
   createdAt: Date;
@@ -15,6 +17,7 @@ export interface IUserDbApi {
   id: string;
   accountType: AccountType;
   points: number;
+  picture: string;
   // project: IProjectDb | null;
   // reviews: IReviewDb[] | null;
   createdAt: string;

@@ -104,7 +104,7 @@ export function ProjectBody(props: ProjectBodyProps) {
             Add Review
           </Button>
         </AddReviewSection>
-        <Reviews query={reviewsQuery} />
+        <Reviews query={reviewsQuery} users={users} />
       </Tabs.Panel>
       <Tabs.Panel value={TabOptions.about}>
         <div className="about"></div>

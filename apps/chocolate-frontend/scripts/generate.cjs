@@ -3,6 +3,14 @@ const { Keyring } = require('@polkadot/keyring');
 // const { AccountType } = require('../../../packages/schema/src');
 
 module.exports = () => {
+  /**
+   *
+   * @param {string} id
+   * @returns
+   */
+  const getUserPic = (id) => {
+    return `https://api.dicebear.com/6.x/identicon/svg?seed=Mia${id}&backgroundColor=transparent&backgroundType[]`;
+  };
   const keyring = new Keyring();
 
   /**
@@ -24,6 +32,8 @@ module.exports = () => {
         // @ts-expect-error .env must be defined
         id: process.env.TEST_USER,
         points: 5,
+        // @ts-expect-error .env must be defined
+        picture: getUserPic(process.env.TEST_USER),
       },
     ],
   };
@@ -90,6 +100,7 @@ module.exports = () => {
           Number(faker.random.numeric(3, { allowLeadingZeros: true })) + 1, // one for this review.
         createdAt: faker.date.past().toJSON(),
         updatedAt: faker.date.recent().toJSON(),
+        picture: getUserPic(ownerReview.address),
       });
       reviewIndex += 1;
 
