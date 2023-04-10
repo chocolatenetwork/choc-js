@@ -1,18 +1,18 @@
 import { toConverter } from '$chocolate-frontend/utils/toConverter';
 
 export interface IReviewDb {
-  reviewId: number;
+  id: number;
   rating: number;
-  userAccountId: string;
-  projectProjectId: number;
+  userId: string;
+  projectId: number;
   createdAt: Date;
   updatedAt: Date;
 }
 export interface IReviewDbApi {
-  reviewId: number;
+  id: number;
   rating: number;
-  userAccountId: string;
-  projectProjectId: number;
+  userId: string;
+  projectId: number;
   createdAt: string;
   updatedAt: string;
 }
@@ -25,4 +25,4 @@ function intoReview(api: IReviewDbApi): IReviewDb {
   };
 }
 
-export default toConverter(intoReview, 'reviewId');
+export default toConverter(intoReview, 'id');

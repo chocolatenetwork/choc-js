@@ -2,7 +2,7 @@ import { toConverter } from '$chocolate-frontend/utils/toConverter';
 import { AccountType } from '@choc-js/schema';
 
 export interface IUserDb {
-  accountId: string;
+  id: string;
   accountType: AccountType;
   points: number;
   // project: IProjectDb | null;
@@ -12,7 +12,7 @@ export interface IUserDb {
 }
 
 export interface IUserDbApi {
-  accountId: string;
+  id: string;
   accountType: AccountType;
   points: number;
   // project: IProjectDb | null;
@@ -28,4 +28,4 @@ function intoUser(api: IUserDbApi): IUserDb {
     updatedAt: new Date(api.updatedAt),
   };
 }
-export default toConverter(intoUser, 'accountId');
+export default toConverter(intoUser, 'id');

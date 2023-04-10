@@ -15,7 +15,7 @@ export function ProjectCard(props: ProjectCardProps) {
   const normalValue = getAverage(project.ratingSum, project.reviewCount);
   const ratingValue = toAverageValue(normalValue);
   const rating = formatRating(normalValue);
-  const url = `/project/${project.projectId}`;
+  const url = `/project/${project.id}`;
   const href = useHref(url);
   const handleClick = useLinkClickHandler<HTMLElement>(url);
   return (

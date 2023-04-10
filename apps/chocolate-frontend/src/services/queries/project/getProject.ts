@@ -5,7 +5,7 @@ import Project, {
 import { mockApi } from '$chocolate-frontend/services/api/api';
 
 export async function getProject(id: string): Promise<IProjectDb> {
-  const params = new URLSearchParams([['projectId', id]]);
+  const params = new URLSearchParams([['id', id]]);
 
   const { data } = await mockApi.get<[IProjectDbApi]>(`/projects`, { params });
   return Project.into(data[0]);

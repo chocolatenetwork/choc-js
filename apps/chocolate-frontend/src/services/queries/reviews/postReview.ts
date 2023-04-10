@@ -11,9 +11,9 @@ async function postReview(params: IPostReview) {
   const { selectedAccount } = getKeyring();
   // create review
   const review: Partial<IReviewDbApi> = {
-    projectProjectId: params.projectId,
+    projectId: params.projectId,
     rating: params.rating,
-    userAccountId: selectedAccount.address,
+    userId: selectedAccount.address,
   };
   const { data } = await mockApi.post<[IReviewDbApi]>('/reviews', review);
 

@@ -27,7 +27,7 @@ export function AddReviewContent(props: AddReviewContentProps) {
     async onSuccess(data) {
       // for now.
       await patchProject({
-        projectId: project.projectId,
+        projectId: project.id,
         ratingSum: (project.ratingSum += data.rating),
         reviewCount: (project.reviewCount += 1),
       });
@@ -37,7 +37,7 @@ export function AddReviewContent(props: AddReviewContentProps) {
   // Todo: add auth required
   const doMutate = form.handleSubmit((data) => {
     return mutate.mutate({
-      projectId: project.projectId,
+      projectId: project.id,
       rating: data.rating,
     });
   });

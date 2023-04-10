@@ -26,7 +26,7 @@ module.exports = () => {
   for (let projectId = 1; projectId < 11; projectId++) {
     const owner = keyring.createFromUri(`//Alice//hard${projectId}`);
     data.users.push({
-      accountId: owner.address,
+      id: owner.address,
       // @ts-expect-error AccountType enum type
       accountType: 'project',
       points: 0,
@@ -35,10 +35,10 @@ module.exports = () => {
     });
 
     data.projects.push({
-      projectId: projectId,
+      id: projectId,
       ratingSum: 0,
       reviewCount: 0,
-      userOwnerId: owner.address,
+      userId: owner.address,
       name: faker.company.name(),
 
       logo: `https://api.dicebear.com/6.x/shapes/svg?seed=Mia${projectId}&backgroundColor=transparent&backgroundType[]`,
@@ -60,16 +60,16 @@ module.exports = () => {
 
       const ratingNumber = Number(rating);
       data.reviews.push({
-        reviewId: reviewIndex,
+        id: reviewIndex,
         rating: ratingNumber,
-        userAccountId: ownerReview.address,
-        projectProjectId: projectId,
+        userId: ownerReview.address,
+        projectId: projectId,
         createdAt: faker.date.past().toJSON(),
         updatedAt: faker.date.recent().toJSON(),
       });
 
       data.users.push({
-        accountId: ownerReview.address,
+        id: ownerReview.address,
         // @ts-expect-error AccountType enum type
         accountType: 'user',
         points:

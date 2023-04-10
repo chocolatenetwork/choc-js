@@ -15,7 +15,7 @@ export function ProjectsBody(props: ProjectsBodyProps) {
   return (
     <StyledDiv data-itemlen={calcLen(width)} ref={ref}>
       {data.map((each) => {
-        return <ProjectCard project={each} key={each.projectId} />;
+        return <ProjectCard project={each} key={each.id} />;
       })}
     </StyledDiv>
   );

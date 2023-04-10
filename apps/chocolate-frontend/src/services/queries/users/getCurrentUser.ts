@@ -5,7 +5,7 @@ import { AppError, ErrorCodes } from '$chocolate-frontend/utils/AppError';
 
 export async function getCurrentUser(): Promise<IUserDb> {
   const { selectedAccount } = getKeyring();
-  const params = new URLSearchParams([['accountId', selectedAccount.address]]);
+  const params = new URLSearchParams([['id', selectedAccount.address]]);
   const getPromise = mockApi.get<[IUserDbApi]>(`/users`, { params });
 
   const dataPromise = getPromise

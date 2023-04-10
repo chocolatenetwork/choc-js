@@ -1,10 +1,11 @@
 import { toConverter } from '$chocolate-frontend/utils/toConverter';
 
 export interface IProjectDb {
-  projectId: number;
+  id: number;
   ratingSum: number;
   reviewCount: number;
-  userOwnerId: string;
+  /** Owner */
+  userId: string;
   name: string;
   logo: string;
   description: string;
@@ -12,10 +13,11 @@ export interface IProjectDb {
   updatedAt: Date;
 }
 export interface IProjectDbApi {
-  projectId: number;
+  id: number;
   ratingSum: number;
   reviewCount: number;
-  userOwnerId: string;
+  /** Owner */
+  userId: string;
   name: string;
   logo: string;
   description: string;
@@ -31,4 +33,4 @@ function intoProject(api: IProjectDbApi): IProjectDb {
   };
 }
 
-export default toConverter(intoProject, 'projectId');
+export default toConverter(intoProject, 'id');
