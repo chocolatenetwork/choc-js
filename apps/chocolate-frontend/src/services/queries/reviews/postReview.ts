@@ -14,10 +14,12 @@ async function postReview(params: IPostReview) {
     projectId: params.projectId,
     rating: params.rating,
     userId: selectedAccount.address,
+    createdAt: new Date().toJSON(),
+    updatedAt: new Date().toJSON(),
   };
-  const { data } = await mockApi.post<[IReviewDbApi]>('/reviews', review);
+  const { data } = await mockApi.post<IReviewDbApi>('/reviews', review);
 
-  return Review.into(data[0]);
+  return Review.into(data);
 }
 
 export { postReview };

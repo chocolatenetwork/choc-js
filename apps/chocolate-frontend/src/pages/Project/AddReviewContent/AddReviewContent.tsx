@@ -22,19 +22,19 @@ export function AddReviewContent(props: AddReviewContentProps) {
   const form = useForm({
     defaultValues: getAddReviewDefault(),
   });
-  // todo: mutation, submit.
+
   const mutate = useMutation(postReview, {
     async onSuccess(data) {
       // for now.
       await patchProject({
-        projectId: project.id,
+        id: project.id,
         ratingSum: (project.ratingSum += data.rating),
         reviewCount: (project.reviewCount += 1),
       });
       onClose();
     },
   });
-  // Todo: add auth required
+
   const doMutate = form.handleSubmit((data) => {
     return mutate.mutate({
       projectId: project.id,

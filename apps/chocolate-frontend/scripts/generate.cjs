@@ -12,7 +12,21 @@ module.exports = () => {
    *  users: import("../src/models/User").IUserDbApi[],
    * }}
    */
-  const data = { projects: [], reviews: [], users: [] };
+  const data = {
+    projects: [],
+    reviews: [],
+    users: [
+      {
+        // @ts-expect-error AccountType enum type
+        accountType: 'user',
+        createdAt: new Date().toJSON(),
+        updatedAt: new Date().toJSON(),
+        // @ts-expect-error .env must be defined
+        id: process.env.TEST_USER,
+        points: 5,
+      },
+    ],
+  };
   // Create 10 projects, doesn't matter who owns fn.
   // projectId: number;
   // ratingSum: number;
