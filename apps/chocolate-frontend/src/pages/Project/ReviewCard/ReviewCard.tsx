@@ -13,7 +13,7 @@ interface ReviewCardProps {
 const USER_PROFILE_IMAGE_SIZE = 64;
 export function ReviewCard(props: ReviewCardProps) {
   const { review, user } = props;
-  console.log(user);
+
   return (
     <StyledDiv>
       <Image

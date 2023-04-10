@@ -20,7 +20,12 @@ export function Project() {
   });
   const reviewQuery = useQuery({
     queryKey: ['project', 'reviews', params.id],
-    queryFn: () => getReviewsByProject(definedParam),
+    queryFn: () =>
+      getReviewsByProject({
+        id: definedParam,
+        sort: 'createdAt',
+        direction: 'DESC',
+      }),
     enabled: isParamDefined,
   });
   const usersQuery = useQuery({
