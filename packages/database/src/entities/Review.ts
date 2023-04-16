@@ -44,5 +44,9 @@ export class Review {
   @Column({
     type: 'varchar',
   })
+  datahash!: string;
+  @Column({
+    type: 'varchar',
+  })
   signature!: string;
 }

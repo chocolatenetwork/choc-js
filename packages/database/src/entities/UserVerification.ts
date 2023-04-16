@@ -22,6 +22,10 @@ export class UserVerification {
   @Column({
     type: 'varchar',
   })
+  datahash!: string;
+  @Column({
+    type: 'varchar',
+  })
   signature!: string;
 
   // user info
