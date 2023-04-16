@@ -69,6 +69,22 @@
         "command": "supabase stop",
         "cwd": "packages/database"
       }
+    },
+    "supabase": {
+      "executor": "nx:run-commands",
+      "outputs": [],
+      "options": {
+        "command": "supabase",
+        "cwd": "packages/database"
+      }
+    },
+    "supabase-migration-generate": {
+      "executor": "nx:run-commands",
+      "outputs": [],
+      "options": {
+        "command": "supabase db diff --use-migra -f migration ",
+        "cwd": "packages/database"
+      }
     }
   },
   "tags": ["server"]
