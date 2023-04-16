@@ -14,7 +14,7 @@ import { User } from './User';
 @Entity()
 export class Project {
   @PrimaryGeneratedColumn()
-  projectId!: number;
+  id!: number;
 
   @Column({
     default: 0,
@@ -47,6 +47,20 @@ export class Project {
   })
   updatedAt!: Date;
 
+  @Column({
+    type: 'varchar',
+  })
   name!: string;
-  logo!: string;
+
+  @Column({
+    type: 'varchar',
+    nullable: true,
+  })
+  logo!: string | null;
+
+  @Column({
+    type: 'text',
+    nullable: true,
+  })
+  description!: string | null;
 }

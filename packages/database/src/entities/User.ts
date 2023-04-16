@@ -10,10 +10,11 @@ import {
 } from 'typeorm';
 import { Project } from './Project';
 import { Review } from './Review';
+import { UserVerification } from './UserVerification';
 @Entity()
 export class User {
-  @PrimaryGeneratedColumn()
-  accountId!: number;
+  @PrimaryGeneratedColumn('uuid')
+  id!: string;
 
   @Column({
     type: 'enum',
@@ -22,7 +23,7 @@ export class User {
   accountType!: AccountType;
 
   @Column({
-    default: 0,
+    default: 1,
     type: 'integer',
   })
   points!: number;
@@ -30,7 +31,9 @@ export class User {
   @OneToOne(() => Project, { nullable: true })
   project!: Project | null;
 
-  @OneToMany(() => Review, (review) => review.user, { nullable: true })
+  @OneToMany(() => Review, (review) => review.user, {
+    nullable: true,
+  })
   reviews!: Review[] | null;
 
   @CreateDateColumn({
@@ -44,5 +47,19 @@ export class User {
     default: () => 'CURRENT_TIMESTAMP(0)',
   })
   updatedAt!: Date;
+
+  @Column({
+    type: 'varchar',
+    nullable: true,
+  })
+  picture!: string | null;
+  @Column({
+    type: 'varchar',
+    unique: true,
+  })
+  address!: string;
+
+  @OneToOne(() => UserVerification, { nullable: true })
+  userVerification!: UserVerification | null;
 }
 

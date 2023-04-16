@@ -5,6 +5,7 @@ export interface IReviewDb {
   rating: number;
   userId: string;
   projectId: number;
+  signature: string;
   createdAt: Date;
   updatedAt: Date;
 }
@@ -13,6 +14,7 @@ export interface IReviewDbApi {
   rating: number;
   userId: string;
   projectId: number;
+  signature: string;
   createdAt: string;
   updatedAt: string;
 }

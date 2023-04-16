@@ -13,7 +13,7 @@ import { User } from './User';
 @Entity()
 export class Review {
   @PrimaryGeneratedColumn()
-  reviewId!: number;
+  id!: number;
 
   @Column({
     default: 0,
@@ -40,4 +40,9 @@ export class Review {
     default: () => 'CURRENT_TIMESTAMP(0)',
   })
   updatedAt!: Date;
+
+  @Column({
+    type: 'varchar',
+  })
+  signature!: string;
 }
