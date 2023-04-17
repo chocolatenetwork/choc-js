@@ -7,16 +7,13 @@
     "Brand": {
       "properties": {
         "logo": {
-          "type": "string"
+          "$ref": "#/definitions/ResourceLink"
         },
         "name": {
           "type": "string"
         }
       },
-      "required": [
-        "logo",
-        "name"
-      ],
+      "required": ["logo", "name"],
       "type": "object"
     },
     "Literature": {
@@ -60,11 +57,7 @@
           "type": "string"
         }
       },
-      "required": [
-        "link",
-        "name",
-        "type"
-      ],
+      "required": ["link", "name", "type"],
       "type": "object"
     },
     "Token": {
@@ -82,12 +75,7 @@
           "type": "string"
         }
       },
-      "required": [
-        "logo",
-        "name",
-        "ticker",
-        "type"
-      ],
+      "required": ["logo", "name", "ticker", "type"],
       "type": "object"
     }
   },
@@ -129,16 +117,6 @@
       "type": "number"
     }
   },
-  "required": [
-    "Admin Id",
-    "Badge",
-    "Brand",
-    "Contact",
-    "Description",
-    "Literature",
-    "Project Id",
-    "Total Reviewers",
-    "Total rating"
-  ],
+  "required": ["Brand"],
   "type": "object"
 }

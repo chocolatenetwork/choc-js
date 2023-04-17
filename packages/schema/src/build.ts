@@ -1,6 +1,6 @@
 import { mkdir, writeFile } from 'fs/promises';
-import stringify from 'json-stable-stringify';
 import { resolve } from 'path';
+import { stringify } from 'safe-stable-stringify';
 import * as TJS from 'typescript-json-schema';
 import { throwIfErr } from './lib/util';
 // optionally pass argument to schema generator
@@ -17,9 +17,7 @@ const schemas = [
   ['Project', 'project/project-schema.json'],
   ['ResourceLink', 'resource-link/resource-link-schema.json'],
   ['Review', 'review/review-schema.json'],
-  ['BaseUser', 'user/base-user-schema.json'],
-  ['ProjectAdminUser', 'user/project-admin-user-schema.json'],
-  ['RegularUser', 'user/regular-user-schema.json'],
+  ['User', 'user/user-schema.json'],
 ];
 
 export function build(basePath: string): void {
@@ -33,9 +31,7 @@ export function build(basePath: string): void {
     const dir = resolve(objPath, '../');
     mkdir(dir, { recursive: true })
       .then(() => {
-        writeFile(objPath, stringify(obj, { space: 2 }), 'utf-8').catch(
-          throwIfErr
-        );
+        writeFile(objPath, stringify(obj, null, 2), 'utf-8').catch(throwIfErr);
       })
       .catch(throwIfErr);
   }

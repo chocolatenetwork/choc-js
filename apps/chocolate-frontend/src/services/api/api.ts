@@ -1,17 +1,14 @@
 import { ApiPromise, WsProvider } from '@polkadot/api';
 import { ContractPromise } from '@polkadot/api-contract';
+import axios from 'axios';
 import { ApiMachineSender } from '../machines/Api';
-
 type AbiType = Record<string, unknown>;
 
 // May need some clever way to get this from user input or elsewhere
 // Paste the address here each time it's uploaded
 // Look into whether we can query for this
-export const CONTRACT_ADDRESS =
-  '5DAmdtaZj3NpwDcNVLPLD7rU2mfqVERjQg1Pbc2fFeN6fddN';
-export async function createApi(
-  send: ApiMachineSender
-): Promise<() => Promise<void>> {
+export const CONTRACT_ADDRESS = import.meta.env.VITE_CONTRACT_ADDRESS;
+async function createApi(send: ApiMachineSender): Promise<() => Promise<void>> {
   const { default: contractAbi } = await import(
     '../../assets/contract/chocolate.json'
   );
@@ -51,3 +48,8 @@ export async function createApi(
 
   return api.disconnect;
 }
+
+const mockApi = axios.create({
+  baseURL: 'http://localhost:3000',
+});
+export { createApi, mockApi };

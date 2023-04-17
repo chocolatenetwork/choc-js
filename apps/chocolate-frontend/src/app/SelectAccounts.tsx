@@ -1,9 +1,10 @@
 import { Button, Select } from '@mantine/core';
+
 import { useState } from 'react';
 import styled from 'styled-components';
 import { KeyringMachineState } from '../services/machines/Keyring';
 import { KeyringMachineSender } from '../services/machines/Keyring.schema';
-
+import { AccountSelectInfo } from './AccountSelectInfo';
 interface SelectAccountsProps {
   send: KeyringMachineSender;
   state: KeyringMachineState;
@@ -26,7 +27,12 @@ function SelectAccounts(props: SelectAccountsProps) {
       <Select
         data={accountItems}
         value={selectedAddress}
-        label="Account"
+        label={
+          <div className="LabelWithInfo">
+            <span>Account</span>
+            <AccountSelectInfo />
+          </div>
+        }
         placeholder="Select an account..."
         onChange={setSelected}
       />
@@ -51,4 +57,9 @@ export default styled(SelectAccounts)`
   flex-direction: column;
   justify-content: space-between;
   row-gap: 10px;
+
+  .LabelWithInfo {
+    display: flex;
+    column-gap: 10px;
+  }
 `;

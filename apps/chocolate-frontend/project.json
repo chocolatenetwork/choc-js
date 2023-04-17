@@ -77,6 +77,13 @@
       "options": {
         "lintFilePatterns": ["apps/chocolate-frontend/**/*.{ts,tsx,js,jsx}"]
       }
+    },
+    "mock-server": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "json-server --watch scripts/generate.cjs",
+        "cwd": "apps/chocolate-frontend"
+      }
     }
   },
   "tags": []

@@ -18,6 +18,7 @@ function Wallet(props: WalletProps) {
             opened={['Loading', 'Error', 'Selecting'].some(state.matches)}
             onClose={() => send('CANCEL')}
             centered
+            title="Connect Wallet"
             closeOnClickOutside={false}
           >
             <WalletModalBodies state={state} send={send} />
