@@ -6,4 +6,3 @@ export interface IContext extends Context {
   hashHex: string;
   client: SupabaseClient<Database>;
 }
-

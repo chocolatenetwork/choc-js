@@ -2,11 +2,9 @@
 
 This library contains the current database schema for chocolate and handles (**model-changing**) schema migrations using typeorm.
 
-
 ## Generating migrations
 
-
-Todo:  Better migration workflow,
+Todo: Better migration workflow,
 
 Migrations are created using typeorm to enable rollback over already-committed database versions, and saved in sql for supabase to pick up.
 

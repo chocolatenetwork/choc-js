@@ -118,5 +118,3 @@ export function ProjectBody(props: ProjectBodyProps) {
     </Tabs>
   );
 }
-
-

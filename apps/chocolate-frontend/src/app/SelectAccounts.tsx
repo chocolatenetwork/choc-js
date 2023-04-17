@@ -63,5 +63,3 @@ export default styled(SelectAccounts)`
     column-gap: 10px;
   }
 `;
-
-

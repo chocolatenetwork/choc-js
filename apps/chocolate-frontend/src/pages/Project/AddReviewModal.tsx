@@ -22,5 +22,4 @@ export function AddReviewModal(props: AddReviewModalProps) {
       </Modal>
     </AuthenticationFlow>
   );
-
 }

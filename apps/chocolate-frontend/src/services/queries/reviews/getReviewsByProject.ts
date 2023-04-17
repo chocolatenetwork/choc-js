@@ -1,7 +1,6 @@
 import { mockApi } from '$chocolate-frontend/services/api/api';
 import Review, { IReviewDb, IReviewDbApi } from '../../../models/Review';
 
-
 interface Filter {
   sort?: string;
   direction?: 'ASC' | 'DESC' | undefined;

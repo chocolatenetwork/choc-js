@@ -5,7 +5,7 @@ export function logError(
   err: ApplicationErrorEvent<State, Application['state']>
 ) {
   const { error } = err;
- if (error.cause !== undefined) {
-   console.error('[Error Cause]', JSON.stringify(error.cause));
- }
+  if (error.cause !== undefined) {
+    console.error('[Error Cause]', JSON.stringify(error.cause));
+  }
 }

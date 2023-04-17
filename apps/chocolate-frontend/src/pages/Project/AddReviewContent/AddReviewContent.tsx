@@ -61,4 +61,3 @@ export function AddReviewContent(props: AddReviewContentProps) {
     </StyledDiv>
   );
 }
-

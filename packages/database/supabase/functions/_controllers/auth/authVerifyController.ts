@@ -16,7 +16,6 @@ export function authVerifyController(): Middleware {
     const { verificationId } = body2;
     const { client } = context.state as IContext;
 
-
     const verification = await client
       .from('user_verification')
       .select('*')

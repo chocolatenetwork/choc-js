@@ -6,7 +6,6 @@ export function hashBody(keys: string[]): Middleware {
   return async (ctx, next) => {
     const bodyValue = ctx.request.body({ type: 'json' });
 
-
     const bodyJson = await bodyValue.value;
 
     const mappedEntries = Object.entries(bodyJson).filter((value) => {
