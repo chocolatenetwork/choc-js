@@ -1,10 +1,11 @@
-import { createClient } from '@supabase/supabase-js';
-import { HttpError, httpErrors, Router } from 'oak';
+import { SupabaseClient } from '@supabase/supabase-js';
+import { httpErrors, Router } from 'oak';
 import { isIn, isString, required } from 'validasaur/src/rules.ts';
 import { Database } from '../../../src/lib/schema.ts';
-import { PostgresErrors, toMessage } from './utils/AppError.ts';
+import { toMessage } from './utils/AppError.ts';
 import { hashBody } from './utils/hashBody.ts';
 import { requestValidator } from './utils/request-validator.ts';
+import { supabaseAdmin } from './utils/supabaseAdmin.ts';
 import { verifyHash } from './utils/verifyHash.ts';
 
 enum AccountType {
@@ -31,53 +32,47 @@ interface IBody {
   picture?: string;
   description?: string;
 }
-
+interface IContext {
+  hashHex: string;
+  client: SupabaseClient<Database>;
+}
 router.post(
   '/signup',
   requestValidator({ bodyRules: signupSchema }),
   hashBody(['name', 'twitter', 'picture', 'description', 'accountType']),
   verifyHash(),
+  supabaseAdmin(),
   async (context) => {
     const body2: IBody = await context.request.body({ limit: 0, type: 'json' })
       .value;
-    try {
-      // Create a Supabase client with a service role
-      const supabaseClient = createClient<Database>(
-        Deno.env.get('SUPABASE_URL') ?? '',
-        Deno.env.get('SUPABASE_SERVICE_ROLE_KEY') ?? ''
-      );
+    const { hashHex, client } = context.state as IContext;
+    const userExisting = await client
+      .from('user_verification')
+      .select('id')
+      .filter('address', 'eq', hashHex);
+    if (userExisting.data) {
+      throw new httpErrors.BadRequest(toMessage('Already signed up'));
+    }
+    // Run queries with full priviledge
+    const result = await client
+      .from('user_verification')
+      .insert({
+        accountType: body2.accountType,
+        address: body2.address,
+        datahash: context.state.hashHex,
+        name: body2.name,
+        signature: body2.signature,
+        twitter: body2.twitter,
+        description: body2.description,
+        picture: body2.picture,
+      })
+      .select();
 
-      // Run queries with full priviledge
-      const result = await supabaseClient
-        .from('user_verification')
-        .insert({
-          accountType: body2.accountType,
-          address: body2.address,
-          datahash: context.state.hashHex,
-          name: body2.name,
-          signature: body2.signature,
-          twitter: body2.twitter,
-          description: body2.description,
-          picture: body2.picture,
-        })
-        .select();
-
-      if (result.error?.code === PostgresErrors.UNIQUE_CONSTRAINT) {
-        throw new httpErrors.BadRequest(toMessage('Already signed up'));
-      }
-      if (result.error) {
-        throw new httpErrors.InternalServerError(
-          toMessage('Error saving user')
-        );
-      }
+    if (result.error) {
+      throw new httpErrors.InternalServerError(toMessage('Error saving user'));
+    }
 
       context.response.body = result.data[0];
-    } catch (err) {
-      if (err instanceof HttpError) {
-        throw err;
-      }
-      throw new httpErrors.InternalServerError();
-    }
   }
 );
 
