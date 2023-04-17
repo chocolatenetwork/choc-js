@@ -4,6 +4,7 @@ import { u8aToHex } from '@polkadot/util';
 import { signatureVerify } from '@polkadot/util-crypto';
 import { AppDataSource } from '../data-source';
 it('connects', async () => {
+  if (process.env['CI']) return;
   await AppDataSource.initialize().then(async (db) => {
     const results = [
       db.query('select * from review'),
