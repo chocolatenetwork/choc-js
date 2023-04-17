@@ -8,6 +8,8 @@ import { requestValidator } from '../_shared/request-validator.ts';
 import { supabaseAdmin } from '../_shared/supabaseAdmin.ts';
 import { verifyHash } from '../_shared/verifyHash.ts';
 import { IBodyBase } from '../_types/IBodyBase.ts';
+import { withUser } from '../_shared/withUser.ts';
+import { UserRole } from '../_enums/UserRole.ts';
 
 const router = new Router();
 
@@ -45,6 +47,7 @@ router.put(
   hashBody(['verificationId']),
   verifyHash(),
   supabaseAdmin(),
+  withUser([UserRole.admin]),
   authVerifyController()
 );
 

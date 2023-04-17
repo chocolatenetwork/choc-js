@@ -1,6 +1,5 @@
 import { httpErrors, Middleware } from 'oak';
 import { AccountType } from '../../_enums/AccountType.ts';
-import { UserRole } from '../../_enums/UserRole.ts';
 import { toMessage } from '../../_shared/AppError.ts';
 import { IBodyBase } from '../../_types/IBodyBase.ts';
 import { IContext } from '../../_types/IContext.ts';
@@ -14,27 +13,10 @@ export function authVerifyController(): Middleware {
       limit: 0,
       type: 'json',
     }).value;
-    const { verificationId, address } = body2;
-    const { hashHex, client } = context.state as IContext;
+    const { verificationId } = body2;
+    const { client } = context.state as IContext;
 
-    // An address only belongs to one user, so using address to query user is fine here.
-    const foundAdmin = await client
-      .from('user')
-      .select('userRole, address')
-      .filter('address', 'eq', address)
-      .filter('userRole', 'eq', UserRole.admin)
-      .limit(1);
 
-    if (foundAdmin.error) {
-      throw new httpErrors.InternalServerError(undefined, {
-        cause: foundAdmin.error,
-      });
-    }
-    if (foundAdmin.data?.length === 0) {
-      throw new httpErrors.Unauthorized(undefined, {
-        cause: foundAdmin.error,
-      });
-    }
     const verification = await client
       .from('user_verification')
       .select('*')

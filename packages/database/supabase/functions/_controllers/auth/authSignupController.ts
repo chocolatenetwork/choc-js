@@ -16,12 +16,14 @@ export function authSignupController(): Middleware {
   return async (context) => {
     const body2: IBody = await context.request.body({ limit: 0, type: 'json' })
       .value;
-    const { hashHex, client } = context.state as IContext;
+    const { client } = context.state as IContext;
     const userExisting = await client
       .from('user_verification')
       .select('id')
-      .filter('address', 'eq', hashHex);
-    if (Number(userExisting.data?.length) === 1) {
+      .filter('address', 'eq', body2.address)
+      .limit(1);
+
+    if (userExisting.data?.length === 1) {
       throw new httpErrors.BadRequest(toMessage('Already signed up'));
     }
     // Run queries with full priviledge
@@ -40,7 +42,9 @@ export function authSignupController(): Middleware {
       .select();
 
     if (result.error) {
-      throw new httpErrors.InternalServerError(toMessage('Error saving user'));
+      throw new httpErrors.InternalServerError(toMessage('Error saving user'), {
+        cause: result.error,
+      });
     }
 
     context.response.body = result.data[0];
