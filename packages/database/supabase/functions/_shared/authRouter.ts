@@ -1,6 +1,6 @@
 import { SupabaseClient } from '@supabase/supabase-js';
 import { httpErrors, Router } from 'oak';
-import { isIn, isString, required } from 'validasaur/src/rules.ts';
+import { isIn, isNumber, isString, required } from 'validasaur/src/rules.ts';
 import { Database } from '../../../src/lib/schema.ts';
 import { toMessage } from './utils/AppError.ts';
 import { hashBody } from './utils/hashBody.ts';
@@ -8,11 +8,15 @@ import { requestValidator } from './utils/request-validator.ts';
 import { supabaseAdmin } from './utils/supabaseAdmin.ts';
 import { verifyHash } from './utils/verifyHash.ts';
 
-enum AccountType {
-  project = 'project',
-  user = 'user',
+export enum AccountType {
+  Project = 'project',
+  User = 'user',
 }
 
+export enum UserRole {
+  admin = 'admin',
+  normal = 'normal',
+}
 const router = new Router();
 
 interface IBodyBase {
@@ -55,7 +59,7 @@ router.post(
       .from('user_verification')
       .select('id')
       .filter('address', 'eq', hashHex);
-    if (userExisting.data) {
+    if (Number(userExisting.data?.length) === 1) {
       throw new httpErrors.BadRequest(toMessage('Already signed up'));
     }
     // Run queries with full priviledge
@@ -82,18 +86,18 @@ router.post(
 );
 
 interface IVerifyBody extends IBodyBase {
-  userId: string;
+  verificationId: number;
 }
 router.put(
   '/verify',
   requestValidator({
     bodyRules: {
-      userId: [required, isString],
+      verificationId: [required, isNumber],
       address: [required, isString],
       signature: [required, isString],
     },
   }),
-  hashBody(['userId']),
+  hashBody(['verificationId']),
   verifyHash(),
   supabaseAdmin(),
 
@@ -102,18 +106,43 @@ router.put(
       limit: 0,
       type: 'json',
     }).value;
+    const { verificationId, address } = body2;
     const { hashHex, client } = context.state as IContext;
-    const userExisting = await client
+
+    // An address only belongs to one user, so using address to query user is fine here.
+    const foundAdmin = await client
+      .from('user')
+      .select('userRole, address')
+      .filter('address', 'eq', address)
+      .filter('userRole', 'eq', UserRole.admin)
+      .limit(1);
+    // Todo: add logging.
+    if (foundAdmin.error) {
+      throw new httpErrors.InternalServerError(undefined, {
+        cause: foundAdmin.error,
+      });
+    }
+    if (foundAdmin.data?.length === 0) {
+      throw new httpErrors.Unauthorized(undefined, {
+        cause: foundAdmin.error,
+      });
+    }
+    const verification = await client
       .from('user_verification')
       .select('id')
-      .filter('address', 'eq', hashHex);
-    if (!userExisting.data) {
+      .filter('id', 'eq', verificationId)
+      .limit(1);
+
+    if (verification.error) {
+      throw new httpErrors.InternalServerError();
+    }
+    if (verification.data?.length === 0) {
       throw new httpErrors.BadRequest(
         toMessage('User verification does not exist')
       );
     }
-    context.response.body =
-      'This is an example Oak server running on Edge Functions!, verify route';
+
+    context.response.body = verification.data[0];
   }
 );
 
