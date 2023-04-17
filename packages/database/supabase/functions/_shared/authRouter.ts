@@ -14,19 +14,14 @@ enum AccountType {
 }
 
 const router = new Router();
-const signupSchema = {
-  accountType: [required, isIn(Object.values(AccountType))],
-  address: [required, isString],
-  signature: [required, isString],
-  name: [required, isString],
-  twitter: [required, isString],
-  picture: [isString],
-  description: [isString],
-};
-interface IBody {
-  accountType: AccountType;
+
+interface IBodyBase {
   address: string;
   signature: string;
+}
+interface IBody extends IBodyBase {
+  accountType: AccountType;
+
   name: string;
   twitter: string;
   picture?: string;
@@ -38,7 +33,17 @@ interface IContext {
 }
 router.post(
   '/signup',
-  requestValidator({ bodyRules: signupSchema }),
+  requestValidator({
+    bodyRules: {
+      accountType: [required, isIn(Object.values(AccountType))],
+      name: [required, isString],
+      twitter: [required, isString],
+      picture: [isString],
+      description: [isString],
+      address: [required, isString],
+      signature: [required, isString],
+    },
+  }),
   hashBody(['name', 'twitter', 'picture', 'description', 'accountType']),
   verifyHash(),
   supabaseAdmin(),
@@ -72,13 +77,44 @@ router.post(
       throw new httpErrors.InternalServerError(toMessage('Error saving user'));
     }
 
-      context.response.body = result.data[0];
+    context.response.body = result.data[0];
   }
 );
 
-router.post('/verify', (context) => {
-  context.response.body =
-    'This is an example Oak server running on Edge Functions!, verify route';
-});
+interface IVerifyBody extends IBodyBase {
+  userId: string;
+}
+router.put(
+  '/verify',
+  requestValidator({
+    bodyRules: {
+      userId: [required, isString],
+      address: [required, isString],
+      signature: [required, isString],
+    },
+  }),
+  hashBody(['userId']),
+  verifyHash(),
+  supabaseAdmin(),
+
+  async (context) => {
+    const body2: IVerifyBody = await context.request.body({
+      limit: 0,
+      type: 'json',
+    }).value;
+    const { hashHex, client } = context.state as IContext;
+    const userExisting = await client
+      .from('user_verification')
+      .select('id')
+      .filter('address', 'eq', hashHex);
+    if (!userExisting.data) {
+      throw new httpErrors.BadRequest(
+        toMessage('User verification does not exist')
+      );
+    }
+    context.response.body =
+      'This is an example Oak server running on Edge Functions!, verify route';
+  }
+);
 
 export default router;

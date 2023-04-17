@@ -1,4 +1,4 @@
-import { AccountType } from '@choc-js/schema';
+import { AccountType, UserRole } from '@choc-js/schema';
 import {
   Column,
   CreateDateColumn,
@@ -61,5 +61,11 @@ export class User {
 
   @OneToOne(() => UserVerification, { nullable: true })
   userVerification!: UserVerification | null;
-}
 
+  @Column({
+    type: 'enum',
+    default: UserRole.normal,
+    enum: UserRole,
+  })
+  userRole!: UserRole;
+}

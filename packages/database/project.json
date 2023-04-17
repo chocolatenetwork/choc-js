@@ -25,7 +25,7 @@
       "executor": "nx:run-commands",
       "outputs": [],
       "options": {
-        "command": "nx run database:typeorm -- migration:generate src/migrations/{args.name}"
+        "command": "nx run database:typeorm -- migration:generate src/migrations/{args.name} -p"
       },
       "configurations": {
         "default": {
