@@ -1,5 +1,6 @@
 import { httpErrors, Middleware } from 'oak';
 import { polkaSignatureVerify } from '../polkaSignatureVerify.ts';
+import { toMessage } from './AppError.ts';
 
 export function verifyHash(): Middleware {
   return async (ctx, next) => {
@@ -10,8 +11,7 @@ export function verifyHash(): Middleware {
 
     const isValid = polkaSignatureVerify(address, hashHex, signature);
     if (!isValid) {
-      const mesage = JSON.stringify({ message: 'Signature verify error' });
-      throw new httpErrors.BadRequest(mesage);
+      throw new httpErrors.BadRequest(toMessage('Signature verify error'));
     }
 
     await next();
