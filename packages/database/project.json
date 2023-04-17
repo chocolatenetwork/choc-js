@@ -95,7 +95,7 @@
       "executor": "nx:run-commands",
       "outputs": [],
       "options": {
-        "command": "supabase gen types typescript --local > src/lib/schema.ts",
+        "command": "supabase gen types typescript --local > src/lib/schema.ts ",
         "cwd": "packages/database"
       }
     }

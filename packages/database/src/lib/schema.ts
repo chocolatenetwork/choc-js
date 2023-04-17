@@ -107,6 +107,7 @@ export interface Database {
           address: string
           createdAt: string
           id: string
+          name: string
           picture: string | null
           points: number
           updatedAt: string
@@ -117,6 +118,7 @@ export interface Database {
           address: string
           createdAt?: string
           id?: string
+          name: string
           picture?: string | null
           points?: number
           updatedAt?: string
@@ -127,6 +129,7 @@ export interface Database {
           address?: string
           createdAt?: string
           id?: string
+          name?: string
           picture?: string | null
           points?: number
           updatedAt?: string

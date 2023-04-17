@@ -68,4 +68,9 @@ export class User {
     enum: UserRole,
   })
   userRole!: UserRole;
+
+  @Column({
+    type: 'varchar',
+  })
+  name!: string;
 }

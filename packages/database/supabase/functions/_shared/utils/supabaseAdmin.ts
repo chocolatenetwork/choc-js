@@ -15,5 +15,6 @@ export function supabaseAdmin(): Middleware {
       throw new httpErrors.InternalServerError();
     }
     await next();
+    delete context.state.client;
   };
 }
