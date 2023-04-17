@@ -8,6 +8,7 @@ import {
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
+import { Project } from './Project';
 import { User } from './User';
 
 @Entity()
@@ -60,6 +61,12 @@ export class UserVerification {
   })
   @JoinColumn()
   user!: User | null;
+  @OneToOne(() => Project, (project) => project.id, {
+    nullable: true,
+    onDelete: 'CASCADE',
+  })
+  @JoinColumn()
+  project!: Project | null;
   // timestamps
   @CreateDateColumn({
     type: 'timestamp',

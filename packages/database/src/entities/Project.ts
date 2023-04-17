@@ -10,6 +10,7 @@ import {
 } from 'typeorm';
 import { Review } from './Review';
 import { User } from './User';
+import { UserVerification } from './UserVerification';
 
 @Entity()
 export class Project {
@@ -63,4 +64,7 @@ export class Project {
     nullable: true,
   })
   description!: string | null;
+
+  @OneToOne(() => UserVerification, { nullable: true })
+  userVerification!: UserVerification | null;
 }

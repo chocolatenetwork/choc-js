@@ -34,6 +34,23 @@ export interface Database {
   }
   public: {
     Tables: {
+      migrations: {
+        Row: {
+          id: number
+          name: string
+          timestamp: number
+        }
+        Insert: {
+          id?: number
+          name: string
+          timestamp: number
+        }
+        Update: {
+          id?: number
+          name?: string
+          timestamp?: number
+        }
+      }
       project: {
         Row: {
           createdAt: string
@@ -146,6 +163,7 @@ export interface Database {
           id: number
           name: string
           picture: string | null
+          projectId: number | null
           signature: string
           twitter: string
           updatedAt: string
@@ -160,6 +178,7 @@ export interface Database {
           id?: number
           name: string
           picture?: string | null
+          projectId?: number | null
           signature: string
           twitter: string
           updatedAt?: string
@@ -174,6 +193,7 @@ export interface Database {
           id?: number
           name?: string
           picture?: string | null
+          projectId?: number | null
           signature?: string
           twitter?: string
           updatedAt?: string

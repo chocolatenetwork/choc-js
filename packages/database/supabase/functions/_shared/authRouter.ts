@@ -173,6 +173,18 @@ router.put(
     }
     const user = userRes.data[0];
 
+    // Should succeed, Update verification
+    const verifyUpdate = await client
+      .from('user_verification')
+      .update({
+        userId: user.id,
+      })
+      .filter('id', 'eq', userVerify.id);
+    if (verifyUpdate.error) {
+      throw new httpErrors.InternalServerError(undefined, {
+        cause: verifyUpdate.error,
+      });
+    }
     if (accountType === AccountType.User) {
       context.response.body = user;
       return;
@@ -210,19 +222,20 @@ router.put(
       });
     }
 
+    const [project] = projectResponse.data;
     // Should succeed, Update verification
-    const verifyUpdate = await client
+    const verifyUpdateProj = await client
       .from('user_verification')
       .update({
-        userId: user.id,
+        projectId: project.id,
       })
       .filter('id', 'eq', userVerify.id);
-    if (verifyUpdate.error) {
+    if (verifyUpdateProj.error) {
       throw new httpErrors.InternalServerError(undefined, {
-        cause: verifyUpdate.error,
+        cause: verifyUpdateProj.error,
       });
     }
-    context.response.body = projectResponse.data[0];
+    context.response.body = project;
   }
 );
 
