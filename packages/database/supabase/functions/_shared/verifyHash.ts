@@ -1,7 +1,6 @@
 import { httpErrors, Middleware } from 'oak';
-import { polkaSignatureVerify } from '../polkaSignatureVerify.ts';
 import { toMessage } from './AppError.ts';
-
+import { polkaSignatureVerify } from './polkaSignatureVerify.ts';
 
 export function verifyHash(): Middleware {
   return async (ctx, next) => {

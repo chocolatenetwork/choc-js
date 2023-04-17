@@ -1,8 +1,8 @@
 import { Application, Router } from 'oak';
-import authRouter from '../_shared/authRouter.ts';
+import authRouter from '../_routes/authRouter.ts';
+import projectRouter from '../_routes/projectRouter.ts';
+import reviewRouter from '../_routes/reviewRouter.ts';
 import { logError } from '../_shared/logError.ts';
-import projectRouter from '../_shared/projectRouter.ts';
-import reviewRouter from '../_shared/reviewRouter.ts';
 
 const router = new Router();
 router
