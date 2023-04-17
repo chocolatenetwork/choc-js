@@ -5,12 +5,14 @@ import {
   JoinColumn,
   ManyToOne,
   PrimaryGeneratedColumn,
+  Unique,
   UpdateDateColumn,
 } from 'typeorm';
 import { Project } from './Project';
 import { User } from './User';
 
 @Entity()
+@Unique('user_can_only_review_once', ['user', 'project'])
 export class Review {
   @PrimaryGeneratedColumn()
   id!: number;
