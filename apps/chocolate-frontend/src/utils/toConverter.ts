@@ -3,6 +3,7 @@ import { Fn1 } from './curry1/types';
 interface IConverter<A, B> {
   into: Fn1<A, B>;
   intoArray: Fn1<A[], B[]>;
+  intoMapArray: <T>(value: T[], map: Fn1<T, A>) => B[];
   intoPages: Fn1<IPagination<A>, IPagination<B>>;
   selectMap: Fn1<B[], Record<string, B | undefined>>;
 }
@@ -34,6 +35,14 @@ export function toConverter<A, B, IdField extends keyof B>(
         return acc;
       }, {} as Record<string, B | undefined>);
       return reduced;
+    },
+    intoMapArray: (model, map) => {
+      const arr = model.map((value) => {
+        const model = map(value);
+        return fn(model);
+      });
+
+      return arr;
     },
   };
   return converter;

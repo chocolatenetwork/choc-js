@@ -13,7 +13,12 @@ export class AppError extends Error {
   readonly __marker = 'AppError';
   code: number;
 
-  constructor(message: string, code = 0, public registryError?: RegistryError) {
+  constructor(
+    message: string,
+    code = 0,
+    public registryError?: RegistryError,
+    options?: ErrorOptions
+  ) {
     super(message);
     this.code = code;
   }

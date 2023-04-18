@@ -2,6 +2,9 @@ import { ApiPromise, WsProvider } from '@polkadot/api';
 import { ContractPromise } from '@polkadot/api-contract';
 import axios from 'axios';
 import { ApiMachineSender } from '../machines/Api';
+
+import { SupabaseTypes } from '@choc-js/database';
+import { createClient } from '@supabase/supabase-js';
 type AbiType = Record<string, unknown>;
 
 // May need some clever way to get this from user input or elsewhere
@@ -52,4 +55,11 @@ async function createApi(send: ApiMachineSender): Promise<() => Promise<void>> {
 const mockApi = axios.create({
   baseURL: 'http://localhost:3000',
 });
-export { createApi, mockApi };
+
+// Create a single supabase client for interacting with your database
+const supabase = createClient<SupabaseTypes.Database>(
+  import.meta.env['SUPABASE_URL'] ?? '',
+  import.meta.env['SUPABASE_ANON_KEY'] ?? ''
+);
+
+export { createApi, mockApi, supabase };

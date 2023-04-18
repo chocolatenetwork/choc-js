@@ -1,7 +1,7 @@
 import { HexString } from '@polkadot/util/types';
 import { hashData } from './hashData';
 
-interface SignaturePayload {
+export interface SignaturePayload {
   address: string;
   signature: HexString;
 }

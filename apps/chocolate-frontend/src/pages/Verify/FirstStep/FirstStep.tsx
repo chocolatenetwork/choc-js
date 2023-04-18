@@ -62,7 +62,7 @@ function FirstStep(props: FirstStepProps) {
   });
   const signatureMutation = useMutation(signRaw, {
     onSuccess(data) {
-      signatureController.field.onChange(data);
+      signatureController.field.onChange(data.signature);
     },
   });
 
