@@ -55,11 +55,13 @@ async function createApi(send: ApiMachineSender): Promise<() => Promise<void>> {
 const mockApi = axios.create({
   baseURL: 'http://localhost:3000',
 });
-
+const functionsApi = axios.create({
+  baseURL: `${import.meta.env.VITE_SUPABASE_API_URL}/functions/v1`,
+});
 
 const supabase = createClient<SupabaseTypes.Database>(
   import.meta.env.VITE_SUPABASE_API_URL,
   import.meta.env.VITE_SUPABASE_ANON_KEY
 );
 
-export { createApi, mockApi, supabase };
+export { createApi, mockApi, supabase, functionsApi };

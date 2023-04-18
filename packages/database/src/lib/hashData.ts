@@ -1,9 +1,9 @@
 import { blake2AsHex } from '@polkadot/util-crypto';
 import stringify from 'safe-stable-stringify';
 
-export function hashData(object: Record<string, unknown>, keys: string[]) {
+export function hashData<Obj extends object>(object: Obj, keys: (keyof Obj)[]) {
   const filteredEntries = Object.entries(object).filter((each) => {
-    return keys.includes(each[0]);
+    return keys.includes(each[0] as keyof Obj);
   });
   const stringifyObject = Object.fromEntries(filteredEntries);
 

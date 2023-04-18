@@ -37,6 +37,7 @@ export default styled(StepperContentLayout)`
   height: 100%;
   display: flex;
   flex-direction: column;
+  row-gap: 36px;
 
   .StepsBody {
     flex-grow: 1;

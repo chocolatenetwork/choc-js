@@ -3,10 +3,11 @@ import { useSetState } from '@mantine/hooks';
 import { useState } from 'react';
 import styled from 'styled-components';
 import FirstStep from './FirstStep/FirstStep';
-import { FirstStepFormData } from './FirstStep/types';
+import { VerifyData } from './FirstStep/types';
 import SecondStep from './SecondStep';
 import StepperContentLayout from './StepperContentLayout';
 import { ActiveMap, VerifyLayoutProps } from './types';
+import { makeVerifyData } from './Verify.utils';
 
 const MAX = 2;
 const MIN = 0;
@@ -14,11 +15,7 @@ const MIN = 0;
 function VerifyLayout(props: VerifyLayoutProps) {
   const [active, setActive] = useState(MIN);
   const [validMap, setValidMap] = useSetState<ActiveMap>({});
-  const [formdata, setFormData] = useSetState<FirstStepFormData>({
-    accountType: null,
-    message: '',
-    signature: '',
-  });
+  const [formdata, setFormData] = useSetState<VerifyData>(makeVerifyData());
   const hasNext = (num: number) => num < MAX && validMap[active];
   const hasPrev = (num: number) => num > MIN;
 
@@ -64,7 +61,10 @@ function VerifyLayout(props: VerifyLayoutProps) {
               nextStep={nextStep}
               prevStep={prevStep}
             >
-              <SecondStep signature={formdata.signature} />
+              {/* Todo , switch to userVerification */}
+              <SecondStep
+                signature={formdata.userVerification?.signature || ''}
+              />
             </StepperContentLayout>
           </Stepper.Step>
           <Stepper.Completed>
@@ -88,7 +88,6 @@ export default styled(VerifyLayout)`
   .SectionBg {
     background-color: var(--mantine-color-gray-3);
     width: 90%;
-    height: 90%;
 
     border-radius: 10px;
 

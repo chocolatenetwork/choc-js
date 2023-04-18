@@ -1,6 +1,5 @@
 import Review, { IReviewDbApi } from '$chocolate-frontend/models/Review';
-import { supabase } from '$chocolate-frontend/services/api/api';
-import { AppError } from '$chocolate-frontend/utils/AppError';
+import { functionsApi } from '$chocolate-frontend/services/api/api';
 import { SignaturePayload } from '@choc-js/database';
 
 interface IPostReview extends SignaturePayload {
@@ -9,16 +8,13 @@ interface IPostReview extends SignaturePayload {
 }
 
 async function postReview(params: IPostReview) {
-  const response = await supabase.functions.invoke<IReviewDbApi>('app', {
-    body: params,
-  });
+  const { data } = await functionsApi.post<IReviewDbApi>(
+    'app/projects/review',
+    {
+      body: params,
+    }
+  );
 
-  if (!response.data) {
-    const err = new AppError('Error on post review');
-    err.cause = response.error;
-    throw err;
-  }
-  const { data } = response;
   return Review.into(data);
 }
 
