@@ -56,10 +56,10 @@ const mockApi = axios.create({
   baseURL: 'http://localhost:3000',
 });
 
-// Create a single supabase client for interacting with your database
+
 const supabase = createClient<SupabaseTypes.Database>(
-  import.meta.env['SUPABASE_URL'] ?? '',
-  import.meta.env['SUPABASE_ANON_KEY'] ?? ''
+  import.meta.env.VITE_SUPABASE_API_URL,
+  import.meta.env.VITE_SUPABASE_ANON_KEY
 );
 
 export { createApi, mockApi, supabase };

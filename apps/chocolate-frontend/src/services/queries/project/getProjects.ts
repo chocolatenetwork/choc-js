@@ -1,10 +1,11 @@
-import Project, {
-  IProjectDb,
-  IProjectDbApi,
-} from '$chocolate-frontend/models/Project';
-import { mockApi } from '$chocolate-frontend/services/api/api';
+import Project, { IProjectDb } from '$chocolate-frontend/models/Project';
+import { supabase } from '$chocolate-frontend/services/api/api';
 
 export async function getProjects(): Promise<IProjectDb[]> {
-  const { data } = await mockApi.get<IProjectDbApi[]>('/projects');
+  const projectRes = await supabase.from('project').select('*');
+  if (projectRes.error) {
+    throw projectRes.error;
+  }
+  const { data } = projectRes;
   return Project.intoArray(data);
 }
