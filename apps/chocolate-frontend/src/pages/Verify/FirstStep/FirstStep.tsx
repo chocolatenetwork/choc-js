@@ -62,8 +62,9 @@ function FirstStep(props: FirstStepProps) {
         signRaw: signatureMutation.mutateAsync,
       }).catch(noop);
       if (!signed) return;
+
       submitMutation.mutate(signed);
-    });
+    })();
   };
   // method set to post as the signature is sensitive.
   return (
@@ -90,7 +91,7 @@ function FirstStep(props: FirstStepProps) {
             variant="default"
             mt={20}
             onClick={doSignBody}
-            disabled={!form.formState.isValid}
+            disabled={!form.formState.isValid || submitMutation.isSuccess}
           >
             Submit
           </Button>
