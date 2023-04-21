@@ -1,3 +1,4 @@
+## Contract Steps.
 ### Starting the contract
 
 ```bash
@@ -20,4 +21,25 @@ cargo contract instantiate --constructor new --suri //Alice -x
 
 # Run the frontend
 yarn nx run chocolate-frontend:serve:development
+```
+
+
+## Deployment steps
+
+### Configure environment
+
+Fill the following env variables in dev or main:
+
+```
+NETLIFY_SITE_ID=
+NETLIFY_AUTH_TOKEN=
+```
+
+[Reference](https://docs.netlify.com/cli/get-started/#deploy-directories)
+
+
+### Deploy
+
+```
+yarn nx run chocolate-frontend:deploy
 ```
