@@ -8,18 +8,14 @@ on:
       - completed
   workflow_dispatch:
 
+env:
+  SUPABASE_ACCESS_TOKEN: ${{ secrets.DEVElOPMENT_SUPABASE_ACCESS_TOKEN }}
+  SUPABASE_DB_PASSWORD: ${{ secrets.DEVELOPMENT_DB_PASSWORD }}
+  SUPABASE_PROJECT_ID: jgcajpecsmkatlbzsstn
+  VITE_SUPABASE_API_URL: ${{ secrets.DEVElOPMENT_VITE_SUPABASE_API_URL }}
+  VITE_SUPABASE_ANON_KEY: ${{ secrets.DEVElOPMENT_VITE_SUPABASE_ANON_KEY }}
 
 jobs:
-  release:
-    runs-on: ubuntu-latest
-
-    env:
-      SUPABASE_ACCESS_TOKEN: ${{ secrets.DEVElOPMENT_SUPABASE_ACCESS_TOKEN }}
-      SUPABASE_DB_PASSWORD: ${{ secrets.DEVELOPMENT_DB_PASSWORD }}
-      SUPABASE_PROJECT_ID: jgcajpecsmkatlbzsstn
-      VITE_SUPABASE_API_URL: ${{ secrets.DEVElOPMENT_VITE_SUPABASE_API_URL }}
-      VITE_SUPABASE_ANON_KEY: ${{ secrets.DEVElOPMENT_VITE_SUPABASE_ANON_KEY }}
-
 
   main:
     if: ${{ github.event.workflow_run.conclusion == 'success' }}
