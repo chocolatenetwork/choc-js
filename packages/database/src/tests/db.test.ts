@@ -27,7 +27,7 @@ it('generates signature', async () => {
   let signedData = '';
   const payload = await makeSignaturePayload({
     data,
-    keys: Object.keys(data),
+    keys: Object.keys(data) as (keyof typeof data)[],
     async signRaw(data) {
       const raw = alice.sign(data);
       signedData = data;
