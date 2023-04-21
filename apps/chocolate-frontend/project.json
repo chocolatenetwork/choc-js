@@ -103,8 +103,8 @@
     },
     "deploy": {
       "executor": "nx:run-commands",
+      "defaultConfiguration": "development",
       "options": {
-        "command": "netlify deploy",
         "cwd": "apps/chocolate-frontend"
       },
       "dependsOn": [
@@ -112,7 +112,15 @@
       ],
       "inputs": [
         "default"
-      ]
+      ],
+      "configurations": {
+        "development": {
+          "command": "netlify deploy"
+        },
+        "production": {
+          "command": "netlify deploy --prod"
+        }
+      }
     }
   },
   "tags": []
