@@ -1,24 +1,34 @@
 import { makeTweetUrl } from '$chocolate-frontend/utils/makeTweetUrl';
 import { Button, CopyButton, CopyButtonProps, Text } from '@mantine/core';
 import styled from 'styled-components';
+import { ActiveMap } from './types';
 
 interface SecondStepProps {
   className?: string;
   verificationId: string;
+  onValidChange: (map: ActiveMap) => void;
+  index: number;
 }
 const verifiers = ['@chocNetwork', '@islam_i00'];
 function SecondStep(props: SecondStepProps) {
-  const { verificationId, ...rest } = props;
+  const { verificationId, index, onValidChange, ...rest } = props;
 
   const verifierPart = verifiers.join(' ');
   const copyValue = `${verifierPart} my verification Id is: ${verificationId}`;
   const tweetUrl = makeTweetUrl(copyValue);
 
+  const onDone = () => {
+    onValidChange({ [index]: true });
+  };
   const copyFn: CopyButtonProps['children'] = ({ copied, copy }) => {
     let color = 'default';
     if (copied) color = 'green';
+    const onClick = () => {
+      onDone();
+      copy();
+    };
     return (
-      <Button onClick={copy} color={color}>
+      <Button onClick={onClick} color={color}>
         Copy and tweet it yourself
       </Button>
     );
@@ -30,7 +40,12 @@ function SecondStep(props: SecondStepProps) {
           {verifierPart} my verification Id is: {verificationId}
         </Text>
         <div className="SecondStep_TweetButtons">
-          <Button component="a" href={tweetUrl} target="_blank">
+          <Button
+            component="a"
+            href={tweetUrl}
+            onClick={onDone}
+            target="_blank"
+          >
             Tweet
           </Button>
           <CopyButton value={copyValue}>{copyFn}</CopyButton>

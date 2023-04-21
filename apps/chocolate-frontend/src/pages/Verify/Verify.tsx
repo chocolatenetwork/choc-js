@@ -1,4 +1,4 @@
-import { Stepper } from '@mantine/core';
+import { Stepper, Text } from '@mantine/core';
 import { useSetState } from '@mantine/hooks';
 import { useState } from 'react';
 import styled from 'styled-components';
@@ -37,7 +37,7 @@ function VerifyLayout(props: VerifyLayoutProps) {
         >
           <Stepper.Step
             label="First Step"
-            description="Sign a random message"
+            description="Enter profile details"
             className="StepWrapper"
           >
             <StepperContentLayout
@@ -54,7 +54,7 @@ function VerifyLayout(props: VerifyLayoutProps) {
               />
             </StepperContentLayout>
           </Stepper.Step>
-          <Stepper.Step label="Second Step" description="Tweet the message">
+          <Stepper.Step label="Second Step" description="Tweet verification id">
             <StepperContentLayout
               hasNext={hasNext(active)}
               hasPrev={hasPrev(active)}
@@ -63,11 +63,16 @@ function VerifyLayout(props: VerifyLayoutProps) {
             >
               <SecondStep
                 verificationId={String(formdata.userVerification?.id)}
+                index={1}
+                onValidChange={setValidMap}
               />
             </StepperContentLayout>
           </Stepper.Step>
           <Stepper.Completed>
-            We’ll review your submission and get back to you
+            <Text ta="center">
+              We’ll review your profile, and it should be active shortly.
+              Thanks!
+            </Text>
           </Stepper.Completed>
         </Stepper>
       </div>
