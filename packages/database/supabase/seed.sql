@@ -1,0 +1,5 @@
+INSERT INTO public.migrations ("timestamp", name)
+VALUES (1681699854082, 'schemaNew1681699854082'),
+  (1681736899113, 'migration1681736899113'),
+  (1681743263989, 'migration1681743263989'),
+(1681763335774, 'migration1681763335774');

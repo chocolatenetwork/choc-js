@@ -61,9 +61,8 @@ function VerifyLayout(props: VerifyLayoutProps) {
               nextStep={nextStep}
               prevStep={prevStep}
             >
-              {/* Todo , switch to userVerification */}
               <SecondStep
-                signature={formdata.userVerification?.signature || ''}
+                verificationId={String(formdata.userVerification?.id)}
               />
             </StepperContentLayout>
           </Stepper.Step>

@@ -1,7 +1,7 @@
 import { toConverter } from '$chocolate-frontend/utils/toConverter';
 
 export interface IUserVerificationDb {
-  id: string;
+  id: number;
   address: string;
   signature: string;
 
@@ -16,7 +16,7 @@ export interface IUserVerificationDb {
   updatedAt: Date;
 }
 export interface IUserVerificationDbApi {
-  id: string;
+  id: number;
   address: string;
   signature: string;
 

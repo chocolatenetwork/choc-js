@@ -16,10 +16,8 @@ interface IRequest {
 
 export async function postInitiateVerification(body: IRequest) {
   const { data } = await functionsApi.post<IUserVerificationDbApi>(
-    '/app/auth/verify',
-    {
-      body,
-    }
+    '/app/auth/signup',
+    body
   );
 
   return UserVerification.into(data);

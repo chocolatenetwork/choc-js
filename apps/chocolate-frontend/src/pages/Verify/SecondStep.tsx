@@ -4,15 +4,14 @@ import styled from 'styled-components';
 
 interface SecondStepProps {
   className?: string;
-  signature: string;
+  verificationId: string;
 }
 const verifiers = ['@chocNetwork', '@islam_i00'];
 function SecondStep(props: SecondStepProps) {
-  const { signature, ...rest } = props;
+  const { verificationId, ...rest } = props;
 
   const verifierPart = verifiers.join(' ');
-  const copyValue = `${verifierPart} Here’s my signed message:
-    ${signature}`;
+  const copyValue = `${verifierPart} my verification Id is: ${verificationId}`;
   const tweetUrl = makeTweetUrl(copyValue);
 
   const copyFn: CopyButtonProps['children'] = ({ copied, copy }) => {
@@ -28,9 +27,7 @@ function SecondStep(props: SecondStepProps) {
     <div {...rest}>
       <div className="SecondStep_Body">
         <Text className="Message">
-          {verifierPart} Here’s my signed message:
-          <br />
-          {signature}
+          {verifierPart} my verification Id is: {verificationId}
         </Text>
         <div className="SecondStep_TweetButtons">
           <Button component="a" href={tweetUrl} target="_blank">
