@@ -1,6 +1,5 @@
 import image from '$chocolate-frontend/assets/svg/image.svg';
 import { IProjectDb } from '$chocolate-frontend/models/Project';
-import { getAverage } from '$chocolate-frontend/utils/getAverage';
 import { toAverageValue } from '$chocolate-frontend/utils/toAverageValue';
 import { useHref, useLinkClickHandler } from 'react-router-dom';
 import { Rating } from '../../../components/Rating';
@@ -12,7 +11,7 @@ interface ProjectCardProps {
 }
 export function ProjectCard(props: ProjectCardProps) {
   const { project } = props;
-  const normalValue = getAverage(project.ratingSum, project.reviewCount);
+  const normalValue = project.ratingAverage;
   const ratingValue = toAverageValue(normalValue);
   const rating = formatRating(normalValue);
   const url = `/project/${project.id}`;

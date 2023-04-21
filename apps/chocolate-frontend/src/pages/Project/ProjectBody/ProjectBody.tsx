@@ -3,7 +3,6 @@ import { IProjectDb } from '$chocolate-frontend/models/Project';
 import { IReviewDb } from '$chocolate-frontend/models/Review';
 import { IUserDb } from '$chocolate-frontend/models/User';
 import { H2 } from '$chocolate-frontend/pages/Projects/Project/ProjectCard.styles';
-import { getAverage } from '$chocolate-frontend/utils/getAverage';
 import { makeModalFns } from '$chocolate-frontend/utils/makeModalFns';
 import { parseUrlArray } from '$chocolate-frontend/utils/parseUrlArray';
 import { toAverageValue } from '$chocolate-frontend/utils/toAverageValue';
@@ -66,8 +65,8 @@ export function ProjectBody(props: ProjectBodyProps) {
 
   const { data } = query;
 
-  const { ratingSum, reviewCount, name, logo } = data;
-  const ratingValue = getAverage(ratingSum, reviewCount);
+  const { name, logo } = data;
+  const ratingValue = data.ratingAverage;
   const averageValue = toAverageValue(ratingValue);
   return (
     <Tabs
@@ -89,9 +88,7 @@ export function ProjectBody(props: ProjectBodyProps) {
               </NameWrapper>
             </NameSection>
             <RatingCircle>
-              <H2>
-                {getAverage(data.ratingSum, data.reviewCount).toPrecision(3)}
-              </H2>
+              <H2>{data.ratingAverage.toPrecision(3)}</H2>
             </RatingCircle>
           </ProfileRow>
         </HeaderBanner>

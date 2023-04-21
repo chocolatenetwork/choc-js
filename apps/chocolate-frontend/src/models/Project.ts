@@ -4,6 +4,7 @@ export interface IProjectDb {
   id: number;
   ratingSum: number;
   reviewCount: number;
+  ratingAverage: number;
   /** Owner */
   ownerId: string;
   name: string;
@@ -16,6 +17,7 @@ export interface IProjectDbApi {
   id: number;
   ratingSum: number;
   reviewCount: number;
+  ratingAverage: number;
   /** Owner */
   ownerId: string;
   name: string;
