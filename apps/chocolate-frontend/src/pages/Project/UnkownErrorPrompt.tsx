@@ -10,9 +10,8 @@ export function UnknownErrorPrompt() {
   return (
     <div>
       <MediumSemiBold>
-        We were unable to determine your authentication status
-        <br />
-        If you are not verified, please proceed to the
+        We were unable to determine your authentication status. If you are not
+        verified, please proceed to the{' '}
         <Text
           component="a"
           inherit
@@ -20,9 +19,10 @@ export function UnknownErrorPrompt() {
           onClick={handleClick}
           href={href}
         >
-          verify page
+          verify page{' '}
         </Text>
-        to do so <br />
+        to do so. <br />
+        <br />
         Otherwise, please let us know what went wrong on our{' '}
         <Text component="a" color={'blue'} href={toIssueUrl(CHOCOLATE_GITHUB)}>
           github page
