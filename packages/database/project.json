@@ -92,6 +92,18 @@
         "command": "supabase gen types typescript --local > src/lib/schema.ts ",
         "cwd": "packages/database"
       }
+    },
+    "deploy": {
+      "executor": "nx:run-commands",
+      "defaultConfiguration": "development",
+      "options": {
+        "cwd": "packages/database",
+        "command": "bash ./scripts/deploy.sh"
+      },
+      "configurations": {
+        "development": {},
+        "production": {}
+      }
     }
   },
   "tags": ["server"]
