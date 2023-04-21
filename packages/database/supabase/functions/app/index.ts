@@ -20,7 +20,6 @@ app.addEventListener('error', logError);
 app.use(
   oakCors({
     origin: corsList.develop,
-    
   })
 );
 app.use(router.routes());
