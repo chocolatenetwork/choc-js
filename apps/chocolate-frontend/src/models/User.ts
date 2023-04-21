@@ -5,7 +5,7 @@ export interface IUserDb {
   id: string;
   accountType: AccountType;
   points: number;
-  picture: string;
+  picture: string | null;
 
   // project: IProjectDb | null;
   // reviews: IReviewDb[] | null;
@@ -17,7 +17,7 @@ export interface IUserDbApi {
   id: string;
   accountType: AccountType;
   points: number;
-  picture: string;
+  picture: string | null;
   // project: IProjectDb | null;
   // reviews: IReviewDb[] | null;
   createdAt: string;

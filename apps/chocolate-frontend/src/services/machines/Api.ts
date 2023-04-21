@@ -74,4 +74,4 @@ export const ApiMachine = createMachine(
 export type ApiMachineSender = Sender<ApiEvents>;
 export type ApiMachineReceiver = Receiver<ApiEvents>;
 
-export const apiService = interpret(ApiMachine).start();
+export const apiService = interpret(ApiMachine); // Only start machine when using api.

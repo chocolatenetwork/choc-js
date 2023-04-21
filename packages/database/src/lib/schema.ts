@@ -59,8 +59,6 @@ export interface Database {
           logo: string | null
           name: string
           ownerId: string
-          ratingSum: number
-          reviewCount: number
           updatedAt: string
         }
         Insert: {
@@ -70,8 +68,6 @@ export interface Database {
           logo?: string | null
           name: string
           ownerId: string
-          ratingSum?: number
-          reviewCount?: number
           updatedAt?: string
         }
         Update: {
@@ -81,8 +77,6 @@ export interface Database {
           logo?: string | null
           name?: string
           ownerId?: string
-          ratingSum?: number
-          reviewCount?: number
           updatedAt?: string
         }
       }
@@ -116,6 +110,32 @@ export interface Database {
           signature?: string
           updatedAt?: string
           userId?: string
+        }
+      }
+      typeorm_metadata: {
+        Row: {
+          database: string | null
+          name: string | null
+          schema: string | null
+          table: string | null
+          type: string
+          value: string | null
+        }
+        Insert: {
+          database?: string | null
+          name?: string | null
+          schema?: string | null
+          table?: string | null
+          type: string
+          value?: string | null
+        }
+        Update: {
+          database?: string | null
+          name?: string | null
+          schema?: string | null
+          table?: string | null
+          type?: string
+          value?: string | null
         }
       }
       user: {
@@ -202,7 +222,20 @@ export interface Database {
       }
     }
     Views: {
-      [_ in never]: never
+      project_view: {
+        Row: {
+          createdAt: string | null
+          description: string | null
+          id: number | null
+          logo: string | null
+          name: string | null
+          ownerId: string | null
+          ratingAverage: number | null
+          ratingSum: number | null
+          reviewCount: number | null
+          updatedAt: string | null
+        }
+      }
     }
     Functions: {
       [_ in never]: never

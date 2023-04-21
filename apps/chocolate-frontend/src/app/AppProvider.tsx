@@ -1,5 +1,5 @@
 /* eslint-disable import/no-unresolved */
-import { MantineProvider } from '@mantine/core';
+import { MantineProvider, MantineThemeOverride } from '@mantine/core';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import type { PropsWithChildren } from 'react';
 import { Toaster } from 'react-hot-toast';
@@ -17,6 +17,10 @@ const queryClient = new QueryClient({
     },
   },
 });
+const mantineTheme: MantineThemeOverride = {
+  primaryColor: 'red',
+  primaryShade: 4,
+};
 function AppProvider(props: PropsWithChildren): JSX.Element {
   const { children } = props;
   return (
@@ -24,7 +28,7 @@ function AppProvider(props: PropsWithChildren): JSX.Element {
       contexts={[
         <QueryClientProvider client={queryClient} />,
         <BrowserRouter />,
-        <MantineProvider withCSSVariables>
+        <MantineProvider withCSSVariables theme={mantineTheme}>
           <></>
         </MantineProvider>,
       ]}

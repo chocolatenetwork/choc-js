@@ -6,6 +6,7 @@ interface IPatchProject {
   reviewCount?: number;
   id: IProjectDbApi['id'];
 }
+
 async function patchProject(params: IPatchProject) {
   const { id, ...body } = params;
   const { data } = await mockApi.patch<IProjectDbApi>(`/projects/${id}`, body);

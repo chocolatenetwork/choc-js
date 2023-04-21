@@ -1,7 +1,7 @@
-import { Middleware, httpErrors } from 'oak';
-import { IUserContext } from '../../_types/IUserContext.ts';
-import { IBodyBase } from '../../_types/IBodyBase.ts';
+import { httpErrors, Middleware } from 'oak';
 import { toMessage } from '../../_shared/AppError.ts';
+import { IBodyBase } from '../../_types/IBodyBase.ts';
+import { IUserContext } from '../../_types/IUserContext.ts';
 
 interface IBody extends IBodyBase {
   rating: number;
@@ -15,7 +15,7 @@ export function createReviewController(): Middleware {
 
     const alreadyReview = await client
       .from('review')
-      .select('id')
+      .select('*')
       .filter('userId', 'eq', user.id)
       .filter('projectId', 'eq', projectId)
       .limit(1);
@@ -25,7 +25,8 @@ export function createReviewController(): Middleware {
       });
     }
     if (alreadyReview.data.length === 1) {
-      throw new httpErrors.Conflict(toMessage('User already reviewed'));
+      context.response.body = alreadyReview.data;
+      return;
     }
     const projectCheck = await client
       .from('project')

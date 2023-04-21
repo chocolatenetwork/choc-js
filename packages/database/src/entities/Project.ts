@@ -17,18 +17,6 @@ export class Project {
   @PrimaryGeneratedColumn()
   id!: number;
 
-  @Column({
-    default: 0,
-    type: 'integer',
-  })
-  ratingSum!: number;
-
-  @Column({
-    default: 0,
-    type: 'integer',
-  })
-  reviewCount!: number;
-
   @OneToOne(() => User, { nullable: false })
   @JoinColumn()
   owner!: User;

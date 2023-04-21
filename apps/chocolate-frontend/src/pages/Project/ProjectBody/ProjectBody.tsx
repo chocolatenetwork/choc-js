@@ -3,11 +3,10 @@ import { IProjectDb } from '$chocolate-frontend/models/Project';
 import { IReviewDb } from '$chocolate-frontend/models/Review';
 import { IUserDb } from '$chocolate-frontend/models/User';
 import { H2 } from '$chocolate-frontend/pages/Projects/Project/ProjectCard.styles';
-import { getAverage } from '$chocolate-frontend/utils/getAverage';
 import { makeModalFns } from '$chocolate-frontend/utils/makeModalFns';
 import { parseUrlArray } from '$chocolate-frontend/utils/parseUrlArray';
 import { toAverageValue } from '$chocolate-frontend/utils/toAverageValue';
-import { Button, Image, Tabs } from '@mantine/core';
+import { Button, Image, Tabs, Text } from '@mantine/core';
 import {
   QueryObserverSuccessResult,
   UseQueryResult,
@@ -18,6 +17,7 @@ import { AddReviewModal } from '../AddReviewModal';
 import { Reviews } from '../Reviews/Reviews';
 import { Submenu } from '../Submenu';
 import {
+  AboutSection,
   AddReviewSection,
   Banner,
   H1,
@@ -66,8 +66,8 @@ export function ProjectBody(props: ProjectBodyProps) {
 
   const { data } = query;
 
-  const { ratingSum, reviewCount, name, logo } = data;
-  const ratingValue = getAverage(ratingSum, reviewCount);
+  const { name, logo } = data;
+  const ratingValue = data.ratingAverage;
   const averageValue = toAverageValue(ratingValue);
   return (
     <Tabs
@@ -89,9 +89,7 @@ export function ProjectBody(props: ProjectBodyProps) {
               </NameWrapper>
             </NameSection>
             <RatingCircle>
-              <H2>
-                {getAverage(data.ratingSum, data.reviewCount).toPrecision(3)}
-              </H2>
+              <H2>{data.ratingAverage.toPrecision(3)}</H2>
             </RatingCircle>
           </ProfileRow>
         </HeaderBanner>
@@ -107,7 +105,9 @@ export function ProjectBody(props: ProjectBodyProps) {
         <Reviews query={reviewsQuery} users={users} />
       </Tabs.Panel>
       <Tabs.Panel value={TabOptions.about}>
-        <div className="about"></div>
+        <AboutSection>
+          <Text>{data.description}</Text>
+        </AboutSection>
       </Tabs.Panel>
 
       <AddReviewModal

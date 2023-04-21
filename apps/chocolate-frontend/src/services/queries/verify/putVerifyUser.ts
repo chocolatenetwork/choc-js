@@ -3,9 +3,10 @@ import { setupApiAndKeyring } from '$chocolate-frontend/utils/apiSetup/setupApiA
 import { EventList } from '$chocolate-frontend/utils/EventList';
 import { weightFromWeight } from '$chocolate-frontend/utils/gasUtils';
 import { handleEvents } from '$chocolate-frontend/utils/handleEvents';
+import { AccountType } from '@choc-js/schema';
 import { ApiPromise } from '@polkadot/api';
 import getInitiateVerificationFlow from './getInitiateVerificationFlow';
-import { AccountType } from './types';
+
 export default setupApiAndKeyring(async (ctx, accountType: AccountType) => {
   const {
     apiCtx: { contract },

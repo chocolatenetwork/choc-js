@@ -14,7 +14,7 @@ import { User } from './User';
 @Entity()
 export class UserVerification {
   @PrimaryGeneratedColumn()
-  id!: string;
+  id!: number;
   @Column({
     type: 'varchar',
     unique: true,

@@ -4,11 +4,12 @@ export interface IProjectDb {
   id: number;
   ratingSum: number;
   reviewCount: number;
+  ratingAverage: number;
   /** Owner */
-  userId: string;
+  ownerId: string;
   name: string;
-  logo: string;
-  description: string;
+  logo: string | null;
+  description: string | null;
   createdAt: Date;
   updatedAt: Date;
 }
@@ -16,11 +17,12 @@ export interface IProjectDbApi {
   id: number;
   ratingSum: number;
   reviewCount: number;
+  ratingAverage: number;
   /** Owner */
-  userId: string;
+  ownerId: string;
   name: string;
-  logo: string;
-  description: string;
+  logo: string | null;
+  description: string | null;
   createdAt: string;
   updatedAt: string;
 }

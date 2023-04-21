@@ -1,12 +1,13 @@
-import { Stepper } from '@mantine/core';
+import { Stepper, Text } from '@mantine/core';
 import { useSetState } from '@mantine/hooks';
 import { useState } from 'react';
 import styled from 'styled-components';
 import FirstStep from './FirstStep/FirstStep';
-import { FirstStepFormData } from './FirstStep/types';
+import { VerifyData } from './FirstStep/types';
 import SecondStep from './SecondStep';
 import StepperContentLayout from './StepperContentLayout';
 import { ActiveMap, VerifyLayoutProps } from './types';
+import { makeVerifyData } from './Verify.utils';
 
 const MAX = 2;
 const MIN = 0;
@@ -14,11 +15,7 @@ const MIN = 0;
 function VerifyLayout(props: VerifyLayoutProps) {
   const [active, setActive] = useState(MIN);
   const [validMap, setValidMap] = useSetState<ActiveMap>({});
-  const [formdata, setFormData] = useSetState<FirstStepFormData>({
-    accountType: null,
-    message: '',
-    signature: '',
-  });
+  const [formdata, setFormData] = useSetState<VerifyData>(makeVerifyData());
   const hasNext = (num: number) => num < MAX && validMap[active];
   const hasPrev = (num: number) => num > MIN;
 
@@ -40,7 +37,7 @@ function VerifyLayout(props: VerifyLayoutProps) {
         >
           <Stepper.Step
             label="First Step"
-            description="Sign a random message"
+            description="Enter profile details"
             className="StepWrapper"
           >
             <StepperContentLayout
@@ -57,18 +54,25 @@ function VerifyLayout(props: VerifyLayoutProps) {
               />
             </StepperContentLayout>
           </Stepper.Step>
-          <Stepper.Step label="Second Step" description="Tweet the message">
+          <Stepper.Step label="Second Step" description="Tweet verification id">
             <StepperContentLayout
               hasNext={hasNext(active)}
               hasPrev={hasPrev(active)}
               nextStep={nextStep}
               prevStep={prevStep}
             >
-              <SecondStep signature={formdata.signature} />
+              <SecondStep
+                verificationId={String(formdata.userVerification?.id)}
+                index={1}
+                onValidChange={setValidMap}
+              />
             </StepperContentLayout>
           </Stepper.Step>
           <Stepper.Completed>
-            We’ll review your submission and get back to you
+            <Text ta="center">
+              We’ll review your profile, and it should be active shortly.
+              Thanks!
+            </Text>
           </Stepper.Completed>
         </Stepper>
       </div>
@@ -88,7 +92,6 @@ export default styled(VerifyLayout)`
   .SectionBg {
     background-color: var(--mantine-color-gray-3);
     width: 90%;
-    height: 90%;
 
     border-radius: 10px;
 

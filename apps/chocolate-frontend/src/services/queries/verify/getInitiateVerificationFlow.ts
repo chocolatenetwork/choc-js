@@ -1,9 +1,9 @@
 import { getApi } from '$chocolate-frontend/utils/apiSetup/getApi';
 import { AppError, ErrorCodes } from '$chocolate-frontend/utils/AppError';
 import { defaultGasLimit } from '$chocolate-frontend/utils/defaultGasLimit';
+import { AccountType } from '@choc-js/schema';
 import { findError, formatRegistryError } from '../../../utils/findError';
 import { QUERY_ACCOUNT } from '../constants';
-import { AccountType } from './types';
 
 interface GetInitiateVerificationFlowParams {
   accountType: AccountType;

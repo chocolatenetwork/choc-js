@@ -1,17 +1,17 @@
 import { HexString } from '@polkadot/util/types';
 import { hashData } from './hashData';
 
-interface SignaturePayload {
+export interface SignaturePayload {
   address: string;
   signature: HexString;
 }
-interface IMakeSignaturePayload<T extends Record<string, unknown>> {
+interface IMakeSignaturePayload<T extends object> {
   data: T;
-  keys: string[];
+  keys: (keyof T)[];
   signRaw: (data: string) => Promise<SignaturePayload>;
 }
 
-export async function makeSignaturePayload<T extends Record<string, unknown>>(
+export async function makeSignaturePayload<T extends object>(
   params: IMakeSignaturePayload<T>
 ): Promise<T & SignaturePayload> {
   const { data, keys, signRaw } = params;

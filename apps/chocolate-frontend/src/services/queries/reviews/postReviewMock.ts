@@ -6,8 +6,7 @@ interface IPostReview {
   projectId: number;
   rating: number;
 }
-async function postReview(params: IPostReview) {
-  // todo: move into fn
+export async function postReviewMock(params: IPostReview) {
   const { selectedAccount } = getKeyring();
   // create review
   const review: Partial<IReviewDbApi> = {
@@ -21,5 +20,3 @@ async function postReview(params: IPostReview) {
 
   return Review.into(data);
 }
-
-export { postReview };

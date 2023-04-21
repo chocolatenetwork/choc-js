@@ -1,24 +1,17 @@
-import uploadIpfs from '$chocolate-frontend/services/queries/ipfs/uploadIpfs';
+import { postInitiateVerification } from '$chocolate-frontend/services/queries/verify/postInitiateVerification';
+import { noop } from '$chocolate-frontend/utils/noop';
+import { makeSignaturePayload } from '@choc-js/database';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { Button, Select, TextInput } from '@mantine/core';
 import { useMutation } from '@tanstack/react-query';
 import { useEffect } from 'react';
 import { useController, useForm } from 'react-hook-form';
 import styled from 'styled-components';
-import * as zod from 'zod';
 import signRaw from '../../../services/queries/signRaw';
-import putVerifyUser from '../../../services/queries/verify/putVerifyUser';
-import { AccountType } from '../../../services/queries/verify/types';
 import { getErrorMsg } from '../../../utils/getErrorMsg';
+import { ProfileData } from '../ProfileData';
+import { makeAccountTypeData, schema } from './FirstStep.utils';
 import { FirstStepFormData, FirstStepProps } from './types';
-
-const schema = zod.object({
-  accountType: zod.nativeEnum(AccountType),
-  message: zod.string().min(1),
-  signature: zod.string().min(1),
-  name: zod.string().min(1),
-  picture: zod.string().url(),
-});
 
 function FirstStep(props: FirstStepProps) {
   const { sync, onValidChange, index, defaultValues, ...rest } = props;
@@ -26,16 +19,12 @@ function FirstStep(props: FirstStepProps) {
     resolver: zodResolver(schema),
     reValidateMode: 'onChange',
     mode: 'onChange',
-    defaultValues,
+    defaultValues: defaultValues.firstStepForm,
   });
 
   const accountController = useController({
     control: form.control,
     name: 'accountType',
-  });
-  const messageController = useController({
-    control: form.control,
-    name: 'message',
   });
 
   const signatureController = useController({
@@ -46,42 +35,36 @@ function FirstStep(props: FirstStepProps) {
   useEffect(() => {
     form.trigger();
     const unsub = form.watch((values) => {
-      sync(values);
+      sync({ firstStepForm: values as FirstStepFormData });
     });
     return () => unsub.unsubscribe();
   }, [form]);
 
-  useEffect(() => {
-    onValidChange({ [index]: form.formState.isValid });
-  }, [form.formState.isValid, index]);
-
-  const messageMutation = useMutation(putVerifyUser, {
-    onSuccess(data) {
-      messageController.field.onChange(data);
-    },
-  });
   const signatureMutation = useMutation(signRaw, {
     onSuccess(data) {
-      signatureController.field.onChange(data);
+      signatureController.field.onChange(data.signature);
+    },
+  });
+  const submitMutation = useMutation(postInitiateVerification, {
+    onSuccess(data) {
+      sync({ userVerification: data });
+      onValidChange({ [index]: true });
     },
   });
 
-  const uploadMetaMutation = useMutation(uploadIpfs, {
-    onSuccess() {
-      // Do messageMutation and signatureMutation next
-    },
-  });
-
-  const messageError = getErrorMsg(messageMutation);
   const signatureError = getErrorMsg(signatureMutation);
-  const doGenerateMessage = () => {
-    const accountType = form.getValues('accountType');
-    console.log(accountType);
-    if (!accountType) return;
-    messageMutation.mutate(accountType);
-  };
-  const doSignMessage = () => {
-    signatureMutation.mutate(form.getValues('message'));
+
+  const doSignBody = () => {
+    form.handleSubmit(async (values) => {
+      const signed = await makeSignaturePayload({
+        data: values,
+        keys: ['accountType', 'description', 'name', 'picture', 'twitter'],
+        signRaw: signatureMutation.mutateAsync,
+      }).catch(noop);
+      if (!signed) return;
+
+      submitMutation.mutate(signed);
+    })();
   };
   // method set to post as the signature is sensitive.
   return (
@@ -91,58 +74,26 @@ function FirstStep(props: FirstStepProps) {
           label="Account Type"
           required
           placeholder="Select Account Type.."
-          data={Object.values(AccountType)}
+          data={makeAccountTypeData()}
           {...accountController.field}
         />
       </div>
-      <div className="FirstStep_InputGroup">
-        <TextInput
-          label="Name"
-          required
-          className="TextContainer"
-          {...form.register('name')}
-        />
-
-        <TextInput
-          label={'Profile Picture'}
-          required
-          className="TextContainer"
-          {...form.register('picture')}
-        />
-      </div>
-      <div className="FirstStep_InputGroup">
-        <div>
-          <TextInput
-            label="Message"
-            readOnly
-            className="TextContainer"
-            error={messageError}
-            {...messageController.field}
-          />
-          <Button
-            variant="default"
-            mt={20}
-            disabled={accountController.fieldState.invalid}
-            onClick={doGenerateMessage}
-          >
-            Generate Message
-          </Button>
-        </div>
+      <ProfileData form={form} accountType={accountController.field.value} />
+      <div className="FirstStep_InputGroup FirstStep_InputGroup--fw">
         <div>
           <TextInput
             label={'Signature'}
             readOnly
-            className="TextContainer"
             error={signatureError}
             {...signatureController.field}
           />
           <Button
             variant="default"
             mt={20}
-            disabled={messageController.fieldState.invalid}
-            onClick={doSignMessage}
+            onClick={doSignBody}
+            disabled={!form.formState.isValid || submitMutation.isSuccess}
           >
-            Sign Message
+            Submit
           </Button>
         </div>
       </div>
@@ -165,8 +116,11 @@ export default styled(FirstStep)`
   }
   .FirstStep_InputGroup {
     display: grid;
-    grid-template-columns: 1fr 2fr;
+    grid-template-columns: 1fr 1fr;
     align-items: baseline;
     column-gap: 10px;
+  }
+  .FirstStep_InputGroup--fw {
+    grid-template-columns: 1fr;
   }
 `;

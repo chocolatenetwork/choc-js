@@ -1,4 +1,3 @@
-import User from '$chocolate-frontend/models/User';
 import { getProject } from '$chocolate-frontend/services/queries/project/getProject';
 import { getReviewsByProject } from '$chocolate-frontend/services/queries/reviews/getReviewsByProject';
 import { getUsers } from '$chocolate-frontend/services/queries/users/getUsers';
@@ -31,7 +30,6 @@ export function Project() {
   const usersQuery = useQuery({
     queryKey: ['users'],
     queryFn: getUsers,
-    select: User.selectMap,
   });
   if (!isParamDefined) return <ProjectError type="invalid" />;
   if (projectQuery.isLoading) return <ProjectLoading />;
@@ -42,7 +40,7 @@ export function Project() {
     <ProjectBody
       query={projectQuery}
       reviewsQuery={reviewQuery}
-      users={usersQuery.data || {}}
+      users={usersQuery.data?.record || {}}
     />
   );
   //  get reviews later.

@@ -1,9 +1,13 @@
+import { oakCors } from 'cors';
 import { Application, Router } from 'oak';
 import authRouter from '../_routes/authRouter.ts';
 import projectRouter from '../_routes/projectRouter.ts';
 import reviewRouter from '../_routes/reviewRouter.ts';
 import { logError } from '../_shared/logError.ts';
 
+const corsList = {
+  develop: ['http://localhost:4200'],
+};
 const router = new Router();
 router
   // Note: path should be prefixed with function name
@@ -13,6 +17,11 @@ router
 
 const app = new Application();
 app.addEventListener('error', logError);
+app.use(
+  oakCors({
+    origin: corsList.develop,
+  })
+);
 app.use(router.routes());
 app.use(router.allowedMethods());
 

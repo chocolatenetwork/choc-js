@@ -13,7 +13,7 @@ const reviewRange = arrayRange(5, 1);
 const projectRouter = new Router();
 projectRouter
   // Note: path should be prefixed with function name
-  .post(
+  .put(
     '/review',
     requestValidator({
       bodyRules: {

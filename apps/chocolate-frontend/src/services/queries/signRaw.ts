@@ -19,5 +19,5 @@ export default setupKeyring(async (ctx, message: string) => {
 
   // const signature = await api.api.sign(acct[0], { data: message }, acct[1]);
   const { signature } = result;
-  return signature;
+  return { signature, address };
 });
