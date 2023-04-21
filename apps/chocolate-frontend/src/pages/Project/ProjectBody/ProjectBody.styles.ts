@@ -76,3 +76,7 @@ export const AddReviewSection = styled.div`
   align-items: center;
   padding: 46px 0px;
 `;
+
+export const AboutSection = styled.div`
+  padding: 46px;
+`;
