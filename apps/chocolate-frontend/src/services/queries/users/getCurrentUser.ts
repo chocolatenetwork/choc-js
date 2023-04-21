@@ -1,27 +1,28 @@
-import User, { IUserDb, IUserDbApi } from '$chocolate-frontend/models/User';
-import { mockApi } from '$chocolate-frontend/services/api/api';
+import User, { IUserDb } from '$chocolate-frontend/models/User';
+import { supabase } from '$chocolate-frontend/services/api/api';
 import { getKeyring } from '$chocolate-frontend/utils/apiSetup/getKeyring';
 import { AppError, ErrorCodes } from '$chocolate-frontend/utils/AppError';
+import { AccountType } from '@choc-js/schema';
 
 export async function getCurrentUser(): Promise<IUserDb> {
   const { selectedAccount } = getKeyring();
-  const params = new URLSearchParams([['id', selectedAccount.address]]);
-  const getPromise = mockApi.get<[IUserDbApi]>(`/users`, { params });
 
-  const dataPromise = getPromise
-    .then((res) => res.data.at(0))
-    .then((user) => {
-      const userDb: IUserDbApi | undefined = user;
-      checkUser(userDb);
-      return userDb;
-    })
-    .then(User.into);
+  const getResult = await supabase
+    .from('user')
+    .select('*')
+    .filter('address', 'eq', selectedAccount.address)
+    .limit(1);
 
-  return dataPromise;
-}
-// This would ideally check api
-function checkUser<T>(user: T): asserts user is NonNullable<T> {
+  if (getResult.error) {
+    throw new AppError('User not found', ErrorCodes.FetchUserError);
+  }
+  const [user] = getResult.data;
   if (!user) {
     throw new AppError('User not found', ErrorCodes.FetchUserError);
   }
+
+  return User.into({
+    ...user,
+    accountType: user.accountType as AccountType,
+  });
 }

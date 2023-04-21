@@ -1,21 +1,17 @@
 import Review, { IReviewDbApi } from '$chocolate-frontend/models/Review';
 import { functionsApi } from '$chocolate-frontend/services/api/api';
 import { SignaturePayload } from '@choc-js/database';
-
-interface IPostReview extends SignaturePayload {
+export interface IPutReview extends SignaturePayload {
   projectId: number;
   rating: number;
 }
 
-async function postReview(params: IPostReview) {
-  const { data } = await functionsApi.post<IReviewDbApi>(
+export async function putReview(params: IPutReview) {
+  const { data } = await functionsApi.put<IReviewDbApi>(
     'app/projects/review',
-    {
-      body: params,
-    }
+
+    params
   );
 
   return Review.into(data);
 }
-
-export { postReview };
