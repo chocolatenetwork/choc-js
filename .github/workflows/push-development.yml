@@ -22,7 +22,7 @@ jobs:
 
     secrets: inherit
     with:
-      environment-variables: ${ toJSON(github.env) }
+      environment-variables: ${{ toJSON(github.env) }}
       number-of-agents: 1
       parallel-commands: |
           yarn nx affected --target=deploy
