@@ -60,7 +60,9 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-node-${{ steps.versions.outputs.node_version }}-yarn-
       - name: Install Dependencies
-        run: yarn install --frozen-lockfile
+        run: |
+          yarn install --frozen-lockfile
+          echo SUPABASE_APP_ENV=${{ env.SUPABASE_APP_ENV }}
       - name: Do Deploy all to development
         if: ${{ env.SUPABASE_APP_ENV == 'development' }}
         run: yarn nx affected --target=deploy
