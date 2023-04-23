@@ -1,6 +1,7 @@
 import { httpErrors, Middleware } from 'oak';
-import { toMessage } from '../../_shared/AppError.ts';
 import { AccountType } from '../../_enums/AccountType.ts';
+import { toMessage } from '../../_shared/AppError.ts';
+import { cleanUserPic } from '../../_shared/cleanUserPic.ts';
 import { IBodyBase } from '../../_types/IBodyBase.ts';
 import { IContext } from '../../_types/IContext.ts';
 
@@ -27,6 +28,7 @@ export function authSignupController(): Middleware {
       throw new httpErrors.BadRequest(toMessage('Already signed up'));
     }
     // Run queries with full priviledge
+
     const result = await client
       .from('user_verification')
       .insert({
@@ -37,7 +39,7 @@ export function authSignupController(): Middleware {
         signature: body2.signature,
         twitter: body2.twitter,
         description: body2.description,
-        picture: body2.picture,
+        picture: cleanUserPic(body2.address, body2.picture),
       })
       .select();
 
