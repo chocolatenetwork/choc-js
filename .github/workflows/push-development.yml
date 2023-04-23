@@ -36,4 +36,4 @@ jobs:
       environment-variables: ${{ needs.premain.outputs.output1}}
       number-of-agents: 1
       parallel-commands: |
-          yarn nx affected --target=deploy
+        yarn nx affected --target=deploy
