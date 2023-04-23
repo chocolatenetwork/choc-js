@@ -22,16 +22,18 @@ jobs:
     outputs:
       output1: ${{ steps.step1.outputs.test }}
     steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 16
       - id: step1
-        run: echo "test=hello" >> "$GITHUB_OUTPUT"
+        run: node tools/scripts/collateenv.mjs
   main:
     name: Nx Cloud - Main Job
     uses: nrwl/ci/.github/workflows/nx-cloud-main.yml@v0.11.3
     needs: [premain]
     with:
-      environment-variables: >
-        ${{ toJSON(github.env) }}
-        test=${{ needs.premain.outputs.output1}}
+      environment-variables: ${{ needs.premain.outputs.output1}}
       number-of-agents: 1
       parallel-commands: |
-          yarn nx affected --target=deploy
+        yarn nx affected --target=deploy
