@@ -15,18 +15,19 @@ env:
   SUPABASE_APP_ENV: development
   NETLIFY_SITE_ID: ${{ secrets.DEVELOPMENT_NETLIFY_SITE_ID}}
   NETLIFY_AUTH_TOKEN: ${{ secrets.DEVELOPMENT_NETLIFY_AUTH_TOKEN}}
+  NX_CLOUD_DISTRIBUTED_EXECUTION: false
 
 jobs:
   main:
     name: Nx Cloud - Main Job
     uses: nrwl/ci/.github/workflows/nx-cloud-main.yml@v0.11.3
     with:
-      number-of-agents: 3
+      number-of-agents: 1
       parallel-commands-on-agents: |
-        yarn nx affected --target=deploy --parallel=3
+        yarn nx affected --target=deploy
 
   agents:
     name: Nx Cloud - Agents
     uses: nrwl/ci/.github/workflows/nx-cloud-agents.yml@v0.11.3
     with:
-      number-of-agents: 3
+      number-of-agents: 1
