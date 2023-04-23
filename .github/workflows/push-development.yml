@@ -16,13 +16,22 @@ env:
   NETLIFY_AUTH_TOKEN: ${{ secrets.DEVELOPMENT_NETLIFY_AUTH_TOKEN}}
   NX_CLOUD_DISTRIBUTED_EXECUTION: false
 jobs:
+  premain:
+    name: Pre Main
+    runs-on: ubuntu-latest
+    outputs:
+      output1: ${{ steps.step1.outputs.test }}
+    steps:
+      - id: step1
+        run: echo "test=hello" >> "$GITHUB_OUTPUT"
   main:
     name: Nx Cloud - Main Job
     uses: nrwl/ci/.github/workflows/nx-cloud-main.yml@v0.11.3
-
-    secrets: inherit
+    needs: [premain]
     with:
-      environment-variables: ${{ toJSON(github.env) }}
+      environment-variables: >
+        ${{ toJSON(github.env) }}
+        test=${{ needs.premain.outputs.output1}}
       number-of-agents: 1
       parallel-commands: |
           yarn nx affected --target=deploy
