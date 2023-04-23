@@ -102,8 +102,7 @@
       "defaultConfiguration": "development",
       "options": {
         "cwd": "packages/database",
-        "command": "bash ./scripts/deploy.sh",
-        "envFile": "packages/database/.env"
+        "command": "bash ./scripts/deploy.sh"
       },
       "configurations": {
         "development": {},
