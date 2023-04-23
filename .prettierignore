@@ -13,6 +13,10 @@
 /packages/database/supabase/functions/_shared/schema.ts
 /packages/database/src/migrations/*.ts
 
+# Schema
+/packages/schema/**/*-schema.json
+/packages/schema/**/*-instance.json
+
 # Global
 *.md
 package.json
