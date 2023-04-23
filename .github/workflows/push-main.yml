@@ -2,7 +2,7 @@ name: Deploy - Main
 
 on:
   workflow_run:
-    workflows: ["CI - build and test affected"]
+    workflows: ['CI - build and test affected']
     branches: [main]
     types:
       - completed

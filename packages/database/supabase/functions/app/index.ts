@@ -5,8 +5,6 @@ import projectRouter from '../_routes/projectRouter.ts';
 import reviewRouter from '../_routes/reviewRouter.ts';
 import { logError } from '../_shared/logError.ts';
 
-
-
 const corsList = {
   local: ['http://localhost:4200'],
   development: [

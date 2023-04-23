@@ -2,7 +2,7 @@ name: Deploy - Development
 
 on:
   workflow_run:
-    workflows: ["CI - build and test affected"]
+    workflows: ['CI - build and test affected']
     branches: [development]
     types:
       - completed
@@ -19,7 +19,6 @@ env:
   NETLIFY_AUTH_TOKEN: ${{ secrets.DEVELOPMENT_NETLIFY_AUTH_TOKEN}}
 
 jobs:
-
   main:
     if: ${{ github.event.workflow_run.conclusion == 'success' }}
     name: Nx Cloud - Main Job
