@@ -2,10 +2,10 @@
 set -e
 
 function preDeploy(){
-  supabase secrets set APP_ENV=$SUPABASE_APP_ENV
+  nx run database:supabase link " --project-ref $SUPABASE_PROJECT_ID"
+  nx run database:supabase secrets set APP_ENV=$SUPABASE_APP_ENV
 }
 function pushMigrations(){
-  nx run database:supabase link --project-ref $SUPABASE_PROJECT_ID
   nx run database:supabase db push
 }
 function deployFunctions(){
