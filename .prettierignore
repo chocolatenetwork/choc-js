@@ -10,6 +10,7 @@
 # Database
 
 /packages/database/src/lib/schema.ts
+/packages/database/supabase/functions/_shared/schema.ts
 /packages/database/src/migrations/*.ts
 
 # Global

@@ -2,6 +2,7 @@ export interface User {
   'User Id': string;
   Points: number;
   'Account Type': AccountType;
+  role: UserRole;
 }
 
 export enum AccountType {

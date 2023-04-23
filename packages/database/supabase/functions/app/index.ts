@@ -6,8 +6,14 @@ import reviewRouter from '../_routes/reviewRouter.ts';
 import { logError } from '../_shared/logError.ts';
 
 const corsList = {
-  develop: ['http://localhost:4200'],
+  local: ['http://localhost:4200'],
+  development: [
+    new RegExp(/^https:\/\/[\w\d]+--chocnetwork\.netlify\.app$/, 'g'),
+  ],
+  production: ['https://chocnetwork.netlify.app'],
 };
+const env = Deno.env.get('APP_ENV') as keyof typeof corsList | undefined;
+
 const router = new Router();
 router
   // Note: path should be prefixed with function name
@@ -19,7 +25,7 @@ const app = new Application();
 app.addEventListener('error', logError);
 app.use(
   oakCors({
-    origin: corsList.develop,
+    origin: corsList[env || 'local'],
   })
 );
 app.use(router.routes());

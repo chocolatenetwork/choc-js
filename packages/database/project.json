@@ -89,8 +89,24 @@
       "executor": "nx:run-commands",
       "outputs": [],
       "options": {
-        "command": "supabase gen types typescript --local > src/lib/schema.ts ",
+        "commands": [
+          "supabase gen types typescript --local > src/lib/schema.ts",
+          "cp src/lib/schema.ts supabase/functions/_shared/schema.ts"
+        ],
+        "parallel": false,
         "cwd": "packages/database"
+      }
+    },
+    "deploy": {
+      "executor": "nx:run-commands",
+      "defaultConfiguration": "development",
+      "options": {
+        "cwd": "packages/database",
+        "command": "bash ./scripts/deploy.sh"
+      },
+      "configurations": {
+        "development": {},
+        "production": {}
       }
     }
   },

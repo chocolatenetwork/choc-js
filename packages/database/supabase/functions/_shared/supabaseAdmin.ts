@@ -1,6 +1,6 @@
 import { createClient } from '@supabase/supabase-js';
 import { httpErrors, Middleware } from 'oak';
-import { Database } from '../../../src/lib/schema.ts';
+import { Database } from './schema.ts';
 
 export function supabaseAdmin(): Middleware {
   return async (context, next) => {

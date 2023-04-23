@@ -8,8 +8,8 @@ const settings: TJS.PartialArgs = {
   required: true,
 };
 
-// optionally pass ts compiler options
 const compilerOptions: TJS.CompilerOptions = {
+  typeRoots: ['../../node_modules/@types'],
   strictNullChecks: true,
 };
 
@@ -21,12 +21,24 @@ const schemas = [
 ];
 
 export function build(basePath: string): void {
-  const paths = [resolve(basePath, 'Schema.ts')];
-  const program = TJS.getProgramFromFiles(paths, compilerOptions, basePath);
+  const program = TJS.getProgramFromFiles(
+    [resolve(basePath, 'Schema.ts')],
+    // Compiler options required from build to resolve typeroot.
+    compilerOptions,
+    basePath
+  );
+
+  const generator = TJS.buildGenerator(program, settings);
+
+  if (!generator) {
+    throw new Error('Genertor is null, a probably due to previous ts error');
+  }
+  // Get symbols for different types from generator.
 
   for (const [, schema] of schemas.entries()) {
     const [type, json] = schema;
-    const obj = TJS.generateSchema(program, type, settings);
+    const obj = generator.getSchemaForSymbol(type);
+
     const objPath = resolve(__dirname, '../schemas', json);
     const dir = resolve(objPath, '../');
     mkdir(dir, { recursive: true })

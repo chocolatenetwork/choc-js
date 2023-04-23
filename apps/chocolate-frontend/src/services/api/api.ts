@@ -56,7 +56,11 @@ const mockApi = axios.create({
   baseURL: 'http://localhost:3000',
 });
 const functionsApi = axios.create({
-  baseURL: `${import.meta.env.VITE_SUPABASE_API_URL}/functions/v1`,
+  baseURL: `${import.meta.env.VITE_SUPABASE_FUNCTIONS_API_URL}`,
+  headers: {
+    Authorization: `Bearer ${import.meta.env.VITE_SUPABASE_ANON_KEY}`,
+    apikey: import.meta.env.VITE_SUPABASE_ANON_KEY,
+  },
 });
 
 const supabase = createClient<SupabaseTypes.Database>(
