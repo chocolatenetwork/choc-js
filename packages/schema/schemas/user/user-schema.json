@@ -4,6 +4,10 @@
     "AccountType": {
       "enum": ["project", "user"],
       "type": "string"
+    },
+    "UserRole": {
+      "enum": ["admin", "normal"],
+      "type": "string"
     }
   },
   "properties": {
@@ -15,8 +19,11 @@
     },
     "User Id": {
       "type": "string"
+    },
+    "role": {
+      "$ref": "#/definitions/UserRole"
     }
   },
-  "required": ["Account Type", "Points", "User Id"],
+  "required": ["Account Type", "Points", "User Id", "role"],
   "type": "object"
 }

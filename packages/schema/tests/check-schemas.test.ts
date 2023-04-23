@@ -32,7 +32,7 @@ describe('Ensure schema works for valid instances', () => {
       // fetch schema instances
       schemas.forEach(([schema, id]) => {
         const validate = ajv.compile(schema as Schema);
-        const testCases = instances.filter(([, _id]) => id == _id);
+        const testCases = instances.filter(([, _id]) => id === _id);
 
         // ensure instances match
         testCases.forEach(([t]) => {
