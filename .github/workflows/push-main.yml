@@ -23,11 +23,6 @@ jobs:
     uses: nrwl/ci/.github/workflows/nx-cloud-main.yml@v0.11.3
     with:
       number-of-agents: 1
-      parallel-commands-on-agents: |
+      environment-variables: 'NX_CLOUD_DISTRIBUTED_EXECUTION=false'
+      parallel-commands: |
         yarn nx affected --target=deploy:production
-
-  agents:
-    name: Nx Cloud - Agents
-    uses: nrwl/ci/.github/workflows/nx-cloud-agents.yml@v0.11.3
-    with:
-      number-of-agents: 1
