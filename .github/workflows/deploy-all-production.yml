@@ -1,32 +1,32 @@
-name: Deploy - all
+name: Deploy all production
 
 on:
   push:
-    branches: [development, main]
-
-env:
-  # Database
-  SUPABASE_ACCESS_TOKEN: ${{ secrets.SUPABASE_ACCESS_TOKEN }}
-  SUPABASE_DB_PASSWORD: ${{ secrets.SUPABASE_DB_PASSWORD }}
-  SUPABASE_PROJECT_ID: ${{ vars.SUPABASE_PROJECT_ID }}
-  SUPABASE_APP_ENV: ${{ vars.SUPABASE_APP_ENV }}
-  # Frontend
-  VITE_SUPABASE_API_URL: ${{ vars.VITE_SUPABASE_API_URL }}
-  VITE_SUPABASE_ANON_KEY: ${{ vars.VITE_SUPABASE_ANON_KEY }}
-  VITE_SUPABASE_FUNCTIONS_API_URL: ${{ vars.VITE_SUPABASE_FUNCTIONS_API_URL }}
-  NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID}}
-  NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN}}
-  # Nx
-  NX_CLOUD_DISTRIBUTED_EXECUTION: false
-  NX_BRANCH: ${{ github.event.number || github.ref_name }}
-  NX_CLOUD_ACCESS_TOKEN: ${{ secrets.NX_CLOUD_ACCESS_TOKEN }}
-  NX_CLOUD_AUTH_TOKEN: ${{ secrets.NX_CLOUD_AUTH_TOKEN }}
-  NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+    branches: [main]
 
 jobs:
   main:
+    environment: production
     name: Main Job
     runs-on: ubuntu-latest
+    env:
+      # Database
+      SUPABASE_ACCESS_TOKEN: ${{ secrets.SUPABASE_ACCESS_TOKEN }}
+      SUPABASE_DB_PASSWORD: ${{ secrets.SUPABASE_DB_PASSWORD }}
+      SUPABASE_PROJECT_ID: ${{ vars.SUPABASE_PROJECT_ID }}
+      SUPABASE_APP_ENV: ${{ vars.SUPABASE_APP_ENV }}
+      # Frontend
+      VITE_SUPABASE_API_URL: ${{ vars.VITE_SUPABASE_API_URL }}
+      VITE_SUPABASE_ANON_KEY: ${{ vars.VITE_SUPABASE_ANON_KEY }}
+      VITE_SUPABASE_FUNCTIONS_API_URL: ${{ vars.VITE_SUPABASE_FUNCTIONS_API_URL }}
+      NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID}}
+      NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN}}
+      # Nx
+      NX_CLOUD_DISTRIBUTED_EXECUTION: false
+      NX_BRANCH: ${{ github.event.number || github.ref_name }}
+      NX_CLOUD_ACCESS_TOKEN: ${{ secrets.NX_CLOUD_ACCESS_TOKEN }}
+      NX_CLOUD_AUTH_TOKEN: ${{ secrets.NX_CLOUD_AUTH_TOKEN }}
+      NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
     steps:
       - uses: actions/checkout@v3
         with:
@@ -60,12 +60,6 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-node-${{ steps.versions.outputs.node_version }}-yarn-
       - name: Install Dependencies
-        run: |
-          yarn install --frozen-lockfile
-          echo SUPABASE_APP_ENV=${{ env.SUPABASE_APP_ENV }}
-      - name: Do Deploy all to development
-        if: ${{ env.SUPABASE_APP_ENV == 'development' }}
-        run: yarn nx affected --target=deploy
+        run: yarn install --frozen-lockfile
       - name: Do Deploy all to production
-        if: ${{ env.SUPABASE_APP_ENV == 'production' }}
         run: yarn nx affected --target=deploy:production
