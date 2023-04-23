@@ -9,7 +9,7 @@ interface SecondStepProps {
   onValidChange: (map: ActiveMap) => void;
   index: number;
 }
-const verifiers = ['@chocNetwork', '@islam_i00'];
+const verifiers = ['@chocNetwork'];
 function SecondStep(props: SecondStepProps) {
   const { verificationId, index, onValidChange, ...rest } = props;
 
