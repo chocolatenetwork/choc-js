@@ -8,7 +8,7 @@ import { logError } from '../_shared/logError.ts';
 const corsList = {
   local: ['http://localhost:4200'],
   development: [
-    new RegExp(/^https:\/\/[\w\d]+--chocnetwork\.netlify\.app$/, 'g'),
+    new RegExp(/^https:\/\/[\w\d]+--chocnetwork\.netlify\.app$/, 'gm'),
   ],
   production: ['https://chocnetwork.netlify.app'],
 };
