@@ -5,35 +5,61 @@ on:
     branches: [development]
 
 env:
+  # Database 
   SUPABASE_ACCESS_TOKEN: ${{ secrets.DEVELOPMENT_SUPABASE_ACCESS_TOKEN }}
   SUPABASE_DB_PASSWORD: ${{ secrets.DEVELOPMENT_SUPABASE_DB_PASSWORD }}
   SUPABASE_PROJECT_ID: ${{ secrets.DEVELOPMENT_SUPABASE_PROJECT_ID }}
+  SUPABASE_APP_ENV: development
+  # Frontend
   VITE_SUPABASE_API_URL: ${{ secrets.DEVELOPMENT_VITE_SUPABASE_API_URL }}
   VITE_SUPABASE_ANON_KEY: ${{ secrets.DEVELOPMENT_VITE_SUPABASE_ANON_KEY }}
   VITE_SUPABASE_FUNCTIONS_API_URL: ${{ secrets.DEVELOPMENT_VITE_SUPABASE_FUNCTIONS_API_URL }}
-  SUPABASE_APP_ENV: development
   NETLIFY_SITE_ID: ${{ secrets.DEVELOPMENT_NETLIFY_SITE_ID}}
   NETLIFY_AUTH_TOKEN: ${{ secrets.DEVELOPMENT_NETLIFY_AUTH_TOKEN}}
+  # Nx
   NX_CLOUD_DISTRIBUTED_EXECUTION: false
+  NX_BRANCH: ${{ github.event.number || github.ref_name }}
+  NX_CLOUD_ACCESS_TOKEN: ${{ secrets.NX_CLOUD_ACCESS_TOKEN }}
+  NX_CLOUD_AUTH_TOKEN: ${{ secrets.NX_CLOUD_AUTH_TOKEN }}
+  NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+
 jobs:
-  premain:
-    name: Pre Main
+  main:
+    name: Main Job
     runs-on: ubuntu-latest
-    outputs:
-      output1: ${{ steps.step1.outputs.test }}
     steps:
       - uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
       - uses: actions/setup-node@v3
         with:
-          node-version: 16
-      - id: step1
-        run: node tools/scripts/collateenv.mjs
-  main:
-    name: Nx Cloud - Main Job
-    uses: nrwl/ci/.github/workflows/nx-cloud-main.yml@v0.11.3
-    needs: [premain]
-    with:
-      environment-variables: ${{ needs.premain.outputs.output1}}
-      number-of-agents: 1
-      parallel-commands: |
-        yarn nx affected --target=deploy
+          node-version: lts
+
+      # Set node/npm/yarn versions using volta, with optional overrides provided by the consumer
+      - uses: volta-cli/action@v4
+
+      - name: Print node/yarn versions
+        id: versions
+        run: |
+          node_ver=$( node --version )
+          yarn_ver=$( yarn --version || true )
+
+          if [[ $yarn_ver != '' ]]; then echo "Yarn: $yarn_ver"; fi
+
+          echo "node_version=${node_ver:1}" >> $GITHUB_OUTPUT
+          echo "yarn_version=${yarn_ver}" >> $GITHUB_OUTPUT
+
+      - name: Get yarn cache directory path [yarn 1.x]
+        id: yarn-cache-dir-path
+        run: echo "dir=$(yarn cache dir)" >> $GITHUB_OUTPUT
+      - name: Use the node_modules cache [yarn 1.x]
+        uses: actions/cache@v3
+        with:
+          path: ${{ steps.yarn-cache-dir-path.outputs.dir }}
+          key: ${{ runner.os }}-node-${{ steps.versions.outputs.node_version }}-yarn-${{ hashFiles('**/yarn.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-node-${{ steps.versions.outputs.node_version }}-yarn-
+      - name: Install Dependencies
+        run: yarn install --frozen-lockfile
+      - name: Do Deploy all
+        run: yarn nx affected --target=deploy
