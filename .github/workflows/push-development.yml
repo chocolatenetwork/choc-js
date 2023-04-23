@@ -20,18 +20,8 @@ jobs:
     name: Nx Cloud - Main Job
     uses: nrwl/ci/.github/workflows/nx-cloud-main.yml@v0.11.3
 
+    secrets: inherit
     with:
-      environment-variables: |
-                              SUPABASE_ACCESS_TOKEN=$SUPABASE_ACCESS_TOKEN
-                              SUPABASE_DB_PASSWORD=$SUPABASE_DB_PASSWORD
-                              SUPABASE_PROJECT_ID=$SUPABASE_PROJECT_ID
-                              VITE_SUPABASE_API_URL=$VITE_SUPABASE_API_URL
-                              VITE_SUPABASE_ANON_KEY=$VITE_SUPABASE_ANON_KEY
-                              VITE_SUPABASE_FUNCTIONS_API_URL=$VITE_SUPABASE_FUNCTIONS_API_URL
-                              SUPABASE_APP_ENV=$SUPABASE_APP_ENV
-                              NETLIFY_SITE_ID=$NETLIFY_SITE_ID
-                              NETLIFY_AUTH_TOKEN=$NETLIFY_AUTH_TOKEN
-                              NX_CLOUD_DISTRIBUTED_EXECUTION=$NX_CLOUD_DISTRIBUTED_EXECUTION
       number-of-agents: 1
       parallel-commands: |
           yarn nx affected --target=deploy
