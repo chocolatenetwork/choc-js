@@ -1,10 +1,6 @@
 name: CI - build and test affected
 
 on:
-  push:
-    branches:
-      - main
-      - development
   pull_request:
 
 jobs:
