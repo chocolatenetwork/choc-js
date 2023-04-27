@@ -101,12 +101,16 @@
         "cwd": "apps/chocolate-frontend"
       }
     },
+    "netlify": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "netlify",
+        "cwd": "apps/chocolate-frontend"
+      }
+    },
     "deploy": {
       "executor": "nx:run-commands",
       "defaultConfiguration": "development",
-      "options": {
-        "cwd": "apps/chocolate-frontend"
-      },
       "dependsOn": [
         "build"
       ],
@@ -115,10 +119,10 @@
       ],
       "configurations": {
         "development": {
-          "command": "netlify deploy"
+          "command": "nx run chocolate-frontend:netlify deploy"
         },
         "production": {
-          "command": "netlify deploy --prod"
+          "command": "nx run chocolate-frontend:netlify deploy --prod"
         }
       }
     }

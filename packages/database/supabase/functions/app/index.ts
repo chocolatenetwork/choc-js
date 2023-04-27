@@ -8,9 +8,9 @@ import { logError } from '../_shared/logError.ts';
 const corsList = {
   local: ['http://localhost:4200'],
   development: [
-    new RegExp(/^https:\/\/[\w\d]+--chocnetwork\.netlify\.app$/, 'gm'),
+    new RegExp(/^https:\/\/[\w\d]+--chocolatenetwork\.netlify\.app$/, 'gm'),
   ],
-  production: ['https://chocnetwork.netlify.app'],
+  production: ['https://chocolatenetwork.netlify.app'],
 };
 const env = Deno.env.get('APP_ENV') as keyof typeof corsList | undefined;
 
