@@ -4,15 +4,15 @@ import authRouter from '../_routes/authRouter.ts';
 import projectRouter from '../_routes/projectRouter.ts';
 import reviewRouter from '../_routes/reviewRouter.ts';
 import { logError } from '../_shared/logError.ts';
+import { resendErrors } from '../_shared/resendErrors.ts';
 
 const corsList = {
   local: ['http://localhost:4200'],
-  development: [
-    new RegExp(/^https:\/\/[\w\d]+--chocolatenetwork\.netlify\.app$/, 'gm'),
-  ],
+  development: [/(chocolatenetwork\.netlify\.app)$/],
   production: ['https://chocolatenetwork.netlify.app'],
 };
 const env = Deno.env.get('APP_ENV') as keyof typeof corsList | undefined;
+const origin = corsList[env || 'development'];
 
 const router = new Router();
 router
@@ -23,12 +23,14 @@ router
 
 const app = new Application();
 app.addEventListener('error', logError);
+app.use(resendErrors());
 app.use(
   oakCors({
-    origin: corsList[env || 'local'],
+    origin: origin,
   })
 );
 app.use(router.routes());
 app.use(router.allowedMethods());
 
 await app.listen({ port: 8000 });
+
